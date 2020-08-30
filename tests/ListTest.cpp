@@ -8,6 +8,9 @@ test_list(void)
 {
     std::cout << __PRETTY_FUNCTION__ << std::endl;
     containerT<int>     defaultList;
+    std::cout << std::boolalpha << ".empty() = " << defaultList.empty() << std::endl;
+    std::cout << ".size() = " << defaultList.size() << std::endl;
+    std::cout << ".max_size() = " << defaultList.max_size() << std::endl;
 }
 
 int

@@ -4,7 +4,7 @@
 /** default	(1) **/
 template <class T, class Alloc>
 ft::List<T, Alloc>::List(const allocator_type & alloc)
-				   : _alloc(alloc), _head(NULL), _tail(NULL)
+				   : _alloc(alloc), _size(0), _head(NULL), _tail(NULL)
 {
 }
 
@@ -44,9 +44,38 @@ ft::List<T, Alloc>::operator=(List const & other)
 	return (*this);
 }
 
-/* Public Functions */
+/* Public functions */
+/** Iterator **/
 
-/* Private Functions */
+/** Capacity **/
+template <class T, class Alloc>
+bool
+ft::List<T, Alloc>::empty(void) const
+{
+	return (_head == NULL);
+}
+
+template <class T, class Alloc>
+typename ft::List<T, Alloc>::size_type
+ft::List<T, Alloc>::size(void) const
+{
+	return (_size);
+}
+
+template <class T, class Alloc>
+typename ft::List<T, Alloc>::size_type
+ft::List<T, Alloc>::max_size(void) const
+{
+	return (static_cast<unsigned long>(std::numeric_limits<int>::max()));
+}
+
+/** Element access **/
+
+/** Modifiers **/
+
+/** Operations **/
+
+/* Private functions */
 template <class T, class Alloc>
 void
 ft::List<T, Alloc>::_copy(List const & other)

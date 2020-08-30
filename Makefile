@@ -1,28 +1,34 @@
-.DEFAULT_GOAL		:= all
-NAME				= a.out
-INCLUDES			= List.hpp
-TEMPLATES			= List.tpp
-SRCS				= main.cpp
-OBJS				= ${SRCS:.cpp=.o}
 
-CC					= clang++
-CFLAGS				= -g3 -Wall -Wextra -Werror -Wconversion -std=c++98 -I includes
+CONTAINERS	= List #Vector
+INCLUDES	= $(CONTAINERS:%=includes/%.hpp)
+TEMPLATE	= $(CONTAINERS:%=templates/%.tpp)
+SRCS		= $(CONTAINERS:%=tests/%Test.cpp)
+OBJS		= $(CONTAINERS:%=tests/%Test.o)
+BINS		= $(CONTAINERS:%=tests/%Test)
 
-all:				${NAME}
+CC	= clang++
+CFLAGS	= -g3 -Wall -Wextra -Werror -Wconversion -std=c++98 -I includes -I templates
 
-.cpp.o:
-					${CC} ${CFLAGS} -c $< -o $*.o
+all:	$(CONTAINERS)
 
-${OBJS}:			${INCLUDES} ${TEMPLATES}
-${NAME}:			${OBJS}
-					${CC} ${CFLAGS} $^ -o ${NAME}
+$(OBJS): %.o: %.cpp $(INCLUDES) $(TEMPLATE)
+	$(CC) $(CFLAGS) -c $< -o $@
+
+$(CONTAINERS:%=tests/%Test): %: %.o
+	$(CC) $(CFLAGS) $< -o $@
+
+List: tests/ListTest
+	valgrind -q --leak-check=full ./$<
+
+#Vector: tests/VectorTest
+#	valgrind -q --leak-check=full ./$<
 
 clean:
-					rm -rf ${OBJS}
+	rm -rf $(OBJS) 
 
 fclean:				clean
-					rm -rf ${NAME}
+	rm -rf $(BINS)
 
-re:					fclean all
+re:	fclean all
 
-.PHONY:				all clean fclean re
+.PHONY:	all clean fclean re
