@@ -49,6 +49,8 @@ namespace ft
 				/*** fill (2) ***/	void assign (size_type n, const value_type & val);
 				void push_front(const value_type & val);
 				void pop_front(void);
+				void push_back(const value_type & val);
+				void pop_back(void);
 
 				void clear(void);
 			/** Operations **/
@@ -60,11 +62,12 @@ namespace ft
 				value_type		value;
 				struct node *	prev;
 				struct node *	next;
-				node(const value_type & v, const struct node * p, const struct node * n)
+				node(const value_type & v, struct node * p, struct node * n)
 						: value(v), prev(p), next(n) {}
 			};
 		/* Private Functions */
-			void					_copy(List const & other);
+			void _copy(List const & other);
+			void _debug(void) const;
 
 		/* Private variables */
 			allocator_type			_alloc;

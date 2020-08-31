@@ -29,16 +29,18 @@ test_list(void)
     /*defaultList.push_back(10);
     defaultList.push_back(20);
     print_list(defaultList);*/
-		std::cout << "defaultList.push_front(10)" << std::endl; defaultList.push_front(10);
 		std::cout << "defaultList.push_front(20)" << std::endl; defaultList.push_front(20);
+		std::cout << "defaultList.push_front(10)" << std::endl; defaultList.push_front(10);
+		std::cout << "defaultList.push_back(30)" << std::endl; defaultList.push_back(30);
+		std::cout << "defaultList.push_back(40)" << std::endl; defaultList.push_back(40);
 		std::cout << "defaultList.pop_front()" << std::endl; defaultList.pop_front();
-		std::cout << "defaultList.pop_front()" << std::endl; defaultList.pop_front();
+		std::cout << "defaultList.pop_back()" << std::endl; defaultList.pop_back();
 }
 
 int
 main(void)
 {
     test_list<std::list>();
-    //test_list<ft::List>();
+    test_list<ft::List>();
     return (0);
 }

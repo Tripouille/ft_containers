@@ -78,7 +78,7 @@ template <class T, class Alloc>
 void
 ft::List<T, Alloc>::push_front(const value_type & val)
 {
-	if (_head == NULL)
+	if (empty())
 		_head = _tail = new node(val, NULL, NULL);
 	else
 	{
@@ -94,9 +94,42 @@ ft::List<T, Alloc>::pop_front(void)
 {
 	if (!empty())
 	{
+		node * d = _head;
 		_head = _head->next;
-		delete _head->prev;
-		_head->prev = NULL;
+		delete d;
+		--_size;
+		if (!empty())
+			_head->prev = NULL;
+	}
+}
+
+template <class T, class Alloc>
+void
+ft::List<T, Alloc>::push_back(const value_type & val)
+{
+	if (empty())
+		_head = _tail = new node(val, NULL, NULL);
+	else
+	{
+		node * n = new node(val, _tail, NULL);
+		_tail->next = n;
+		_tail = n;
+	}
+	++_size;
+}
+
+template <class T, class Alloc>
+void
+ft::List<T, Alloc>::pop_back(void)
+{
+	if (!empty())
+	{
+		node * d = _tail;
+		_tail = _tail->prev;
+		delete d;
+		--_size;
+		if (!empty())
+			_tail->next = NULL;
 	}
 }
 
@@ -104,7 +137,7 @@ template <class T, class Alloc>
 void
 ft::List<T, Alloc>::clear(void)
 {
-	while (_head)
+	while (_head != NULL)
 	{
 		_tail = _head;
 		_head = _head->next;
@@ -122,4 +155,19 @@ void
 ft::List<T, Alloc>::_copy(List const & other)
 {
 	(void)other;
+}
+
+template <class T, class Alloc>
+void
+ft::List<T, Alloc>::_debug(void) const
+{
+	node * tmp = _head;
+  std::cout << "Head = " << _head << " Tail = " << _tail << std::endl;
+  std::cout << "List: [ ";
+	while (tmp != NULL)
+	{
+    std::cout << tmp->value << " ";
+		tmp = tmp->next;
+	}
+  std::cout << "]" << std::endl;
 }
