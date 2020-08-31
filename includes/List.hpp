@@ -21,51 +21,55 @@ namespace ft
 
 		public:
 		/* Constructor */
-			/** default	(1) **/
-			explicit List(const allocator_type & alloc = allocator_type());
-			/** fill	(2) **/
-			explicit List(size_type n, const value_type & val = value_type(),
-                		const allocator_type & alloc = allocator_type());			
-			/** range	(3) **/
-			template <class InputIterator>
-  			List(InputIterator first, InputIterator last,
-         		const allocator_type & alloc = allocator_type());
-			/** copy	(4) **/
-			List(List const & other);
+			/** default	(1) **/	explicit List(const allocator_type & alloc = allocator_type());
+			/** fill	(2) **/	explicit List(size_type n, const value_type & val = value_type(),
+                											const allocator_type & alloc = allocator_type());	
+			/** range	(3) **/	template <class InputIterator>
+												List(InputIterator first, InputIterator last,
+														const allocator_type & alloc = allocator_type());
+			/** copy	(4) **/	List(List const & other);
 
 		/* Destructor */
 			virtual ~List(void);
 
 		/* Operator */
-			List<T, Alloc> &		operator=(List const & other);
+			List<T, Alloc> &			operator=(List const & other);
 
 		/* Public functions */
 			/** Iterator **/
 			/** Capacity **/
-			bool					empty(void) const;
-			size_type				size(void) const;
-			size_type				max_size(void) const;
+				bool empty(void) const;
+				size_type size(void) const;
+				size_type max_size(void) const;
 			/** Element access **/
+
 			/** Modifiers **/
+				/*** range (1) ***/	template <class InputIterator>
+				 										void assign(InputIterator first, InputIterator last);
+				/*** fill (2) ***/	void assign (size_type n, const value_type & val);
+				void push_front(const value_type & val);
+
+				void clear(void);
 			/** Operations **/
 
 		private:
 		/* Private struct */
 			struct node
 			{
-				struct node *	prev;
 				value_type		value;
+				struct node *	prev;
 				struct node *	next;
-				node(void) : value(value_type()), node(NULL) {}
+				node(const value_type & v, const struct node * p, const struct node * n)
+						: value(v), prev(p), next(n) {}
 			};
 		/* Private Functions */
-			void						_copy(List const & other);
+			void					_copy(List const & other);
 
 		/* Private variables */
-			allocator_type				_alloc;
-			size_type					_size;
-			node *						_head;
-			node *						_tail;
+			allocator_type			_alloc;
+			size_type						_size;
+			node *							_head;
+			node *							_tail;
 	};
 }
 

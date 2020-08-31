@@ -32,6 +32,7 @@ ft::List<T, Alloc>::List(List const & other)
 template <class T, class Alloc>
 ft::List<T, Alloc>::~List(void)
 {
+	clear();
 }
 
 /* Operator */
@@ -72,6 +73,34 @@ ft::List<T, Alloc>::max_size(void) const
 /** Element access **/
 
 /** Modifiers **/
+
+template <class T, class Alloc>
+void
+ft::List<T, Alloc>::push_front(const value_type & val)
+{
+	if (_head == NULL)
+		_head = _tail = new node(val, NULL, NULL);
+	else
+	{
+		node * n = new node(val, NULL, _head);
+		_head = n;
+	}
+	++_size;
+}
+
+template <class T, class Alloc>
+void
+ft::List<T, Alloc>::clear(void)
+{
+	while (_head)
+	{
+		_tail = _head;
+		_head = _head->next;
+		delete _tail;
+	}
+	_head = _tail = NULL;
+	_size = 0;
+}
 
 /** Operations **/
 

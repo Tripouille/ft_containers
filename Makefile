@@ -2,9 +2,9 @@
 CONTAINERS	= List #Vector
 INCLUDES	= $(CONTAINERS:%=includes/%.hpp)
 TEMPLATE	= $(CONTAINERS:%=templates/%.tpp)
-SRCS		= $(CONTAINERS:%=tests/%Test.cpp)
-OBJS		= $(CONTAINERS:%=tests/%Test.o)
-BINS		= $(CONTAINERS:%=tests/%Test)
+SRCS			= $(CONTAINERS:%=tests/%Test.cpp)
+OBJS			= $(CONTAINERS:%=tests/%Test.o)
+BINS			= $(CONTAINERS:%=tests/%Test)
 
 CC	= clang++
 CFLAGS	= -g3 -Wall -Wextra -Werror -Wconversion -std=c++98 -I includes -I templates
