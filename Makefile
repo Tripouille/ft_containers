@@ -17,16 +17,13 @@ $(OBJS): %.o: %.cpp $(INCLUDES) $(TEMPLATE)
 $(CONTAINERS:%=tests/%Test): %: %.o
 	$(CC) $(CFLAGS) $< -o $@
 
-List: tests/ListTest
+$(CONTAINERS): %: tests/%Test
 	valgrind -q --leak-check=full ./$<
-
-#Vector: tests/VectorTest
-#	valgrind -q --leak-check=full ./$<
 
 clean:
 	rm -rf $(OBJS) 
 
-fclean:				clean
+fclean:	clean
 	rm -rf $(BINS)
 
 re:	fclean all
