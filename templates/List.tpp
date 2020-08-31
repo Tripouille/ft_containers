@@ -2,21 +2,21 @@
 
 /* Constructor */
 /** default	(1) **/
-template <class T, class Alloc>
+template <typename T, class Alloc>
 ft::List<T, Alloc>::List(const allocator_type & alloc)
-				   : _alloc(alloc), _size(0), _head(NULL), _tail(NULL)
+									 : _alloc(alloc), _size(0), _head(NULL), _tail(NULL)
 {
 }
 
 /** fill		(2) **/
-template <class T, class Alloc>
-ft::List<T, Alloc>::List (size_type n, const value_type & val,
-							const allocator_type & alloc)
-				   : _alloc(alloc), _size(n), _head(NULL), _tail(NULL)
+template <typename T, class Alloc>
+ft::List<T, Alloc>::List(size_type n, const value_type & val,
+												const allocator_type & alloc)
+				   				 : _alloc(alloc), _size(0), _head(NULL), _tail(NULL)
 {
-	while (n--)
-		;
-	(void)val;
+	std::cerr << "prout" << std::endl;
+	for (; n; --n)
+		push_front(val);
 }
 
 /** range		(3) **/

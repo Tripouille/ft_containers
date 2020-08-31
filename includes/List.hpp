@@ -6,7 +6,7 @@
 
 namespace ft
 {
-	template <class T, class Alloc = std::allocator<T> >
+	template <typename T, class Alloc = std::allocator<T> >
 	class List
 	{
 		public:
@@ -17,16 +17,17 @@ namespace ft
 			typedef const value_type & const_reference;
 			typedef value_type * pointer;
 			typedef const value_type * const_pointer;
-			typedef size_t size_type;
+			typedef unsigned long size_type;
 
 		public:
+
 		/* Constructor */
 			/** default	(1) **/	explicit List(const allocator_type & alloc = allocator_type());
 			/** fill	(2) **/	explicit List(size_type n, const value_type & val = value_type(),
-                											const allocator_type & alloc = allocator_type());	
-			/** range	(3) **/	template <class InputIterator>
+                											const allocator_type & alloc = allocator_type());
+			/** range	(3) **/	/*template <class InputIterator>
 												List(InputIterator first, InputIterator last,
-														const allocator_type & alloc = allocator_type());
+														const allocator_type & alloc = allocator_type());*/
 			/** copy	(4) **/	List(List const & other);
 
 		/* Destructor */

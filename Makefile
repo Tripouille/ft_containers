@@ -7,6 +7,7 @@ OBJS			= $(CONTAINERS:%=tests/%Test.o)
 BINS			= $(CONTAINERS:%=tests/%Test)
 
 CC	= clang++
+#CFLAGS	= -g3 -Wall -Wextra -Werror -Wconversion -std=c++98 -I includes -I templates
 CFLAGS	= -g3 -Wall -Wextra -Werror -Wconversion -std=c++98 -I includes -I templates
 
 all:	$(CONTAINERS)
