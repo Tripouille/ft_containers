@@ -66,7 +66,7 @@ template <class T, class Alloc>
 typename ft::List<T, Alloc>::size_type
 ft::List<T, Alloc>::max_size(void) const
 {
-	return (static_cast<unsigned long>(std::numeric_limits<int>::max()));
+	return (std::numeric_limits<size_type>::max() / sizeof(node));
 }
 
 /** Element access **/

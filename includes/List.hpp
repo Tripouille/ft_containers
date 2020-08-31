@@ -50,22 +50,22 @@ namespace ft
 			/** Operations **/
 
 		private:
+		/* Private struct */
 			struct node
 			{
+				struct node *	prev;
 				value_type		value;
 				struct node *	next;
 				node(void) : value(value_type()), node(NULL) {}
 			};
-
 		/* Private Functions */
 			void						_copy(List const & other);
 
+		/* Private variables */
 			allocator_type				_alloc;
 			size_type					_size;
 			node *						_head;
 			node *						_tail;
-			
-
 	};
 }
 
