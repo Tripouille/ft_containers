@@ -48,6 +48,7 @@ namespace ft
 				 										void assign(InputIterator first, InputIterator last);
 				/*** fill (2) ***/	void assign (size_type n, const value_type & val);
 				void push_front(const value_type & val);
+				void pop_front(void);
 
 				void clear(void);
 			/** Operations **/

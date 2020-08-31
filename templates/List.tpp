@@ -90,6 +90,18 @@ ft::List<T, Alloc>::push_front(const value_type & val)
 
 template <class T, class Alloc>
 void
+ft::List<T, Alloc>::pop_front(void)
+{
+	if (!empty())
+	{
+		_head = _head->next;
+		delete _head->prev;
+		_head->prev = NULL;
+	}
+}
+
+template <class T, class Alloc>
+void
 ft::List<T, Alloc>::clear(void)
 {
 	while (_head)

@@ -31,6 +31,8 @@ test_list(void)
     print_list(defaultList);*/
 		std::cout << "defaultList.push_front(10)" << std::endl; defaultList.push_front(10);
 		std::cout << "defaultList.push_front(20)" << std::endl; defaultList.push_front(20);
+		std::cout << "defaultList.pop_front()" << std::endl; defaultList.pop_front();
+		std::cout << "defaultList.pop_front()" << std::endl; defaultList.pop_front();
 }
 
 int
