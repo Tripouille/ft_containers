@@ -14,7 +14,6 @@ ft::List<T, Alloc>::List(size_type n, const value_type & val,
 												const allocator_type & alloc)
 					 				 : _alloc(alloc), _size(0), _head(NULL), _tail(NULL)
 {
-	std::cerr << "prout" << std::endl;
 	for (; n; --n)
 		push_front(val);
 }
@@ -149,13 +148,13 @@ template <class T, class Alloc>
 void
 ft::List<T, Alloc>::clear(void)
 {
-	while (_head != NULL)
+	while (!empty())
 	{
 		_tail = _head;
 		_head = _head->next;
 		delete _tail;
 	}
-	_head = _tail = NULL;
+	_tail = NULL;
 	_size = 0;
 }
 
