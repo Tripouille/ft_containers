@@ -13,7 +13,7 @@ namespace ft
 		/* Private struct */
 			struct node
 			{
-				T		value;
+				T				value;
 				node *	prev;
 				node *	next;
 				node(const T & v, node * p, node * n)
@@ -36,7 +36,7 @@ namespace ft
 		/* Constructor */
 			/** default	(1) **/	explicit List(const allocator_type & alloc = allocator_type());
 			/** fill	(2) **/	explicit List(size_type n, const value_type & val = value_type(),
-                											const allocator_type & alloc = allocator_type());
+																			const allocator_type & alloc = allocator_type());
 			/** range	(3) **/	/*template <class InputIterator>
 												List(InputIterator first, InputIterator last,
 														const allocator_type & alloc = allocator_type());*/
@@ -75,11 +75,11 @@ namespace ft
 			node * _new_node(const T & v, node * p, node * n);
 
 		/* Private variables */
-			allocator_type					_alloc;
-			node_allocator_type				_node_alloc;
-			size_type						_size;
-			node *							_head;
-			node *							_tail;
+			allocator_type				_alloc;
+			node_allocator_type		_node_alloc;
+			size_type							_size;
+			node *								_head;
+			node *								_tail;
 	};
 }
 

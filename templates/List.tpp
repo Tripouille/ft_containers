@@ -12,7 +12,7 @@ ft::List<T, Alloc>::List(const allocator_type & alloc)
 template <typename T, class Alloc>
 ft::List<T, Alloc>::List(size_type n, const value_type & val,
 												const allocator_type & alloc)
-				   				 : _alloc(alloc), _size(0), _head(NULL), _tail(NULL)
+					 				 : _alloc(alloc), _size(0), _head(NULL), _tail(NULL)
 {
 	std::cerr << "prout" << std::endl;
 	for (; n; --n)
@@ -174,12 +174,12 @@ void
 ft::List<T, Alloc>::_debug(void) const
 {
 	node * tmp = _head;
-  std::cout << "Head = " << _head << " Tail = " << _tail << std::endl;
-  std::cout << "List: [ ";
+	std::cout << "Head = " << _head << " Tail = " << _tail << std::endl;
+	std::cout << "List: [ ";
 	while (tmp != NULL)
 	{
-    std::cout << tmp->value << " ";
+		std::cout << tmp->value << " ";
 		tmp = tmp->next;
 	}
-  std::cout << "]" << std::endl;
+	std::cout << "]" << std::endl;
 }
