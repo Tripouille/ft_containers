@@ -32,7 +32,9 @@ test_list(void)
     std::cout << "defaultList.push_back(40)" << std::endl; defaultList.push_back(40);
     std::cout << "defaultList.pop_front()" << std::endl; defaultList.pop_front();
     std::cout << "defaultList.pop_back()" << std::endl; defaultList.pop_back();
-		
+	typename containerT<int>::iterator it = defaultList.begin();
+    (void)it;
+    std::cout << it._target->value << std::endl;
     //containerT<int>     fillList(10000,7);
     //std::cout << ".size() = " << fillList.size() << std::endl;
 }
@@ -40,7 +42,7 @@ test_list(void)
 int
 main(void)
 {
-    test_list<std::list>();
+    //test_list<std::list>();
     test_list<ft::List>();
     //ft::List<int>     fillList((unsigned long)(10000), 12);
     ft::List<int>     fillList(4, 1);

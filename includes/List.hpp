@@ -3,6 +3,7 @@
 # include <iostream>
 # include <limits>
 # include <list>
+# include "AIterator.hpp"
 
 namespace ft
 {
@@ -19,6 +20,13 @@ namespace ft
 				node(const T & v, node * p, node * n)
 						: value(v), prev(p), next(n) {}
 			};
+		public:
+		/* Public class */
+			class Iterator : public AIterator<node>
+			{
+				public:
+					Iterator(node * t = NULL);
+			};
 
 		public:
 		/* Typedef */
@@ -30,6 +38,8 @@ namespace ft
 			typedef value_type * pointer;
 			typedef const value_type * const_pointer;
 			typedef unsigned long size_type;
+			typedef Iterator iterator;
+			typedef const Iterator const_iterator;
 
 		public:
 
@@ -50,6 +60,8 @@ namespace ft
 
 		/* Public functions */
 			/** Iterator **/
+				iterator begin(void);
+				//const_iterator begin(void) const;
 			/** Capacity **/
 				bool empty(void) const;
 				size_type size(void) const;

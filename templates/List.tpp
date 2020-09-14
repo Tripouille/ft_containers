@@ -38,6 +38,13 @@ ft::List<T, Alloc>::_new_node(const T & v, node * p, node * n)
 	return (_n);
 }
 
+/* Iterator */
+template <class T, class Alloc>
+ft::List<T, Alloc>::Iterator::Iterator(node * t)
+														 : ft::List<T, Alloc>::Iterator::AIterator(t)
+{
+}
+
 
 /* Destructor */
 template <class T, class Alloc>
@@ -58,6 +65,12 @@ ft::List<T, Alloc>::operator=(List const & other)
 
 /* Public functions */
 /** Iterator **/
+template <class T, class Alloc>
+typename ft::List<T, Alloc>::iterator
+ft::List<T, Alloc>::begin(void)
+{
+	return (Iterator(_head));
+}
 
 /** Capacity **/
 template <class T, class Alloc>
