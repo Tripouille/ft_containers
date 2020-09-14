@@ -40,8 +40,8 @@ test_list(void)
 int
 main(void)
 {
-    //test_list<std::list>();
-    //test_list<ft::List>();
+    test_list<std::list>();
+    test_list<ft::List>();
     //ft::List<int>     fillList((unsigned long)(10000), 12);
     ft::List<int>     fillList(4, 1);
     std::cout << ".size() = " << fillList.size() << std::endl;

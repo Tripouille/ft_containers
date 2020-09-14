@@ -28,6 +28,18 @@ ft::List<T, Alloc>::List(List const & other)
 	_copy(other);
 }
 
+/* Node */
+
+template <class T, class Alloc>
+typename ft::List<T, Alloc>::node *
+ft::List<T, Alloc>::_new_node(const T & v, node * p, node * n)
+{
+	node * _n = _node_alloc.allocate(1);
+	_node_alloc.construct(_n, node(v, p, n));
+	return (_n);
+}
+
+
 /* Destructor */
 template <class T, class Alloc>
 ft::List<T, Alloc>::~List(void)
@@ -79,10 +91,10 @@ void
 ft::List<T, Alloc>::push_front(const value_type & val)
 {
 	if (empty())
-		_head = _tail = new node(val, NULL, NULL);
+		_head = _tail = _new_node(val, NULL, NULL);
 	else
 	{
-		node * n = new node(val, NULL, _head);
+		node * n = _new_node(val, NULL, _head);
 		_head = n;
 	}
 	++_size;
@@ -108,10 +120,10 @@ void
 ft::List<T, Alloc>::push_back(const value_type & val)
 {
 	if (empty())
-		_head = _tail = new node(val, NULL, NULL);
+		_head = _tail = _new_node(val, NULL, NULL);
 	else
 	{
-		node * n = new node(val, _tail, NULL);
+		node * n = _new_node(val, _tail, NULL);
 		_tail->next = n;
 		_tail = n;
 	}

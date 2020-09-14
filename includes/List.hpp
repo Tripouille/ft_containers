@@ -6,13 +6,25 @@
 
 namespace ft
 {
-	template <typename T, class Alloc = std::allocator<T> >
+	template <class T, class Alloc = std::allocator<T> >
 	class List
 	{
+		private:
+		/* Private struct */
+			struct node
+			{
+				T		value;
+				node *	prev;
+				node *	next;
+				node(const T & v, node * p, node * n)
+						: value(v), prev(p), next(n) {}
+			};
+
 		public:
 		/* Typedef */
 			typedef T value_type;
 			typedef std::allocator<value_type> allocator_type;
+			typedef std::allocator<node> node_allocator_type;
 			typedef value_type & reference;
 			typedef const value_type & const_reference;
 			typedef value_type * pointer;
@@ -57,21 +69,14 @@ namespace ft
 			/** Operations **/
 
 		private:
-		/* Private struct */
-			struct node
-			{
-				value_type		value;
-				struct node *	prev;
-				struct node *	next;
-				node(const value_type & v, struct node * p, struct node * n)
-						: value(v), prev(p), next(n) {}
-			};
 		/* Private Functions */
 			void _copy(List const & other);
 			void _debug(void) const;
+			node * _new_node(const T & v, node * p, node * n);
 
 		/* Private variables */
-			allocator_type			_alloc;
+			allocator_type					_alloc;
+			node_allocator_type				_node_alloc;
 			size_type						_size;
 			node *							_head;
 			node *							_tail;
