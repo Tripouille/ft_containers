@@ -22,7 +22,7 @@ ft::List<T, Alloc>::List(size_type n, const value_type & val,
 
 /** copy		(4) **/
 template <class T, class Alloc>
-ft::List<T, Alloc>::List(List const & other)
+ft::List<T, Alloc>::List(List const & other) : _alloc(other._alloc), _size(0), _head(NULL), _tail(NULL)
 {
 	_copy(other);
 }
@@ -52,7 +52,10 @@ ft::List<T, Alloc> &
 ft::List<T, Alloc>::operator=(List const & other)
 {
 	if (this != &other)
+	{
+		clear();
 		_copy(other);
+	}
 	return (*this);
 }
 
@@ -205,7 +208,15 @@ template <class T, class Alloc>
 void
 ft::List<T, Alloc>::_copy(List const & other)
 {
-	(void)other;
+	this->_alloc = other._alloc;
+	this->_node_alloc = other._node_alloc;
+
+	node * tmp = other._head;
+	while (tmp != NULL)
+	{
+		this->push_back(tmp->value);
+		tmp = tmp->next;
+	}
 }
 
 template <class T, class Alloc>
