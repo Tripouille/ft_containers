@@ -13,7 +13,7 @@ namespace ft
 		/* Private struct */
 			struct node
 			{
-				T				value;
+				T		value;
 				node *	prev;
 				node *	next;
 				node(const T & v, node * p, node * n)
@@ -55,6 +55,10 @@ namespace ft
 				size_type size(void) const;
 				size_type max_size(void) const;
 			/** Element access **/
+				reference front(void);
+				const_reference front(void) const;
+				reference back(void);
+				const_reference back(void) const;
 
 			/** Modifiers **/
 				/*** range (1) ***/	template <class InputIterator>

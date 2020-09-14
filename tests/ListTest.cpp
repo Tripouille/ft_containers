@@ -28,13 +28,19 @@ test_list(void)
     std::cout << ".max_size() = " << defaultList.max_size() << std::endl;
     std::cout << "defaultList.push_front(20)" << std::endl; defaultList.push_front(20);
     std::cout << "defaultList.push_front(10)" << std::endl; defaultList.push_front(10);
+    std::cout << "defaultList.front() = " << defaultList.front() << std::endl;
+    std::cout << "defaultList.back() = " << defaultList.back() << std::endl;
     std::cout << "defaultList.push_back(30)" << std::endl; defaultList.push_back(30);
     std::cout << "defaultList.push_back(40)" << std::endl; defaultList.push_back(40);
     std::cout << "defaultList.pop_front()" << std::endl; defaultList.pop_front();
     std::cout << "defaultList.pop_back()" << std::endl; defaultList.pop_back();
+    std::cout << "defaultList.front() = " << defaultList.front() << std::endl;
+    std::cout << "defaultList.back() = " << defaultList.back() << std::endl;
 		
     //containerT<int>     fillList(10000,7);
     //std::cout << ".size() = " << fillList.size() << std::endl;
+
+	std::cout << std::endl;
 }
 
 int

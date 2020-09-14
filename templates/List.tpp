@@ -83,6 +83,46 @@ ft::List<T, Alloc>::max_size(void) const
 
 /** Element access **/
 
+template <class T, class Alloc>
+typename ft::List<T, Alloc>::reference
+ft::List<T, Alloc>::front(void)
+{
+	static	value_type default_value;
+	if (empty())
+		return (default_value);
+	return (_head->value);
+}
+
+template <class T, class Alloc>
+typename ft::List<T, Alloc>::const_reference
+ft::List<T, Alloc>::front(void) const
+{
+	static	value_type default_value;
+	if (empty())
+		return (default_value);
+	return (_head->value);
+}
+
+template <class T, class Alloc>
+typename ft::List<T, Alloc>::reference
+ft::List<T, Alloc>::back(void)
+{
+	static	value_type default_value;
+	if (empty())
+		return (default_value);
+	return (_tail->value);
+}
+
+template <class T, class Alloc>
+typename ft::List<T, Alloc>::const_reference
+ft::List<T, Alloc>::back(void) const
+{
+	static	value_type default_value;
+	if (empty())
+		return (default_value);
+	return (_tail->value);
+}
+
 /** Modifiers **/
 
 template <class T, class Alloc>
