@@ -13,7 +13,7 @@ namespace ft
 		/* Private struct */
 			struct node
 			{
-				T		value;
+				T				value;
 				node *	prev;
 				node *	next;
 				node(const T & v, node * p, node * n)

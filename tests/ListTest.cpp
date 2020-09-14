@@ -36,9 +36,17 @@ test_list(void)
     std::cout << "defaultList.pop_back()" << std::endl; defaultList.pop_back();
     std::cout << "defaultList.front() = " << defaultList.front() << std::endl;
     std::cout << "defaultList.back() = " << defaultList.back() << std::endl;
-		
+    std::cout << "defaultList.back() = 42;" << std::endl; defaultList.back() = 42;
+    std::cout << "defaultList.back() = " << defaultList.back() << std::endl;
+    std::cout << "defaultList.front() = 21;" << std::endl; defaultList.front() = 21;
+    std::cout << "defaultList.front() = " << defaultList.front() << std::endl;
+
     //containerT<int>     fillList(10000,7);
     //std::cout << ".size() = " << fillList.size() << std::endl;
+
+    containerT<int> const    defaultList2(4, 1);
+    std::cout << "defaultList2.back() = " << defaultList2.back() << std::endl;
+    //std::cout << "defaultList.back() = 42;" << std::endl; defaultList2.back() = 42;
 
 	std::cout << std::endl;
 }
