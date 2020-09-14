@@ -22,7 +22,7 @@ ft::List<T, Alloc>::List(size_type n, const value_type & val,
 
 /** copy		(4) **/
 template <class T, class Alloc>
-ft::List<T, Alloc>::List(List const & other)
+ft::List<T, Alloc>::List(List const & other) : _alloc(other._alloc), _size(0), _head(NULL), _tail(NULL)
 {
 	_copy(other);
 }
@@ -59,7 +59,10 @@ ft::List<T, Alloc> &
 ft::List<T, Alloc>::operator=(List const & other)
 {
 	if (this != &other)
+	{
+		clear();
 		_copy(other);
+	}
 	return (*this);
 }
 
@@ -95,6 +98,46 @@ ft::List<T, Alloc>::max_size(void) const
 }
 
 /** Element access **/
+
+template <class T, class Alloc>
+typename ft::List<T, Alloc>::reference
+ft::List<T, Alloc>::front(void)
+{
+	static	value_type default_value;
+	if (empty())
+		return (default_value);
+	return (_head->value);
+}
+
+template <class T, class Alloc>
+typename ft::List<T, Alloc>::const_reference
+ft::List<T, Alloc>::front(void) const
+{
+	static	value_type default_value;
+	if (empty())
+		return (default_value);
+	return (_head->value);
+}
+
+template <class T, class Alloc>
+typename ft::List<T, Alloc>::reference
+ft::List<T, Alloc>::back(void)
+{
+	static	value_type default_value;
+	if (empty())
+		return (default_value);
+	return (_tail->value);
+}
+
+template <class T, class Alloc>
+typename ft::List<T, Alloc>::const_reference
+ft::List<T, Alloc>::back(void) const
+{
+	static	value_type default_value;
+	if (empty())
+		return (default_value);
+	return (_tail->value);
+}
 
 /** Modifiers **/
 
@@ -178,7 +221,15 @@ template <class T, class Alloc>
 void
 ft::List<T, Alloc>::_copy(List const & other)
 {
-	(void)other;
+	this->_alloc = other._alloc;
+	this->_node_alloc = other._node_alloc;
+
+	node * tmp = other._head;
+	while (tmp != NULL)
+	{
+		this->push_back(tmp->value);
+		tmp = tmp->next;
+	}
 }
 
 template <class T, class Alloc>
