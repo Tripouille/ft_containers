@@ -1,5 +1,5 @@
 
-CONTAINERS	= List #Vector
+CONTAINERS	= list #Vector
 INCLUDES	= $(CONTAINERS:%=includes/%.hpp)
 INCLUDES	+= $(addprefix includes/, AIterator.hpp DLNode.hpp Color.hpp)
 TEMPLATE	= $(CONTAINERS:%=templates/%.tpp)
@@ -24,7 +24,7 @@ $(CONTAINERS:%=tests/%Test): %: %.o
 $(CONTAINERS): %: tests/%Test
 	valgrind -q --leak-check=full ./$<
 	cat ft::$@.result
-	#diff -s --unified=0 ft::$@.result std::@.result
+	diff -s --unified=0 ft::$@.result std::$@.result
 
 clean:
 	rm -rf $(OBJS) 

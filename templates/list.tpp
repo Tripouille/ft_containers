@@ -1,16 +1,16 @@
-#include "List.hpp"
+#include "list.hpp"
 
 /* Constructor */
 /** default	(1) **/
 template <typename T, class Alloc>
-ft::List<T, Alloc>::List(const allocator_type & alloc)
+ft::list<T, Alloc>::list(const allocator_type & alloc)
 									 : _alloc(alloc), _size(0), _head(&_end), _tail(&_end)
 {
 }
 
 /** fill		(2) **/
 template <typename T, class Alloc>
-ft::List<T, Alloc>::List(size_type n, const value_type & val,
+ft::list<T, Alloc>::list(size_type n, const value_type & val,
 												const allocator_type & alloc)
 					 				 : _alloc(alloc), _size(0), _head(&_end), _tail(&_end)
 {
@@ -22,22 +22,22 @@ ft::List<T, Alloc>::List(size_type n, const value_type & val,
 
 /** copy		(4) **/
 template <class T, class Alloc>
-ft::List<T, Alloc>::List(List const & other) : _alloc(other._alloc), _size(0), _head(&_end), _tail(&_end)
+ft::list<T, Alloc>::list(list const & other) : _alloc(other._alloc), _size(0), _head(&_end), _tail(&_end)
 {
 	_copy(other);
 }
 
 /* Destructor */
 template <class T, class Alloc>
-ft::List<T, Alloc>::~List(void)
+ft::list<T, Alloc>::~list(void)
 {
 	clear();
 }
 
 /* Operator */
 template <class T, class Alloc>
-ft::List<T, Alloc> &
-ft::List<T, Alloc>::operator=(List const & other)
+ft::list<T, Alloc> &
+ft::list<T, Alloc>::operator=(list const & other)
 {
 	if (this != &other)
 	{
@@ -50,29 +50,29 @@ ft::List<T, Alloc>::operator=(List const & other)
 /* Public functions */
 /** Iterator **/
 template <class T, class Alloc>
-typename ft::List<T, Alloc>::iterator
-ft::List<T, Alloc>::begin(void)
+typename ft::list<T, Alloc>::iterator
+ft::list<T, Alloc>::begin(void)
 {
 	return (iterator(_head));
 }
 
 template <class T, class Alloc>
-typename ft::List<T, Alloc>::const_iterator
-ft::List<T, Alloc>::begin(void) const
+typename ft::list<T, Alloc>::const_iterator
+ft::list<T, Alloc>::begin(void) const
 {
 	return (iterator(_head));
 }
 
 template <class T, class Alloc>
-typename ft::List<T, Alloc>::iterator
-ft::List<T, Alloc>::end(void)
+typename ft::list<T, Alloc>::iterator
+ft::list<T, Alloc>::end(void)
 {
 	return (iterator(&_end));
 }
 
 template <class T, class Alloc>
-typename ft::List<T, Alloc>::const_iterator
-ft::List<T, Alloc>::end(void) const
+typename ft::list<T, Alloc>::const_iterator
+ft::list<T, Alloc>::end(void) const
 {
 	return (iterator(&_end));
 }
@@ -80,21 +80,21 @@ ft::List<T, Alloc>::end(void) const
 /** Capacity **/
 template <class T, class Alloc>
 bool
-ft::List<T, Alloc>::empty(void) const
+ft::list<T, Alloc>::empty(void) const
 {
 	return (_size == 0);
 }
 
 template <class T, class Alloc>
-typename ft::List<T, Alloc>::size_type
-ft::List<T, Alloc>::size(void) const
+typename ft::list<T, Alloc>::size_type
+ft::list<T, Alloc>::size(void) const
 {
 	return (_size);
 }
 
 template <class T, class Alloc>
-typename ft::List<T, Alloc>::size_type
-ft::List<T, Alloc>::max_size(void) const
+typename ft::list<T, Alloc>::size_type
+ft::list<T, Alloc>::max_size(void) const
 {
 	return (std::numeric_limits<size_type>::max() / sizeof(DLNode<T>));
 }
@@ -102,8 +102,8 @@ ft::List<T, Alloc>::max_size(void) const
 /** Element access **/
 
 template <class T, class Alloc>
-typename ft::List<T, Alloc>::reference
-ft::List<T, Alloc>::front(void)
+typename ft::list<T, Alloc>::reference
+ft::list<T, Alloc>::front(void)
 {
 	static	value_type default_value;
 	if (empty())
@@ -112,8 +112,8 @@ ft::List<T, Alloc>::front(void)
 }
 
 template <class T, class Alloc>
-typename ft::List<T, Alloc>::const_reference
-ft::List<T, Alloc>::front(void) const
+typename ft::list<T, Alloc>::const_reference
+ft::list<T, Alloc>::front(void) const
 {
 	static	value_type default_value;
 	if (empty())
@@ -122,8 +122,8 @@ ft::List<T, Alloc>::front(void) const
 }
 
 template <class T, class Alloc>
-typename ft::List<T, Alloc>::reference
-ft::List<T, Alloc>::back(void)
+typename ft::list<T, Alloc>::reference
+ft::list<T, Alloc>::back(void)
 {
 	static	value_type default_value;
 	if (empty())
@@ -132,8 +132,8 @@ ft::List<T, Alloc>::back(void)
 }
 
 template <class T, class Alloc>
-typename ft::List<T, Alloc>::const_reference
-ft::List<T, Alloc>::back(void) const
+typename ft::list<T, Alloc>::const_reference
+ft::list<T, Alloc>::back(void) const
 {
 	static	value_type default_value;
 	if (empty())
@@ -146,7 +146,7 @@ ft::List<T, Alloc>::back(void) const
 /** fill	(2) **/
 template <class T, class Alloc>
 void
-ft::List<T, Alloc>::assign(size_type n, const value_type & val)
+ft::list<T, Alloc>::assign(size_type n, const value_type & val)
 {
 	clear();
 	for (; n; --n)
@@ -156,7 +156,7 @@ ft::List<T, Alloc>::assign(size_type n, const value_type & val)
 
 template <class T, class Alloc>
 void
-ft::List<T, Alloc>::push_front(const value_type & val)
+ft::list<T, Alloc>::push_front(const value_type & val)
 {
 	if (empty())
 		_head = _tail = _new_node(val, NULL, NULL);
@@ -171,7 +171,7 @@ ft::List<T, Alloc>::push_front(const value_type & val)
 
 template <class T, class Alloc>
 void
-ft::List<T, Alloc>::pop_front(void)
+ft::list<T, Alloc>::pop_front(void)
 {
 	if (!empty())
 	{
@@ -185,7 +185,7 @@ ft::List<T, Alloc>::pop_front(void)
 
 template <class T, class Alloc>
 void
-ft::List<T, Alloc>::push_back(const value_type & val)
+ft::list<T, Alloc>::push_back(const value_type & val)
 {
 	if (empty())
 		_head = _tail = _new_node(val, NULL, NULL);
@@ -201,7 +201,7 @@ ft::List<T, Alloc>::push_back(const value_type & val)
 
 template <class T, class Alloc>
 void
-ft::List<T, Alloc>::pop_back(void)
+ft::list<T, Alloc>::pop_back(void)
 {
 	if (!empty())
 	{
@@ -215,7 +215,7 @@ ft::List<T, Alloc>::pop_back(void)
 
 template <class T, class Alloc>
 void
-ft::List<T, Alloc>::swap(List & x)
+ft::list<T, Alloc>::swap(list & x)
 {
 	if (this != &x)
 	{
@@ -231,7 +231,7 @@ ft::List<T, Alloc>::swap(List & x)
 
 template <class T, class Alloc>
 void
-ft::List<T, Alloc>::clear(void)
+ft::list<T, Alloc>::clear(void)
 {
 	while (_head != &_end)
 	{
@@ -249,7 +249,7 @@ ft::List<T, Alloc>::clear(void)
 /* Private functions */
 template <class T, class Alloc>
 void
-ft::List<T, Alloc>::_copy(List const & other)
+ft::list<T, Alloc>::_copy(list const & other)
 {
 	_alloc = other._alloc;
 	_node_alloc = other._node_alloc;
@@ -264,11 +264,11 @@ ft::List<T, Alloc>::_copy(List const & other)
 
 template <class T, class Alloc>
 void
-ft::List<T, Alloc>::_debug(void) const
+ft::list<T, Alloc>::_debug(void) const
 {
 	DLNode<T> * tmp = _head;
 	std::cout << "Head = " << _head << " Tail = " << _tail << std::endl;
-	std::cout << "List: [ ";
+	std::cout << "list: [ ";
 	while (tmp != &_end)
 	{
 		std::cout << tmp->value << " ";
@@ -279,7 +279,7 @@ ft::List<T, Alloc>::_debug(void) const
 
 template <class T, class Alloc>
 typename ft::DLNode<T> *
-ft::List<T, Alloc>::_new_node(const T & v, DLNode<T> * p, DLNode<T> * n)
+ft::list<T, Alloc>::_new_node(const T & v, DLNode<T> * p, DLNode<T> * n)
 {
 	DLNode<T> * _n = _node_alloc.allocate(1);
 	try
@@ -296,7 +296,7 @@ ft::List<T, Alloc>::_new_node(const T & v, DLNode<T> * p, DLNode<T> * n)
 
 template <class T, class Alloc>
 void
-ft::List<T, Alloc>::_actualize_end(void)
+ft::list<T, Alloc>::_actualize_end(void)
 {
 	_end.next = _head;
 	_end.prev = _tail;

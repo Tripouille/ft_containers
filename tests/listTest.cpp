@@ -1,4 +1,4 @@
-#include "List.hpp"
+#include "list.hpp"
 #include <list>
 #include <iostream>
 #include <fstream>
@@ -132,5 +132,5 @@ int
 main(void)
 {
     test_list<std::list>();
-    test_list<ft::List>();
+    test_list<ft::list>();
 }
