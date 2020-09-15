@@ -51,6 +51,7 @@ void
 test_list(void)
 {
 	std::ofstream f(get_file_name(__PRETTY_FUNCTION__).c_str(), std::ofstream::trunc);
+	FILE << RED << std::endl << "=> STARTING list tests <=" << ENDL;
 
 	containerT<int>     defaultList;
 	print_list(defaultList, "defaultList", f);
@@ -137,7 +138,7 @@ test_list(void)
 	catch(...) {std::cerr << "catched exception" << std::endl;}
 	std::cout << "size = " << safelist.size() << std::endl;
 	std::cout << std::endl;*/
-
+	FILE << RED << "=> ENDING list tests <=" << std::endl << ENDL;
 }
 
 int
