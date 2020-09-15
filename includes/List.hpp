@@ -62,6 +62,8 @@ namespace ft
 				void push_back(const value_type & val);
 				void pop_back(void);
 
+				void swap(List & x);
+
 				void clear(void);
 			/** Operations **/
 
@@ -72,11 +74,11 @@ namespace ft
 			DLNode<T> * _new_node(const T & v, DLNode<T> * p, DLNode<T> * n);
 
 		/* Private variables */
-			allocator_type						_alloc;
-			node_allocator_type					_node_alloc;
-			size_type							_size;
-			DLNode<T> *							_head;
-			DLNode<T> *							_tail;
+			allocator_type			_alloc;
+			node_allocator_type		_node_alloc;
+			size_type				_size;
+			node *					_head;
+			node *					_tail;
 	};
 }
 
