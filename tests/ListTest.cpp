@@ -44,16 +44,20 @@ test_list(void)
     std::cout << it._target->value << std::endl;
 	std::cout << std::endl;
 
+	std::cout << "Copy construction test with defaultList2 : " << std::endl;
 	std::cout << "defaultList2(defaultList)" << std::endl;
 	containerT<int>		defaultList2(defaultList);
+	std::cout << "defaultList2.size() = " << defaultList2.size() << std::endl;
 	std::cout << "defaultList2.front() = " << defaultList2.front() << std::endl;
 	std::cout << "defaultList2.back() = " << defaultList2.back() << std::endl;
 	std::cout << "defaultList2.push_back(84)" << std::endl; defaultList2.push_back(84);
 	std::cout << std::endl;
 
+	std::cout << "Test on operator= with defaultList3 : " << std::endl;
 	std::cout << "defaultList3(defaultList)" << std::endl;
 	containerT<int>		defaultList3(defaultList);
 	std::cout << "defaultList3 = defaultList2" << std::endl; defaultList3 = defaultList2;
+	std::cout << "defaultList3.size() = " << defaultList3.size() << std::endl;
 	std::cout << "defaultList2.front() = " << defaultList2.front() << std::endl;
 	std::cout << "defaultList2.back() = " << defaultList2.back() << std::endl;
 	std::cout << std::endl;
@@ -61,13 +65,19 @@ test_list(void)
 	//containerT<int>     fillList(10000,7);
 	//std::cout << ".size() = " << fillList.size() << std::endl;
 
+	std::cout << "Const list test on back() with defaultList4 :" << std::endl;
 	containerT<int> const    defaultList4(4, 1);
 	std::cout << "defaultList4.back() = " << defaultList4.back() << std::endl;
 	//std::cout << "defaultList4.back() = 42;" << std::endl; defaultList4.back() = 42;
+	std::cout << std::endl;
 
+	std::cout << "Assign test (back on defaultList) : " << std::endl;
 	std::cout << "defaultList.assign(4, 5)" << std::endl; defaultList.assign(4, 5);
+	std::cout << "defaultList.size() = " << defaultList.size() << std::endl;
 	std::cout << "defaultList.back() = " << defaultList.back() << std::endl;
 	std::cout << "defaultList.front() = " << defaultList.front() << std::endl;
+	std::cout << "defaultList.assign(0, 5)" << std::endl; defaultList.assign(0, 5);
+	std::cout << "defaultList.size() = " << defaultList.size() << std::endl;
 
 	std::cout << std::endl;
 }
