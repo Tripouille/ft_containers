@@ -12,11 +12,12 @@ namespace ft
 			AIterator(AIterator const & other);
 
 			AIterator &				operator=(AIterator const & other);
-			bool					operator==(AIterator const & other);
-			//AIterator &				operator++(AIterator const & other) = 0;
-			//AIterator &				operator--(AIterator const & other) = 0;
+			bool					operator==(AIterator const & other) const;
+			bool					operator!=(AIterator const & other) const;
+			virtual AIterator &		operator++(void) = 0;
+			virtual AIterator &		operator--(void) = 0;
 
-		public:
+		protected:
 			void					_copy(AIterator const & other);
 			T *						_target;
 	};

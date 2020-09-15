@@ -50,9 +50,11 @@ test_list(void)
 	std::cout << "defaultList.back() = " << defaultList.back() << std::endl;
 	std::cout << "defaultList.front() = 21" << std::endl; defaultList.front() = 21;
 	std::cout << "defaultList.front() = " << defaultList.front() << std::endl;
-    //typename containerT<int>::iterator it = defaultList.begin();
-    //std::cout << it._target->value << std::endl;
-	//std::cout << std::endl;
+    typename containerT<int>::iterator it = defaultList.begin();
+	std::cout << *it << std::endl;
+	std::cout << *++it << std::endl;
+	std::cout << *it++ << std::endl;
+	std::cout << std::endl;
 
 	std::cout << "Copy construction test with defaultList2 : " << std::endl;
 	std::cout << "defaultList2(defaultList)" << std::endl;

@@ -27,15 +27,22 @@ ft::AIterator<T>::operator=(AIterator const & other)
 }
 
 template <class T>
+void
+ft::AIterator<T>::_copy(AIterator const & other)
+{
+	_target = other._target;
+}
+
+template <class T>
 bool
-ft::AIterator<T>::operator==(AIterator const & other)
+ft::AIterator<T>::operator==(AIterator const & other) const
 {
 	return (_target == other._target);
 }
 
 template <class T>
-void
-ft::AIterator<T>::_copy(AIterator const & other)
+bool
+ft::AIterator<T>::operator!=(AIterator const & other) const
 {
-	_target = other._target;
+	return (_target != other._target);
 }

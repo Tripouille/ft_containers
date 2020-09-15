@@ -3,7 +3,6 @@
 # include <iostream>
 # include <limits>
 # include <list>
-# include "AIterator.hpp"
 # include "DLNode.hpp"
 
 namespace ft
@@ -11,14 +10,6 @@ namespace ft
 	template <class T, class Alloc = std::allocator<T> >
 	class List
 	{
-		public:
-		/* Public class */
-			class Iterator : public AIterator<DLNode<T> >
-			{
-				public:
-					Iterator(DLNode<T> * t = NULL);
-			};
-
 		public:
 		/* Typedef */
 			typedef T value_type;
@@ -29,11 +20,10 @@ namespace ft
 			typedef value_type * pointer;
 			typedef const value_type * const_pointer;
 			typedef unsigned long size_type;
-			typedef Iterator iterator;
-			typedef const Iterator const_iterator;
+			typedef typename ft::DLNode<T>::iterator iterator;
+			typedef const iterator const_iterator;
 
 		public:
-
 		/* Constructor */
 			/** default	(1) **/	explicit List(const allocator_type & alloc = allocator_type());
 			/** fill	(2) **/	explicit List(size_type n, const value_type & val = value_type(),

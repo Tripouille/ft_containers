@@ -27,14 +27,6 @@ ft::List<T, Alloc>::List(List const & other) : _alloc(other._alloc), _size(0), _
 	_copy(other);
 }
 
-/* Iterator */
-template <class T, class Alloc>
-ft::List<T, Alloc>::Iterator::Iterator(DLNode<T> * t)
-							 : ft::List<T, Alloc>::Iterator::AIterator(t)
-{
-}
-
-
 /* Destructor */
 template <class T, class Alloc>
 ft::List<T, Alloc>::~List(void)
@@ -61,7 +53,7 @@ template <class T, class Alloc>
 typename ft::List<T, Alloc>::iterator
 ft::List<T, Alloc>::begin(void)
 {
-	return (Iterator(_head));
+	return (iterator(_head));
 }
 
 /** Capacity **/
