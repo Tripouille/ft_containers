@@ -3,6 +3,7 @@
 #include <iostream>
 #include <fstream>
 #include "Color.hpp"
+#define FILE f << RESET
 
 template<class T>
 void
@@ -31,28 +32,35 @@ print_list(T list, std::string const & name, std::ofstream & f)
 
 struct testStruct {int a; testStruct(void) : a(3) {}};
 
+std::string const
+get_file_name(std::string s)
+{
+	std::string file_name = "results/"
+			+ s.substr(s.find_last_of(' ') + 1, s.size() - s.find_last_of(' ') - 2)
+			+ ".result";
+	return (file_name);
+}
+
+
 template <template <class T, class Alloc = std::allocator<T> > class containerT>
 void
 test_list(void)
 {
-	std::string name(__PRETTY_FUNCTION__);
-	std::string file_name = "results/" + name.substr(name.find_last_of(' ') + 1, name.size() - name.find_last_of(' ') - 2)
-							+ ".result";
-	std::ofstream f(file_name.c_str(), std::ofstream::trunc);
+	std::ofstream f(get_file_name(__PRETTY_FUNCTION__).c_str(), std::ofstream::trunc);
 
 	containerT<int>     defaultList;
 	print_list(defaultList, "defaultList", f);
-	f << "defaultList.max_size() = " << GREEN << defaultList.max_size() << ENDL;
-	f << std::boolalpha << "defaultList.empty() = " << GREEN << defaultList.empty() << ENDL;
-	f << "defaultList.size() = " << GREEN << defaultList.size() << ENDL;
-	f << "defaultList.push_front(2)" << ENDL; defaultList.push_front(2);
-	f << "defaultList.push_front(1)" << ENDL; defaultList.push_front(1);
+	FILE << "defaultList.max_size() = " << GREEN << defaultList.max_size() << ENDL;
+	FILE << std::boolalpha << "defaultList.empty() = " << GREEN << defaultList.empty() << ENDL;
+	FILE << "defaultList.size() = " << GREEN << defaultList.size() << ENDL;
+	FILE << "defaultList.push_front(2)" << ENDL; defaultList.push_front(2);
+	FILE << "defaultList.push_front(1)" << ENDL; defaultList.push_front(1);
 	print_list(defaultList, "defaultList", f);
-	f << "defaultList.push_back(3)" << ENDL; defaultList.push_back(3);
+	FILE << "defaultList.push_back(3)" << ENDL; defaultList.push_back(3);
 	print_list(defaultList, "defaultList", f);
-	f << "defaultList.front() = " << GREEN << defaultList.front() << ENDL;
-	f << "defaultList.back() = " << GREEN << defaultList.back() << ENDL;
-	f << "defaultList.push_back(4)" << ENDL; defaultList.push_back(4);
+	FILE << "defaultList.front() = " << GREEN << defaultList.front() << ENDL;
+	FILE << "defaultList.back() = " << GREEN << defaultList.back() << ENDL;
+	FILE << "defaultList.push_back(4)" << ENDL; defaultList.push_back(4);
 
 	/*std::cout << "defaultList.pop_front()" << ENDL; defaultList.pop_front();
 	std::cout << "defaultList.pop_back()" << ENDL; defaultList.pop_back();
