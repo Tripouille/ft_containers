@@ -4,35 +4,26 @@
 # include <limits>
 # include <list>
 # include "AIterator.hpp"
+# include "DLNode.hpp"
 
 namespace ft
 {
 	template <class T, class Alloc = std::allocator<T> >
 	class List
 	{
-		private:
-		/* Private struct */
-			struct node
-			{
-				T				value;
-				node *	prev;
-				node *	next;
-				node(const T & v, node * p, node * n)
-						: value(v), prev(p), next(n) {}
-			};
 		public:
 		/* Public class */
-			class Iterator : public AIterator<node>
+			class Iterator : public AIterator<DLNode<T> >
 			{
 				public:
-					Iterator(node * t = NULL);
+					Iterator(DLNode<T> * t = NULL);
 			};
 
 		public:
 		/* Typedef */
 			typedef T value_type;
 			typedef std::allocator<value_type> allocator_type;
-			typedef std::allocator<node> node_allocator_type;
+			typedef std::allocator<DLNode<T> > node_allocator_type;
 			typedef value_type & reference;
 			typedef const value_type & const_reference;
 			typedef value_type * pointer;
@@ -88,14 +79,14 @@ namespace ft
 		/* Private Functions */
 			void _copy(List const & other);
 			void _debug(void) const;
-			node * _new_node(const T & v, node * p, node * n);
+			DLNode<T> * _new_node(const T & v, DLNode<T> * p, DLNode<T> * n);
 
 		/* Private variables */
-			allocator_type				_alloc;
-			node_allocator_type		_node_alloc;
+			allocator_type						_alloc;
+			node_allocator_type					_node_alloc;
 			size_type							_size;
-			node *								_head;
-			node *								_tail;
+			DLNode<T> *							_head;
+			DLNode<T> *							_tail;
 	};
 }
 
