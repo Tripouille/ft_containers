@@ -21,7 +21,8 @@ $(CONTAINERS:%=tests/%Test): %: %.o
 	$(CC) $(CFLAGS) $< -o $@
 
 $(CONTAINERS): %: tests/%Test
-	valgrind -q --leak-check=full ./$<
+	#valgrind -q --leak-check=full ./$<
+	./$<
 
 clean:
 	rm -rf $(OBJS) 
