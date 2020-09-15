@@ -82,7 +82,7 @@ namespace ft
 			size_type				_size;
 			DLNode<T> *				_head;
 			DLNode<T> *				_tail;
-			DLNode<T>				_end;
+			DLNode<T> *				_end;
 	};
 }
 

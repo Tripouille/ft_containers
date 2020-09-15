@@ -20,17 +20,21 @@ print_list(T list, std::string const & name, std::ofstream & f)
 	f << "]" << RESET << std::endl;
 }
 
-/*class testClassForSafetyException
+class testClassForSafetyException
 {
 	public:
-		testClassForSafetyException(void) : _a(0) {}
+		testClassForSafetyException(int a) : _a(a) {}
 		testClassForSafetyException(testClassForSafetyException const& other)
 			: _a(other._a) {if (_a == 0) {throw std::exception();}}
+		int geta(void) const {return (_a);}
 	private:
+		testClassForSafetyException(void) : _a(2) {}
 		int _a;
-};*/
+};
+std::ostream&	operator<<(std::ostream& os, testClassForSafetyException const& obj) {os << "a = " << obj.geta(); return (os);}
 
 struct testStruct {int a; testStruct(void) : a(3) {}};
+std::ostream&	operator<<(std::ostream& os, testStruct const& obj) {os << "a = " << obj.a; return (os);}
 
 std::string const
 get_file_name(std::string s)

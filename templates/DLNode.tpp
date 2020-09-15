@@ -1,4 +1,9 @@
-#include "DLNode.hpp" 
+#include "DLNode.hpp"
+
+template <class T>
+ft::DLNode<T>::DLNode(void) : prev(NULL), next(NULL)
+{
+}
 
 template <class T>
 ft::DLNode<T>::DLNode(const T & v, DLNode * p, DLNode * n)
