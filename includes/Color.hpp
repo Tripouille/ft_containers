@@ -1,7 +1,7 @@
 #ifndef COLOR_HPP
 # define COLOR_HPP
 # include <iostream>
-# define ENDL RESET << std::endl
+# define ENDL RESET_ALL << std::endl
 
 enum Color
 {
