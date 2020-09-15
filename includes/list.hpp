@@ -2,13 +2,12 @@
 # define LIST_HPP
 # include <iostream>
 # include <limits>
-# include <list>
 # include "DLNode.hpp"
 
 namespace ft
 {
 	template <class T, class Alloc = std::allocator<T> >
-	class List
+	class list
 	{
 		public:
 		/* Typedef */
@@ -25,19 +24,19 @@ namespace ft
 
 		public:
 		/* Constructor */
-			/** default	(1) **/	explicit List(const allocator_type & alloc = allocator_type());
-			/** fill	(2) **/	explicit List(size_type n, const value_type & val = value_type(),
+			/** default	(1) **/	explicit list(const allocator_type & alloc = allocator_type());
+			/** fill	(2) **/	explicit list(size_type n, const value_type & val = value_type(),
 																			const allocator_type & alloc = allocator_type());
 			/** range	(3) **/	/*template <class InputIterator>
-												List(InputIterator first, InputIterator last,
+												list(InputIterator first, InputIterator last,
 														const allocator_type & alloc = allocator_type());*/
-			/** copy	(4) **/	List(List const & other);
+			/** copy	(4) **/	list(list const & other);
 
 		/* Destructor */
-			virtual ~List(void);
+			virtual ~list(void);
 
 		/* Operator */
-			List<T, Alloc> &			operator=(List const & other);
+			list<T, Alloc> &			operator=(list const & other);
 
 		/* Public functions */
 			/** Iterator **/
@@ -64,14 +63,14 @@ namespace ft
 				void push_back(const value_type & val);
 				void pop_back(void);
 
-				void swap(List & x);
+				void swap(list & x);
 
 				void clear(void);
 			/** Operations **/
 
 		private:
 		/* Private Functions */
-			void _copy(List const & other);
+			void _copy(list const & other);
 			void _debug(void) const;
 			DLNode<T> * _new_node(const T & v, DLNode<T> * p, DLNode<T> * n);
 			void _actualize_end(void);
@@ -87,5 +86,5 @@ namespace ft
 	};
 }
 
-# include "List.tpp"
+# include "list.tpp"
 #endif
