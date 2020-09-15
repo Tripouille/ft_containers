@@ -3,6 +3,8 @@
 #include <iostream>
 #include <fstream>
 #include "Color.hpp"
+#define TITLE RED
+#define CATEGORY YELLOW
 #define FILE f << RESET
 
 template<class T>
@@ -51,14 +53,16 @@ void
 test_list(void)
 {
 	std::ofstream f(get_file_name(__PRETTY_FUNCTION__).c_str(), std::ofstream::trunc);
-	FILE << RED << std::endl << "=> STARTING list tests <=" << ENDL;
+	FILE << TITLE << std::endl << "=> STARTING list tests <=" << ENDL;
 
-	containerT<int>     defaultList;
+	FILE << CATEGORY << "==> BASIC TESTS" << ENDL;
+	FILE << "containerT<int> defaultList;" << ENDL; containerT<int>  defaultList;
 	print_list(defaultList, "defaultList", f);
 	FILE << "defaultList.max_size() = " << GREEN << defaultList.max_size() << ENDL;
 	FILE << std::boolalpha << "defaultList.empty() = " << GREEN << defaultList.empty() << ENDL;
 	FILE << "defaultList.size() = " << GREEN << defaultList.size() << ENDL;
 	FILE << "defaultList.push_front(2)" << ENDL; defaultList.push_front(2);
+	print_list(defaultList, "defaultList", f);
 	FILE << "defaultList.push_front(1)" << ENDL; defaultList.push_front(1);
 	print_list(defaultList, "defaultList", f);
 	FILE << "defaultList.push_back(3)" << ENDL; defaultList.push_back(3);
@@ -138,7 +142,7 @@ test_list(void)
 	catch(...) {std::cerr << "catched exception" << std::endl;}
 	std::cout << "size = " << safelist.size() << std::endl;
 	std::cout << std::endl;*/
-	FILE << RED << "=> ENDING list tests <=" << std::endl << ENDL;
+	FILE << TITLE << "=> ENDING list tests <=" << std::endl << ENDL;
 }
 
 int

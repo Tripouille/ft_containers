@@ -11,7 +11,8 @@ enum Color
 	BLUE		= 34,
 	MAGENTA		= 35,
 	CYAN		= 36,
-	RESET		= 39
+	RESET		= 39,
+	LIGHTRED	= 91
 };
 
 std::ostream &
