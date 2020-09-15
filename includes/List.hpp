@@ -87,8 +87,8 @@ namespace ft
 			allocator_type			_alloc;
 			node_allocator_type		_node_alloc;
 			size_type				_size;
-			node *					_head;
-			node *					_tail;
+			DLNode<T> *				_head;
+			DLNode<T> *				_tail;
 	};
 }
 

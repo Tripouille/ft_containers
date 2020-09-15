@@ -17,6 +17,16 @@ print_list(T list)
 	std::cout << "]" << std::endl;
 }
 
+/*class testClassForSafetyException
+{
+	public:
+		testClassForSafetyException(void) : _a(0) {}
+		testClassForSafetyException(testClassForSafetyException const& other)
+			: _a(other._a) {if (_a == 0) {throw std::exception();}}
+	private:
+		int _a;
+};*/
+
 template <template <class T, class Alloc = std::allocator<T> > class containerT>
 void
 test_list(void)
@@ -40,9 +50,9 @@ test_list(void)
 	std::cout << "defaultList.back() = " << defaultList.back() << std::endl;
 	std::cout << "defaultList.front() = 21" << std::endl; defaultList.front() = 21;
 	std::cout << "defaultList.front() = " << defaultList.front() << std::endl;
-    typename containerT<int>::iterator it = defaultList.begin();
-    std::cout << it._target->value << std::endl;
-	std::cout << std::endl;
+    //typename containerT<int>::iterator it = defaultList.begin();
+    //std::cout << it._target->value << std::endl;
+	//std::cout << std::endl;
 
 	std::cout << "Copy construction test with defaultList2 : " << std::endl;
 	std::cout << "defaultList2(defaultList)" << std::endl;
@@ -96,6 +106,14 @@ test_list(void)
 	std::cout << "defaultList3.size() = " << defaultList3.size() << std::endl;
 	std::cout << "defaultList3.front() = " << defaultList3.front() << std::endl;
 	std::cout << std::endl;
+
+	/*std::cout << "Exception-safety tests :" << std::endl;
+	containerT<testClassForSafetyException> safelist;
+	testClassForSafetyException testobject; //ok seulement si constructeur par défaut
+	try {safelist.push_back(testobject);}
+	catch(...) {std::cerr << "catched exception" << std::endl;}
+	std::cout << "size = " << safelist.size() << std::endl;
+	std::cout << std::endl;*/
 }
 
 int

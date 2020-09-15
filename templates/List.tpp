@@ -260,6 +260,14 @@ typename ft::DLNode<T> *
 ft::List<T, Alloc>::_new_node(const T & v, DLNode<T> * p, DLNode<T> * n)
 {
 	DLNode<T> * _n = _node_alloc.allocate(1);
-	_node_alloc.construct(_n, DLNode<T>(v, p, n));
+	try
+	{
+		_node_alloc.construct(_n, DLNode<T>(v, p, n));
+	}
+	catch(std::exception & e)
+	{
+		_node_alloc.deallocate(_n, 1);
+		throw;
+	}
 	return (_n);
 }
