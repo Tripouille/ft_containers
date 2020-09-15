@@ -1,13 +1,10 @@
 
 CONTAINERS	= list #Vector
-INCLUDES	= $(CONTAINERS:%=includes/%.hpp)
-INCLUDES	+= $(addprefix includes/, AIterator.hpp DLNode.hpp Color.hpp)
-TEMPLATE	= $(CONTAINERS:%=templates/%.tpp)
-TEMPLATE	+= $(addprefix templates/, AIterator.tpp DLNode.tpp)
+INCLUDES	= $(CONTAINERS:%=includes/%.hpp) $(addprefix includes/, AIterator.hpp DLNode.hpp Color.hpp)
+TEMPLATE	= $(CONTAINERS:%=templates/%.tpp) $(addprefix templates/, AIterator.tpp DLNode.tpp)
 OBJS		= $(CONTAINERS:%=tests/%Test.o)
 BINS		= $(CONTAINERS:%=tests/%Test)
-RESULTS		= $(CONTAINERS:%=ft::%.result) $(CONTAINERS:%=std::%.result)
-
+RESULTS		= $(CONTAINERS:%=results/ft::%.result) $(CONTAINERS:%=results/std::%.result)
 
 CC	= clang++
 CFLAGS	= -g3 -Wall -Wextra -Werror -Wconversion -std=c++98 -I includes -I templates
@@ -22,8 +19,8 @@ $(CONTAINERS:%=tests/%Test): %: %.o
 
 $(CONTAINERS): %: tests/%Test
 	valgrind -q --leak-check=full ./$<
-	cat ft::$@.result
-	diff -s --unified=0 ft::$@.result std::$@.result
+	cat results/ft::$@.result
+	diff -s --unified=0 results/ft::$@.result results/std::$@.result
 
 clean:
 	rm -rf $(OBJS) 

@@ -36,7 +36,7 @@ void
 test_list(void)
 {
 	std::string name(__PRETTY_FUNCTION__);
-	std::string file_name = name.substr(name.find_last_of(' ') + 1, name.size() - name.find_last_of(' ') - 2)
+	std::string file_name = "results/" + name.substr(name.find_last_of(' ') + 1, name.size() - name.find_last_of(' ') - 2)
 							+ ".result";
 	std::ofstream f(file_name.c_str(), std::ofstream::trunc);
 
