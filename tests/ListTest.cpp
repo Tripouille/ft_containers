@@ -1,20 +1,22 @@
 #include "List.hpp"
 #include <list>
 #include <iostream>
+#include <fstream>
+#include "Color.hpp"
 
 template<class T>
 void
-print_list(T list)
+print_list(T list, std::string const & name, std::ofstream & file)
 {
 	typename T::iterator begin = list.begin();
 	typename T::iterator end = list.end();
-	std::cout << "List: [ ";
+	file << GREEN << name << " = [ ";
 	while (begin != end)
 	{
-			std::cout << *begin << " ";
+			file << *begin << " ";
 			++begin;
 	}
-	std::cout << "]" << std::endl;
+	file << "]" << RESET << std::endl;
 }
 
 /*class testClassForSafetyException
@@ -33,37 +35,36 @@ template <template <class T, class Alloc = std::allocator<T> > class containerT>
 void
 test_list(void)
 {
-	std::cout << __PRETTY_FUNCTION__ << std::endl;
-	containerT<int>     defaultList;
-	std::cout << std::boolalpha << ".empty() = " << defaultList.empty() << std::endl;
-	std::cout << ".size() = " << defaultList.size() << std::endl;
-	std::cout << ".max_size() = " << defaultList.max_size() << std::endl;
-	std::cout << "defaultList.push_front(20)" << std::endl; defaultList.push_front(20);
-	std::cout << "defaultList.push_front(10)" << std::endl; defaultList.push_front(10);
-	std::cout << "defaultList.front() = " << defaultList.front() << std::endl;
-	std::cout << "defaultList.back() = " << defaultList.back() << std::endl;
-	std::cout << "defaultList.push_back(30)" << std::endl; defaultList.push_back(30);
-	std::cout << "defaultList.push_back(40)" << std::endl; defaultList.push_back(40);
-	std::cout << "defaultList.pop_front()" << std::endl; defaultList.pop_front();
-	std::cout << "defaultList.pop_back()" << std::endl; defaultList.pop_back();
-	std::cout << "defaultList.front() = " << defaultList.front() << std::endl;
-	std::cout << "defaultList.back() = " << defaultList.back() << std::endl;
-	std::cout << "defaultList.back() = 42" << std::endl; defaultList.back() = 42;
-	std::cout << "defaultList.back() = " << defaultList.back() << std::endl;
-	std::cout << "defaultList.front() = 21" << std::endl; defaultList.front() = 21;
-	std::cout << "defaultList.front() = " << defaultList.front() << std::endl;
-    typename containerT<int>::iterator it = defaultList.begin();
-	containerT<testStruct> structlist;
-	structlist.push_back(testStruct());
-    typename containerT<testStruct>::iterator it2 = structlist.begin();
-	std::cout << (*it2).a << std::endl;
-	std::cout << it2->a << std::endl;
-    typename containerT<int>::iterator ite = defaultList.end();
-	while (it != ite)
-		std::cout << *it++ << std::endl;
-	std::cout << std::endl;
+	std::string name(__PRETTY_FUNCTION__);
+	std::string file_name = name.substr(name.find_last_of(' ') + 1, name.size() - name.find_last_of(' ') - 2)
+							+ ".result";
+	std::ofstream file(file_name.c_str(), std::ofstream::trunc);
 
-	std::cout << "Copy construction test with defaultList2 : " << std::endl;
+	containerT<int>     defaultList;
+	print_list(defaultList, "defaultList", file);
+	file << "defaultList.max_size() = " << GREEN << defaultList.max_size() << ENDL;
+	file << std::boolalpha << "defaultList.empty() = " << GREEN << defaultList.empty() << ENDL;
+	file << "defaultList.size() = " << GREEN << defaultList.size() << ENDL;
+	file << "defaultList.push_front(2)" << ENDL; defaultList.push_front(2);
+	file << "defaultList.push_front(1)" << ENDL; defaultList.push_front(1);
+	print_list(defaultList, "defaultList", file);
+	file << "defaultList.push_back(3)" << ENDL; defaultList.push_back(3);
+	print_list(defaultList, "defaultList", file);
+	file << "defaultList.front() = " << GREEN << defaultList.front() << ENDL;
+	file << "defaultList.back() = " << GREEN << defaultList.back() << ENDL;
+	file << "defaultList.push_back(4)" << ENDL; defaultList.push_back(4);
+
+	/*std::cout << "defaultList.pop_front()" << ENDL; defaultList.pop_front();
+	std::cout << "defaultList.pop_back()" << ENDL; defaultList.pop_back();
+	std::cout << "defaultList.front() = " << defaultList.front() << ENDL;
+	std::cout << "defaultList.back() = " << defaultList.back() << ENDL;
+	std::cout << "defaultList.back() = 42" << ENDL; defaultList.back() = 42;
+	std::cout << "defaultList.back() = " << defaultList.back() << ENDL;
+	std::cout << "defaultList.front() = 21" << ENDL; defaultList.front() = 21;
+	std::cout << "defaultList.front() = " << defaultList.front() << ENDL;*/
+
+
+	/*std::cout << "Copy construction test with defaultList2 : " << std::endl;
 	std::cout << "defaultList2(defaultList)" << std::endl;
 	containerT<int>		defaultList2(defaultList);
 	std::cout << "defaultList2.size() = " << defaultList2.size() << std::endl;
@@ -115,7 +116,7 @@ test_list(void)
 	std::cout << "defaultList.front() = " << defaultList.front() << std::endl;
 	std::cout << "defaultList3.size() = " << defaultList3.size() << std::endl;
 	std::cout << "defaultList3.front() = " << defaultList3.front() << std::endl;
-	std::cout << std::endl;
+	std::cout << std::endl;*/
 
 	/*std::cout << "Exception-safety tests :" << std::endl;
 	containerT<testClassForSafetyException> safelist;
@@ -125,13 +126,11 @@ test_list(void)
 	std::cout << "size = " << safelist.size() << std::endl;
 	std::cout << std::endl;*/
 
-	std::cout << std::endl;
-
 }
 
 int
 main(void)
 {
-    //test_list<std::list>();
+    test_list<std::list>();
     test_list<ft::List>();
 }
