@@ -28,7 +28,8 @@ namespace ft
 		typedef Iterator iterator;
 		typedef const iterator const_iterator;
 
-		DLNode(const T & v = T(), DLNode * p = NULL, DLNode * n = NULL);
+		DLNode(void);
+		DLNode(const T & v, DLNode * p = NULL, DLNode * n = NULL);
 		virtual ~DLNode(void);
 		DLNode(DLNode const & other);
 

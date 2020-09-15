@@ -17,22 +17,31 @@ print_list(T list)
 	std::cout << "]" << std::endl;
 }
 
-/*class testClassForSafetyException
+class testClassForSafetyException
 {
 	public:
-		testClassForSafetyException(void) : _a(0) {}
+		testClassForSafetyException(int a) : _a(a) {}
 		testClassForSafetyException(testClassForSafetyException const& other)
 			: _a(other._a) {if (_a == 0) {throw std::exception();}}
+		int geta(void) const {return (_a);}
 	private:
+		testClassForSafetyException(void) : _a(2) {}
 		int _a;
-};*/
+};
+std::ostream&	operator<<(std::ostream& os, testClassForSafetyException const& obj) {os << "a = " << obj.geta(); return (os);}
 
 struct testStruct {int a; testStruct(void) : a(3) {}};
+std::ostream&	operator<<(std::ostream& os, testStruct const& obj) {os << "a = " << obj.a; return (os);}
 
 template <template <class T, class Alloc = std::allocator<T> > class containerT>
 void
 test_list(void)
 {
+	containerT<testClassForSafetyException>	testlist;
+	//testClassForSafetyException testobj(3);
+	//testlist.push_back(testobj);
+	//std::cout << "front = " << testlist.front() << std::endl;
+
 	std::cout << __PRETTY_FUNCTION__ << std::endl;
 	containerT<int>     defaultList;
 	std::cout << std::boolalpha << ".empty() = " << defaultList.empty() << std::endl;
@@ -55,12 +64,17 @@ test_list(void)
     typename containerT<int>::iterator it = defaultList.begin();
 	containerT<testStruct> structlist;
 	structlist.push_back(testStruct());
+	structlist.push_back(testStruct());
+	structlist.push_back(testStruct());
     typename containerT<testStruct>::iterator it2 = structlist.begin();
 	std::cout << (*it2).a << std::endl;
 	std::cout << it2->a << std::endl;
+	it2++; it2++; it2++;
+	//std::cout << "deference end on structlist = " << *it2 << std::endl;
     typename containerT<int>::iterator ite = defaultList.end();
 	while (it != ite)
 		std::cout << *it++ << std::endl;
+	//std::cout << "deference end = " << *it << std::endl;
 	std::cout << std::endl;
 
 	std::cout << "Copy construction test with defaultList2 : " << std::endl;
