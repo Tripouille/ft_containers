@@ -27,21 +27,10 @@ ft::List<T, Alloc>::List(List const & other) : _alloc(other._alloc), _size(0), _
 	_copy(other);
 }
 
-/* Node */
-
-template <class T, class Alloc>
-typename ft::List<T, Alloc>::node *
-ft::List<T, Alloc>::_new_node(const T & v, node * p, node * n)
-{
-	node * _n = _node_alloc.allocate(1);
-	_node_alloc.construct(_n, node(v, p, n));
-	return (_n);
-}
-
 /* Iterator */
 template <class T, class Alloc>
-ft::List<T, Alloc>::Iterator::Iterator(node * t)
-	: ft::List<T, Alloc>::Iterator::AIterator(t)
+ft::List<T, Alloc>::Iterator::Iterator(DLNode<T> * t)
+							 : ft::List<T, Alloc>::Iterator::AIterator(t)
 {
 }
 
@@ -94,7 +83,7 @@ template <class T, class Alloc>
 typename ft::List<T, Alloc>::size_type
 ft::List<T, Alloc>::max_size(void) const
 {
-	return (std::numeric_limits<size_type>::max() / sizeof(node));
+	return (std::numeric_limits<size_type>::max() / sizeof(DLNode<T>));
 }
 
 /** Element access **/
@@ -159,7 +148,7 @@ ft::List<T, Alloc>::push_front(const value_type & val)
 		_head = _tail = _new_node(val, NULL, NULL);
 	else
 	{
-		node * n = _new_node(val, NULL, _head);
+		DLNode<T> * n = _new_node(val, NULL, _head);
 		_head = n;
 	}
 	++_size;
@@ -171,7 +160,7 @@ ft::List<T, Alloc>::pop_front(void)
 {
 	if (!empty())
 	{
-		node * d = _head;
+		DLNode<T> * d = _head;
 		_head = _head->next;
 		delete d;
 		--_size;
@@ -188,7 +177,7 @@ ft::List<T, Alloc>::push_back(const value_type & val)
 		_head = _tail = _new_node(val, NULL, NULL);
 	else
 	{
-		node * n = _new_node(val, _tail, NULL);
+		DLNode<T> * n = _new_node(val, _tail, NULL);
 		_tail->next = n;
 		_tail = n;
 	}
@@ -201,7 +190,7 @@ ft::List<T, Alloc>::pop_back(void)
 {
 	if (!empty())
 	{
-		node * d = _tail;
+		DLNode<T> * d = _tail;
 		_tail = _tail->prev;
 		delete d;
 		--_size;
@@ -243,7 +232,7 @@ ft::List<T, Alloc>::_copy(List const & other)
 	this->_alloc = other._alloc;
 	this->_node_alloc = other._node_alloc;
 
-	node * tmp = other._head;
+	DLNode<T> * tmp = other._head;
 	while (tmp != NULL)
 	{
 		this->push_back(tmp->value);
@@ -255,7 +244,7 @@ template <class T, class Alloc>
 void
 ft::List<T, Alloc>::_debug(void) const
 {
-	node * tmp = _head;
+	DLNode<T> * tmp = _head;
 	std::cout << "Head = " << _head << " Tail = " << _tail << std::endl;
 	std::cout << "List: [ ";
 	while (tmp != NULL)
@@ -264,4 +253,13 @@ ft::List<T, Alloc>::_debug(void) const
 		tmp = tmp->next;
 	}
 	std::cout << "]" << std::endl;
+}
+
+template <class T, class Alloc>
+typename ft::DLNode<T> *
+ft::List<T, Alloc>::_new_node(const T & v, DLNode<T> * p, DLNode<T> * n)
+{
+	DLNode<T> * _n = _node_alloc.allocate(1);
+	_node_alloc.construct(_n, DLNode<T>(v, p, n));
+	return (_n);
 }
