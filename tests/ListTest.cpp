@@ -36,9 +36,9 @@ test_list(void)
 	std::cout << "defaultList.pop_back()" << std::endl; defaultList.pop_back();
 	std::cout << "defaultList.front() = " << defaultList.front() << std::endl;
 	std::cout << "defaultList.back() = " << defaultList.back() << std::endl;
-	std::cout << "defaultList.back() = 42;" << std::endl; defaultList.back() = 42;
+	std::cout << "defaultList.back() = 42" << std::endl; defaultList.back() = 42;
 	std::cout << "defaultList.back() = " << defaultList.back() << std::endl;
-	std::cout << "defaultList.front() = 21;" << std::endl; defaultList.front() = 21;
+	std::cout << "defaultList.front() = 21" << std::endl; defaultList.front() = 21;
 	std::cout << "defaultList.front() = " << defaultList.front() << std::endl;
     typename containerT<int>::iterator it = defaultList.begin();
     std::cout << it._target->value << std::endl;
@@ -64,6 +64,10 @@ test_list(void)
 	containerT<int> const    defaultList4(4, 1);
 	std::cout << "defaultList4.back() = " << defaultList4.back() << std::endl;
 	//std::cout << "defaultList4.back() = 42;" << std::endl; defaultList4.back() = 42;
+
+	std::cout << "defaultList.assign(4, 5)" << std::endl; defaultList.assign(4, 5);
+	std::cout << "defaultList.back() = " << defaultList.back() << std::endl;
+	std::cout << "defaultList.front() = " << defaultList.front() << std::endl;
 
 	std::cout << std::endl;
 }

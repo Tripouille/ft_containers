@@ -41,7 +41,7 @@ ft::List<T, Alloc>::_new_node(const T & v, node * p, node * n)
 /* Iterator */
 template <class T, class Alloc>
 ft::List<T, Alloc>::Iterator::Iterator(node * t)
-														 : ft::List<T, Alloc>::Iterator::AIterator(t)
+	: ft::List<T, Alloc>::Iterator::AIterator(t)
 {
 }
 
@@ -140,6 +140,16 @@ ft::List<T, Alloc>::back(void) const
 }
 
 /** Modifiers **/
+
+/** fill	(2) **/
+template <class T, class Alloc>
+void
+ft::List<T, Alloc>::assign(size_type n, const value_type & val)
+{
+	clear();
+	for (; n; --n)
+		push_back(val);
+}
 
 template <class T, class Alloc>
 void
