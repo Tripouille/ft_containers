@@ -4,7 +4,7 @@
 /** default	(1) **/
 template <typename T, class Alloc>
 ft::List<T, Alloc>::List(const allocator_type & alloc)
-									 : _alloc(alloc), _size(0), _head(NULL), _tail(NULL)
+									 : _alloc(alloc), _size(0), _head(&_end), _tail(&_end)
 {
 }
 
@@ -12,7 +12,7 @@ ft::List<T, Alloc>::List(const allocator_type & alloc)
 template <typename T, class Alloc>
 ft::List<T, Alloc>::List(size_type n, const value_type & val,
 												const allocator_type & alloc)
-					 				 : _alloc(alloc), _size(0), _head(NULL), _tail(NULL)
+					 				 : _alloc(alloc), _size(0), _head(&_end), _tail(&_end)
 {
 	for (; n; --n)
 		push_front(val);
@@ -22,7 +22,7 @@ ft::List<T, Alloc>::List(size_type n, const value_type & val,
 
 /** copy		(4) **/
 template <class T, class Alloc>
-ft::List<T, Alloc>::List(List const & other) : _alloc(other._alloc), _size(0), _head(NULL), _tail(NULL)
+ft::List<T, Alloc>::List(List const & other) : _alloc(other._alloc), _size(0), _head(&_end), _tail(&_end)
 {
 	_copy(other);
 }
@@ -56,12 +56,33 @@ ft::List<T, Alloc>::begin(void)
 	return (iterator(_head));
 }
 
+template <class T, class Alloc>
+typename ft::List<T, Alloc>::const_iterator
+ft::List<T, Alloc>::begin(void) const
+{
+	return (iterator(_head));
+}
+
+template <class T, class Alloc>
+typename ft::List<T, Alloc>::iterator
+ft::List<T, Alloc>::end(void)
+{
+	return (iterator(&_end));
+}
+
+template <class T, class Alloc>
+typename ft::List<T, Alloc>::const_iterator
+ft::List<T, Alloc>::end(void) const
+{
+	return (iterator(&_end));
+}
+
 /** Capacity **/
 template <class T, class Alloc>
 bool
 ft::List<T, Alloc>::empty(void) const
 {
-	return (_head == NULL);
+	return (_size == 0);
 }
 
 template <class T, class Alloc>
@@ -130,6 +151,7 @@ ft::List<T, Alloc>::assign(size_type n, const value_type & val)
 	clear();
 	for (; n; --n)
 		push_back(val);
+	_actualize_end();
 }
 
 template <class T, class Alloc>
@@ -144,6 +166,7 @@ ft::List<T, Alloc>::push_front(const value_type & val)
 		_head = n;
 	}
 	++_size;
+	_actualize_end();
 }
 
 template <class T, class Alloc>
@@ -156,8 +179,7 @@ ft::List<T, Alloc>::pop_front(void)
 		_head = _head->next;
 		delete d;
 		--_size;
-		if (!empty())
-			_head->prev = NULL;
+		_actualize_end();
 	}
 }
 
@@ -174,6 +196,7 @@ ft::List<T, Alloc>::push_back(const value_type & val)
 		_tail = n;
 	}
 	++_size;
+	_actualize_end();
 }
 
 template <class T, class Alloc>
@@ -186,8 +209,7 @@ ft::List<T, Alloc>::pop_back(void)
 		_tail = _tail->prev;
 		delete d;
 		--_size;
-		if (!empty())
-			_tail->next = NULL;
+		_actualize_end();
 	}
 }
 
@@ -195,23 +217,31 @@ template <class T, class Alloc>
 void
 ft::List<T, Alloc>::swap(List & x)
 {
-	std::swap(_size, x._size);
-	std::swap(_head, x._head);
-	std::swap(_tail, x._tail);
+	if (this != &x)
+	{
+		std::swap(_alloc, x._alloc);
+		std::swap(_node_alloc, x._node_alloc);
+		std::swap(_size, x._size);
+		std::swap(_head, x._head);
+		std::swap(_tail, x._tail);
+		_actualize_end();
+		x._actualize_end();
+	}
 }
 
 template <class T, class Alloc>
 void
 ft::List<T, Alloc>::clear(void)
 {
-	while (!empty())
+	while (_head != &_end)
 	{
 		_tail = _head;
 		_head = _head->next;
 		delete _tail;
 	}
-	_tail = NULL;
+	_tail = &_end;
 	_size = 0;
+	_actualize_end();
 }
 
 /** Operations **/
@@ -221,13 +251,13 @@ template <class T, class Alloc>
 void
 ft::List<T, Alloc>::_copy(List const & other)
 {
-	this->_alloc = other._alloc;
-	this->_node_alloc = other._node_alloc;
+	_alloc = other._alloc;
+	_node_alloc = other._node_alloc;
 
 	DLNode<T> * tmp = other._head;
-	while (tmp != NULL)
+	while (tmp != &other._end)
 	{
-		this->push_back(tmp->value);
+		push_back(tmp->value);
 		tmp = tmp->next;
 	}
 }
@@ -239,7 +269,7 @@ ft::List<T, Alloc>::_debug(void) const
 	DLNode<T> * tmp = _head;
 	std::cout << "Head = " << _head << " Tail = " << _tail << std::endl;
 	std::cout << "List: [ ";
-	while (tmp != NULL)
+	while (tmp != &_end)
 	{
 		std::cout << tmp->value << " ";
 		tmp = tmp->next;
@@ -254,4 +284,19 @@ ft::List<T, Alloc>::_new_node(const T & v, DLNode<T> * p, DLNode<T> * n)
 	DLNode<T> * _n = _node_alloc.allocate(1);
 	_node_alloc.construct(_n, DLNode<T>(v, p, n));
 	return (_n);
+}
+
+template <class T, class Alloc>
+void
+ft::List<T, Alloc>::_actualize_end(void)
+{
+	_end.next = _head;
+	_end.prev = _tail;
+	if (!empty())
+	{
+		_head->prev = &_end;
+		_tail->next = &_end;
+	}
+	else
+		_head = _tail = &_end;
 }

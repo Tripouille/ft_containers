@@ -42,7 +42,9 @@ namespace ft
 		/* Public functions */
 			/** Iterator **/
 				iterator begin(void);
-				//const_iterator begin(void) const;
+				const_iterator begin(void) const;
+				iterator end(void);
+				const_iterator end(void) const;
 			/** Capacity **/
 				bool empty(void) const;
 				size_type size(void) const;
@@ -72,13 +74,16 @@ namespace ft
 			void _copy(List const & other);
 			void _debug(void) const;
 			DLNode<T> * _new_node(const T & v, DLNode<T> * p, DLNode<T> * n);
+			void _actualize_end(void);
+
 
 		/* Private variables */
 			allocator_type			_alloc;
 			node_allocator_type		_node_alloc;
 			size_type				_size;
-			node *					_head;
-			node *					_tail;
+			DLNode<T> *				_head;
+			DLNode<T> *				_tail;
+			DLNode<T>				_end;
 	};
 }
 
