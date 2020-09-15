@@ -14,7 +14,7 @@ namespace ft
 		/* Private struct */
 			struct node
 			{
-				T				value;
+				T		value;
 				node *	prev;
 				node *	next;
 				node(const T & v, node * p, node * n)
@@ -81,6 +81,8 @@ namespace ft
 				void push_back(const value_type & val);
 				void pop_back(void);
 
+				void swap(List & x);
+
 				void clear(void);
 			/** Operations **/
 
@@ -91,11 +93,11 @@ namespace ft
 			node * _new_node(const T & v, node * p, node * n);
 
 		/* Private variables */
-			allocator_type				_alloc;
+			allocator_type			_alloc;
 			node_allocator_type		_node_alloc;
-			size_type							_size;
-			node *								_head;
-			node *								_tail;
+			size_type				_size;
+			node *					_head;
+			node *					_tail;
 	};
 }
 

@@ -78,7 +78,23 @@ test_list(void)
 	std::cout << "defaultList.front() = " << defaultList.front() << std::endl;
 	std::cout << "defaultList.assign(0, 5)" << std::endl; defaultList.assign(0, 5);
 	std::cout << "defaultList.size() = " << defaultList.size() << std::endl;
+	std::cout << std::endl;
 
+	std::cout << "Swap test : " << std::endl;
+	std::cout << "defaultList.size() = " << defaultList.size() << std::endl;
+	std::cout << "defaultList2.size() = " << defaultList2.size() << std::endl;
+	std::cout << "defaultList2.front() = " << defaultList2.front() << std::endl;
+	std::cout << "defaultList.swap(defaultList2)" << std::endl; defaultList.swap(defaultList2);
+	std::cout << "defaultList.size() = " << defaultList.size() << std::endl;
+	std::cout << "defaultList.front() = " << defaultList.front() << std::endl;
+	std::cout << "defaultList2.size() = " << defaultList2.size() << std::endl;
+	std::cout << "defaultList3.push_front(3)" << std::endl; defaultList3.push_front(3);
+	std::cout << "defaultList3.size() = " << defaultList3.size() << std::endl;
+	std::cout << "defaultList.swap(defaultList3)" << std::endl; defaultList.swap(defaultList3);
+	std::cout << "defaultList.size() = " << defaultList.size() << std::endl;
+	std::cout << "defaultList.front() = " << defaultList.front() << std::endl;
+	std::cout << "defaultList3.size() = " << defaultList3.size() << std::endl;
+	std::cout << "defaultList3.front() = " << defaultList3.front() << std::endl;
 	std::cout << std::endl;
 }
 

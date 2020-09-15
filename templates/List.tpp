@@ -212,6 +212,15 @@ ft::List<T, Alloc>::pop_back(void)
 
 template <class T, class Alloc>
 void
+ft::List<T, Alloc>::swap(List & x)
+{
+	std::swap(_size, x._size);
+	std::swap(_head, x._head);
+	std::swap(_tail, x._tail);
+}
+
+template <class T, class Alloc>
+void
 ft::List<T, Alloc>::clear(void)
 {
 	while (!empty())
