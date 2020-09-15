@@ -59,7 +59,7 @@ typename ft::DLNode<T>::Iterator &
 ft::DLNode<T>::Iterator::operator=(DLNode const & other)
 {
 	if (this != &other)
-		ft::DLNode<T>::Iterator::AIterator::_copy(other);
+		ft::DLNode<T>::Iterator::AIterator::operator=(other);
 	return (*this);
 }
 
@@ -112,16 +112,15 @@ ft::DLNode<T>::Iterator::operator*(void) const
 }
 
 template <class T>
-T &
+T *
 ft::DLNode<T>::Iterator::operator->(void)
 {
-	return (*Iterator::_target->value);
-
+	return (&(Iterator::_target->value));
 }
 
 template <class T>
-T &
+T *
 ft::DLNode<T>::Iterator::operator->(void) const
 {
-	return (*Iterator::_target->value);
+	return (&(Iterator::_target->value));
 }

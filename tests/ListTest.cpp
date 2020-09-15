@@ -27,6 +27,8 @@ print_list(T list)
 		int _a;
 };*/
 
+struct testStruct {int a; testStruct(void) : a(3) {}};
+
 template <template <class T, class Alloc = std::allocator<T> > class containerT>
 void
 test_list(void)
@@ -51,6 +53,11 @@ test_list(void)
 	std::cout << "defaultList.front() = 21" << std::endl; defaultList.front() = 21;
 	std::cout << "defaultList.front() = " << defaultList.front() << std::endl;
     typename containerT<int>::iterator it = defaultList.begin();
+	containerT<testStruct> structlist;
+	structlist.push_back(testStruct());
+    typename containerT<testStruct>::iterator it2 = structlist.begin();
+	std::cout << (*it2).a << std::endl;
+	std::cout << it2->a << std::endl;
     typename containerT<int>::iterator ite = defaultList.end();
 	while (it != ite)
 		std::cout << *it++ << std::endl;
@@ -60,8 +67,9 @@ test_list(void)
 	std::cout << "defaultList2(defaultList)" << std::endl;
 	containerT<int>		defaultList2(defaultList);
 	std::cout << "defaultList2.size() = " << defaultList2.size() << std::endl;
-	std::cout << "defaultList2.front() = " << defaultList2.front() << std::endl;
-	std::cout << "defaultList2.back() = " << defaultList2.back() << std::endl;
+	//std::cout << "defaultList2.front() = " << defaultList2.front() << std::endl;
+	//std::cout << "defaultList2.back() = " << defaultList2.back() << std::endl;
+	std::cout << "defaultList2 = "; print_list(defaultList2);
 	std::cout << "defaultList2.push_back(84)" << std::endl; defaultList2.push_back(84);
 	std::cout << std::endl;
 
@@ -111,11 +119,14 @@ test_list(void)
 
 	/*std::cout << "Exception-safety tests :" << std::endl;
 	containerT<testClassForSafetyException> safelist;
-	testClassForSafetyException testobject; //ok seulement si constructeur par défaut
+	testClassForSafetyException testobject;
 	try {safelist.push_back(testobject);}
 	catch(...) {std::cerr << "catched exception" << std::endl;}
 	std::cout << "size = " << safelist.size() << std::endl;
 	std::cout << std::endl;*/
+
+	std::cout << std::endl;
+
 }
 
 int

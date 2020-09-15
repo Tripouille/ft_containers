@@ -21,8 +21,8 @@ namespace ft
 				Iterator		operator--(int);
 				T &				operator*(void);
 				T &				operator*(void) const;
-				T &				operator->(void);
-				T &				operator->(void) const;
+				T *				operator->(void);
+				T *				operator->(void) const;
 		};
 
 		typedef Iterator iterator;
