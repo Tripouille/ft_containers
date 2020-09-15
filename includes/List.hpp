@@ -64,8 +64,8 @@ namespace ft
 				const_reference back(void) const;
 
 			/** Modifiers **/
-				/*** range (1) ***/	template <class InputIterator>
-				 										void assign(InputIterator first, InputIterator last);
+				/*** range (1) ***/	/*template <class InputIterator>
+				 										void assign(InputIterator first, InputIterator last);*/
 				/*** fill (2) ***/	void assign (size_type n, const value_type & val);
 				void push_front(const value_type & val);
 				void pop_front(void);

@@ -130,6 +130,16 @@ ft::List<T, Alloc>::back(void) const
 
 /** Modifiers **/
 
+/** fill	(2) **/
+template <class T, class Alloc>
+void
+ft::List<T, Alloc>::assign(size_type n, const value_type & val)
+{
+	clear();
+	for (; n; --n)
+		push_back(val);
+}
+
 template <class T, class Alloc>
 void
 ft::List<T, Alloc>::push_front(const value_type & val)
