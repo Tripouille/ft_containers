@@ -20,20 +20,31 @@ namespace ft
 				Iterator		operator++(int);
 				Iterator &		operator--(void);
 				Iterator		operator--(int);
-				T &				operator*(void);
 				T &				operator*(void) const;
-				T *				operator->(void);
 				T *				operator->(void) const;
 			protected:
 				void			_copy(Iterator const & other);
 				DLNode<T> *		_target;
 		};
 
+		class CIterator : public Iterator
+		{
+			public:
+				CIterator(DLNode<T> * t = NULL);
+				CIterator(Iterator const & it);
+				~CIterator(void);
+				CIterator(CIterator const & other);
+
+				CIterator &		operator=(CIterator const & other);
+				T const &		operator*(void) const;
+				T const *		operator->(void) const;
+		};
+
 		class RIterator : public Iterator
 		{
 			public:
 				RIterator(DLNode<T> * t = NULL);
-				~RIterator(void);
+				virtual ~RIterator(void);
 				RIterator(RIterator const & other);
 
 				RIterator &		operator=(RIterator const & other);
@@ -44,7 +55,7 @@ namespace ft
 		};
 
 		typedef Iterator iterator;
-		typedef const iterator const_iterator;
+		typedef CIterator const_iterator;
 		typedef RIterator reverse_iterator;
 		typedef const reverse_iterator const_reverse_iterator;
 

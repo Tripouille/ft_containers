@@ -65,7 +65,7 @@ template <class T, class Alloc>
 typename ft::list<T, Alloc>::const_iterator
 ft::list<T, Alloc>::begin(void) const
 {
-	return (iterator(_head));
+	return (const_iterator(_head));
 }
 
 template <class T, class Alloc>

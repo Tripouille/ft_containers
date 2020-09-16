@@ -20,7 +20,7 @@ namespace ft
 			typedef const value_type * const_pointer;
 			typedef unsigned long size_type;
 			typedef typename ft::DLNode<T>::iterator iterator;
-			typedef const iterator const_iterator;
+			typedef typename ft::DLNode<T>::const_iterator const_iterator;
 			typedef typename ft::DLNode<T>::reverse_iterator reverse_iterator;
 			typedef const reverse_iterator const_reverse_iterator;
 

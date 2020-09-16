@@ -126,13 +126,6 @@ ft::DLNode<T>::Iterator::operator--(int)
 
 template <class T>
 T &
-ft::DLNode<T>::Iterator::operator*(void)
-{
-	return (Iterator::_target->value);
-}
-
-template <class T>
-T &
 ft::DLNode<T>::Iterator::operator*(void) const
 {
 	return (Iterator::_target->value);
@@ -140,16 +133,57 @@ ft::DLNode<T>::Iterator::operator*(void) const
 
 template <class T>
 T *
-ft::DLNode<T>::Iterator::operator->(void)
+ft::DLNode<T>::Iterator::operator->(void) const
 {
 	return (&(Iterator::_target->value));
 }
 
+/* CIterator */
 template <class T>
-T *
-ft::DLNode<T>::Iterator::operator->(void) const
+ft::DLNode<T>::CIterator::CIterator(DLNode<T> * t)
+						: iterator(t)
 {
-	return (&(Iterator::_target->value));
+}
+
+template <class T>
+ft::DLNode<T>::CIterator::CIterator(Iterator const & it)
+						: iterator(it)
+{
+}
+
+template <class T>
+ft::DLNode<T>::CIterator::~CIterator(void)
+{
+}
+
+
+template <class T>
+ft::DLNode<T>::CIterator::CIterator(CIterator const & other)
+						 : iterator(other)
+{
+}
+
+template <class T>
+typename ft::DLNode<T>::CIterator &
+ft::DLNode<T>::CIterator::operator=(CIterator const & other)
+{
+	if (this != &other)
+		iterator::operator=(other);
+	return (*this);
+}
+
+template <class T>
+T const &
+ft::DLNode<T>::CIterator::operator*(void) const
+{
+	return (CIterator::_target->value);
+}
+
+template <class T>
+T const *
+ft::DLNode<T>::CIterator::operator->(void) const
+{
+	return (&(CIterator::_target->value));
 }
 
 /* RIterator */
