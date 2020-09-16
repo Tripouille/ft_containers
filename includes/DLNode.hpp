@@ -30,7 +30,7 @@ namespace ft
 
 		DLNode(void);
 		DLNode(const T & v, DLNode * p = NULL, DLNode * n = NULL);
-		virtual ~DLNode(void);
+		~DLNode(void);
 		DLNode(DLNode const & other);
 
 		DLNode &				operator=(DLNode const & other);
