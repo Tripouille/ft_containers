@@ -7,7 +7,7 @@ ft::DLNode<T>::DLNode(void) : prev(NULL), next(NULL)
 
 template <class T>
 ft::DLNode<T>::DLNode(const T & v, DLNode * p, DLNode * n)
-		  : value(v), prev(p), next(n)
+		  	  : value(v), prev(p), next(n)
 {
 }
 
@@ -18,6 +18,7 @@ ft::DLNode<T>::~DLNode(void)
 
 template <class T>
 ft::DLNode<T>::DLNode(DLNode const & other)
+			  : value(other.value)
 {
 	DLNode<T>::_copy(other);
 }

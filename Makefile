@@ -25,7 +25,7 @@ $(CONTAINERS): %: tests/%Test
 	valgrind -q --leak-check=full ./$<
 	cat results/ft::$@.result
 	$(COLOR)
-	diff -s --unified=0 results/ft::$@.result results/std::$@.result
+	#diff -s --unified=0 results/ft::$@.result results/std::$@.result
 
 clean:
 	$(COLOR)

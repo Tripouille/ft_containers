@@ -4,7 +4,7 @@
 /** default	(1) **/
 template <typename T, class Alloc>
 ft::list<T, Alloc>::list(const allocator_type & alloc)
-							: _alloc(alloc), _size(0), _end(_node_alloc.allocate(1))
+				: _alloc(alloc), _size(0), _end(_node_alloc.allocate(1))
 {
 	_head = _tail = _end;
 }
@@ -13,7 +13,7 @@ ft::list<T, Alloc>::list(const allocator_type & alloc)
 template <typename T, class Alloc>
 ft::list<T, Alloc>::list(size_type n, const value_type & val,
 										const allocator_type & alloc)
-							: _alloc(alloc), _size(0), _end(_node_alloc.allocate(1))
+				   : _alloc(alloc), _size(0), _end(_node_alloc.allocate(1))
 {
 	_head = _tail = _end;
 	for (; n; --n)
@@ -24,7 +24,8 @@ ft::list<T, Alloc>::list(size_type n, const value_type & val,
 
 /** copy		(4) **/
 template <class T, class Alloc>
-ft::list<T, Alloc>::list(list const & other) : _alloc(other._alloc), _size(0), _end(_node_alloc.allocate(1))
+ft::list<T, Alloc>::list(list const & other)
+				   : _alloc(other._alloc), _size(0), _end(_node_alloc.allocate(1))
 {
 	_head = _tail = _end;
 	_copy(other);
