@@ -37,18 +37,19 @@ class testClassForSafetyException
 };
 std::ostream&	operator<<(std::ostream& os, testClassForSafetyException const& obj) {os << "a = " << obj.geta(); return (os);}
 
-
-class TestClass
+class NoDefaultConstructorClass
 {
 	public:
-		TestClass(int a) : _a(a) {}
-		TestClass(TestClass const& other) : _a(other._a) {}
+		NoDefaultConstructorClass(int a) : _a(a) {}
+		NoDefaultConstructorClass(NoDefaultConstructorClass const& other) : _a(other._a) {}
+		~NoDefaultConstructorClass() {}
+		NoDefaultConstructorClass& operator=(NoDefaultConstructorClass const& other) {_a = other._a; return (*this);}
 		int geta(void) const {return (_a);}
 	private:
 		int _a;
-		TestClass(void) : _a(2) {}
+		NoDefaultConstructorClass(void) : _a(2) {}
 };
-std::ostream&	operator<<(std::ostream& os, TestClass const& obj) {os << obj.geta(); return (os);}
+std::ostream&	operator<<(std::ostream& os, NoDefaultConstructorClass const& obj) {os << obj.geta(); return (os);}
 
 struct testStruct {int a; testStruct(void) : a(3) {}};
 std::ostream&	operator<<(std::ostream& os, testStruct const& obj) {os << "a = " << obj.a; return (os);}
@@ -72,7 +73,7 @@ test_list(void)
 
 	FILE << CATEGORY << "===> Basic tests with <int>" << ENDL;
 	FILE << SUBCATEGORY << "=====> Empty list" << ENDL;
-	FILE << "containerT<int> listA;" << ENDL; containerT<int> listA;
+	FILE << "ft::list<int> listA;" << ENDL; containerT<int> listA;
 	print_list(listA, "listA", f);
 	FILE << "listA.max_size() = " << OUTPUT << listA.max_size() << ENDL;
 	FILE << std::boolalpha << "listA.empty() = " << OUTPUT << listA.empty() << ENDL;
@@ -109,7 +110,7 @@ test_list(void)
 	FILE << ENDL;
 
 	FILE << CATEGORY << "===> Fill constructor" << ENDL;
-	FILE << "containerT<int> listB(3, -1);" << ENDL; containerT<int> listB(3, -1);
+	FILE << "ft::list<int> listB(4, -1);" << ENDL; containerT<int> listB(4, -1);
 	print_list(listB, "listB", f);
 	FILE << std::boolalpha << "listB.empty() = " << OUTPUT << listB.empty() << ENDL;
 	FILE << "listB.size() = " << OUTPUT << listB.size() << ENDL;
@@ -119,7 +120,7 @@ test_list(void)
 
 	FILE << CATEGORY << "===> Copy constructor" << ENDL;
 	print_list(listA, "listA", f);
-	FILE << "containerT<int> listC(listA);" << ENDL; containerT<int> listC(listA);
+	FILE << "ft::list<int> listC(listA);" << ENDL; containerT<int> listC(listA);
 	print_list(listA, "listA", f);
 	print_list(listC, "listC", f);
 	FILE << "listC.size() = " << OUTPUT << listC.size() << ENDL;
@@ -128,66 +129,48 @@ test_list(void)
 	FILE << CATEGORY << "===> Operator=" << ENDL;
 	print_list(listA, "listA", f);
 	print_list(listB, "listB", f);
+	FILE << "listA = listB;" << ENDL; listA = listB;
+	print_list(listA, "listA", f);
+	FILE << "listA.size() = " << OUTPUT << listA.size() << ENDL;
+	FILE << "listA.push_front(0);" << ENDL; listA.push_front(0);
+	print_list(listA, "listA", f);
+	print_list(listB, "listB", f);
 	FILE << ENDL;
 
 	FILE << CATEGORY << "===> Basic tests with <int> const list" << ENDL;
-	FILE << "containerT<int> const listD(3, -2);" << ENDL; containerT<int> const listD(3, -2);
+	FILE << "ft::list<int> const listD(3, -2);" << ENDL; containerT<int> const listD(3, -2);
 	print_list(listD, "listD", f);
 	FILE << std::boolalpha << "listD.empty() = " << OUTPUT << listD.empty() << ENDL;
 	FILE << "listD.size() = " << OUTPUT << listD.size() << ENDL;
 	FILE << "listD.front() = " << OUTPUT << listD.front() << ENDL;
-	FILE << "listD.back() = " << OUTPUT << listC.back() << ENDL;
+	FILE << "listD.back() = " << OUTPUT << listD.back() << ENDL;
 	FILE << ENDL;
 
-	FILE << CATEGORY << "===> Basic tests with <TestClass>, a class with no default constructor" << ENDL;
+	FILE << CATEGORY << "===> Basic tests with <NoDefaultConstructorClass>, a class with no default constructor" << ENDL;
 	FILE << SUBCATEGORY << "=====> Empty list" << ENDL;
-	FILE << "containerT<TestClass> listE;" << ENDL; containerT<TestClass> listE;
+	FILE << "ft::list<NoDefaultConstructorClass> listE;" << ENDL; containerT<NoDefaultConstructorClass> listE;
 	print_list(listE, "listE", f);
 	FILE << "listE.max_size() = " << OUTPUT << listE.max_size() << ENDL;
 	FILE << std::boolalpha << "listE.empty() = " << OUTPUT << listE.empty() << ENDL;
 	FILE << "listE.size() = " << OUTPUT << listE.size() << ENDL;
 	FILE << SUBCATEGORY << "=====> Pushing" << ENDL;
-	FILE << "listE.push_front(TestClass(2));" << ENDL; listE.push_front(TestClass(2));
+	FILE << "listE.push_front(NoDefaultConstructorClass(2));" << ENDL; listE.push_front(NoDefaultConstructorClass(2));
 	print_list(listE, "listE", f);
 	FILE << "listE.size() = " << OUTPUT << listE.size() << ENDL;
-	FILE << "listE.push_front(TestClass(1));" << ENDL; listE.push_front(TestClass(1));
+	FILE << "listE.push_front(NoDefaultConstructorClass(1));" << ENDL; listE.push_front(NoDefaultConstructorClass(1));
 	print_list(listE, "listE", f);
 	FILE << std::boolalpha << "listE.empty() = " << OUTPUT << listE.empty() << ENDL;
-	FILE << "listE.push_back(TestClass(3));" << ENDL; listE.push_back(TestClass(3));
+	FILE << "listE.push_back(NoDefaultConstructorClass(3));" << ENDL; listE.push_back(NoDefaultConstructorClass(3));
 	print_list(listE, "listE", f);
-	FILE << "listE.push_back(TestClass(4));" << ENDL; listE.push_back(TestClass(4));
+	FILE << "listE.push_back(NoDefaultConstructorClass(4));" << ENDL; listE.push_back(NoDefaultConstructorClass(4));
 	print_list(listE, "listE", f);
 	FILE << SUBCATEGORY << "=====> Front and back" << ENDL;
-	FILE << "listE.back() = 5;" << ENDL; listE.back() = 5;
-	print_list(listE, "listE", f);
-	FILE << "listE.front() = 6;" << ENDL; listE.front() = 6;
+	FILE << "listE.back() = NoDefaultConstructorClass(9);" << ENDL; listE.back() = NoDefaultConstructorClass(9);
+	FILE << "listE.front() = NoDefaultConstructorClass(-9);" << ENDL; listE.front() = NoDefaultConstructorClass(-9);
 	print_list(listE, "listE", f);
 	FILE << ENDL;
 
-
-	/*std::cout << "Copy construction test with defaultList2 : " << std::endl;
-	std::cout << "defaultList2(defaultList)" << std::endl;
-	containerT<int>		defaultList2(defaultList);
-	std::cout << "defaultList2.size() = " << defaultList2.size() << std::endl;
-	//std::cout << "defaultList2.front() = " << defaultList2.front() << std::endl;
-	//std::cout << "defaultList2.back() = " << defaultList2.back() << std::endl;
-	std::cout << "defaultList2 = "; print_list(defaultList2);
-	std::cout << "defaultList2.push_back(84)" << std::endl; defaultList2.push_back(84);
-	std::cout << std::endl;
-
-	std::cout << "Test on operator= with defaultList3 : " << std::endl;
-	std::cout << "defaultList3(defaultList)" << std::endl;
-	containerT<int>		defaultList3(defaultList);
-	std::cout << "defaultList3 = defaultList2" << std::endl; defaultList3 = defaultList2;
-	std::cout << "defaultList3.size() = " << defaultList3.size() << std::endl;
-	std::cout << "defaultList2.front() = " << defaultList2.front() << std::endl;
-	std::cout << "defaultList2.back() = " << defaultList2.back() << std::endl;
-	std::cout << std::endl;
-
-	//containerT<int>     fillList(10000,7);
-	//std::cout << ".size() = " << fillList.size() << std::endl;
-
-	std::cout << "Assign test (back on defaultList) : " << std::endl;
+	/*	std::cout << "Assign test (back on defaultList) : " << std::endl;
 	std::cout << "defaultList.assign(4, 5)" << std::endl; defaultList.assign(4, 5);
 	std::cout << "defaultList.size() = " << defaultList.size() << std::endl;
 	std::cout << "defaultList.back() = " << defaultList.back() << std::endl;
