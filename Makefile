@@ -1,7 +1,7 @@
 
 CONTAINERS	= list #Vector
-INCLUDES	= $(CONTAINERS:%=includes/%.hpp) $(addprefix includes/, AIterator.hpp DLNode.hpp Color.hpp)
-TEMPLATE	= $(CONTAINERS:%=templates/%.tpp) $(addprefix templates/, AIterator.tpp DLNode.tpp)
+INCLUDES	= $(CONTAINERS:%=includes/%.hpp) $(addprefix includes/, DLNode.hpp Color.hpp)
+TEMPLATE	= $(CONTAINERS:%=templates/%.tpp) $(addprefix templates/,  DLNode.tpp)
 OBJS		= $(CONTAINERS:%=tests/%Test.o)
 BINS		= $(CONTAINERS:%=tests/%Test)
 RESULTS		= $(CONTAINERS:%=results/ft::%.result) $(CONTAINERS:%=results/std::%.result)
@@ -25,7 +25,7 @@ $(CONTAINERS): %: tests/%Test
 	valgrind -q --leak-check=full ./$<
 	cat results/ft::$@.result
 	$(COLOR)
-	#diff -s --unified=0 results/ft::$@.result results/std::$@.result
+	diff -s --unified=0 results/ft::$@.result results/std::$@.result
 
 $(addsuffix all, $(CONTAINERS)): %all: tests/%Test
 	$(COLOR)
