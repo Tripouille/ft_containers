@@ -169,7 +169,7 @@ test_list(void)
 	print_list(listE, "listE", f);
 	FILE << ENDL;
 
-	FILE << CATEGORY << "===> Exception-safety test with <ThrowingExceptionClass>,"
+	FILE << CATEGORY << "===> Exception-safety test with <ThrowingExceptionClass>, "
 						"a class which throws an exception in copy constructor" << ENDL;
 	FILE << "list<ThrowingExceptionClass> listF;" << ENDL; containerT<ThrowingExceptionClass> listF;
 	FILE << "ThrowingExceptionClass testObject;" << ENDL; ThrowingExceptionClass testObject;
@@ -184,14 +184,47 @@ test_list(void)
 	listA.clear(); listA.push_back(1); listA.push_back(2); listA.push_back(3);
 	print_list(listA, "listA", f);
 	FILE << "typename containerT<int>::iterator it = listA.begin();" << ENDL; typename containerT<int>::iterator it = listA.begin();
-	FILE << "*it = " << OUTPUT << *it << ENDL;
-	FILE << "it++;" << ENDL; it++;
-	FILE << "*it = " << OUTPUT << *it << ENDL;
-	FILE << "it++;" << ENDL; it++;
-	FILE << "*it = " << OUTPUT << *it << ENDL;
-	FILE << "it++;" << ENDL; it++;
- 
+	FILE << "typename containerT<int>::iterator ite = listA.end();" << ENDL; typename containerT<int>::iterator ite = listA.end();
+	FILE << "(*it == listA.front()) = " << OUTPUT << std::boolalpha << (*it == listA.front()) << ENDL;
+	FILE << "while (it != ite) {...; it++;}" << ENDL;
+	while (it != ite)
+	{
+		FILE << "*it = " << OUTPUT << *it << ENDL;
+		it++;
+	}
+	FILE << "it--;" << ENDL; it--;
+	FILE << "(*it == listA.back()) = " << OUTPUT << std::boolalpha << (*it == listA.back()) << ENDL;
+	FILE << "*it = 42;" << ENDL; *it = 42;
+	print_list(listA, "listA", f);
 	FILE << ENDL;
+
+	FILE << CATEGORY << "===> Const iterators" << ENDL;
+	FILE << "typename containerT<int>::const_iterator c_it = listA.begin();" << ENDL; typename containerT<int>::const_iterator c_it = listA.begin();
+	FILE << "typename containerT<int>::const_iterator c_ite = listA.end();" << ENDL; typename containerT<int>::const_iterator c_ite = listA.end();
+	FILE << "(*c_it == listA.front()) = " << OUTPUT << std::boolalpha << (*c_it == listA.front()) << ENDL;
+	FILE << "while (c_it != c_ite) {...; c_it++;}" << ENDL;
+	while (c_it != c_ite)
+	{
+		FILE << "*c_it = " << OUTPUT << *c_it << ENDL;
+		c_it++;
+	}
+	FILE << "c_it--;" << ENDL; c_it--;
+	FILE << "(*c_it == listA.back()) = " << OUTPUT << std::boolalpha << (*c_it == listA.back()) << ENDL;
+	FILE << ENDL;
+
+	FILE << CATEGORY << "===> Reverse iterators" << ENDL;
+	FILE << "typename containerT<int>::reverse_iterator r_it = listA.rbegin();" << ENDL; typename containerT<int>::reverse_iterator r_it = listA.rbegin();
+	FILE << "typename containerT<int>::reverse_iterator r_ite = listA.rend();" << ENDL; typename containerT<int>::reverse_iterator r_ite = listA.rend();
+	FILE << "while (r_it != r_ite) {...; r_it++;}" << ENDL;
+	while (r_it != r_ite)
+	{
+		FILE << "*r_it = " << OUTPUT << *r_it << ENDL;
+		r_it++;
+	}
+	FILE << "r_it--;" << ENDL; r_it--;
+	FILE << "(*r_it == listA.front()) = " << OUTPUT << std::boolalpha << (*r_it == listA.front()) << ENDL;
+	FILE << ENDL;
+
 
 	/*	std::cout << "Assign test (back on defaultList) : " << std::endl;
 	std::cout << "defaultList.assign(4, 5)" << std::endl; defaultList.assign(4, 5);

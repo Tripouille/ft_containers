@@ -155,7 +155,7 @@ ft::DLNode<T>::Iterator::operator->(void) const
 /* RIterator */
 template <class T>
 ft::DLNode<T>::RIterator::RIterator(DLNode<T> * t)
-						: ft::DLNode<T>::RIterator::Iterator(t)
+						 : iterator(t)
 {
 }
 
@@ -167,7 +167,7 @@ ft::DLNode<T>::RIterator::~RIterator(void)
 
 template <class T>
 ft::DLNode<T>::RIterator::RIterator(RIterator const & other)
-						: ft::DLNode<T>::RIterator::Iterator(other)
+						: iterator(other)
 {
 }
 
@@ -176,7 +176,7 @@ typename ft::DLNode<T>::RIterator &
 ft::DLNode<T>::RIterator::operator=(RIterator const & other)
 {
 	if (this != &other)
-		ft::DLNode<T>::RIterator::Iterator::operator=(other);
+		iterator::operator=(other);
 	return (*this);
 }
 
