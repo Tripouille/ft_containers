@@ -9,33 +9,18 @@
 #define OUTPUT FG_GREEN << UNDERLINED
 #define FILE f << RESET_ALL
 
-template<class T>
-void
-print_list(T list, std::string const & name, std::ofstream & f)
-{
-	typename T::iterator begin = list.begin();
-	typename T::iterator end = list.end();
-	f << OUTPUT << name << " = [ ";
-	while (begin != end)
-	{
-			f << *begin << " ";
-			++begin;
-	}
-	f << "]" << ENDL;
-}
-
-class testClassForSafetyException
+class ThrowingExceptionClass
 {
 	public:
-		testClassForSafetyException(int a) : _a(a) {}
-		testClassForSafetyException(testClassForSafetyException const& other)
-			: _a(other._a) {if (_a == 0) {throw std::exception();}}
+		ThrowingExceptionClass(void) : _a(2) {}
+		ThrowingExceptionClass(int a) : _a(a) {}
+		ThrowingExceptionClass(ThrowingExceptionClass const& other) {(void)other; throw std::exception();}
+		~ThrowingExceptionClass() {}
+		ThrowingExceptionClass& operator=(ThrowingExceptionClass const& other) {(void)other; return (*this);}
 		int geta(void) const {return (_a);}
 	private:
-		testClassForSafetyException(void) : _a(2) {}
 		int _a;
 };
-std::ostream&	operator<<(std::ostream& os, testClassForSafetyException const& obj) {os << "a = " << obj.geta(); return (os);}
 
 class NoDefaultConstructorClass
 {
@@ -47,7 +32,7 @@ class NoDefaultConstructorClass
 		int geta(void) const {return (_a);}
 	private:
 		int _a;
-		NoDefaultConstructorClass(void) : _a(2) {}
+		NoDefaultConstructorClass(void) {}
 };
 std::ostream&	operator<<(std::ostream& os, NoDefaultConstructorClass const& obj) {os << obj.geta(); return (os);}
 
@@ -63,6 +48,20 @@ get_file_name(std::string s)
 	return (file_name);
 }
 
+template<class T>
+void
+print_list(T list, std::string const & name, std::ofstream & f)
+{
+	typename T::iterator begin = list.begin();
+	typename T::iterator end = list.end();
+	f << OUTPUT << name << " = [ ";
+	while (begin != end)
+	{
+			f << *begin << " ";
+			++begin;
+	}
+	f << "]" << ENDL;
+}
 
 template <template <class T, class Alloc = std::allocator<T> > class containerT>
 void
@@ -73,7 +72,7 @@ test_list(void)
 
 	FILE << CATEGORY << "===> Basic tests with <int>" << ENDL;
 	FILE << SUBCATEGORY << "=====> Empty list" << ENDL;
-	FILE << "ft::list<int> listA;" << ENDL; containerT<int> listA;
+	FILE << "list<int> listA;" << ENDL; containerT<int> listA;
 	print_list(listA, "listA", f);
 	FILE << "listA.max_size() = " << OUTPUT << listA.max_size() << ENDL;
 	FILE << std::boolalpha << "listA.empty() = " << OUTPUT << listA.empty() << ENDL;
@@ -110,7 +109,7 @@ test_list(void)
 	FILE << ENDL;
 
 	FILE << CATEGORY << "===> Fill constructor" << ENDL;
-	FILE << "ft::list<int> listB(4, -1);" << ENDL; containerT<int> listB(4, -1);
+	FILE << "list<int> listB(4, -1);" << ENDL; containerT<int> listB(4, -1);
 	print_list(listB, "listB", f);
 	FILE << std::boolalpha << "listB.empty() = " << OUTPUT << listB.empty() << ENDL;
 	FILE << "listB.size() = " << OUTPUT << listB.size() << ENDL;
@@ -120,7 +119,7 @@ test_list(void)
 
 	FILE << CATEGORY << "===> Copy constructor" << ENDL;
 	print_list(listA, "listA", f);
-	FILE << "ft::list<int> listC(listA);" << ENDL; containerT<int> listC(listA);
+	FILE << "list<int> listC(listA);" << ENDL; containerT<int> listC(listA);
 	print_list(listA, "listA", f);
 	print_list(listC, "listC", f);
 	FILE << "listC.size() = " << OUTPUT << listC.size() << ENDL;
@@ -138,7 +137,7 @@ test_list(void)
 	FILE << ENDL;
 
 	FILE << CATEGORY << "===> Basic tests with <int> const list" << ENDL;
-	FILE << "ft::list<int> const listD(3, -2);" << ENDL; containerT<int> const listD(3, -2);
+	FILE << "list<int> const listD(3, -2);" << ENDL; containerT<int> const listD(3, -2);
 	print_list(listD, "listD", f);
 	FILE << std::boolalpha << "listD.empty() = " << OUTPUT << listD.empty() << ENDL;
 	FILE << "listD.size() = " << OUTPUT << listD.size() << ENDL;
@@ -146,9 +145,9 @@ test_list(void)
 	FILE << "listD.back() = " << OUTPUT << listD.back() << ENDL;
 	FILE << ENDL;
 
-	FILE << CATEGORY << "===> Basic tests with <NoDefaultConstructorClass>, a class with no default constructor" << ENDL;
+	FILE << CATEGORY << "===> Basic tests with <NoDefaultConstructorClass>" << ENDL;
 	FILE << SUBCATEGORY << "=====> Empty list" << ENDL;
-	FILE << "ft::list<NoDefaultConstructorClass> listE;" << ENDL; containerT<NoDefaultConstructorClass> listE;
+	FILE << "list<NoDefaultConstructorClass> listE;" << ENDL; containerT<NoDefaultConstructorClass> listE;
 	print_list(listE, "listE", f);
 	FILE << "listE.max_size() = " << OUTPUT << listE.max_size() << ENDL;
 	FILE << std::boolalpha << "listE.empty() = " << OUTPUT << listE.empty() << ENDL;
@@ -165,9 +164,33 @@ test_list(void)
 	FILE << "listE.push_back(NoDefaultConstructorClass(4));" << ENDL; listE.push_back(NoDefaultConstructorClass(4));
 	print_list(listE, "listE", f);
 	FILE << SUBCATEGORY << "=====> Front and back" << ENDL;
-	FILE << "listE.back() = NoDefaultConstructorClass(9);" << ENDL; listE.back() = NoDefaultConstructorClass(9);
 	FILE << "listE.front() = NoDefaultConstructorClass(-9);" << ENDL; listE.front() = NoDefaultConstructorClass(-9);
+	FILE << "listE.back() = NoDefaultConstructorClass(9);" << ENDL; listE.back() = NoDefaultConstructorClass(9);
 	print_list(listE, "listE", f);
+	FILE << ENDL;
+
+	FILE << CATEGORY << "===> Exception-safety test with <ThrowingExceptionClass>,"
+						"a class which throws an exception in copy constructor" << ENDL;
+	FILE << "list<ThrowingExceptionClass> listF;" << ENDL; containerT<ThrowingExceptionClass> listF;
+	FILE << "ThrowingExceptionClass testObject;" << ENDL; ThrowingExceptionClass testObject;
+	FILE << "try {safelist.push_back(testobject);}" << ENDL;
+	FILE << "catch(...) {std::cout << \"catched exception\" << std::endl;}" << ENDL;
+	try {listF.push_back(testObject);}
+	catch(...) {FILE << OUTPUT << "catched exception" << ENDL;}
+	FILE << "listF.size() = " << OUTPUT << listF.size() << ENDL;
+	FILE << ENDL;
+
+	FILE << CATEGORY << "===> Iterators" << ENDL;
+	listA.clear(); listA.push_back(1); listA.push_back(2); listA.push_back(3);
+	print_list(listA, "listA", f);
+	FILE << "typename containerT<int>::iterator it = listA.begin();" << ENDL; typename containerT<int>::iterator it = listA.begin();
+	FILE << "*it = " << OUTPUT << *it << ENDL;
+	FILE << "it++;" << ENDL; it++;
+	FILE << "*it = " << OUTPUT << *it << ENDL;
+	FILE << "it++;" << ENDL; it++;
+	FILE << "*it = " << OUTPUT << *it << ENDL;
+	FILE << "it++;" << ENDL; it++;
+ 
 	FILE << ENDL;
 
 	/*	std::cout << "Assign test (back on defaultList) : " << std::endl;
@@ -196,13 +219,6 @@ test_list(void)
 	std::cout << "defaultList3.front() = " << defaultList3.front() << std::endl;
 	std::cout << std::endl;*/
 
-	/*std::cout << "Exception-safety tests :" << std::endl;
-	containerT<testClassForSafetyException> safelist;
-	testClassForSafetyException testobject;
-	try {safelist.push_back(testobject);}
-	catch(...) {std::cerr << "catched exception" << std::endl;}
-	std::cout << "size = " << safelist.size() << std::endl;
-	std::cout << std::endl;*/
 	FILE << TITLE << "=> ENDING list tests" << ENDL;
 }
 
