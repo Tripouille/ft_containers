@@ -10,7 +10,7 @@ COLOR		= @tput setaf 6
 CC		= clang++
 CFLAGS	= -g3 -Wall -Wextra -Werror -Wconversion -std=c++98 -I includes -I templates
 
-all:	$(CONTAINERS)
+all:  $(addsuffix all, $(CONTAINERS))
 
 $(OBJS): %.o: %.cpp $(INCLUDES) $(TEMPLATE)
 	$(COLOR)
@@ -26,6 +26,11 @@ $(CONTAINERS): %: tests/%Test
 	cat results/ft::$@.result
 	$(COLOR)
 	diff -s --unified=0 results/ft::$@.result results/std::$@.result
+
+$(addsuffix all, $(CONTAINERS)): %all: tests/%Test
+	$(COLOR)
+	valgrind -q --leak-check=full ./$<
+	diff -s --unified=0 results/ft::$*.result results/std::$*.result
 
 clean:
 	$(COLOR)
