@@ -82,6 +82,34 @@ ft::list<T, Alloc>::end(void) const
 	return (iterator(_end));
 }
 
+template <class T, class Alloc>
+typename ft::list<T, Alloc>::reverse_iterator
+ft::list<T, Alloc>::rbegin(void)
+{
+	return (reverse_iterator(_tail));
+}
+
+template <class T, class Alloc>
+typename ft::list<T, Alloc>::const_reverse_iterator
+ft::list<T, Alloc>::rbegin(void) const
+{
+	return (reverse_iterator(_tail));
+}
+
+template <class T, class Alloc>
+typename ft::list<T, Alloc>::reverse_iterator
+ft::list<T, Alloc>::rend(void)
+{
+	return (reverse_iterator(_end));
+}
+
+template <class T, class Alloc>
+typename ft::list<T, Alloc>::const_reverse_iterator
+ft::list<T, Alloc>::rend(void) const
+{
+	return (reverse_iterator(_end));
+}
+
 /** Capacity **/
 template <class T, class Alloc>
 bool

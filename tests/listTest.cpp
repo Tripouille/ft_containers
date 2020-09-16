@@ -170,6 +170,8 @@ test_list(void)
 	print_list(listE, "listE", f);
 	FILE << ENDL;
 
+	
+
 	/*	std::cout << "Assign test (back on defaultList) : " << std::endl;
 	std::cout << "defaultList.assign(4, 5)" << std::endl; defaultList.assign(4, 5);
 	std::cout << "defaultList.size() = " << defaultList.size() << std::endl;

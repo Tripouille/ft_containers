@@ -21,6 +21,8 @@ namespace ft
 			typedef unsigned long size_type;
 			typedef typename ft::DLNode<T>::iterator iterator;
 			typedef const iterator const_iterator;
+			typedef typename ft::DLNode<T>::reverse_iterator reverse_iterator;
+			typedef const reverse_iterator const_reverse_iterator;
 
 		public:
 		/* Constructor */
@@ -44,6 +46,10 @@ namespace ft
 				const_iterator begin(void) const;
 				iterator end(void);
 				const_iterator end(void) const;
+				reverse_iterator rbegin(void);
+				const_reverse_iterator rbegin(void) const;
+				reverse_iterator rend(void);
+				const_reverse_iterator rend(void) const;
 			/** Capacity **/
 				bool empty(void) const;
 				size_type size(void) const;
