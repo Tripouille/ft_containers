@@ -44,7 +44,7 @@ ft::DLNode<T>::_copy(DLNode const & other)
 /* Iterator */
 template <class T>
 ft::DLNode<T>::Iterator::Iterator(DLNode<T> * t)
-						: ft::DLNode<T>::Iterator::AIterator(t)
+						: _target(t)
 {
 }
 
@@ -56,17 +56,38 @@ ft::DLNode<T>::Iterator::~Iterator(void)
 
 template <class T>
 ft::DLNode<T>::Iterator::Iterator(Iterator const & other)
-						: ft::DLNode<T>::Iterator::AIterator(other)
 {
+	_copy(other);
 }
 
 template <class T>
 typename ft::DLNode<T>::Iterator &
-ft::DLNode<T>::Iterator::operator=(DLNode const & other)
+ft::DLNode<T>::Iterator::operator=(Iterator const & other)
 {
 	if (this != &other)
-		ft::DLNode<T>::Iterator::AIterator::operator=(other);
+		_copy(other);
 	return (*this);
+}
+
+template <class T>
+void
+ft::DLNode<T>::Iterator::_copy(Iterator const & other)
+{
+	_target = other._target;
+}
+
+template <class T>
+bool
+ft::DLNode<T>::Iterator::operator==(Iterator const & other) const
+{
+	return (_target == other._target);
+}
+
+template <class T>
+bool
+ft::DLNode<T>::Iterator::operator!=(Iterator const & other) const
+{
+	return (_target != other._target);
 }
 
 template <class T>

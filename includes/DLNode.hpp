@@ -1,20 +1,21 @@
 #ifndef DLNODE_HPP
 # define DLNODE_HPP
-# include "AIterator.hpp"
 
 namespace ft
 {
 	template <class T>
 	struct DLNode
 	{
-		class Iterator : public AIterator<DLNode<T> >
+		class Iterator
 		{
 			public:
 				Iterator(DLNode<T> * t = NULL);
 				~Iterator(void);
 				Iterator(Iterator const & other);
 
-				Iterator &		operator=(DLNode const & other);
+				Iterator &		operator=(Iterator const & other);
+				bool			operator==(Iterator const & other) const;
+				bool			operator!=(Iterator const & other) const;
 				Iterator &		operator++(void);
 				Iterator		operator++(int);
 				Iterator &		operator--(void);
@@ -23,6 +24,9 @@ namespace ft
 				T &				operator*(void) const;
 				T *				operator->(void);
 				T *				operator->(void) const;
+			private:
+				void			_copy(Iterator const & other);
+				DLNode<T> *		_target;
 		};
 
 		typedef Iterator iterator;
