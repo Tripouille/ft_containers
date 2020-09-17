@@ -298,6 +298,12 @@ ft::DLNode<T>::CRIterator::CRIterator(DLNode<T> * t)
 }
 
 template <class T>
+ft::DLNode<T>::CRIterator::CRIterator(RIterator const & rit)
+						 : BaseIterator(rit)
+{
+}
+
+template <class T>
 ft::DLNode<T>::CRIterator::~CRIterator(void)
 {
 }
