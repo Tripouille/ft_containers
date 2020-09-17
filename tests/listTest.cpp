@@ -215,7 +215,7 @@ test_list(void)
 	typename containerT<int>::reverse_iterator& testit2 = testit;
 	(void)testit2;*/
 
-	/*FILE << CATEGORY << "===> Const iterators" << ENDL;
+	FILE << CATEGORY << "===> Const iterators" << ENDL;
 	FILE << "typename containerT<int>::const_iterator c_it = listA.begin();" << ENDL; typename containerT<int>::const_iterator c_it = listA.begin();
 	FILE << "typename containerT<int>::const_iterator c_ite = listA.end();" << ENDL; typename containerT<int>::const_iterator c_ite = listA.end();
 	FILE << "(*c_it == listA.front()) = " << OUTPUT << std::boolalpha << (*c_it == listA.front()) << ENDL;
@@ -223,11 +223,12 @@ test_list(void)
 	while (c_it != c_ite)
 	{
 		FILE << "*c_it = " << OUTPUT << *c_it << ENDL;
+		//*c_it += 1;
 		c_it++;
 	}
 	FILE << "c_it--;" << ENDL; c_it--;
 	FILE << "(*c_it == listA.back()) = " << OUTPUT << std::boolalpha << (*c_it == listA.back()) << ENDL;
-	FILE << ENDL;*/
+	FILE << ENDL;
 
 	FILE << CATEGORY << "===> Reverse iterators" << ENDL;
 	FILE << "typename containerT<int>::reverse_iterator r_it = listA.rbegin();" << ENDL; typename containerT<int>::reverse_iterator r_it = listA.rbegin();
@@ -240,6 +241,20 @@ test_list(void)
 	}
 	FILE << "r_it--;" << ENDL; r_it--;
 	FILE << "(*r_it == listA.front()) = " << OUTPUT << std::boolalpha << (*r_it == listA.front()) << ENDL;
+	FILE << ENDL;
+
+	FILE << CATEGORY << "===> Const reverse iterators" << ENDL;
+	FILE << "typename containerT<int>::const_reverse_iterator cr_it = listA.rbegin();" << ENDL; typename containerT<int>::const_reverse_iterator cr_it = listA.rbegin();
+	FILE << "typename containerT<int>::const_reverse_iterator cr_ite = listA.rend();" << ENDL; typename containerT<int>::const_reverse_iterator cr_ite = listA.rend();
+	FILE << "while (cr_it != cr_ite) {...; cr_it++;}" << ENDL;
+	while (cr_it != cr_ite)
+	{
+		FILE << "*cr_it = " << OUTPUT << *cr_it << ENDL;
+		//*cr_it += 1;
+		cr_it++;
+	}
+	FILE << "cr_it--;" << ENDL; cr_it--;
+	FILE << "(*cr_it == listA.front()) = " << OUTPUT << std::boolalpha << (*cr_it == listA.front()) << ENDL;
 	FILE << ENDL;
 
 
