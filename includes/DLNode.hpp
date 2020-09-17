@@ -6,28 +6,38 @@ namespace ft
 	template <class T>
 	struct DLNode
 	{
-		class Iterator
+		class BaseIterator
+		{
+			public:
+				BaseIterator(DLNode<T> * t = NULL);
+				virtual ~BaseIterator(void);
+				BaseIterator(BaseIterator const & other);
+
+				BaseIterator &		operator=(BaseIterator const & other);
+				bool				operator==(BaseIterator const & other) const;
+				bool				operator!=(BaseIterator const & other) const;
+				BaseIterator &		operator++(void);
+				BaseIterator		operator++(int);
+				BaseIterator &		operator--(void);
+				BaseIterator		operator--(int);
+			protected:
+				void				_copy(BaseIterator const & other);
+				DLNode<T> *			_target;
+		};
+
+		class Iterator : public BaseIterator
 		{
 			public:
 				Iterator(DLNode<T> * t = NULL);
-				virtual ~Iterator(void);
+				~Iterator(void);
 				Iterator(Iterator const & other);
 
 				Iterator &		operator=(Iterator const & other);
-				bool			operator==(Iterator const & other) const;
-				bool			operator!=(Iterator const & other) const;
-				Iterator &		operator++(void);
-				Iterator		operator++(int);
-				Iterator &		operator--(void);
-				Iterator		operator--(int);
 				T &				operator*(void) const;
 				T *				operator->(void) const;
-			protected:
-				void			_copy(Iterator const & other);
-				DLNode<T> *		_target;
 		};
 
-		class CIterator : public Iterator
+		class CIterator : public BaseIterator
 		{
 			public:
 				CIterator(DLNode<T> * t = NULL);
@@ -40,24 +50,42 @@ namespace ft
 				T const *		operator->(void) const;
 		};
 
-		class RIterator : public Iterator
+		class RIterator : public BaseIterator
 		{
 			public:
 				RIterator(DLNode<T> * t = NULL);
-				virtual ~RIterator(void);
+				~RIterator(void);
 				RIterator(RIterator const & other);
 
 				RIterator &		operator=(RIterator const & other);
 				RIterator &		operator++(void);
 				RIterator		operator++(int);
 				RIterator &		operator--(void);
-				RIterator		operator--(int);
+				RIterator 		operator--(int);
+				T &				operator*(void) const;
+				T *				operator->(void) const;
 		};
 
-		typedef Iterator iterator;
-		typedef CIterator const_iterator;
-		typedef RIterator reverse_iterator;
-		typedef const reverse_iterator const_reverse_iterator;
+		class CRIterator : public BaseIterator
+		{
+			public:
+				CRIterator(DLNode<T> * t = NULL);
+				~CRIterator(void);
+				CRIterator(CRIterator const & other);
+
+				CRIterator &	operator=(CRIterator const & other);
+				CRIterator &	operator++(void);
+				CRIterator		operator++(int);
+				CRIterator &	operator--(void);
+				CRIterator		operator--(int);
+				T const &		operator*(void) const;
+				T const *		operator->(void) const;
+		};
+
+		typedef ft::DLNode<T>::Iterator iterator;
+		typedef ft::DLNode<T>::CIterator const_iterator;
+		typedef ft::DLNode<T>::RIterator reverse_iterator;
+		typedef ft::DLNode<T>::CRIterator const_reverse_iterator;
 
 		DLNode(void);
 		DLNode(const T & v, DLNode * p = NULL, DLNode * n = NULL);

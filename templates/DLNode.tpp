@@ -41,10 +41,93 @@ ft::DLNode<T>::_copy(DLNode const & other)
 	next = other.next;
 }
 
+/* BaseIterator */
+template <class T>
+ft::DLNode<T>::BaseIterator::BaseIterator(DLNode<T> * t)
+						: _target(t)
+{
+}
+
+template <class T>
+ft::DLNode<T>::BaseIterator::~BaseIterator(void)
+{
+}
+
+
+template <class T>
+ft::DLNode<T>::BaseIterator::BaseIterator(BaseIterator const & other)
+{
+	_copy(other);
+}
+
+template <class T>
+typename ft::DLNode<T>::BaseIterator &
+ft::DLNode<T>::BaseIterator::operator=(BaseIterator const & other)
+{
+	if (this != &other)
+		_copy(other);
+	return (*this);
+}
+
+template <class T>
+void
+ft::DLNode<T>::BaseIterator::_copy(BaseIterator const & other)
+{
+	_target = other._target;
+}
+
+template <class T>
+bool
+ft::DLNode<T>::BaseIterator::operator==(BaseIterator const & other) const
+{
+	return (_target == other._target);
+}
+
+template <class T>
+bool
+ft::DLNode<T>::BaseIterator::operator!=(BaseIterator const & other) const
+{
+	return (_target != other._target);
+}
+
+template <class T>
+typename ft::DLNode<T>::BaseIterator &
+ft::DLNode<T>::BaseIterator::operator++(void)
+{
+	_target = _target->next;
+	return (*this);
+}
+
+template <class T>
+typename ft::DLNode<T>::BaseIterator
+ft::DLNode<T>::BaseIterator::operator++(int)
+{
+	BaseIterator tmp(*this);
+	++*this;
+	return (tmp);
+}
+
+template <class T>
+typename ft::DLNode<T>::BaseIterator &
+ft::DLNode<T>::BaseIterator::operator--(void)
+{
+	_target = _target->prev;
+	return (*this);
+}
+
+template <class T>
+typename ft::DLNode<T>::BaseIterator
+ft::DLNode<T>::BaseIterator::operator--(int)
+{
+	BaseIterator tmp(*this);
+	--*this;
+	return (tmp);
+}
+
 /* Iterator */
 template <class T>
 ft::DLNode<T>::Iterator::Iterator(DLNode<T> * t)
-						: _target(t)
+						: BaseIterator(t)
 {
 }
 
@@ -56,8 +139,8 @@ ft::DLNode<T>::Iterator::~Iterator(void)
 
 template <class T>
 ft::DLNode<T>::Iterator::Iterator(Iterator const & other)
+						 : BaseIterator(other)
 {
-	_copy(other);
 }
 
 template <class T>
@@ -65,63 +148,8 @@ typename ft::DLNode<T>::Iterator &
 ft::DLNode<T>::Iterator::operator=(Iterator const & other)
 {
 	if (this != &other)
-		_copy(other);
+		BaseIterator::operator=(other);
 	return (*this);
-}
-
-template <class T>
-void
-ft::DLNode<T>::Iterator::_copy(Iterator const & other)
-{
-	_target = other._target;
-}
-
-template <class T>
-bool
-ft::DLNode<T>::Iterator::operator==(Iterator const & other) const
-{
-	return (_target == other._target);
-}
-
-template <class T>
-bool
-ft::DLNode<T>::Iterator::operator!=(Iterator const & other) const
-{
-	return (_target != other._target);
-}
-
-template <class T>
-typename ft::DLNode<T>::Iterator &
-ft::DLNode<T>::Iterator::operator++(void)
-{
-	Iterator::_target = Iterator::_target->next;
-	return (*this);
-}
-
-template <class T>
-typename ft::DLNode<T>::Iterator
-ft::DLNode<T>::Iterator::operator++(int)
-{
-	Iterator tmp(*this);
-	Iterator::_target = Iterator::_target->next;
-	return (tmp);
-}
-
-template <class T>
-typename ft::DLNode<T>::Iterator &
-ft::DLNode<T>::Iterator::operator--(void)
-{
-	Iterator::_target = Iterator::_target->prev;
-	return (*this);
-}
-
-template <class T>
-typename ft::DLNode<T>::Iterator
-ft::DLNode<T>::Iterator::operator--(int)
-{
-	Iterator tmp(*this);
-	Iterator::_target = Iterator::_target->prev;
-	return (tmp);
 }
 
 template <class T>
@@ -141,13 +169,13 @@ ft::DLNode<T>::Iterator::operator->(void) const
 /* CIterator */
 template <class T>
 ft::DLNode<T>::CIterator::CIterator(DLNode<T> * t)
-						: iterator(t)
+						: BaseIterator(t)
 {
 }
 
 template <class T>
 ft::DLNode<T>::CIterator::CIterator(Iterator const & it)
-						: iterator(it)
+						: BaseIterator(it)
 {
 }
 
@@ -159,7 +187,7 @@ ft::DLNode<T>::CIterator::~CIterator(void)
 
 template <class T>
 ft::DLNode<T>::CIterator::CIterator(CIterator const & other)
-						 : iterator(other)
+						 : BaseIterator(other)
 {
 }
 
@@ -168,7 +196,7 @@ typename ft::DLNode<T>::CIterator &
 ft::DLNode<T>::CIterator::operator=(CIterator const & other)
 {
 	if (this != &other)
-		iterator::operator=(other);
+		BaseIterator::operator=(other);
 	return (*this);
 }
 
@@ -189,7 +217,7 @@ ft::DLNode<T>::CIterator::operator->(void) const
 /* RIterator */
 template <class T>
 ft::DLNode<T>::RIterator::RIterator(DLNode<T> * t)
-						 : iterator(t)
+						 : BaseIterator(t)
 {
 }
 
@@ -201,7 +229,7 @@ ft::DLNode<T>::RIterator::~RIterator(void)
 
 template <class T>
 ft::DLNode<T>::RIterator::RIterator(RIterator const & other)
-						: iterator(other)
+						: BaseIterator(other)
 {
 }
 
@@ -210,7 +238,7 @@ typename ft::DLNode<T>::RIterator &
 ft::DLNode<T>::RIterator::operator=(RIterator const & other)
 {
 	if (this != &other)
-		iterator::operator=(other);
+		BaseIterator::operator=(other);
 	return (*this);
 }
 
@@ -227,7 +255,7 @@ typename ft::DLNode<T>::RIterator
 ft::DLNode<T>::RIterator::operator++(int)
 {
 	RIterator tmp(*this);
-	RIterator::_target = RIterator::_target->prev;
+	++*this;
 	return (tmp);
 }
 
@@ -244,6 +272,96 @@ typename ft::DLNode<T>::RIterator
 ft::DLNode<T>::RIterator::operator--(int)
 {
 	RIterator tmp(*this);
-	RIterator::_target = RIterator::_target->next;
+	--*this;
 	return (tmp);
+}
+
+template <class T>
+T &
+ft::DLNode<T>::RIterator::operator*(void) const
+{
+	return (RIterator::_target->value);
+}
+
+template <class T>
+T *
+ft::DLNode<T>::RIterator::operator->(void) const
+{
+	return (&(RIterator::_target->value));
+}
+
+/* CRIterator */
+template <class T>
+ft::DLNode<T>::CRIterator::CRIterator(DLNode<T> * t)
+						 : BaseIterator(t)
+{
+}
+
+template <class T>
+ft::DLNode<T>::CRIterator::~CRIterator(void)
+{
+}
+
+
+template <class T>
+ft::DLNode<T>::CRIterator::CRIterator(CRIterator const & other)
+						: BaseIterator(other)
+{
+}
+
+template <class T>
+typename ft::DLNode<T>::CRIterator &
+ft::DLNode<T>::CRIterator::operator=(CRIterator const & other)
+{
+	if (this != &other)
+		BaseIterator::operator=(other);
+	return (*this);
+}
+
+template <class T>
+typename ft::DLNode<T>::CRIterator &
+ft::DLNode<T>::CRIterator::operator++(void)
+{
+	CRIterator::_target = CRIterator::_target->prev;
+	return (*this);
+}
+
+template <class T>
+typename ft::DLNode<T>::CRIterator
+ft::DLNode<T>::CRIterator::operator++(int)
+{
+	CRIterator tmp(*this);
+	++*this;
+	return (tmp);
+}
+
+template <class T>
+typename ft::DLNode<T>::CRIterator &
+ft::DLNode<T>::CRIterator::operator--(void)
+{
+	CRIterator::_target = CRIterator::_target->next;
+	return (*this);
+}
+
+template <class T>
+typename ft::DLNode<T>::CRIterator
+ft::DLNode<T>::CRIterator::operator--(int)
+{
+	CRIterator tmp(*this);
+	--*this;
+	return (tmp);
+}
+
+template <class T>
+T const &
+ft::DLNode<T>::CRIterator::operator*(void) const
+{
+	return (CRIterator::_target->value);
+}
+
+template <class T>
+T const *
+ft::DLNode<T>::CRIterator::operator->(void) const
+{
+	return (&(CRIterator::_target->value));
 }
