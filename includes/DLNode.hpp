@@ -70,6 +70,7 @@ namespace ft
 		{
 			public:
 				CRIterator(DLNode<T> * t = NULL);
+				CRIterator(RIterator const & rit);
 				~CRIterator(void);
 				CRIterator(CRIterator const & other);
 
