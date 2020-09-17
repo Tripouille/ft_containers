@@ -21,6 +21,15 @@ ft::list<T, Alloc>::list(size_type n, const value_type & val,
 }
 
 /** range		(3) **/
+template <typename T, class Alloc>
+template <class InputIterator>
+ft::list<T, Alloc>::list(InputIterator first, InputIterator last,
+												const allocator_type & alloc)
+				  : _alloc(alloc), _size(0), _end(_node_alloc.allocate(1))
+{
+	_head = _tail = _end;
+	_fill_list_dispatch(first, last, typename is_integer<InputIterator>::type());
+}
 
 /** copy		(4) **/
 template <class T, class Alloc>
@@ -291,21 +300,6 @@ ft::list<T, Alloc>::_copy(list const & other)
 }
 
 template <class T, class Alloc>
-void
-ft::list<T, Alloc>::_debug(void) const
-{
-	DLNode<T> * tmp = _head;
-	std::cout << "Head = " << _head << " Tail = " << _tail << std::endl;
-	std::cout << "List: [ ";
-	while (tmp != _end)
-	{
-		std::cout << tmp->value << " ";
-		tmp = tmp->next;
-	}
-	std::cout << "]" << std::endl;
-}
-
-template <class T, class Alloc>
 typename ft::DLNode<T> *
 ft::list<T, Alloc>::_new_node(const T & v, DLNode<T> * p, DLNode<T> * n)
 {
@@ -322,6 +316,25 @@ ft::list<T, Alloc>::_new_node(const T & v, DLNode<T> * p, DLNode<T> * n)
 	return (_n);
 }
 
+template <typename T, class Alloc>
+template <class Integer>
+void ft::list<T, Alloc>::_fill_list_dispatch(Integer& n, Integer& val, INT_TYPE)
+{
+	for (; n; --n)
+		push_front(val);
+}
+
+template <typename T, class Alloc>
+template <class InputIterator>
+void ft::list<T, Alloc>::_fill_list_dispatch(InputIterator& first, InputIterator& last, NO_INT_TYPE)
+{
+	while (first != last)
+	{
+		push_back(*first);
+		++first;
+	}
+}
+
 template <class T, class Alloc>
 void
 ft::list<T, Alloc>::_actualize_end(void)
@@ -335,4 +348,19 @@ ft::list<T, Alloc>::_actualize_end(void)
 	}
 	else
 		_head = _tail = _end;
+}
+
+template <class T, class Alloc>
+void
+ft::list<T, Alloc>::_debug(void) const
+{
+	DLNode<T> * tmp = _head;
+	std::cout << "Head = " << _head << " Tail = " << _tail << std::endl;
+	std::cout << "List: [ ";
+	while (tmp != _end)
+	{
+		std::cout << tmp->value << " ";
+		tmp = tmp->next;
+	}
+	std::cout << "]" << std::endl;
 }

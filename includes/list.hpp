@@ -3,6 +3,7 @@
 # include <iostream>
 # include <limits>
 # include "DLNode.hpp"
+# include "types.hpp"
 
 namespace ft
 {
@@ -28,10 +29,10 @@ namespace ft
 		/* Constructor */
 			/** default	(1) **/	explicit list(const allocator_type & alloc = allocator_type());
 			/** fill	(2) **/	explicit list(size_type n, const value_type & val = value_type(),
-																			const allocator_type & alloc = allocator_type());
-			/** range	(3) **/	/*template <class InputIterator>
-												list(InputIterator first, InputIterator last,
-														const allocator_type & alloc = allocator_type());*/
+															const allocator_type & alloc = allocator_type());
+			/** range	(3) **/	template <class InputIterator>
+								list(InputIterator first, InputIterator last,
+															const allocator_type & alloc = allocator_type());
 			/** copy	(4) **/	list(list const & other);
 
 		/* Destructor */
@@ -79,6 +80,10 @@ namespace ft
 			void _copy(list const & other);
 			void _debug(void) const;
 			DLNode<T> * _new_node(const T & v, DLNode<T> * p, DLNode<T> * n);
+			template <class Integer>
+			void _fill_list_dispatch(Integer& first, Integer& last, INT_TYPE);
+			template <class InputIterator>
+			void _fill_list_dispatch(InputIterator& first, InputIterator& last, NO_INT_TYPE);
 			void _actualize_end(void);
 
 

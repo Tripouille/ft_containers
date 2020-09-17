@@ -117,6 +117,18 @@ test_list(void)
 	FILE << "listB.back() = " << OUTPUT << listB.back() << ENDL;
 	FILE << ENDL;
 
+	FILE << CATEGORY << "===> Range constructor" << ENDL;
+	int intArray[] = {1, 2, 3, 4, 5};
+	containerT<int> listCC(intArray, intArray + 5);
+	print_list(listCC, "listC", f);
+	/*FILE << "list<int> listB(4, -1);" << ENDL; containerT<int> listB(4, -1);
+	print_list(listB, "listB", f);
+	FILE << std::boolalpha << "listB.empty() = " << OUTPUT << listB.empty() << ENDL;
+	FILE << "listB.size() = " << OUTPUT << listB.size() << ENDL;
+	FILE << "listB.front() = " << OUTPUT << listB.front() << ENDL;
+	FILE << "listB.back() = " << OUTPUT << listB.back() << ENDL;*/
+	FILE << ENDL;
+
 	FILE << CATEGORY << "===> Copy constructor" << ENDL;
 	print_list(listA, "listA", f);
 	FILE << "list<int> listC(listA);" << ENDL; containerT<int> listC(listA);
@@ -198,7 +210,12 @@ test_list(void)
 	print_list(listA, "listA", f);
 	FILE << ENDL;
 
-	FILE << CATEGORY << "===> Const iterators" << ENDL;
+	/*containerT<int> testlist;
+	typename containerT<int>::iterator testit = testlist.begin();
+	typename containerT<int>::reverse_iterator& testit2 = testit;
+	(void)testit2;*/
+
+	/*FILE << CATEGORY << "===> Const iterators" << ENDL;
 	FILE << "typename containerT<int>::const_iterator c_it = listA.begin();" << ENDL; typename containerT<int>::const_iterator c_it = listA.begin();
 	FILE << "typename containerT<int>::const_iterator c_ite = listA.end();" << ENDL; typename containerT<int>::const_iterator c_ite = listA.end();
 	FILE << "(*c_it == listA.front()) = " << OUTPUT << std::boolalpha << (*c_it == listA.front()) << ENDL;
@@ -210,7 +227,7 @@ test_list(void)
 	}
 	FILE << "c_it--;" << ENDL; c_it--;
 	FILE << "(*c_it == listA.back()) = " << OUTPUT << std::boolalpha << (*c_it == listA.back()) << ENDL;
-	FILE << ENDL;
+	FILE << ENDL;*/
 
 	FILE << CATEGORY << "===> Reverse iterators" << ENDL;
 	FILE << "typename containerT<int>::reverse_iterator r_it = listA.rbegin();" << ENDL; typename containerT<int>::reverse_iterator r_it = listA.rbegin();

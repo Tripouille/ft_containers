@@ -1,6 +1,6 @@
 
 CONTAINERS	= list #Vector
-INCLUDES	= $(CONTAINERS:%=includes/%.hpp) $(addprefix includes/, DLNode.hpp Color.hpp)
+INCLUDES	= $(CONTAINERS:%=includes/%.hpp) $(addprefix includes/, DLNode.hpp Color.hpp types.hpp)
 TEMPLATE	= $(CONTAINERS:%=templates/%.tpp) $(addprefix templates/,  DLNode.tpp)
 OBJS		= $(CONTAINERS:%=tests/%Test.o)
 BINS		= $(CONTAINERS:%=tests/%Test)

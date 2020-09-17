@@ -54,8 +54,8 @@ namespace ft
 				RIterator		operator--(int);
 		};
 
-		typedef Iterator iterator;
-		typedef CIterator const_iterator;
+		typedef typename ft::DLNode<T>::Iterator iterator;
+		typedef typename ft::DLNode<const T>::Iterator const_iterator;
 		typedef RIterator reverse_iterator;
 		typedef const reverse_iterator const_reverse_iterator;
 
