@@ -70,13 +70,54 @@ test_list(void)
 	std::ofstream f(get_file_name(__PRETTY_FUNCTION__).c_str(), std::ofstream::trunc);
 	FILE << TITLE << std::endl << "=> STARTING list tests" << ENDL;
 
-	FILE << CATEGORY << "===> Basic tests with <int>" << ENDL;
-	FILE << SUBCATEGORY << "=====> Empty list" << ENDL;
+	FILE << CATEGORY << "===> Default constructor" << ENDL;
 	FILE << "list<int> listA;" << ENDL; containerT<int> listA;
 	print_list(listA, "listA", f);
 	FILE << "listA.max_size() = " << OUTPUT << listA.max_size() << ENDL;
 	FILE << std::boolalpha << "listA.empty() = " << OUTPUT << listA.empty() << ENDL;
 	FILE << "listA.size() = " << OUTPUT << listA.size() << ENDL;
+	FILE << ENDL;
+
+	FILE << CATEGORY << "===> Fill constructor" << ENDL;
+	FILE << "list<int> listB(4, -1);" << ENDL; containerT<int> listB(4, -1);
+	print_list(listB, "listB", f);
+	FILE << std::boolalpha << "listB.empty() = " << OUTPUT << listB.empty() << ENDL;
+	FILE << "listB.size() = " << OUTPUT << listB.size() << ENDL;
+	FILE << "listB.front() = " << OUTPUT << listB.front() << ENDL;
+	FILE << "listB.back() = " << OUTPUT << listB.back() << ENDL;
+	FILE << ENDL;
+
+	FILE << CATEGORY << "===> Range constructor" << ENDL;
+	int intArray[] = {1, 2, 3, 4, 5};
+	containerT<int> listC(intArray, intArray + 5);
+	print_list(listC, "listC", f);
+	FILE << std::boolalpha << "listC.empty() = " << OUTPUT << listC.empty() << ENDL;
+	FILE << "listC.size() = " << OUTPUT << listC.size() << ENDL;
+	FILE << "listC.front() = " << OUTPUT << listC.front() << ENDL;
+	FILE << "listC.back() = " << OUTPUT << listC.back() << ENDL;
+	FILE << ENDL;
+
+	FILE << CATEGORY << "===> Copy constructor" << ENDL;
+	print_list(listC, "listC", f);
+	FILE << "list<int> listD(listC);" << ENDL; containerT<int> listD(listC);
+	print_list(listC, "listC", f);
+	print_list(listD, "listD", f);
+	FILE << "listD.size() = " << OUTPUT << listD.size() << ENDL;
+	FILE << ENDL;
+
+	FILE << CATEGORY << "===> Operator=" << ENDL;
+	print_list(listB, "listB", f);
+	print_list(listC, "listC", f);
+	FILE << "listB = listC;" << ENDL; listB = listC;
+	print_list(listB, "listB", f);
+	FILE << "listB.size() = " << OUTPUT << listB.size() << ENDL;
+	FILE << "listB.push_front(0);" << ENDL; listB.push_front(0);
+	print_list(listB, "listB", f);
+	print_list(listC, "listC", f);
+	FILE << ENDL;
+
+	FILE << CATEGORY << "===> Basic tests with <int>" << ENDL;
+	print_list(listA, "listA", f);
 	FILE << SUBCATEGORY << "=====> Pushing" << ENDL;
 	FILE << "listA.push_front(2);" << ENDL; listA.push_front(2);
 	print_list(listA, "listA", f);
@@ -108,88 +149,48 @@ test_list(void)
 	print_list(listA, "listA", f);
 	FILE << ENDL;
 
-	FILE << CATEGORY << "===> Fill constructor" << ENDL;
-	FILE << "list<int> listB(4, -1);" << ENDL; containerT<int> listB(4, -1);
-	print_list(listB, "listB", f);
-	FILE << std::boolalpha << "listB.empty() = " << OUTPUT << listB.empty() << ENDL;
-	FILE << "listB.size() = " << OUTPUT << listB.size() << ENDL;
-	FILE << "listB.front() = " << OUTPUT << listB.front() << ENDL;
-	FILE << "listB.back() = " << OUTPUT << listB.back() << ENDL;
-	FILE << ENDL;
-
-	FILE << CATEGORY << "===> Range constructor" << ENDL;
-	int intArray[] = {1, 2, 3, 4, 5};
-	containerT<int> listCC(intArray, intArray + 5);
-	print_list(listCC, "listC", f);
-	/*FILE << "list<int> listB(4, -1);" << ENDL; containerT<int> listB(4, -1);
-	print_list(listB, "listB", f);
-	FILE << std::boolalpha << "listB.empty() = " << OUTPUT << listB.empty() << ENDL;
-	FILE << "listB.size() = " << OUTPUT << listB.size() << ENDL;
-	FILE << "listB.front() = " << OUTPUT << listB.front() << ENDL;
-	FILE << "listB.back() = " << OUTPUT << listB.back() << ENDL;*/
-	FILE << ENDL;
-
-	FILE << CATEGORY << "===> Copy constructor" << ENDL;
-	print_list(listA, "listA", f);
-	FILE << "list<int> listC(listA);" << ENDL; containerT<int> listC(listA);
-	print_list(listA, "listA", f);
-	print_list(listC, "listC", f);
-	FILE << "listC.size() = " << OUTPUT << listC.size() << ENDL;
-	FILE << ENDL;
-
-	FILE << CATEGORY << "===> Operator=" << ENDL;
-	print_list(listA, "listA", f);
-	print_list(listB, "listB", f);
-	FILE << "listA = listB;" << ENDL; listA = listB;
-	print_list(listA, "listA", f);
-	FILE << "listA.size() = " << OUTPUT << listA.size() << ENDL;
-	FILE << "listA.push_front(0);" << ENDL; listA.push_front(0);
-	print_list(listA, "listA", f);
-	print_list(listB, "listB", f);
-	FILE << ENDL;
-
 	FILE << CATEGORY << "===> Basic tests with <int> const list" << ENDL;
-	FILE << "list<int> const listD(3, -2);" << ENDL; containerT<int> const listD(3, -2);
-	print_list(listD, "listD", f);
-	FILE << std::boolalpha << "listD.empty() = " << OUTPUT << listD.empty() << ENDL;
-	FILE << "listD.size() = " << OUTPUT << listD.size() << ENDL;
-	FILE << "listD.front() = " << OUTPUT << listD.front() << ENDL;
-	FILE << "listD.back() = " << OUTPUT << listD.back() << ENDL;
+	FILE << "list<int> const listE(3, -2);" << ENDL; containerT<int> const listE(3, -2);
+	print_list(listE, "listE", f);
+	FILE << std::boolalpha << "listE.empty() = " << OUTPUT << listE.empty() << ENDL;
+	FILE << "listE.size() = " << OUTPUT << listE.size() << ENDL;
+	FILE << "listE.front() = " << OUTPUT << listE.front() << ENDL;
+	FILE << "listE.back() = " << OUTPUT << listE.back() << ENDL;
 	FILE << ENDL;
 
 	FILE << CATEGORY << "===> Basic tests with <NoDefaultConstructorClass>" << ENDL;
 	FILE << SUBCATEGORY << "=====> Empty list" << ENDL;
-	FILE << "list<NoDefaultConstructorClass> listE;" << ENDL; containerT<NoDefaultConstructorClass> listE;
-	print_list(listE, "listE", f);
-	FILE << "listE.max_size() = " << OUTPUT << listE.max_size() << ENDL;
-	FILE << std::boolalpha << "listE.empty() = " << OUTPUT << listE.empty() << ENDL;
-	FILE << "listE.size() = " << OUTPUT << listE.size() << ENDL;
+	FILE << "list<NoDefaultConstructorClass> listF;" << ENDL; containerT<NoDefaultConstructorClass> listF;
+	print_list(listF, "listF", f);
+	FILE << "listF.max_size() = " << OUTPUT << listF.max_size() << ENDL;
+	FILE << std::boolalpha << "listF.empty() = " << OUTPUT << listF.empty() << ENDL;
+	FILE << "listF.size() = " << OUTPUT << listF.size() << ENDL;
 	FILE << SUBCATEGORY << "=====> Pushing" << ENDL;
-	FILE << "listE.push_front(NoDefaultConstructorClass(2));" << ENDL; listE.push_front(NoDefaultConstructorClass(2));
-	print_list(listE, "listE", f);
-	FILE << "listE.size() = " << OUTPUT << listE.size() << ENDL;
-	FILE << "listE.push_front(NoDefaultConstructorClass(1));" << ENDL; listE.push_front(NoDefaultConstructorClass(1));
-	print_list(listE, "listE", f);
-	FILE << std::boolalpha << "listE.empty() = " << OUTPUT << listE.empty() << ENDL;
-	FILE << "listE.push_back(NoDefaultConstructorClass(3));" << ENDL; listE.push_back(NoDefaultConstructorClass(3));
-	print_list(listE, "listE", f);
-	FILE << "listE.push_back(NoDefaultConstructorClass(4));" << ENDL; listE.push_back(NoDefaultConstructorClass(4));
-	print_list(listE, "listE", f);
+	FILE << "listF.push_front(NoDefaultConstructorClass(2));" << ENDL; listF.push_front(NoDefaultConstructorClass(2));
+	print_list(listF, "listF", f);
+	FILE << "listF.size() = " << OUTPUT << listF.size() << ENDL;
+	FILE << "listF.push_front(NoDefaultConstructorClass(1));" << ENDL; listF.push_front(NoDefaultConstructorClass(1));
+	print_list(listF, "listF", f);
+	FILE << std::boolalpha << "listF.empty() = " << OUTPUT << listF.empty() << ENDL;
+	FILE << "listF.push_back(NoDefaultConstructorClass(3));" << ENDL; listF.push_back(NoDefaultConstructorClass(3));
+	print_list(listF, "listF", f);
+	FILE << "listF.push_back(NoDefaultConstructorClass(4));" << ENDL; listF.push_back(NoDefaultConstructorClass(4));
+	print_list(listF, "listF", f);
 	FILE << SUBCATEGORY << "=====> Front and back" << ENDL;
-	FILE << "listE.front() = NoDefaultConstructorClass(-9);" << ENDL; listE.front() = NoDefaultConstructorClass(-9);
-	FILE << "listE.back() = NoDefaultConstructorClass(9);" << ENDL; listE.back() = NoDefaultConstructorClass(9);
-	print_list(listE, "listE", f);
+	FILE << "listF.front() = NoDefaultConstructorClass(-9);" << ENDL; listF.front() = NoDefaultConstructorClass(-9);
+	FILE << "listF.back() = NoDefaultConstructorClass(9);" << ENDL; listF.back() = NoDefaultConstructorClass(9);
+	print_list(listF, "listF", f);
 	FILE << ENDL;
 
 	FILE << CATEGORY << "===> Exception-safety test with <ThrowingExceptionClass>, "
 						"a class which throws an exception in copy constructor" << ENDL;
-	FILE << "list<ThrowingExceptionClass> listF;" << ENDL; containerT<ThrowingExceptionClass> listF;
+	FILE << "list<ThrowingExceptionClass> listG;" << ENDL; containerT<ThrowingExceptionClass> listG;
 	FILE << "ThrowingExceptionClass testObject;" << ENDL; ThrowingExceptionClass testObject;
 	FILE << "try {safelist.push_back(testobject);}" << ENDL;
 	FILE << "catch(...) {std::cout << \"catched exception\" << std::endl;}" << ENDL;
-	try {listF.push_back(testObject);}
+	try {listG.push_back(testObject);}
 	catch(...) {FILE << OUTPUT << "catched exception" << ENDL;}
-	FILE << "listF.size() = " << OUTPUT << listF.size() << ENDL;
+	FILE << "listG.size() = " << OUTPUT << listG.size() << ENDL;
 	FILE << ENDL;
 
 	FILE << CATEGORY << "===> Iterators" << ENDL;
@@ -209,11 +210,6 @@ test_list(void)
 	FILE << "*it = 42;" << ENDL; *it = 42;
 	print_list(listA, "listA", f);
 	FILE << ENDL;
-
-	/*containerT<int> testlist;
-	typename containerT<int>::iterator testit = testlist.begin();
-	typename containerT<int>::reverse_iterator& testit2 = testit;
-	(void)testit2;*/
 
 	FILE << CATEGORY << "===> Const iterators" << ENDL;
 	FILE << "typename containerT<int>::const_iterator c_it = listA.begin();" << ENDL; typename containerT<int>::const_iterator c_it = listA.begin();
@@ -241,6 +237,8 @@ test_list(void)
 	}
 	FILE << "r_it--;" << ENDL; r_it--;
 	FILE << "(*r_it == listA.front()) = " << OUTPUT << std::boolalpha << (*r_it == listA.front()) << ENDL;
+	FILE << "*r_it = -42;" << ENDL; *r_it = -42;;
+	print_list(listA, "listA", f);
 	FILE << ENDL;
 
 	FILE << CATEGORY << "===> Const reverse iterators" << ENDL;
@@ -255,6 +253,18 @@ test_list(void)
 	}
 	FILE << "cr_it--;" << ENDL; cr_it--;
 	FILE << "(*cr_it == listA.front()) = " << OUTPUT << std::boolalpha << (*cr_it == listA.front()) << ENDL;
+	FILE << ENDL;
+
+	FILE << CATEGORY << "===> Assign" << ENDL;
+	print_list(listA, "listA", f);
+	FILE << "listA.assign(7, 100);" << ENDL; listA.assign(7, 100);
+	print_list(listA, "listA", f);
+	print_list(listB, "listB", f);
+	FILE << "listA.assign(listB.rbegin(), listB.rend());" << ENDL; listA.assign(listB.rbegin(), listB.rend());
+	print_list(listA, "listA", f);
+	FILE << "int myints[] = {1337, 4, 7};" << ENDL; int myints[] = {1337, 4, 7};
+	FILE << "listA.assign(myints + 1, myints + 3);" << ENDL; listA.assign(myints + 1, myints + 3);
+	print_list(listA, "listA", f);
 	FILE << ENDL;
 
 

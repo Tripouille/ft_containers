@@ -62,8 +62,8 @@ namespace ft
 				const_reference back(void) const;
 
 			/** Modifiers **/
-				/*** range (1) ***/	/*template <class InputIterator>
-				 										void assign(InputIterator first, InputIterator last);*/
+				/*** range (1) ***/	template <class InputIterator>
+				 					void assign(InputIterator first, InputIterator last);
 				/*** fill (2) ***/	void assign (size_type n, const value_type & val);
 				void push_front(const value_type & val);
 				void pop_front(void);
@@ -83,9 +83,12 @@ namespace ft
 			void _debug(void) const;
 			DLNode<T> * _new_node(const T & v, DLNode<T> * p, DLNode<T> * n);
 			template <class Integer>
-			void _fill_list_dispatch(Integer& first, Integer& last, INT_TYPE);
+			void _fill_list_dispatch(Integer & first, Integer & last, INT_TYPE);
 			template <class InputIterator>
-			void _fill_list_dispatch(InputIterator& first, InputIterator& last, NO_INT_TYPE);
+			void _fill_list_dispatch(InputIterator & first, InputIterator & last, NO_INT_TYPE);
+			void _fill_with_value(size_type n, T const & val);
+			template <class InputIterator>
+			void _fill_from_iterators(InputIterator & first, InputIterator & last);
 			void _actualize_end(void);
 
 
