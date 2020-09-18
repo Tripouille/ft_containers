@@ -69,6 +69,15 @@ namespace ft
 				void pop_front(void);
 				void push_back(const value_type & val);
 				void pop_back(void);
+				/*** single element (1) ***/iterator insert(iterator position,
+															const value_type & val);
+				/*** fill (2) ***/			void insert(iterator position,
+														size_type n,
+														const value_type & val);
+				/*** range (3) ***/			template <class InputIterator>
+											iterator insert(iterator position,
+															InputIterator first,
+															InputIterator last);
 
 				void swap(list & x);
 

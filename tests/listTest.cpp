@@ -36,8 +36,12 @@ class NoDefaultConstructorClass
 };
 std::ostream&	operator<<(std::ostream& os, NoDefaultConstructorClass const& obj) {os << obj.geta(); return (os);}
 
-struct testStruct {int a; testStruct(void) : a(3) {}};
-std::ostream&	operator<<(std::ostream& os, testStruct const& obj) {os << "a = " << obj.a; return (os);}
+struct intStruct
+{
+	int a;
+	intStruct(int n = 0) : a(n) {}
+};
+std::ostream&	operator<<(std::ostream& os, intStruct const& obj) {os << obj.a; return (os);}
 
 std::string const
 get_file_name(std::string s)
@@ -75,14 +79,12 @@ test_list(void)
 	print_list(listA, "listA", f);
 	FILE << "listA.max_size() = " << OUTPUT << listA.max_size() << ENDL;
 	FILE << std::boolalpha << "listA.empty() = " << OUTPUT << listA.empty() << ENDL;
-	FILE << "listA.size() = " << OUTPUT << listA.size() << ENDL;
 	FILE << ENDL;
 
 	FILE << CATEGORY << "===> Fill constructor" << ENDL;
 	FILE << "list<int> listB(4, -1);" << ENDL; containerT<int> listB(4, -1);
 	print_list(listB, "listB", f);
 	FILE << std::boolalpha << "listB.empty() = " << OUTPUT << listB.empty() << ENDL;
-	FILE << "listB.size() = " << OUTPUT << listB.size() << ENDL;
 	FILE << "listB.front() = " << OUTPUT << listB.front() << ENDL;
 	FILE << "listB.back() = " << OUTPUT << listB.back() << ENDL;
 	FILE << ENDL;
@@ -92,7 +94,6 @@ test_list(void)
 	containerT<int> listC(intArray, intArray + 5);
 	print_list(listC, "listC", f);
 	FILE << std::boolalpha << "listC.empty() = " << OUTPUT << listC.empty() << ENDL;
-	FILE << "listC.size() = " << OUTPUT << listC.size() << ENDL;
 	FILE << "listC.front() = " << OUTPUT << listC.front() << ENDL;
 	FILE << "listC.back() = " << OUTPUT << listC.back() << ENDL;
 	FILE << ENDL;
@@ -102,7 +103,6 @@ test_list(void)
 	FILE << "list<int> listD(listC);" << ENDL; containerT<int> listD(listC);
 	print_list(listC, "listC", f);
 	print_list(listD, "listD", f);
-	FILE << "listD.size() = " << OUTPUT << listD.size() << ENDL;
 	FILE << ENDL;
 
 	FILE << CATEGORY << "===> Operator=" << ENDL;
@@ -110,7 +110,6 @@ test_list(void)
 	print_list(listC, "listC", f);
 	FILE << "listB = listC;" << ENDL; listB = listC;
 	print_list(listB, "listB", f);
-	FILE << "listB.size() = " << OUTPUT << listB.size() << ENDL;
 	FILE << "listB.push_front(0);" << ENDL; listB.push_front(0);
 	print_list(listB, "listB", f);
 	print_list(listC, "listC", f);
@@ -122,24 +121,19 @@ test_list(void)
 	FILE << "listA.push_front(2);" << ENDL; listA.push_front(2);
 	print_list(listA, "listA", f);
 	FILE << std::boolalpha << "listA.empty() = " << OUTPUT << listA.empty() << ENDL;
-	FILE << "listA.size() = " << OUTPUT << listA.size() << ENDL;
 	FILE << "listA.push_front(1);" << ENDL; listA.push_front(1);
 	print_list(listA, "listA", f);
 	FILE << std::boolalpha << "listA.empty() = " << OUTPUT << listA.empty() << ENDL;
-	FILE << "listA.size() = " << OUTPUT << listA.size() << ENDL;
 	FILE << "listA.push_back(3);" << ENDL; listA.push_back(3);
 	print_list(listA, "listA", f);
 	FILE << "listA.push_back(4);" << ENDL; listA.push_back(4);
 	FILE << "listA.push_back(5);" << ENDL; listA.push_back(5);
 	print_list(listA, "listA", f);
-	FILE << "listA.size() = " << OUTPUT << listA.size() << ENDL;
 	FILE << SUBCATEGORY << "=====> Popping" << ENDL;
 	FILE << "listA.pop_front();" << ENDL; listA.pop_front();
 	print_list(listA, "listA", f);
-	FILE << "listA.size() = " << OUTPUT << listA.size() << ENDL;
 	FILE << "listA.pop_back();" << ENDL; listA.pop_back();
 	print_list(listA, "listA", f);
-	FILE << "listA.size() = " << OUTPUT << listA.size() << ENDL;
 	FILE << SUBCATEGORY << "=====> Front and back" << ENDL;
 	FILE << "listA.front() = " << OUTPUT << listA.front() << ENDL;
 	FILE << "listA.back() = " << OUTPUT << listA.back() << ENDL;
@@ -153,7 +147,6 @@ test_list(void)
 	FILE << "list<int> const listE(3, -2);" << ENDL; containerT<int> const listE(3, -2);
 	print_list(listE, "listE", f);
 	FILE << std::boolalpha << "listE.empty() = " << OUTPUT << listE.empty() << ENDL;
-	FILE << "listE.size() = " << OUTPUT << listE.size() << ENDL;
 	FILE << "listE.front() = " << OUTPUT << listE.front() << ENDL;
 	FILE << "listE.back() = " << OUTPUT << listE.back() << ENDL;
 	FILE << ENDL;
@@ -164,11 +157,9 @@ test_list(void)
 	print_list(listF, "listF", f);
 	FILE << "listF.max_size() = " << OUTPUT << listF.max_size() << ENDL;
 	FILE << std::boolalpha << "listF.empty() = " << OUTPUT << listF.empty() << ENDL;
-	FILE << "listF.size() = " << OUTPUT << listF.size() << ENDL;
 	FILE << SUBCATEGORY << "=====> Pushing" << ENDL;
 	FILE << "listF.push_front(NoDefaultConstructorClass(2));" << ENDL; listF.push_front(NoDefaultConstructorClass(2));
 	print_list(listF, "listF", f);
-	FILE << "listF.size() = " << OUTPUT << listF.size() << ENDL;
 	FILE << "listF.push_front(NoDefaultConstructorClass(1));" << ENDL; listF.push_front(NoDefaultConstructorClass(1));
 	print_list(listF, "listF", f);
 	FILE << std::boolalpha << "listF.empty() = " << OUTPUT << listF.empty() << ENDL;
@@ -196,8 +187,8 @@ test_list(void)
 	FILE << CATEGORY << "===> Iterators" << ENDL;
 	listA.clear(); listA.push_back(1); listA.push_back(2); listA.push_back(3);
 	print_list(listA, "listA", f);
-	FILE << "typename containerT<int>::iterator it = listA.begin();" << ENDL; typename containerT<int>::iterator it = listA.begin();
-	FILE << "typename containerT<int>::iterator ite = listA.end();" << ENDL; typename containerT<int>::iterator ite = listA.end();
+	FILE << "typename list<int>::iterator it = listA.begin();" << ENDL; typename containerT<int>::iterator it = listA.begin();
+	FILE << "typename list<int>::iterator ite = listA.end();" << ENDL; typename containerT<int>::iterator ite = listA.end();
 	FILE << "(*it == listA.front()) = " << OUTPUT << std::boolalpha << (*it == listA.front()) << ENDL;
 	FILE << "while (it != ite) {...; it++;}" << ENDL;
 	while (it != ite)
@@ -212,8 +203,8 @@ test_list(void)
 	FILE << ENDL;
 
 	FILE << CATEGORY << "===> Const iterators" << ENDL;
-	FILE << "typename containerT<int>::const_iterator c_it = listA.begin();" << ENDL; typename containerT<int>::const_iterator c_it = listA.begin();
-	FILE << "typename containerT<int>::const_iterator c_ite = listA.end();" << ENDL; typename containerT<int>::const_iterator c_ite = listA.end();
+	FILE << "typename list<int>::const_iterator c_it = listA.begin();" << ENDL; typename containerT<int>::const_iterator c_it = listA.begin();
+	FILE << "typename list<int>::const_iterator c_ite = listA.end();" << ENDL; typename containerT<int>::const_iterator c_ite = listA.end();
 	FILE << "(*c_it == listA.front()) = " << OUTPUT << std::boolalpha << (*c_it == listA.front()) << ENDL;
 	FILE << "while (c_it != c_ite) {...; c_it++;}" << ENDL;
 	while (c_it != c_ite)
@@ -227,8 +218,8 @@ test_list(void)
 	FILE << ENDL;
 
 	FILE << CATEGORY << "===> Reverse iterators" << ENDL;
-	FILE << "typename containerT<int>::reverse_iterator r_it = listA.rbegin();" << ENDL; typename containerT<int>::reverse_iterator r_it = listA.rbegin();
-	FILE << "typename containerT<int>::reverse_iterator r_ite = listA.rend();" << ENDL; typename containerT<int>::reverse_iterator r_ite = listA.rend();
+	FILE << "typename list<int>::reverse_iterator r_it = listA.rbegin();" << ENDL; typename containerT<int>::reverse_iterator r_it = listA.rbegin();
+	FILE << "typename list<int>::reverse_iterator r_ite = listA.rend();" << ENDL; typename containerT<int>::reverse_iterator r_ite = listA.rend();
 	FILE << "while (r_it != r_ite) {...; r_it++;}" << ENDL;
 	while (r_it != r_ite)
 	{
@@ -242,8 +233,8 @@ test_list(void)
 	FILE << ENDL;
 
 	FILE << CATEGORY << "===> Const reverse iterators" << ENDL;
-	FILE << "typename containerT<int>::const_reverse_iterator cr_it = listA.rbegin();" << ENDL; typename containerT<int>::const_reverse_iterator cr_it = listA.rbegin();
-	FILE << "typename containerT<int>::const_reverse_iterator cr_ite = listA.rend();" << ENDL; typename containerT<int>::const_reverse_iterator cr_ite = listA.rend();
+	FILE << "typename list<int>::const_reverse_iterator cr_it = listA.rbegin();" << ENDL; typename containerT<int>::const_reverse_iterator cr_it = listA.rbegin();
+	FILE << "typename list<int>::const_reverse_iterator cr_ite = listA.rend();" << ENDL; typename containerT<int>::const_reverse_iterator cr_ite = listA.rend();
 	FILE << "while (cr_it != cr_ite) {...; cr_it++;}" << ENDL;
 	while (cr_it != cr_ite)
 	{
@@ -253,6 +244,29 @@ test_list(void)
 	}
 	FILE << "cr_it--;" << ENDL; cr_it--;
 	FILE << "(*cr_it == listA.front()) = " << OUTPUT << std::boolalpha << (*cr_it == listA.front()) << ENDL;
+	FILE << ENDL;
+
+	FILE << CATEGORY << "===> Operator-> on iterators" << ENDL;
+	FILE << "list<intStruct> listH;" << ENDL; containerT<intStruct> listH;
+	FILE << "listH.push_back(intStruct(1));" << ENDL; listH.push_back(intStruct(1));
+	FILE << "listH.push_back(intStruct(2));" << ENDL; listH.push_back(intStruct(2));
+	print_list(listH, "listH", f);
+	FILE << "typename list<intStruct>::iterator structIt = listH.begin();" << ENDL;
+	typename containerT<intStruct>::iterator structIt = listH.begin();
+	FILE << "structIt++;" << ENDL; structIt++;
+	FILE << "structIt->a = " << OUTPUT << structIt->a << ENDL;
+	FILE << "typename list<intStruct>::const_iterator c_structIt = listH.begin();" << ENDL;
+	typename containerT<intStruct>::const_iterator c_structIt = listH.begin();
+	FILE << "c_structIt++;" << ENDL; c_structIt++;
+	FILE << "c_structIt->a = " << OUTPUT << c_structIt->a << ENDL;
+	FILE << "typename list<intStruct>::reverse_iterator r_structIt = listH.rbegin();" << ENDL;
+	typename containerT<intStruct>::reverse_iterator r_structIt = listH.rbegin();
+	FILE << "r_structIt++;" << ENDL; r_structIt++;
+	FILE << "r_structIt->a = " << OUTPUT << r_structIt->a << ENDL;
+	FILE << "typename list<intStruct>::const_reverse_iterator cr_structIt = listH.rbegin();" << ENDL;
+	typename containerT<intStruct>::const_reverse_iterator cr_structIt = listH.rbegin();
+	FILE << "cr_structIt++;" << ENDL; cr_structIt++;
+	FILE << "cr_structIt->a = " << OUTPUT << cr_structIt->a << ENDL;
 	FILE << ENDL;
 
 	FILE << CATEGORY << "===> Assign" << ENDL;
@@ -267,17 +281,7 @@ test_list(void)
 	print_list(listA, "listA", f);
 	FILE << ENDL;
 
-
-	/*	std::cout << "Assign test (back on defaultList) : " << std::endl;
-	std::cout << "defaultList.assign(4, 5)" << std::endl; defaultList.assign(4, 5);
-	std::cout << "defaultList.size() = " << defaultList.size() << std::endl;
-	std::cout << "defaultList.back() = " << defaultList.back() << std::endl;
-	std::cout << "defaultList.front() = " << defaultList.front() << std::endl;
-	std::cout << "defaultList.assign(0, 5)" << std::endl; defaultList.assign(0, 5);
-	std::cout << "defaultList.size() = " << defaultList.size() << std::endl;
-	std::cout << std::endl;
-
-	std::cout << "Swap test : " << std::endl;
+	/*std::cout << "Swap test : " << std::endl;
 	std::cout << "defaultList.size() = " << defaultList.size() << std::endl;
 	std::cout << "defaultList2.size() = " << defaultList2.size() << std::endl;
 	std::cout << "defaultList2.front() = " << defaultList2.front() << std::endl;
