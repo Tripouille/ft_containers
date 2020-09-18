@@ -259,6 +259,36 @@ ft::list<T, Alloc>::pop_back(void)
 	}
 }
 
+/*** single element (1) ***/
+template <class T, class Alloc>
+typename ft::list<T, Alloc>::iterator
+ft::list<T, Alloc>::insert(iterator position, const value_type & val)
+{
+	(void)val;
+	return (position);
+}
+
+/*** fill (2) ***/
+template <class T, class Alloc>
+void
+ft::list<T, Alloc>::insert(iterator position, size_type n, const value_type & val)
+{
+	(void)val;
+	(void)n;
+	(void)position;
+}
+
+/*** range (3) ***/
+template <class T, class Alloc>
+template <class InputIterator>
+typename ft::list<T, Alloc>::iterator
+ft::list<T, Alloc>::insert(iterator position, InputIterator first, InputIterator last)
+{
+	(void)first;
+	(void)last;
+	return (position);
+}
+
 template <class T, class Alloc>
 void
 ft::list<T, Alloc>::swap(list & x)
@@ -361,7 +391,7 @@ void
 ft::list<T, Alloc>::_actualize_end(void)
 {
 	_end->next = _head;
-	_end->prev = _tail;
+	_end->prev = _tail; 
 	if (!empty())
 	{
 		_head->prev = _end;

@@ -255,6 +255,10 @@ test_list(void)
 	FILE << "(*cr_it == listA.front()) = " << OUTPUT << std::boolalpha << (*cr_it == listA.front()) << ENDL;
 	FILE << ENDL;
 
+	/*FILE << CATEGORY << "===> Operator-> on iterators" << ENDL;
+	FILE << "list<int> const listE(3, -2);" << ENDL; containerT<intStruct> listG();
+	FILE << ENDL;*/
+
 	FILE << CATEGORY << "===> Assign" << ENDL;
 	print_list(listA, "listA", f);
 	FILE << "listA.assign(7, 100);" << ENDL; listA.assign(7, 100);
@@ -267,17 +271,7 @@ test_list(void)
 	print_list(listA, "listA", f);
 	FILE << ENDL;
 
-
-	/*	std::cout << "Assign test (back on defaultList) : " << std::endl;
-	std::cout << "defaultList.assign(4, 5)" << std::endl; defaultList.assign(4, 5);
-	std::cout << "defaultList.size() = " << defaultList.size() << std::endl;
-	std::cout << "defaultList.back() = " << defaultList.back() << std::endl;
-	std::cout << "defaultList.front() = " << defaultList.front() << std::endl;
-	std::cout << "defaultList.assign(0, 5)" << std::endl; defaultList.assign(0, 5);
-	std::cout << "defaultList.size() = " << defaultList.size() << std::endl;
-	std::cout << std::endl;
-
-	std::cout << "Swap test : " << std::endl;
+	/*std::cout << "Swap test : " << std::endl;
 	std::cout << "defaultList.size() = " << defaultList.size() << std::endl;
 	std::cout << "defaultList2.size() = " << defaultList2.size() << std::endl;
 	std::cout << "defaultList2.front() = " << defaultList2.front() << std::endl;
