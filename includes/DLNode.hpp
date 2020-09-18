@@ -3,6 +3,8 @@
 
 namespace ft
 {
+	template <class T, class Alloc = std::allocator<T> >
+	class list;
 	template <class T>
 	struct DLNode
 	{
@@ -23,6 +25,7 @@ namespace ft
 			protected:
 				void				_copy(BaseIterator const & other);
 				DLNode<T> *			_target;
+			friend class ft::list<T>;
 		};
 
 		class Iterator : public BaseIterator

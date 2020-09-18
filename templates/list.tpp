@@ -7,6 +7,7 @@ ft::list<T, Alloc>::list(const allocator_type & alloc)
 				: _alloc(alloc), _size(0), _end(_node_alloc.allocate(1))
 {
 	_head = _tail = _end;
+	_actualize_end();
 }
 
 /** fill		(2) **/
@@ -16,6 +17,7 @@ ft::list<T, Alloc>::list(size_type n, const value_type & val,
 				   : _alloc(alloc), _size(0), _end(_node_alloc.allocate(1))
 {
 	_head = _tail = _end;
+	_actualize_end();
 	for (; n; --n)
 		push_front(val);
 }
@@ -28,6 +30,7 @@ ft::list<T, Alloc>::list(InputIterator first, InputIterator last,
 				  : _alloc(alloc), _size(0), _end(_node_alloc.allocate(1))
 {
 	_head = _tail = _end;
+	_actualize_end();
 	_fill_list_dispatch(first, last, typename is_integer<InputIterator>::type());
 }
 
@@ -37,6 +40,7 @@ ft::list<T, Alloc>::list(list const & other)
 				   : _alloc(other._alloc), _size(0), _end(_node_alloc.allocate(1))
 {
 	_head = _tail = _end;
+	_actualize_end();
 	_copy(other);
 }
 
@@ -282,6 +286,22 @@ ft::list<T, Alloc>::clear(void)
 }
 
 /** Operations **/
+/*** entire list (1) ***/ template <class T, class Alloc>
+void
+ft::list<T, Alloc>::splice(iterator position, list & x)
+{
+	if (position._target == _head)
+		_head = x._head;
+	if (position._target == _tail)
+		_tail = x._tail;
+	x._head->prev = position._target->prev;
+	x._tail->next = position._target;
+	position._target->prev->next = x._head;
+	position._target->prev = x._tail;
+	_size += x._size;
+	x._size = 0;
+	x._head = x._tail = x._end;
+}
 
 /* Private functions */
 template <class T, class Alloc>
@@ -357,7 +377,8 @@ ft::list<T, Alloc>::_debug(void) const
 	DLNode<T> * tmp = _head;
 	std::cout << "Head = " << _head << " Tail = " << _tail << std::endl;
 	std::cout << "List: [ ";
-	while (tmp != _end)
+	int i = 0;
+	while (tmp != _end && i++ < 100)
 	{
 		std::cout << tmp->value << " ";
 		tmp = tmp->next;

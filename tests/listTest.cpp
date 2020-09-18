@@ -60,7 +60,7 @@ print_list(T list, std::string const & name, std::ofstream & f)
 			f << *begin << " ";
 			++begin;
 	}
-	f << "]" << ENDL;
+	f << "] Size = " << list.size() << ENDL;
 }
 
 template <template <class T, class Alloc = std::allocator<T> > class containerT>
@@ -283,7 +283,14 @@ test_list(void)
 	std::cout << "defaultList3.size() = " << defaultList3.size() << std::endl;
 	std::cout << "defaultList3.front() = " << defaultList3.front() << std::endl;
 	std::cout << std::endl;*/
-
+	FILE << CATEGORY << "===> Operations" << ENDL;
+	containerT<int> listdest(2, 5);
+	containerT<int> listsrc(3, 6);
+	print_list(listdest, "listdest", f);
+	print_list(listsrc, "listsrc", f);
+	listdest.splice(listdest.begin(), listsrc);
+	print_list(listdest, "listdest", f);
+	print_list(listsrc, "listsrc", f);
 	FILE << TITLE << "=> ENDING list tests" << ENDL;
 }
 
