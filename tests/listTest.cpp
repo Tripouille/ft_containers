@@ -255,6 +255,18 @@ test_list(void)
 	FILE << "(*cr_it == listA.front()) = " << OUTPUT << std::boolalpha << (*cr_it == listA.front()) << ENDL;
 	FILE << ENDL;
 
+	FILE << CATEGORY << "===> Assign" << ENDL;
+	print_list(listA, "listA", f);
+	FILE << "listA.assign(7, 100);" << ENDL; listA.assign(7, 100);
+	print_list(listA, "listA", f);
+	print_list(listB, "listB", f);
+	FILE << "listA.assign(listB.rbegin(), listB.rend());" << ENDL; listA.assign(listB.rbegin(), listB.rend());
+	print_list(listA, "listA", f);
+	FILE << "int myints[] = {1337, 4, 7};" << ENDL; int myints[] = {1337, 4, 7};
+	FILE << "listA.assign(myints + 1, myints + 3);" << ENDL; listA.assign(myints + 1, myints + 3);
+	print_list(listA, "listA", f);
+	FILE << ENDL;
+
 
 	/*	std::cout << "Assign test (back on defaultList) : " << std::endl;
 	std::cout << "defaultList.assign(4, 5)" << std::endl; defaultList.assign(4, 5);

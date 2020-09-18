@@ -16,8 +16,7 @@ ft::list<T, Alloc>::list(size_type n, const value_type & val,
 				   : _alloc(alloc), _size(0), _end(_node_alloc.allocate(1))
 {
 	_head = _tail = _end;
-	for (; n; --n)
-		push_front(val);
+	_fill_with_value(n, val);
 }
 
 /** range		(3) **/
@@ -181,14 +180,23 @@ ft::list<T, Alloc>::back(void) const
 
 /** Modifiers **/
 
+/** range	(1) **/
+template <class T, class Alloc>
+template <class InputIterator>
+void
+ft::list<T, Alloc>::assign(InputIterator first, InputIterator last)
+{
+	clear();
+	_fill_list_dispatch(first, last, typename is_integer<InputIterator>::type());
+}
+
 /** fill	(2) **/
 template <class T, class Alloc>
 void
 ft::list<T, Alloc>::assign(size_type n, const value_type & val)
 {
 	clear();
-	for (; n; --n)
-		push_front(val);
+	_fill_with_value(n, val);
 }
 
 template <class T, class Alloc>
@@ -317,8 +325,7 @@ ft::list<T, Alloc>::_new_node(const T & v, DLNode<T> * p, DLNode<T> * n)
 }
 
 template <typename T, class Alloc>
-template <class Integer>
-void ft::list<T, Alloc>::_fill_list_dispatch(Integer& n, Integer& val, INT_TYPE)
+void ft::list<T, Alloc>::_fill_with_value(size_type n, T const & val)
 {
 	for (; n; --n)
 		push_front(val);
@@ -326,13 +333,27 @@ void ft::list<T, Alloc>::_fill_list_dispatch(Integer& n, Integer& val, INT_TYPE)
 
 template <typename T, class Alloc>
 template <class InputIterator>
-void ft::list<T, Alloc>::_fill_list_dispatch(InputIterator& first, InputIterator& last, NO_INT_TYPE)
+void ft::list<T, Alloc>::_fill_from_iterators(InputIterator & first, InputIterator & last)
 {
 	while (first != last)
 	{
 		push_back(*first);
 		++first;
 	}
+}
+
+template <typename T, class Alloc>
+template <class Integer>
+void ft::list<T, Alloc>::_fill_list_dispatch(Integer & n, Integer & val, INT_TYPE)
+{
+	_fill_with_value(static_cast<size_type>(n), val);
+}
+
+template <typename T, class Alloc>
+template <class InputIterator>
+void ft::list<T, Alloc>::_fill_list_dispatch(InputIterator & first, InputIterator & last, NO_INT_TYPE)
+{
+	_fill_from_iterators(first, last);
 }
 
 template <class T, class Alloc>
