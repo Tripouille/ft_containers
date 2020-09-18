@@ -36,8 +36,12 @@ class NoDefaultConstructorClass
 };
 std::ostream&	operator<<(std::ostream& os, NoDefaultConstructorClass const& obj) {os << obj.geta(); return (os);}
 
-struct testStruct {int a; testStruct(void) : a(3) {}};
-std::ostream&	operator<<(std::ostream& os, testStruct const& obj) {os << "a = " << obj.a; return (os);}
+struct intStruct
+{
+	int a;
+	intStruct(int n = 0) : a(n) {}
+};
+std::ostream&	operator<<(std::ostream& os, intStruct const& obj) {os << obj.a; return (os);}
 
 std::string const
 get_file_name(std::string s)
@@ -196,8 +200,8 @@ test_list(void)
 	FILE << CATEGORY << "===> Iterators" << ENDL;
 	listA.clear(); listA.push_back(1); listA.push_back(2); listA.push_back(3);
 	print_list(listA, "listA", f);
-	FILE << "typename containerT<int>::iterator it = listA.begin();" << ENDL; typename containerT<int>::iterator it = listA.begin();
-	FILE << "typename containerT<int>::iterator ite = listA.end();" << ENDL; typename containerT<int>::iterator ite = listA.end();
+	FILE << "typename list<int>::iterator it = listA.begin();" << ENDL; typename containerT<int>::iterator it = listA.begin();
+	FILE << "typename list<int>::iterator ite = listA.end();" << ENDL; typename containerT<int>::iterator ite = listA.end();
 	FILE << "(*it == listA.front()) = " << OUTPUT << std::boolalpha << (*it == listA.front()) << ENDL;
 	FILE << "while (it != ite) {...; it++;}" << ENDL;
 	while (it != ite)
@@ -212,8 +216,8 @@ test_list(void)
 	FILE << ENDL;
 
 	FILE << CATEGORY << "===> Const iterators" << ENDL;
-	FILE << "typename containerT<int>::const_iterator c_it = listA.begin();" << ENDL; typename containerT<int>::const_iterator c_it = listA.begin();
-	FILE << "typename containerT<int>::const_iterator c_ite = listA.end();" << ENDL; typename containerT<int>::const_iterator c_ite = listA.end();
+	FILE << "typename list<int>::const_iterator c_it = listA.begin();" << ENDL; typename containerT<int>::const_iterator c_it = listA.begin();
+	FILE << "typename list<int>::const_iterator c_ite = listA.end();" << ENDL; typename containerT<int>::const_iterator c_ite = listA.end();
 	FILE << "(*c_it == listA.front()) = " << OUTPUT << std::boolalpha << (*c_it == listA.front()) << ENDL;
 	FILE << "while (c_it != c_ite) {...; c_it++;}" << ENDL;
 	while (c_it != c_ite)
@@ -227,8 +231,8 @@ test_list(void)
 	FILE << ENDL;
 
 	FILE << CATEGORY << "===> Reverse iterators" << ENDL;
-	FILE << "typename containerT<int>::reverse_iterator r_it = listA.rbegin();" << ENDL; typename containerT<int>::reverse_iterator r_it = listA.rbegin();
-	FILE << "typename containerT<int>::reverse_iterator r_ite = listA.rend();" << ENDL; typename containerT<int>::reverse_iterator r_ite = listA.rend();
+	FILE << "typename list<int>::reverse_iterator r_it = listA.rbegin();" << ENDL; typename containerT<int>::reverse_iterator r_it = listA.rbegin();
+	FILE << "typename list<int>::reverse_iterator r_ite = listA.rend();" << ENDL; typename containerT<int>::reverse_iterator r_ite = listA.rend();
 	FILE << "while (r_it != r_ite) {...; r_it++;}" << ENDL;
 	while (r_it != r_ite)
 	{
@@ -242,8 +246,8 @@ test_list(void)
 	FILE << ENDL;
 
 	FILE << CATEGORY << "===> Const reverse iterators" << ENDL;
-	FILE << "typename containerT<int>::const_reverse_iterator cr_it = listA.rbegin();" << ENDL; typename containerT<int>::const_reverse_iterator cr_it = listA.rbegin();
-	FILE << "typename containerT<int>::const_reverse_iterator cr_ite = listA.rend();" << ENDL; typename containerT<int>::const_reverse_iterator cr_ite = listA.rend();
+	FILE << "typename list<int>::const_reverse_iterator cr_it = listA.rbegin();" << ENDL; typename containerT<int>::const_reverse_iterator cr_it = listA.rbegin();
+	FILE << "typename list<int>::const_reverse_iterator cr_ite = listA.rend();" << ENDL; typename containerT<int>::const_reverse_iterator cr_ite = listA.rend();
 	FILE << "while (cr_it != cr_ite) {...; cr_it++;}" << ENDL;
 	while (cr_it != cr_ite)
 	{
@@ -255,9 +259,28 @@ test_list(void)
 	FILE << "(*cr_it == listA.front()) = " << OUTPUT << std::boolalpha << (*cr_it == listA.front()) << ENDL;
 	FILE << ENDL;
 
-	/*FILE << CATEGORY << "===> Operator-> on iterators" << ENDL;
-	FILE << "list<int> const listE(3, -2);" << ENDL; containerT<intStruct> listG();
-	FILE << ENDL;*/
+	FILE << CATEGORY << "===> Operator-> on iterators" << ENDL;
+	FILE << "list<intStruct> listH;" << ENDL; containerT<intStruct> listH;
+	FILE << "listH.push_back(intStruct(1));" << ENDL; listH.push_back(intStruct(1));
+	FILE << "listH.push_back(intStruct(2));" << ENDL; listH.push_back(intStruct(2));
+	print_list(listH, "listH", f);
+	FILE << "typename list<intStruct>::iterator structIt = listH.begin();" << ENDL;
+	typename containerT<intStruct>::iterator structIt = listH.begin();
+	FILE << "structIt++;" << ENDL; structIt++;
+	FILE << "structIt->a = " << OUTPUT << structIt->a << ENDL;
+	FILE << "typename list<intStruct>::const_iterator c_structIt = listH.begin();" << ENDL;
+	typename containerT<intStruct>::const_iterator c_structIt = listH.begin();
+	FILE << "c_structIt++;" << ENDL; c_structIt++;
+	FILE << "c_structIt->a = " << OUTPUT << c_structIt->a << ENDL;
+	FILE << "typename list<intStruct>::reverse_iterator r_structIt = listH.rbegin();" << ENDL;
+	typename containerT<intStruct>::reverse_iterator r_structIt = listH.rbegin();
+	FILE << "r_structIt++;" << ENDL; r_structIt++;
+	FILE << "r_structIt->a = " << OUTPUT << r_structIt->a << ENDL;
+	FILE << "typename list<intStruct>::const_reverse_iterator cr_structIt = listH.rbegin();" << ENDL;
+	typename containerT<intStruct>::const_reverse_iterator cr_structIt = listH.rbegin();
+	FILE << "cr_structIt++;" << ENDL; cr_structIt++;
+	FILE << "cr_structIt->a = " << OUTPUT << cr_structIt->a << ENDL;
+	FILE << ENDL;
 
 	FILE << CATEGORY << "===> Assign" << ENDL;
 	print_list(listA, "listA", f);
