@@ -298,6 +298,8 @@ ft::list<T, Alloc>::clear(void)
 void
 ft::list<T, Alloc>::splice(iterator position, list & x)
 {
+	if (x.empty())
+		return ;
 	if (position._target == _head)
 		_head = x._head;
 	if (position._target == _tail)

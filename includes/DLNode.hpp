@@ -18,10 +18,7 @@ namespace ft
 				BaseIterator &		operator=(BaseIterator const & other);
 				bool				operator==(BaseIterator const & other) const;
 				bool				operator!=(BaseIterator const & other) const;
-				BaseIterator &		operator++(void);
-				BaseIterator		operator++(int);
-				BaseIterator &		operator--(void);
-				BaseIterator		operator--(int);
+
 			protected:
 				void				_copy(BaseIterator const & other);
 				DLNode<T> *			_target;
@@ -35,9 +32,13 @@ namespace ft
 				~Iterator(void);
 				Iterator(Iterator const & other);
 
-				Iterator &		operator=(Iterator const & other);
-				T &				operator*(void) const;
-				T *				operator->(void) const;
+				Iterator &			operator=(Iterator const & other);
+				Iterator &			operator++(void);
+				Iterator			operator++(int);
+				Iterator &			operator--(void);
+				Iterator			operator--(int);
+				T &					operator*(void) const;
+				T *					operator->(void) const;
 		};
 
 		class CIterator : public BaseIterator
@@ -48,9 +49,13 @@ namespace ft
 				~CIterator(void);
 				CIterator(CIterator const & other);
 
-				CIterator &		operator=(CIterator const & other);
-				T const &		operator*(void) const;
-				T const *		operator->(void) const;
+				CIterator &			operator=(CIterator const & other);
+				CIterator &			operator++(void);
+				CIterator			operator++(int);
+				CIterator &			operator--(void);
+				CIterator			operator--(int);
+				T const &			operator*(void) const;
+				T const *			operator->(void) const;
 		};
 
 		class RIterator : public BaseIterator

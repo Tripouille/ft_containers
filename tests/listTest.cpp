@@ -294,13 +294,21 @@ test_list(void)
 	std::cout << "defaultList3.front() = " << defaultList3.front() << std::endl;
 	std::cout << std::endl;*/
 	FILE << CATEGORY << "===> Operations" << ENDL;
-	containerT<int> listdest(2, 5);
-	containerT<int> listsrc(3, 6);
+	FILE << CATEGORY << "=====> entire list (1)" << ENDL;
+	FILE << "containerT<int> listempty;" << ENDL; containerT<int> listempty; print_list(listempty, "listempty", f);
+	FILE << "containerT<int> listdest(1, 1);" << ENDL; containerT<int> listdest(1, 1); print_list(listdest, "listdest", f);
+	FILE << "containerT<int> listdest3(3, 3);" << ENDL; containerT<int> listdest3(3, 3); print_list(listdest3, "listdest3", f);
+	FILE << "listdest.splice(listdest.begin(), listempty);" << ENDL; listdest.splice(listdest.begin(), listempty);
 	print_list(listdest, "listdest", f);
-	print_list(listsrc, "listsrc", f);
-	listdest.splice(listdest.begin(), listsrc);
+	FILE << "listempty.splice(listempty.begin(), listdest);" << ENDL; listempty.splice(listempty.begin(), listdest);
+	print_list(listempty, "listempty", f);
 	print_list(listdest, "listdest", f);
-	print_list(listsrc, "listsrc", f);
+	FILE << "listempty.splice(listempty.end(), listdest3);" << ENDL; listempty.splice(listempty.end(), listdest3);
+	print_list(listempty, "listempty", f);
+	print_list(listdest3, "listdest", f);
+	FILE << "containerT<int> listdest2(2, 2);" << ENDL; containerT<int> listdest2(2, 2); print_list(listdest2, "listdest2", f);
+	FILE << "listempty.splice(++listempty.begin(), listdest2);" << ENDL; listempty.splice(++listempty.begin(), listdest2);
+	print_list(listempty, "listempty", f);
 	FILE << TITLE << "=> ENDING list tests" << ENDL;
 }
 
