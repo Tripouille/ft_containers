@@ -79,14 +79,12 @@ test_list(void)
 	print_list(listA, "listA", f);
 	FILE << "listA.max_size() = " << OUTPUT << listA.max_size() << ENDL;
 	FILE << std::boolalpha << "listA.empty() = " << OUTPUT << listA.empty() << ENDL;
-	FILE << "listA.size() = " << OUTPUT << listA.size() << ENDL;
 	FILE << ENDL;
 
 	FILE << CATEGORY << "===> Fill constructor" << ENDL;
 	FILE << "list<int> listB(4, -1);" << ENDL; containerT<int> listB(4, -1);
 	print_list(listB, "listB", f);
 	FILE << std::boolalpha << "listB.empty() = " << OUTPUT << listB.empty() << ENDL;
-	FILE << "listB.size() = " << OUTPUT << listB.size() << ENDL;
 	FILE << "listB.front() = " << OUTPUT << listB.front() << ENDL;
 	FILE << "listB.back() = " << OUTPUT << listB.back() << ENDL;
 	FILE << ENDL;
@@ -96,7 +94,6 @@ test_list(void)
 	containerT<int> listC(intArray, intArray + 5);
 	print_list(listC, "listC", f);
 	FILE << std::boolalpha << "listC.empty() = " << OUTPUT << listC.empty() << ENDL;
-	FILE << "listC.size() = " << OUTPUT << listC.size() << ENDL;
 	FILE << "listC.front() = " << OUTPUT << listC.front() << ENDL;
 	FILE << "listC.back() = " << OUTPUT << listC.back() << ENDL;
 	FILE << ENDL;
@@ -106,7 +103,6 @@ test_list(void)
 	FILE << "list<int> listD(listC);" << ENDL; containerT<int> listD(listC);
 	print_list(listC, "listC", f);
 	print_list(listD, "listD", f);
-	FILE << "listD.size() = " << OUTPUT << listD.size() << ENDL;
 	FILE << ENDL;
 
 	FILE << CATEGORY << "===> Operator=" << ENDL;
@@ -114,7 +110,6 @@ test_list(void)
 	print_list(listC, "listC", f);
 	FILE << "listB = listC;" << ENDL; listB = listC;
 	print_list(listB, "listB", f);
-	FILE << "listB.size() = " << OUTPUT << listB.size() << ENDL;
 	FILE << "listB.push_front(0);" << ENDL; listB.push_front(0);
 	print_list(listB, "listB", f);
 	print_list(listC, "listC", f);
@@ -126,24 +121,19 @@ test_list(void)
 	FILE << "listA.push_front(2);" << ENDL; listA.push_front(2);
 	print_list(listA, "listA", f);
 	FILE << std::boolalpha << "listA.empty() = " << OUTPUT << listA.empty() << ENDL;
-	FILE << "listA.size() = " << OUTPUT << listA.size() << ENDL;
 	FILE << "listA.push_front(1);" << ENDL; listA.push_front(1);
 	print_list(listA, "listA", f);
 	FILE << std::boolalpha << "listA.empty() = " << OUTPUT << listA.empty() << ENDL;
-	FILE << "listA.size() = " << OUTPUT << listA.size() << ENDL;
 	FILE << "listA.push_back(3);" << ENDL; listA.push_back(3);
 	print_list(listA, "listA", f);
 	FILE << "listA.push_back(4);" << ENDL; listA.push_back(4);
 	FILE << "listA.push_back(5);" << ENDL; listA.push_back(5);
 	print_list(listA, "listA", f);
-	FILE << "listA.size() = " << OUTPUT << listA.size() << ENDL;
 	FILE << SUBCATEGORY << "=====> Popping" << ENDL;
 	FILE << "listA.pop_front();" << ENDL; listA.pop_front();
 	print_list(listA, "listA", f);
-	FILE << "listA.size() = " << OUTPUT << listA.size() << ENDL;
 	FILE << "listA.pop_back();" << ENDL; listA.pop_back();
 	print_list(listA, "listA", f);
-	FILE << "listA.size() = " << OUTPUT << listA.size() << ENDL;
 	FILE << SUBCATEGORY << "=====> Front and back" << ENDL;
 	FILE << "listA.front() = " << OUTPUT << listA.front() << ENDL;
 	FILE << "listA.back() = " << OUTPUT << listA.back() << ENDL;
@@ -157,7 +147,6 @@ test_list(void)
 	FILE << "list<int> const listE(3, -2);" << ENDL; containerT<int> const listE(3, -2);
 	print_list(listE, "listE", f);
 	FILE << std::boolalpha << "listE.empty() = " << OUTPUT << listE.empty() << ENDL;
-	FILE << "listE.size() = " << OUTPUT << listE.size() << ENDL;
 	FILE << "listE.front() = " << OUTPUT << listE.front() << ENDL;
 	FILE << "listE.back() = " << OUTPUT << listE.back() << ENDL;
 	FILE << ENDL;
@@ -168,11 +157,9 @@ test_list(void)
 	print_list(listF, "listF", f);
 	FILE << "listF.max_size() = " << OUTPUT << listF.max_size() << ENDL;
 	FILE << std::boolalpha << "listF.empty() = " << OUTPUT << listF.empty() << ENDL;
-	FILE << "listF.size() = " << OUTPUT << listF.size() << ENDL;
 	FILE << SUBCATEGORY << "=====> Pushing" << ENDL;
 	FILE << "listF.push_front(NoDefaultConstructorClass(2));" << ENDL; listF.push_front(NoDefaultConstructorClass(2));
 	print_list(listF, "listF", f);
-	FILE << "listF.size() = " << OUTPUT << listF.size() << ENDL;
 	FILE << "listF.push_front(NoDefaultConstructorClass(1));" << ENDL; listF.push_front(NoDefaultConstructorClass(1));
 	print_list(listF, "listF", f);
 	FILE << std::boolalpha << "listF.empty() = " << OUTPUT << listF.empty() << ENDL;
