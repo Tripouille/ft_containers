@@ -306,6 +306,13 @@ test_list(void)
 	FILE << "it = listC.end();" << SUBCATEGORY << " (points now to end(), after 5)" << ENDL; it = listC.end();
 	FILE << "listC.insert(it, 6);" << ENDL; listC.insert(it, 6);
 	print_list(listC, "listC", f);
+	/*FILE << SUBCATEGORY << "=====> fill (2)" << ENDL;
+	FILE << SUBCATEGORY << "(it still points on end() of listC)" << ENDL;
+	FILE << "listC.insert(it, 3, 7);" << ENDL; listC.insert(it, 3, 7);
+	print_list(listC, "listC", f);
+	FILE << "it = listC.begin();" << SUBCATEGORY << " (points now to number 0)" << ENDL; it = listC.begin();
+	FILE << "listC.insert(it, 2, -1);" << ENDL; listC.insert(it, 2, -1);
+	print_list(listC, "listC", f);*/
 	FILE << ENDL;
 
 	/*std::cout << "Swap test : " << std::endl;
