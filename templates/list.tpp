@@ -350,7 +350,7 @@ ft::list<T, Alloc>::splice(iterator position, list & x)
 		return ;
 	if (position._target == _head)
 		_head = x._head;
-	if (position._target == _tail)
+	if (position._target == _end)
 		_tail = x._tail;
 	x._head->prev = position._target->prev;
 	x._tail->next = position._target;
@@ -370,7 +370,7 @@ ft::list<T, Alloc>::splice(iterator position, list & x, iterator i)
 		return ;
 	if (position._target == _head)
 		_head = i._target;
-	if (position._target == _tail)
+	if (position._target == _end)
 		_tail = i._target;
 	if (i._target == x._head)
 		x._head = i._target->next;
@@ -390,6 +390,7 @@ ft::list<T, Alloc>::splice(iterator position, list & x, iterator i)
 	--x._size;
 	//_actualize_end();
 	//x._actualize_end();
+	//_debug();
 }
 
 /*** element range (3) ***/
@@ -486,7 +487,7 @@ void
 ft::list<T, Alloc>::_debug(void) const
 {
 	DLNode<T> * tmp = _head;
-	std::cout << "Head = " << _head << " Tail = " << _tail << std::endl;
+	std::cout << "Head = " << _head << " Tail = " << _tail << " End = " << _end << std::endl;
 	std::cout << "List: [ ";
 	int i = 0;
 	while (tmp != _end && i++ < 100)

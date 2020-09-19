@@ -2,6 +2,7 @@
 #include <list>
 #include <iostream>
 #include <fstream>
+#include <cstdio>
 #include "Color.hpp"
 #define TITLE FG_CYAN << BOLD
 #define CATEGORY FG_DGRAY << BOLD
@@ -72,6 +73,7 @@ void
 test_list(void)
 {
 	std::ofstream f(get_file_name(__PRETTY_FUNCTION__).c_str(), std::ofstream::trunc);
+	std::cout.rdbuf(f.rdbuf());
 	FILE << TITLE << std::endl << "=> STARTING list tests" << ENDL;
 
 	FILE << CATEGORY << "===> Default constructor" << ENDL;
@@ -367,7 +369,12 @@ test_list(void)
 	print_list(listdest4, "listdest4", f);
 	print_list(listempty, "listempty", f);
 
-	FILE << "listempty.push_back(0);" << ENDL; listempty.push_back(10); print_list(listempty, "listempty", f);
+	FILE << "--listempty.begin() == listempty.end() : " << OUTPUT
+	<< (--listempty.begin() == listempty.end()) << ENDL;
+	FILE << "listempty.begin() == ++listempty.end() : " << OUTPUT
+	<< (listempty.begin() == ++listempty.end()) << ENDL;
+
+	FILE << "listempty.push_back(0);" << ENDL; listempty.push_back(0); print_list(listempty, "listempty", f);
 	FILE << "listdest4.splice(listdest4.begin(), listempty, --listempty.end());" << ENDL; listdest4.splice(listdest4.begin(), listempty, --listempty.end());
 	print_list(listdest4, "listdest4", f);
 	print_list(listempty, "listempty", f);
