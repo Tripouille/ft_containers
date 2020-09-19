@@ -185,10 +185,14 @@ test_list(void)
 	FILE << ENDL;
 
 	FILE << CATEGORY << "===> Iterators" << ENDL;
-	listA.clear(); listA.push_back(1); listA.push_back(2); listA.push_back(3);
+	listA.clear();
 	print_list(listA, "listA", f);
-	FILE << "typename list<int>::iterator it = listA.begin();" << ENDL; typename containerT<int>::iterator it = listA.begin();
-	FILE << "typename list<int>::iterator ite = listA.end();" << ENDL; typename containerT<int>::iterator ite = listA.end();
+	FILE << "listA.begin() == listA.end() : " << OUTPUT << std::boolalpha << (listA.begin() == listA.end()) << ENDL;
+	FILE << SUBCATEGORY << "(Pushing some values)" << ENDL;
+	listA.push_back(1); listA.push_back(2); listA.push_back(3);
+	print_list(listA, "listA", f);
+	FILE << "list<int>::iterator it = listA.begin();" << ENDL; typename containerT<int>::iterator it = listA.begin();
+	FILE << "list<int>::iterator ite = listA.end();" << ENDL; typename containerT<int>::iterator ite = listA.end();
 	FILE << "(*it == listA.front()) = " << OUTPUT << std::boolalpha << (*it == listA.front()) << ENDL;
 	FILE << "while (it != ite) {...; it++;}" << ENDL;
 	while (it != ite)
@@ -203,8 +207,8 @@ test_list(void)
 	FILE << ENDL;
 
 	FILE << CATEGORY << "===> Const iterators" << ENDL;
-	FILE << "typename list<int>::const_iterator c_it = listA.begin();" << ENDL; typename containerT<int>::const_iterator c_it = listA.begin();
-	FILE << "typename list<int>::const_iterator c_ite = listA.end();" << ENDL; typename containerT<int>::const_iterator c_ite = listA.end();
+	FILE << "list<int>::const_iterator c_it = listA.begin();" << ENDL; typename containerT<int>::const_iterator c_it = listA.begin();
+	FILE << "list<int>::const_iterator c_ite = listA.end();" << ENDL; typename containerT<int>::const_iterator c_ite = listA.end();
 	FILE << "(*c_it == listA.front()) = " << OUTPUT << std::boolalpha << (*c_it == listA.front()) << ENDL;
 	FILE << "while (c_it != c_ite) {...; c_it++;}" << ENDL;
 	while (c_it != c_ite)
@@ -218,8 +222,8 @@ test_list(void)
 	FILE << ENDL;
 
 	FILE << CATEGORY << "===> Reverse iterators" << ENDL;
-	FILE << "typename list<int>::reverse_iterator r_it = listA.rbegin();" << ENDL; typename containerT<int>::reverse_iterator r_it = listA.rbegin();
-	FILE << "typename list<int>::reverse_iterator r_ite = listA.rend();" << ENDL; typename containerT<int>::reverse_iterator r_ite = listA.rend();
+	FILE << "list<int>::reverse_iterator r_it = listA.rbegin();" << ENDL; typename containerT<int>::reverse_iterator r_it = listA.rbegin();
+	FILE << "list<int>::reverse_iterator r_ite = listA.rend();" << ENDL; typename containerT<int>::reverse_iterator r_ite = listA.rend();
 	FILE << "while (r_it != r_ite) {...; r_it++;}" << ENDL;
 	while (r_it != r_ite)
 	{
@@ -233,8 +237,8 @@ test_list(void)
 	FILE << ENDL;
 
 	FILE << CATEGORY << "===> Const reverse iterators" << ENDL;
-	FILE << "typename list<int>::const_reverse_iterator cr_it = listA.rbegin();" << ENDL; typename containerT<int>::const_reverse_iterator cr_it = listA.rbegin();
-	FILE << "typename list<int>::const_reverse_iterator cr_ite = listA.rend();" << ENDL; typename containerT<int>::const_reverse_iterator cr_ite = listA.rend();
+	FILE << "list<int>::const_reverse_iterator cr_it = listA.rbegin();" << ENDL; typename containerT<int>::const_reverse_iterator cr_it = listA.rbegin();
+	FILE << "list<int>::const_reverse_iterator cr_ite = listA.rend();" << ENDL; typename containerT<int>::const_reverse_iterator cr_ite = listA.rend();
 	FILE << "while (cr_it != cr_ite) {...; cr_it++;}" << ENDL;
 	while (cr_it != cr_ite)
 	{
@@ -251,34 +255,57 @@ test_list(void)
 	FILE << "listH.push_back(intStruct(1));" << ENDL; listH.push_back(intStruct(1));
 	FILE << "listH.push_back(intStruct(2));" << ENDL; listH.push_back(intStruct(2));
 	print_list(listH, "listH", f);
-	FILE << "typename list<intStruct>::iterator structIt = listH.begin();" << ENDL;
+	FILE << "list<intStruct>::iterator structIt = listH.begin();" << ENDL;
 	typename containerT<intStruct>::iterator structIt = listH.begin();
 	FILE << "structIt++;" << ENDL; structIt++;
 	FILE << "structIt->a = " << OUTPUT << structIt->a << ENDL;
-	FILE << "typename list<intStruct>::const_iterator c_structIt = listH.begin();" << ENDL;
+	FILE << "list<intStruct>::const_iterator c_structIt = listH.begin();" << ENDL;
 	typename containerT<intStruct>::const_iterator c_structIt = listH.begin();
 	FILE << "c_structIt++;" << ENDL; c_structIt++;
 	FILE << "c_structIt->a = " << OUTPUT << c_structIt->a << ENDL;
-	FILE << "typename list<intStruct>::reverse_iterator r_structIt = listH.rbegin();" << ENDL;
+	FILE << "list<intStruct>::reverse_iterator r_structIt = listH.rbegin();" << ENDL;
 	typename containerT<intStruct>::reverse_iterator r_structIt = listH.rbegin();
 	FILE << "r_structIt++;" << ENDL; r_structIt++;
 	FILE << "r_structIt->a = " << OUTPUT << r_structIt->a << ENDL;
-	FILE << "typename list<intStruct>::const_reverse_iterator cr_structIt = listH.rbegin();" << ENDL;
+	FILE << "list<intStruct>::const_reverse_iterator cr_structIt = listH.rbegin();" << ENDL;
 	typename containerT<intStruct>::const_reverse_iterator cr_structIt = listH.rbegin();
 	FILE << "cr_structIt++;" << ENDL; cr_structIt++;
 	FILE << "cr_structIt->a = " << OUTPUT << cr_structIt->a << ENDL;
 	FILE << ENDL;
 
 	FILE << CATEGORY << "===> Assign" << ENDL;
+	FILE << SUBCATEGORY << "=====> fill (2)" << ENDL;
 	print_list(listA, "listA", f);
 	FILE << "listA.assign(7, 100);" << ENDL; listA.assign(7, 100);
 	print_list(listA, "listA", f);
+	FILE << SUBCATEGORY << "=====> range (1)" << ENDL;
 	print_list(listB, "listB", f);
 	FILE << "listA.assign(listB.rbegin(), listB.rend());" << ENDL; listA.assign(listB.rbegin(), listB.rend());
 	print_list(listA, "listA", f);
 	FILE << "int myints[] = {1337, 4, 7};" << ENDL; int myints[] = {1337, 4, 7};
 	FILE << "listA.assign(myints + 1, myints + 3);" << ENDL; listA.assign(myints + 1, myints + 3);
 	print_list(listA, "listA", f);
+	FILE << ENDL;
+
+	FILE << CATEGORY << "===> Insert" << ENDL;
+	FILE << SUBCATEGORY << "=====> single element (1)" << ENDL;
+	listA.clear(); print_list(listA, "listA", f);
+	FILE << "it = listA.begin();" << SUBCATEGORY << " (points to begin() = end())" << ENDL; it = listA.begin();
+	FILE << "listA.insert(it, 1);" << ENDL; listA.insert(it, 1);
+	print_list(listA, "listA", f);
+	print_list(listC, "listC", f);
+	FILE << "it = listC.begin(); ++it;" << SUBCATEGORY << " (points to 2)" << ENDL; it = listC.begin(); ++it;
+	FILE << "listC.insert(it, 10);" << ENDL; listC.insert(it, 10);
+	print_list(listC, "listC", f);
+	FILE << "it = listC.begin();" << SUBCATEGORY << " (points now to number 1)" << ENDL; it = listC.begin();
+	FILE << "listC.insert(it, 0);" << ENDL; listC.insert(it, 0);
+	print_list(listC, "listC", f);
+	FILE << "it = --listC.end();" << SUBCATEGORY << " (points now to number 5)" << ENDL; it = --listC.end();
+	FILE << "listC.insert(it, 20);" << ENDL; listC.insert(it, 20);
+	print_list(listC, "listC", f);
+	FILE << "it = listC.end();" << SUBCATEGORY << " (points now to end(), after 5)" << ENDL; it = listC.end();
+	FILE << "listC.insert(it, 6);" << ENDL; listC.insert(it, 6);
+	print_list(listC, "listC", f);
 	FILE << ENDL;
 
 	/*std::cout << "Swap test : " << std::endl;
@@ -299,7 +326,7 @@ test_list(void)
 	std::cout << std::endl;*/
 
 	FILE << CATEGORY << "===> Operations" << ENDL;
-	FILE << CATEGORY << "=====> splice entire list (1)" << ENDL;
+	FILE << SUBCATEGORY << "=====> splice entire list (1)" << ENDL;
 	FILE << "list<int> listempty;" << ENDL; containerT<int> listempty; print_list(listempty, "listempty", f);
 	FILE << "list<int> listdest(1, 1);" << ENDL; containerT<int> listdest(1, 1); print_list(listdest, "listdest", f);
 	FILE << "list<int> listdest3(3, 3);" << ENDL; containerT<int> listdest3(3, 3); print_list(listdest3, "listdest3", f);
