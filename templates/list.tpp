@@ -341,7 +341,8 @@ ft::list<T, Alloc>::clear(void)
 }
 
 /** Operations **/
-/*** entire list (1) ***/ template <class T, class Alloc>
+/*** entire list (1) ***/
+template <class T, class Alloc>
 void
 ft::list<T, Alloc>::splice(iterator position, list & x)
 {
@@ -359,6 +360,46 @@ ft::list<T, Alloc>::splice(iterator position, list & x)
 	x._size = 0;
 	x._head = x._tail = x._end;
 }
+
+/*** single element (2)	***/
+template <class T, class Alloc>
+void
+ft::list<T, Alloc>::splice(iterator position, list & x, iterator i)
+{
+	if (x.empty() || i._target == x._end)
+		return ;
+	if (position._target == _head)
+		_head = i._target;
+	if (position._target == _tail)
+		_tail = i._target;
+	if (i._target == x._head)
+		x._head = i._target->next;
+	if (i._target == x._tail)
+		x._tail = i._target->prev;
+
+	i._target->next->prev = i._target->prev;
+	i._target->prev->next = i._target->next;
+
+	i._target->prev = position._target->prev;
+	i._target->next = position._target;
+
+	position._target->prev->next = i._target;
+	position._target->prev = i._target;
+
+	++_size;
+	--x._size;
+	//_actualize_end();
+	//x._actualize_end();
+}
+
+/*** element range (3) ***/
+/*template <class T, class Alloc>
+void
+ft::list<T, Alloc>::splice(iterator position, list & x, iterator first, iterator last)
+{
+	if (x.empty())
+		return ;
+}*/
 
 /* Private functions */
 template <class T, class Alloc>

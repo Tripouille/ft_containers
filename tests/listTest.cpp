@@ -348,13 +348,36 @@ test_list(void)
 	FILE << "list<int> listdest2(2, 2);" << ENDL; containerT<int> listdest2(2, 2); print_list(listdest2, "listdest2", f);
 	FILE << "listempty.splice(++listempty.begin(), listdest2);" << ENDL; listempty.splice(++listempty.begin(), listdest2);
 	print_list(listempty, "listempty", f);
+	FILE << CATEGORY << "=====> splice single element (2)" << ENDL;
+	FILE << "list<int> listdest4;" << ENDL; containerT<int> listdest4; print_list(listdest4, "listdest4", f);
+	FILE << "listdest4.splice(listdest4.begin(), listempty, listempty.begin());" << ENDL; listdest4.splice(listdest4.begin(), listempty, listempty.begin());
+	print_list(listdest4, "listdest4", f);
+	print_list(listempty, "listempty", f);
 
-	FILE << TITLE << "=> ENDING list tests" << ENDL << ENDL;
+	FILE << "listdest4.splice(listdest4.end(), listempty, --listempty.end());" << ENDL; listdest4.splice(listdest4.end(), listempty, --listempty.end());
+	print_list(listdest4, "listdest4", f);
+	print_list(listempty, "listempty", f);
+
+	FILE << "listdest4.splice(++listdest4.begin(), listempty, listempty.begin());" << ENDL; listdest4.splice(++listdest4.begin(), listempty, listempty.begin());
+	print_list(listdest4, "listdest4", f);
+	print_list(listempty, "listempty", f);
+
+	FILE << "listempty.push_front(4);" << ENDL; listempty.push_front(4); print_list(listempty, "listempty", f);
+	FILE << "listdest4.splice(listdest4.end(), listempty, listempty.begin());" << ENDL; listdest4.splice(listdest4.end(), listempty, listempty.begin());
+	print_list(listdest4, "listdest4", f);
+	print_list(listempty, "listempty", f);
+
+	FILE << "listempty.push_back(0);" << ENDL; listempty.push_back(10); print_list(listempty, "listempty", f);
+	FILE << "listdest4.splice(listdest4.begin(), listempty, --listempty.end());" << ENDL; listdest4.splice(listdest4.begin(), listempty, --listempty.end());
+	print_list(listdest4, "listdest4", f);
+	print_list(listempty, "listempty", f);
+
+	FILE << TITLE << "=> ENDING list tests" << ENDL;
 }
 
-int
+int	
 main(void)
 {
-    test_list<std::list>();
+	test_list<std::list>();
     test_list<ft::list>();
 }
