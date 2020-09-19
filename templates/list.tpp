@@ -268,8 +268,15 @@ template <class T, class Alloc>
 typename ft::list<T, Alloc>::iterator
 ft::list<T, Alloc>::insert(iterator position, const value_type & val)
 {
-	(void)val;
-	return (position);
+	DLNode<T> * n = _new_node(val, position._target->prev, position._target);
+	position._target->prev->next = n;
+	position._target->prev = n;
+	if (position._target == _head)
+		_head = n;
+	if (position._target == _end)
+		_tail = n;
+	++_size;
+	return (iterator(n));
 }
 
 /*** fill (2) ***/
