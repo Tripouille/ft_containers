@@ -185,7 +185,11 @@ test_list(void)
 	FILE << ENDL;
 
 	FILE << CATEGORY << "===> Iterators" << ENDL;
-	listA.clear(); listA.push_back(1); listA.push_back(2); listA.push_back(3);
+	listA.clear();
+	print_list(listA, "listA", f);
+	FILE << "listA.begin() == listA.end() : " << OUTPUT << std::boolalpha << (listA.begin() == listA.end()) << ENDL;
+	FILE << SUBCATEGORY << "(Pushing some values)" << ENDL;
+	listA.push_back(1); listA.push_back(2); listA.push_back(3);
 	print_list(listA, "listA", f);
 	FILE << "list<int>::iterator it = listA.begin();" << ENDL; typename containerT<int>::iterator it = listA.begin();
 	FILE << "list<int>::iterator ite = listA.end();" << ENDL; typename containerT<int>::iterator ite = listA.end();
@@ -281,6 +285,27 @@ test_list(void)
 	FILE << "int myints[] = {1337, 4, 7};" << ENDL; int myints[] = {1337, 4, 7};
 	FILE << "listA.assign(myints + 1, myints + 3);" << ENDL; listA.assign(myints + 1, myints + 3);
 	print_list(listA, "listA", f);
+	FILE << ENDL;
+
+	FILE << CATEGORY << "===> Insert" << ENDL;
+	FILE << SUBCATEGORY << "=====> single element (1)" << ENDL;
+	listA.clear(); print_list(listA, "listA", f);
+	FILE << "it = listA.begin();" << SUBCATEGORY << " (points to begin() = end())" << ENDL; it = listA.begin();
+	FILE << "listA.insert(it, 1);" << ENDL; listA.insert(it, 1);
+	print_list(listA, "listA", f);
+	print_list(listC, "listC", f);
+	FILE << "it = listC.begin(); ++it;" << SUBCATEGORY << " (points to 2)" << ENDL; it = listC.begin(); ++it;
+	FILE << "listC.insert(it, 10);" << ENDL; listC.insert(it, 10);
+	print_list(listC, "listC", f);
+	FILE << "it = listC.begin();" << SUBCATEGORY << " (points now to number 1)" << ENDL; it = listC.begin();
+	FILE << "listC.insert(it, 0);" << ENDL; listC.insert(it, 0);
+	print_list(listC, "listC", f);
+	FILE << "it = --listC.end();" << SUBCATEGORY << " (points now to number 5)" << ENDL; it = --listC.end();
+	FILE << "listC.insert(it, 20);" << ENDL; listC.insert(it, 20);
+	print_list(listC, "listC", f);
+	FILE << "it = listC.end();" << SUBCATEGORY << " (points now to end(), after 5)" << ENDL; it = listC.end();
+	FILE << "listC.insert(it, 6);" << ENDL; listC.insert(it, 6);
+	print_list(listC, "listC", f);
 	FILE << ENDL;
 
 	/*std::cout << "Swap test : " << std::endl;
