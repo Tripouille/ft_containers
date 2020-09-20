@@ -68,6 +68,18 @@ print_list(T list, std::string const & name, std::ofstream & f)
 	f << "] Size = " << list.size() << ENDL;
 }
 
+template <class T>
+T
+inc_iterator(T it, long n = 1)
+{
+	if (n < 0)
+		while (n++ < 0)
+			--it;
+	while (n-- > 0)
+		++it;
+	return (it);
+}
+
 template <template <class T, class Alloc = std::allocator<T> > class containerT>
 void
 test_list(void)
@@ -345,6 +357,8 @@ test_list(void)
 	FILE << "listempty.splice(++listempty.begin(), listdest2);" << ENDL; listempty.splice(++listempty.begin(), listdest2);
 	print_list(listempty, "listempty", f);
 	print_list(listdest2, "listdest2", f);
+	FILE << "listempty.push_front(0);" << ENDL; listempty.push_front(0);  print_list(listempty, "listempty", f);
+	FILE << "listempty.push_back(4);" << ENDL; listempty.push_back(4);  print_list(listempty, "listempty", f);
 	FILE << "listdest2.push_front(0);" << ENDL; listdest2.push_front(0);  print_list(listdest2, "listdest2", f);
 	FILE << "listdest2.push_back(1);" << ENDL; listdest2.push_back(1);  print_list(listdest2, "listdest2", f);
 
@@ -363,17 +377,12 @@ test_list(void)
 	print_list(listdest4, "listdest4", f);
 	print_list(listempty, "listempty", f);
 
-	FILE << "listempty.push_front(4);" << ENDL; listempty.push_front(4); print_list(listempty, "listempty", f);
+	FILE << "listempty.push_front(5);" << ENDL; listempty.push_front(5); print_list(listempty, "listempty", f);
 	FILE << "listdest4.splice(listdest4.end(), listempty, listempty.begin());" << ENDL; listdest4.splice(listdest4.end(), listempty, listempty.begin());
 	print_list(listdest4, "listdest4", f);
 	print_list(listempty, "listempty", f);
 
-	FILE << "--listempty.begin() == listempty.end() : " << OUTPUT
-	<< (--listempty.begin() == listempty.end()) << ENDL;
-	FILE << "listempty.begin() == ++listempty.end() : " << OUTPUT
-	<< (listempty.begin() == ++listempty.end()) << ENDL;
-
-	FILE << "listempty.push_back(0);" << ENDL; listempty.push_back(0); print_list(listempty, "listempty", f);
+	FILE << "listempty.push_back(-1);" << ENDL; listempty.push_back(-1); print_list(listempty, "listempty", f);
 	FILE << "listdest4.splice(listdest4.begin(), listempty, --listempty.end());" << ENDL; listdest4.splice(listdest4.begin(), listempty, --listempty.end());
 	print_list(listdest4, "listdest4", f);
 	print_list(listempty, "listempty", f);
@@ -391,6 +400,46 @@ test_list(void)
 	FILE << "listB.push_front(6);" << ENDL; listB.push_front(6);
 	print_list(listB, "listB", f);
 	FILE << ENDL;
+
+	FILE << "listdest4.push_back(42);" << ENDL; listdest4.push_back(42); print_list(listdest4, "listdest4", f);
+	FILE << "listdest4.push_front(21);" << ENDL; listdest4.push_front(21); print_list(listdest4, "listdest4", f);
+	FILE << "listdest4.pop_back();" << ENDL; listdest4.pop_back(); print_list(listdest4, "listdest4", f);
+	FILE << "listdest4.pop_front();" << ENDL; listdest4.pop_front(); print_list(listdest4, "listdest4", f);
+
+	FILE << CATEGORY << "=====> splice element range (3)" << ENDL;
+
+	print_list(listdest4, "listdest4", f);
+	print_list(listempty, "listempty", f);
+	FILE << "listdest4.splice(inc_iterator(listdest4.begin(), 3), listempty, listempty.begin(), inc_iterator(listempty.begin(), 3))" << ENDL;
+	listdest4.splice(inc_iterator(listdest4.begin(), 3), listempty, listempty.begin(), inc_iterator(listempty.begin(), 3));
+	print_list(listdest4, "listdest4", f);
+	print_list(listempty, "listempty", f);
+
+	FILE << "listempty.front() = -2" << ENDL; listempty.front() = -2; print_list(listempty, "listempty", f);
+	FILE << "listempty.back() = 6" << ENDL; listempty.back() = 6; print_list(listempty, "listempty", f);
+
+	FILE << "listdest4.splice(listdest4.begin(), listempty, listempty.begin(), --listempty.end())" << ENDL;
+	listdest4.splice(listdest4.begin(), listempty, listempty.begin(), --listempty.end());
+	print_list(listdest4, "listdest4", f);
+	print_list(listempty, "listempty", f);
+
+	FILE << "listdest4.splice(listdest4.end(), listempty, listempty.begin(), --listempty.end())" << ENDL;
+	listdest4.splice(listdest4.end(), listempty, listempty.begin(), --listempty.end());
+	print_list(listdest4, "listdest4", f);
+	print_list(listempty, "listempty", f);
+
+	FILE << "listdest4.splice(listdest4.end(), listempty, listempty.begin(), listempty.end())" << ENDL;
+	listdest4.splice(listdest4.end(), listempty, listempty.begin(), listempty.end());
+	print_list(listdest4, "listdest4", f);
+	print_list(listempty, "listempty", f);
+
+	FILE << "listdest4.splice(listdest4.end(), listempty, listempty.begin(), listempty.end())" << ENDL;
+	listdest4.splice(listdest4.end(), listempty, listempty.begin(), listempty.end());
+	print_list(listdest4, "listdest4", f);
+	print_list(listempty, "listempty", f);
+
+	FILE << "listempty.push_back(42)" << ENDL; listempty.push_back(42); print_list(listempty, "listempty", f);
+	FILE << "listempty.push_front(21)" << ENDL; listempty.push_front(21); print_list(listempty, "listempty", f);
 
 	FILE << TITLE << "=> ENDING list tests" << ENDL;
 	std::cout.rdbuf(coutbuf);

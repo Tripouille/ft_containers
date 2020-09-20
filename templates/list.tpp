@@ -412,6 +412,7 @@ ft::list<T, Alloc>::splice(iterator position, list & x, iterator i)
 		_head = i._target;
 	if (position._target == _end)
 		_tail = i._target;
+
 	if (i._target == x._head)
 		x._head = i._target->next;
 	if (i._target == x._tail)
@@ -431,13 +432,37 @@ ft::list<T, Alloc>::splice(iterator position, list & x, iterator i)
 }
 
 /*** element range (3) ***/
-/*template <class T, class Alloc>
+template <class T, class Alloc>
 void
 ft::list<T, Alloc>::splice(iterator position, list & x, iterator first, iterator last)
 {
-	if (x.empty())
+	unsigned long size = static_cast<unsigned long>(std::distance(first, last));
+
+	if (x.empty() || size == 0)
 		return ;
-}*/
+	if (position._target == _head)
+		_head = first._target;
+	if (position._target == _end)
+		_tail = last._target->prev;
+
+	if (first._target == x._head)
+		x._head = last._target;
+	if (last._target == x._end)
+		x._tail = first._target->prev;
+
+	first._target->prev->next = last._target;
+	DLNode<T> * before_last = last._target->prev;
+	last._target->prev = first._target->prev;
+
+	position._target->prev->next = first._target;
+	first._target->prev = position._target->prev;
+
+	before_last->next = position._target;
+	position._target->prev = before_last;
+
+	x._size -= size;
+	_size += size;
+}
 
 template <class T, class Alloc>
 void
