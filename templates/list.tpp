@@ -291,24 +291,12 @@ ft::list<T, Alloc>::insert(iterator position, size_type n, const value_type & va
 /*** range (3) ***/
 template <class T, class Alloc>
 template <class InputIterator>
-typename ft::list<T, Alloc>::iterator
+void
 ft::list<T, Alloc>::insert(iterator position, InputIterator first, InputIterator last)
 {
-	//_insert_dispatch(position, first, last, typename is_integer<InputIterator>::type());
-	(void)first;
-	(void)last;
-	return (position);
+	list	tmp(first, last);
+	splice(position, tmp);
 }
-
-/*template <typename T, class Alloc>
-template <class Integer>
-void ft::list<T, Alloc>::_insert_dispatch(iterator position, Integer & n, Integer & val, INT_TYPE)
-{
-	for (; n; --n)
-		insert(position, val);
-}*/
-
-
 
 template <class T, class Alloc>
 void
