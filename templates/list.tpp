@@ -322,12 +322,22 @@ template <class T, class Alloc>
 typename ft::list<T, Alloc>::iterator
 ft::list<T, Alloc>::erase(iterator first, iterator last)
 {
+	first->prev->next = last;
+	last->prev = first->prev;
+
+	DLNode<T> * to_del;
 	while (first != last)
 	{
-		erase(first);
+		to_del = first._target;
 		++first;
+		delete to_del;
+		--_size;
 	}
 	return (last);
+
+	/*list tmp(first, last);
+	splice(last, *this, first, last);*/
+	
 }
 
 template <class T, class Alloc>
@@ -428,6 +438,20 @@ ft::list<T, Alloc>::splice(iterator position, list & x, iterator first, iterator
 	if (x.empty())
 		return ;
 }*/
+
+template <class T, class Alloc>
+void
+ft::list<T, Alloc>::reverse(void)
+{
+	while (_head != _end)
+	{
+		std::swap(_head->prev, _head->next);
+		_head = _head->prev;
+	}
+	std::swap(_end->prev, _end->next);
+	_tail = _end->prev;
+	_head = _end->next;
+}
 
 /* Private functions */
 template <class T, class Alloc>

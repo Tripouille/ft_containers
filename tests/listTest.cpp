@@ -377,6 +377,20 @@ test_list(void)
 	FILE << "listdest4.splice(listdest4.begin(), listempty, --listempty.end());" << ENDL; listdest4.splice(listdest4.begin(), listempty, --listempty.end());
 	print_list(listdest4, "listdest4", f);
 	print_list(listempty, "listempty", f);
+	FILE << ENDL;
+
+	FILE << CATEGORY << "===> Reverse" << ENDL;
+	print_list(listA, "listA", f);
+	FILE << "listA.reverse();" << ENDL; listA.reverse();
+	print_list(listA, "listA", f);
+	print_list(listB, "listB", f);
+	FILE << "listB.reverse();" << ENDL; listB.reverse();
+	print_list(listB, "listB", f);
+	FILE << "listB.push_back(-1);" << ENDL; listB.push_back(-1);
+	print_list(listB, "listB", f);
+	FILE << "listB.push_front(6);" << ENDL; listB.push_front(6);
+	print_list(listB, "listB", f);
+	FILE << ENDL;
 
 	FILE << TITLE << "=> ENDING list tests" << ENDL;
 	std::cout.rdbuf(coutbuf);

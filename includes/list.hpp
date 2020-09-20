@@ -88,6 +88,9 @@ namespace ft
 				/*** entire list (1) ***/ void splice(iterator position, list & x);
 				/*** single element (2)	***/ void splice(iterator position, list & x, iterator i);
 				/*** element range (3) ***/ void splice(iterator position, list & x, iterator first, iterator last);
+
+				void reverse(void);
+
 		private:
 		/* Private Functions */
 			void _copy(list const & other);
