@@ -1,5 +1,6 @@
 #ifndef DLNODE_HPP
 # define DLNODE_HPP
+# include <iterator>
 
 namespace ft
 {
@@ -8,7 +9,7 @@ namespace ft
 	template <class T>
 	struct DLNode
 	{
-		class BaseIterator
+		class BaseIterator : public std::iterator<std::bidirectional_iterator_tag, T>
 		{
 			public:
 				BaseIterator(DLNode<T> * t = NULL);
