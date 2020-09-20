@@ -415,9 +415,6 @@ ft::list<T, Alloc>::splice(iterator position, list & x, iterator i)
 
 	++_size;
 	--x._size;
-	//_actualize_end();
-	//x._actualize_end();
-	//_debug();
 }
 
 /*** element range (3) ***/

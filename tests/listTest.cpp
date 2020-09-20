@@ -344,6 +344,11 @@ test_list(void)
 	FILE << "list<int> listdest2(2, 2);" << ENDL; containerT<int> listdest2(2, 2); print_list(listdest2, "listdest2", f);
 	FILE << "listempty.splice(++listempty.begin(), listdest2);" << ENDL; listempty.splice(++listempty.begin(), listdest2);
 	print_list(listempty, "listempty", f);
+	print_list(listdest2, "listdest2", f);
+	FILE << "listdest2.push_front(0);" << ENDL; listdest2.push_front(0);  print_list(listdest2, "listdest2", f);
+	FILE << "listdest2.push_back(1);" << ENDL; listdest2.push_back(1);  print_list(listdest2, "listdest2", f);
+
+
 	FILE << SUBCATEGORY << "=====> splice single element (2)" << ENDL;
 	FILE << "list<int> listdest4;" << ENDL; containerT<int> listdest4; print_list(listdest4, "listdest4", f);
 	FILE << "listdest4.splice(listdest4.begin(), listempty, listempty.begin());" << ENDL; listdest4.splice(listdest4.begin(), listempty, listempty.begin());
