@@ -365,15 +365,57 @@ test_list(void)
 	FILE << SUBCATEGORY << "=====> erase(iterator first, iterator last)" << ENDL;
 	print_list(listB, "listB", f);
 	FILE << "it = listB.begin(); ite = listB.end();" << ENDL; it = listB.begin(); ite = listB.end();
-	//FILE << "listB.erase(it, ite);" << ENDL; listB.erase(it, ite);
-	//print_list(listB, "listB", f);
+	FILE << "it = listB.erase(it, ite);" << ENDL; it = listB.erase(it, ite);
+	print_list(listB, "listB", f);
+	FILE << SUBCATEGORY << "(pushing some values)" << ENDL;
+	listB.push_back(0); listB.push_back(1); listB.push_back(2); listB.push_back(3); listB.push_back(4); listB.push_back(5); 
+	print_list(listB, "listB", f);
+	FILE << "it = ++listB.begin(); ite = inc_iterator(listB.end(), -2);" << ENDL; it = ++listB.begin(); ite = inc_iterator(listB.end(), -2);
+	FILE << "it = listB.erase(it, ite);" << ENDL; it = listB.erase(it, ite);
+	print_list(listB, "listB", f);
+	FILE << "*it = " << OUTPUT << *it << ENDL;
 	FILE << ENDL;
 
-	/*FILE << CATEGORY << "===> Swap" << ENDL;
+	FILE << CATEGORY << "===> Swap" << ENDL;
 	print_list(listA, "listA", f);
-	FILE << ENDL;*/
+	listB.pop_back(); listB.push_back(1); listB.push_back(2); listB.push_back(3); listB.push_back(4); listB.push_back(5); 
+	print_list(listB, "listB", f);
+	FILE << "listA.swap(listB);" << ENDL; listA.swap(listB);
+	print_list(listA, "listA", f);
+	print_list(listB, "listB", f);
+	FILE << "listA.swap(listB);" << ENDL; listA.swap(listB);
+	print_list(listA, "listA", f);
+	print_list(listB, "listB", f);
+	FILE << "listA.clear(); listA.swap(listB);" << ENDL; listA.clear(); listA.swap(listB);
+	print_list(listA, "listA", f);
+	print_list(listB, "listB", f);
+	FILE << "listA.swap(listB);" << ENDL; listA.swap(listB);
+	print_list(listA, "listA", f);
+	print_list(listB, "listB", f);
+	FILE << SUBCATEGORY << "(modifying lists)" << ENDL;
+	listA.push_back(1); listB.erase(listB.begin(), --listB.end());
+	print_list(listA, "listA", f);
+	print_list(listB, "listB", f);
+	FILE << "listA.swap(listB);" << ENDL; listA.swap(listB);
+	print_list(listA, "listA", f);
+	print_list(listB, "listB", f);
+	FILE << ENDL;
 
-	/*FILE << SUBTITLE << "Operations" << ENDL;
+	FILE << CATEGORY << "===> Resize" << ENDL;
+	listA.clear(); print_list(listA, "listA", f);
+	FILE << "listA.resize(0, -1);" << ENDL; listA.resize(0, -1);
+	print_list(listA, "listA", f);
+	FILE << "listA.resize(1, -1);" << ENDL; listA.resize(1, -1);
+	print_list(listA, "listA", f);
+	FILE << "listA.resize(0, -1);" << ENDL; listA.resize(0, -1);
+	print_list(listA, "listA", f);
+	FILE << "listA.resize(6, -1); listA.push_front(42);" << ENDL; listA.resize(6, -1); listA.push_front(42);
+	print_list(listA, "listA", f);
+	FILE << "listA.resize(4, -1);" << ENDL; listA.resize(4, -1);
+	print_list(listA, "listA", f);
+	FILE << ENDL;
+
+	FILE << SUBTITLE << "Operations" << ENDL;
 	FILE << CATEGORY << "===> Splice" << ENDL;
 	FILE << SUBCATEGORY << "=====> splice entire list (1)" << ENDL;
 	FILE << "list<int> listempty;" << ENDL; containerT<int> listempty; print_list(listempty, "listempty", f);
@@ -474,7 +516,7 @@ test_list(void)
 
 	FILE << "listempty.push_back(42)" << ENDL; listempty.push_back(42); print_list(listempty, "listempty", f);
 	FILE << "listempty.push_front(21)" << ENDL; listempty.push_front(21); print_list(listempty, "listempty", f);
-	FILE << ENDL;*/
+	FILE << ENDL;
 
 	FILE << TITLE << "=> ENDING list tests" << ENDL << ENDL;
 	std::cout.rdbuf(coutbuf);

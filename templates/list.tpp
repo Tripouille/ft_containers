@@ -324,6 +324,7 @@ ft::list<T, Alloc>::erase(iterator first, iterator last)
 {
 	first._target->prev->next = last._target;
 	last._target->prev = first._target->prev;
+	_actualize_head_tail();
 
 	DLNode<T> * to_del;
 	while (first != last)
@@ -355,9 +356,9 @@ template <class T, class Alloc>
 void
 ft::list<T, Alloc>::resize(size_type n, value_type val)
 {
-	for (; n > _size; --n)
+	while (n > _size)
 		push_back(val);
-	for (; n < _size; --n)
+	while (n < _size)
 		pop_back();
 }
 
