@@ -349,8 +349,11 @@ template <class T, class Alloc>
 void
 ft::list<T, Alloc>::resize(size_type n, value_type val)
 {
+	for (; n > _size; --n)
+		push_back(val);
+	for (; n < _size; --n)
+		pop_back();
 }
-
 
 template <class T, class Alloc>
 void
