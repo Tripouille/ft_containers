@@ -291,7 +291,7 @@ test_list(void)
 	FILE << ENDL;
 
 	FILE << CATEGORY << "===> Insert" << ENDL;
-	FILE << SUBCATEGORY << "=====> single element (1)" << ENDL;
+	FILE << SUBCATEGORY << "=====> insert single element (1)" << ENDL;
 	listA.clear(); print_list(listA, "listA", f);
 	FILE << "it = listA.begin();" << SUBCATEGORY << " (points to begin() = end())" << ENDL; it = listA.begin();
 	FILE << "listA.insert(it, 1);" << ENDL; listA.insert(it, 1);
@@ -309,33 +309,24 @@ test_list(void)
 	FILE << "it = listC.end();" << SUBCATEGORY << " (points now to end(), after 5)" << ENDL; it = listC.end();
 	FILE << "listC.insert(it, 6);" << ENDL; listC.insert(it, 6);
 	print_list(listC, "listC", f);
-	/*FILE << SUBCATEGORY << "=====> fill (2)" << ENDL;
+	/*FILE << SUBCATEGORY << "=====> insert fill (2)" << ENDL;
 	FILE << SUBCATEGORY << "(it still points on end() of listC)" << ENDL;
 	FILE << "listC.insert(it, 3, 7);" << ENDL; listC.insert(it, 3, 7);
 	print_list(listC, "listC", f);
 	FILE << "it = listC.begin();" << SUBCATEGORY << " (points now to number 0)" << ENDL; it = listC.begin();
 	FILE << "listC.insert(it, 2, -1);" << ENDL; listC.insert(it, 2, -1);
 	print_list(listC, "listC", f);
-	FILE << SUBCATEGORY << "=====> range (3)" << ENDL;
+	FILE << SUBCATEGORY << "=====> insert range (3)" << ENDL;
 	FILE << "int myints[] = {1337, 4, 7};" << ENDL;*/
 	FILE << ENDL;
 
-	/*std::cout << "Swap test : " << std::endl;
-	std::cout << "defaultList.size() = " << defaultList.size() << std::endl;
-	std::cout << "defaultList2.size() = " << defaultList2.size() << std::endl;
-	std::cout << "defaultList2.front() = " << defaultList2.front() << std::endl;
-	std::cout << "defaultList.swap(defaultList2)" << std::endl; defaultList.swap(defaultList2);
-	std::cout << "defaultList.size() = " << defaultList.size() << std::endl;
-	std::cout << "defaultList.front() = " << defaultList.front() << std::endl;
-	std::cout << "defaultList2.size() = " << defaultList2.size() << std::endl;
-	std::cout << "defaultList3.push_front(3)" << std::endl; defaultList3.push_front(3);
-	std::cout << "defaultList3.size() = " << defaultList3.size() << std::endl;
-	std::cout << "defaultList.swap(defaultList3)" << std::endl; defaultList.swap(defaultList3);
-	std::cout << "defaultList.size() = " << defaultList.size() << std::endl;
-	std::cout << "defaultList.front() = " << defaultList.front() << std::endl;
-	std::cout << "defaultList3.size() = " << defaultList3.size() << std::endl;
-	std::cout << "defaultList3.front() = " << defaultList3.front() << std::endl;
-	std::cout << std::endl;*/
+	/*FILE << CATEGORY << "===> Erase" << ENDL;
+	FILE << SUBCATEGORY << "=====> erase(iterator position)" << ENDL;
+	FILE << ENDL;*/
+
+	/*FILE << CATEGORY << "===> Swap" << ENDL;
+	print_list(listA, "listA", f);
+	FILE << ENDL;*/
 
 	FILE << CATEGORY << "===> Operations" << ENDL;
 	FILE << SUBCATEGORY << "=====> splice entire list (1)" << ENDL;
@@ -353,7 +344,7 @@ test_list(void)
 	FILE << "list<int> listdest2(2, 2);" << ENDL; containerT<int> listdest2(2, 2); print_list(listdest2, "listdest2", f);
 	FILE << "listempty.splice(++listempty.begin(), listdest2);" << ENDL; listempty.splice(++listempty.begin(), listdest2);
 	print_list(listempty, "listempty", f);
-	FILE << CATEGORY << "=====> splice single element (2)" << ENDL;
+	FILE << SUBCATEGORY << "=====> splice single element (2)" << ENDL;
 	FILE << "list<int> listdest4;" << ENDL; containerT<int> listdest4; print_list(listdest4, "listdest4", f);
 	FILE << "listdest4.splice(listdest4.begin(), listempty, listempty.begin());" << ENDL; listdest4.splice(listdest4.begin(), listempty, listempty.begin());
 	print_list(listdest4, "listdest4", f);

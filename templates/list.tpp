@@ -294,8 +294,40 @@ template <class InputIterator>
 void
 ft::list<T, Alloc>::insert(iterator position, InputIterator first, InputIterator last)
 {
-	list	tmp(first, last);
+	list tmp(first, last);
 	splice(position, tmp);
+}
+
+template <class T, class Alloc>
+typename ft::list<T, Alloc>::iterator
+ft::list<T, Alloc>::erase(iterator position)
+{
+	iterator ret = iterator(position._target->next);
+
+	if (position._target == _head)
+		_head = position._target->next;
+	if (position._target == _tail)
+		_tail = position._target->prev;
+	
+	position._target->prev->next = position._target->next;
+	position._target->next->prev = position._target->prev;
+	--_size;
+	
+	delete position._target;
+
+	return (ret);
+}
+
+template <class T, class Alloc>
+typename ft::list<T, Alloc>::iterator
+ft::list<T, Alloc>::erase(iterator first, iterator last)
+{
+	while (first != last)
+	{
+		erase(first);
+		++first;
+	}
+	return (last);
 }
 
 template <class T, class Alloc>
@@ -312,6 +344,13 @@ ft::list<T, Alloc>::swap(list & x)
 		std::swap(_end, x._end);
 	}
 }
+
+template <class T, class Alloc>
+void
+ft::list<T, Alloc>::resize(size_type n, value_type val)
+{
+}
+
 
 template <class T, class Alloc>
 void
