@@ -86,6 +86,7 @@ namespace ft
 				/*** entire list (1) ***/ void splice(iterator position, list & x);
 				/*** single element (2)	***/ void splice(iterator position, list & x, iterator i);
 				/*** element range (3) ***/ void splice(iterator position, list & x, iterator first, iterator last);
+			void _swap(const_iterator & a, const_iterator & b);
 		private:
 		/* Private Functions */
 			void _copy(list const & other);
@@ -99,7 +100,7 @@ namespace ft
 			template <class InputIterator>
 			void _fill_from_iterators(InputIterator & first, InputIterator & last);
 			void _actualize_end(void);
-
+			void _actualize_head_tail(void);
 
 		/* Private variables */
 			allocator_type			_alloc;
