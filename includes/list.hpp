@@ -75,7 +75,7 @@ namespace ft
 														size_type n,
 														const value_type & val);
 				/*** range (3) ***/			template <class InputIterator>
-											iterator insert(iterator position,
+											void insert(iterator position,
 															InputIterator first,
 															InputIterator last);
 

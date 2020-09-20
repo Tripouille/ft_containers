@@ -73,6 +73,7 @@ void
 test_list(void)
 {
 	std::ofstream f(get_file_name(__PRETTY_FUNCTION__).c_str(), std::ofstream::trunc);
+	std::streambuf * coutbuf = std::cout.rdbuf();
 	std::cout.rdbuf(f.rdbuf());
 	FILE << TITLE << std::endl << "=> STARTING list tests" << ENDL;
 
@@ -314,7 +315,9 @@ test_list(void)
 	print_list(listC, "listC", f);
 	FILE << "it = listC.begin();" << SUBCATEGORY << " (points now to number 0)" << ENDL; it = listC.begin();
 	FILE << "listC.insert(it, 2, -1);" << ENDL; listC.insert(it, 2, -1);
-	print_list(listC, "listC", f);*/
+	print_list(listC, "listC", f);
+	FILE << SUBCATEGORY << "=====> range (3)" << ENDL;
+	FILE << "int myints[] = {1337, 4, 7};" << ENDL;*/
 	FILE << ENDL;
 
 	/*std::cout << "Swap test : " << std::endl;
@@ -380,6 +383,7 @@ test_list(void)
 	print_list(listempty, "listempty", f);
 
 	FILE << TITLE << "=> ENDING list tests" << ENDL;
+	std::cout.rdbuf(coutbuf);
 }
 
 int	
