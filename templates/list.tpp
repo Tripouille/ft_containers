@@ -384,15 +384,12 @@ ft::list<T, Alloc>::splice(iterator position, list & x)
 {
 	if (x.empty())
 		return ;
-	if (position._target == _head)
-		_head = x._head;
-	if (position._target == _end)
-		_tail = x._tail;
 	x._head->prev = position._target->prev;
 	x._tail->next = position._target;
 	position._target->prev->next = x._head;
 	position._target->prev = x._tail;
 	_size += x._size;
+	_actualize_head_tail();
 	x._size = 0;
 	x._head = x._tail = x._end;
 }
@@ -404,16 +401,6 @@ ft::list<T, Alloc>::splice(iterator position, list & x, iterator i)
 {
 	if (x.empty() || i._target == x._end)
 		return ;
-	if (position._target == _head)
-		_head = i._target;
-	if (position._target == _end)
-		_tail = i._target;
-
-	if (i._target == x._head)
-		x._head = i._target->next;
-	if (i._target == x._tail)
-		x._tail = i._target->prev;
-
 	i._target->next->prev = i._target->prev;
 	i._target->prev->next = i._target->next;
 
@@ -425,6 +412,9 @@ ft::list<T, Alloc>::splice(iterator position, list & x, iterator i)
 
 	++_size;
 	--x._size;
+
+	_actualize_head_tail();
+	x._actualize_head_tail();
 }
 
 /*** element range (3) ***/
@@ -436,16 +426,6 @@ ft::list<T, Alloc>::splice(iterator position, list & x, iterator first, iterator
 
 	if (x.empty() || size == 0)
 		return ;
-	if (position._target == _head)
-		_head = first._target;
-	if (position._target == _end)
-		_tail = last._target->prev;
-
-	if (first._target == x._head)
-		x._head = last._target;
-	if (last._target == x._end)
-		x._tail = first._target->prev;
-
 	first._target->prev->next = last._target;
 	DLNode<T> * before_last = last._target->prev;
 	last._target->prev = first._target->prev;
@@ -458,6 +438,9 @@ ft::list<T, Alloc>::splice(iterator position, list & x, iterator first, iterator
 
 	x._size -= size;
 	_size += size;
+
+	_actualize_head_tail();
+	x._actualize_head_tail();
 }
 
 template <class T, class Alloc>
@@ -556,6 +539,14 @@ ft::list<T, Alloc>::_actualize_end(void)
 
 template <class T, class Alloc>
 void
+ft::list<T, Alloc>::_actualize_head_tail(void)
+{
+	_head = _end->next;
+	_tail = _end->prev;
+}
+
+template <class T, class Alloc>
+void
 ft::list<T, Alloc>::_debug(void) const
 {
 	DLNode<T> * tmp = _head;
@@ -568,4 +559,18 @@ ft::list<T, Alloc>::_debug(void) const
 		tmp = tmp->next;
 	}
 	std::cout << "]" << std::endl;
+}
+template <class T, class Alloc>
+void
+ft::list<T, Alloc>::_swap(const_iterator & a, const_iterator & b)
+{
+	if (a == b)
+		return ;
+	std::swap(a._target->prev, b._target->prev);
+	std::swap(a._target->next, b._target->next);
+	a._target->prev->next = a._target;
+	a._target->next->prev = a._target;
+	b._target->prev->next = b._target;
+	b._target->next->prev = b._target;
+	_actualize_head_tail();
 }
