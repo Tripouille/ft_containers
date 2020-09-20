@@ -322,8 +322,8 @@ template <class T, class Alloc>
 typename ft::list<T, Alloc>::iterator
 ft::list<T, Alloc>::erase(iterator first, iterator last)
 {
-	first->prev->next = last;
-	last->prev = first->prev;
+	first._target->prev->next = last._target;
+	last._target->prev = first._target->prev;
 
 	DLNode<T> * to_del;
 	while (first != last)
@@ -334,10 +334,6 @@ ft::list<T, Alloc>::erase(iterator first, iterator last)
 		--_size;
 	}
 	return (last);
-
-	/*list tmp(first, last);
-	splice(last, *this, first, last);*/
-	
 }
 
 template <class T, class Alloc>

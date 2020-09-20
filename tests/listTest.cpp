@@ -5,6 +5,7 @@
 #include <cstdio>
 #include "Color.hpp"
 #define TITLE FG_CYAN << BOLD
+#define SUBTITLE FG_RED << BOLD
 #define CATEGORY FG_DGRAY << BOLD
 #define SUBCATEGORY FG_DGRAY
 #define OUTPUT FG_GREEN << UNDERLINED
@@ -89,6 +90,7 @@ test_list(void)
 	std::cout.rdbuf(f.rdbuf());
 	FILE << TITLE << std::endl << "=> STARTING list tests" << ENDL;
 
+	FILE << SUBTITLE << "Constructors" << ENDL;
 	FILE << CATEGORY << "===> Default constructor" << ENDL;
 	FILE << "list<int> listA;" << ENDL; containerT<int> listA;
 	print_list(listA, "listA", f);
@@ -130,6 +132,7 @@ test_list(void)
 	print_list(listC, "listC", f);
 	FILE << ENDL;
 
+	FILE << SUBTITLE << "Basic modifiers" << ENDL;
 	FILE << CATEGORY << "===> Basic tests with <int>" << ENDL;
 	print_list(listA, "listA", f);
 	FILE << SUBCATEGORY << "=====> Pushing" << ENDL;
@@ -199,6 +202,7 @@ test_list(void)
 	FILE << "listG.size() = " << OUTPUT << listG.size() << ENDL;
 	FILE << ENDL;
 
+	FILE << SUBTITLE << "Iterators" << ENDL;
 	FILE << CATEGORY << "===> Iterators" << ENDL;
 	listA.clear();
 	print_list(listA, "listA", f);
@@ -288,10 +292,13 @@ test_list(void)
 	FILE << "cr_structIt->a = " << OUTPUT << cr_structIt->a << ENDL;
 	FILE << ENDL;
 
+	FILE << SUBTITLE << "Modifiers" << ENDL;
 	FILE << CATEGORY << "===> Assign" << ENDL;
 	FILE << SUBCATEGORY << "=====> fill (2)" << ENDL;
 	print_list(listA, "listA", f);
 	FILE << "listA.assign(7, 100);" << ENDL; listA.assign(7, 100);
+	print_list(listA, "listA", f);
+	FILE << "listA.clear(); listA.assign(7, 100);" << ENDL; listA.clear(); listA.assign(7, 100);
 	print_list(listA, "listA", f);
 	FILE << SUBCATEGORY << "=====> range (1)" << ENDL;
 	print_list(listB, "listB", f);
@@ -300,47 +307,74 @@ test_list(void)
 	FILE << "int myints[] = {1337, 4, 7};" << ENDL; int myints[] = {1337, 4, 7};
 	FILE << "listA.assign(myints + 1, myints + 3);" << ENDL; listA.assign(myints + 1, myints + 3);
 	print_list(listA, "listA", f);
+	FILE << "listA.clear(); listA.assign(myints + 1, myints + 3);" << ENDL; listA.clear(); listA.assign(myints + 1, myints + 3);
+	print_list(listA, "listA", f);
 	FILE << ENDL;
 
 	FILE << CATEGORY << "===> Insert" << ENDL;
 	FILE << SUBCATEGORY << "=====> insert single element (1)" << ENDL;
 	listA.clear(); print_list(listA, "listA", f);
 	FILE << "it = listA.begin();" << SUBCATEGORY << " (points to begin() = end())" << ENDL; it = listA.begin();
-	FILE << "listA.insert(it, 1);" << ENDL; listA.insert(it, 1);
+	FILE << "it = listA.insert(it, 1);" << ENDL; it = listA.insert(it, 1);
+	FILE << "*it = " << OUTPUT << *it << ENDL;
 	print_list(listA, "listA", f);
 	print_list(listC, "listC", f);
 	FILE << "it = listC.begin(); ++it;" << SUBCATEGORY << " (points to 2)" << ENDL; it = listC.begin(); ++it;
-	FILE << "listC.insert(it, 10);" << ENDL; listC.insert(it, 10);
+	FILE << "it = listC.insert(it, 10);" << ENDL; it = listC.insert(it, 10);
+	FILE << "*it = " << OUTPUT << *it << ENDL;
 	print_list(listC, "listC", f);
 	FILE << "it = listC.begin();" << SUBCATEGORY << " (points now to number 1)" << ENDL; it = listC.begin();
-	FILE << "listC.insert(it, 0);" << ENDL; listC.insert(it, 0);
+	FILE << "it = listC.insert(it, 0);" << ENDL; it = listC.insert(it, 0);
+	FILE << "*it = " << OUTPUT << *it << ENDL;
 	print_list(listC, "listC", f);
 	FILE << "it = --listC.end();" << SUBCATEGORY << " (points now to number 5)" << ENDL; it = --listC.end();
-	FILE << "listC.insert(it, 20);" << ENDL; listC.insert(it, 20);
+	FILE << "it = listC.insert(it, 20);" << ENDL; it = listC.insert(it, 20);
+	FILE << "*it = " << OUTPUT << *it << ENDL;
 	print_list(listC, "listC", f);
 	FILE << "it = listC.end();" << SUBCATEGORY << " (points now to end(), after 5)" << ENDL; it = listC.end();
-	FILE << "listC.insert(it, 6);" << ENDL; listC.insert(it, 6);
+	FILE << "it = listC.insert(it, 6);" << ENDL; it = listC.insert(it, 6);
+	FILE << "*it = " << OUTPUT << *it << ENDL;
 	print_list(listC, "listC", f);
-	/*FILE << SUBCATEGORY << "=====> insert fill (2)" << ENDL;
+	FILE << SUBCATEGORY << "=====> insert fill (2)" << ENDL;
 	FILE << SUBCATEGORY << "(it still points on end() of listC)" << ENDL;
 	FILE << "listC.insert(it, 3, 7);" << ENDL; listC.insert(it, 3, 7);
 	print_list(listC, "listC", f);
 	FILE << "it = listC.begin();" << SUBCATEGORY << " (points now to number 0)" << ENDL; it = listC.begin();
 	FILE << "listC.insert(it, 2, -1);" << ENDL; listC.insert(it, 2, -1);
 	print_list(listC, "listC", f);
+	FILE << "listC.clear(); it = listC.begin();" << ENDL; listC.clear(); print_list(listC, "listC", f); it = listC.begin();
+	FILE << "listC.insert(it, 4, 0);" << ENDL; listC.insert(it, 4, 0); print_list(listC, "listC", f);
 	FILE << SUBCATEGORY << "=====> insert range (3)" << ENDL;
-	FILE << "int myints[] = {1337, 4, 7};" << ENDL;*/
+	FILE << "listC.clear(); it = listC.begin();" << ENDL; listC.clear(); it = listC.begin(); print_list(listC, "listC", f); 
+	FILE << "int myints[] = {1337, 4, 7};" << ENDL;
+	FILE << "listC.insert(it, myints + 1, myints + 3);" << ENDL; listC.insert(it, myints + 1, myints + 3); print_list(listC, "listC", f);
+	FILE << "listC.insert(it, myints, myints + 3);" << ENDL; listC.insert(it, myints, myints + 3); print_list(listC, "listC", f);
 	FILE << ENDL;
 
-	/*FILE << CATEGORY << "===> Erase" << ENDL;
+	FILE << CATEGORY << "===> Erase" << ENDL;
 	FILE << SUBCATEGORY << "=====> erase(iterator position)" << ENDL;
-	FILE << ENDL;*/
+	print_list(listC, "listC", f);
+	FILE << "it = listC.begin(); it = listC.erase(it);" << ENDL; it = listC.begin(); it = listC.erase(it);
+	print_list(listC, "listC", f);
+	FILE << "*it = " << OUTPUT << *it << ENDL;
+	FILE << "it = --listC.end(); it = listC.erase(it);" << ENDL; it = --listC.end(); it = listC.erase(it);
+	print_list(listC, "listC", f);
+	FILE << "it = ++listC.begin(); listC.erase(it);" << ENDL; it = ++listC.begin(); it = listC.erase(it);
+	print_list(listC, "listC", f);
+	FILE << "*it = " << OUTPUT << *it << ENDL;
+	FILE << SUBCATEGORY << "=====> erase(iterator first, iterator last)" << ENDL;
+	print_list(listB, "listB", f);
+	FILE << "it = listB.begin(); ite = listB.end();" << ENDL; it = listB.begin(); ite = listB.end();
+	//FILE << "listB.erase(it, ite);" << ENDL; listB.erase(it, ite);
+	//print_list(listB, "listB", f);
+	FILE << ENDL;
 
 	/*FILE << CATEGORY << "===> Swap" << ENDL;
 	print_list(listA, "listA", f);
 	FILE << ENDL;*/
 
-	FILE << CATEGORY << "===> Operations" << ENDL;
+	/*FILE << SUBTITLE << "Operations" << ENDL;
+	FILE << CATEGORY << "===> Splice" << ENDL;
 	FILE << SUBCATEGORY << "=====> splice entire list (1)" << ENDL;
 	FILE << "list<int> listempty;" << ENDL; containerT<int> listempty; print_list(listempty, "listempty", f);
 	FILE << "list<int> listdest(1, 1);" << ENDL; containerT<int> listdest(1, 1); print_list(listdest, "listdest", f);
@@ -440,8 +474,9 @@ test_list(void)
 
 	FILE << "listempty.push_back(42)" << ENDL; listempty.push_back(42); print_list(listempty, "listempty", f);
 	FILE << "listempty.push_front(21)" << ENDL; listempty.push_front(21); print_list(listempty, "listempty", f);
+	FILE << ENDL;*/
 
-	FILE << TITLE << "=> ENDING list tests" << ENDL;
+	FILE << TITLE << "=> ENDING list tests" << ENDL << ENDL;
 	std::cout.rdbuf(coutbuf);
 }
 
