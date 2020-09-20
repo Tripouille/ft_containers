@@ -294,8 +294,50 @@ template <class InputIterator>
 void
 ft::list<T, Alloc>::insert(iterator position, InputIterator first, InputIterator last)
 {
-	list	tmp(first, last);
+	list tmp(first, last);
 	splice(position, tmp);
+}
+
+template <class T, class Alloc>
+typename ft::list<T, Alloc>::iterator
+ft::list<T, Alloc>::erase(iterator position)
+{
+	iterator ret = iterator(position._target->next);
+
+	if (position._target == _head)
+		_head = position._target->next;
+	if (position._target == _tail)
+		_tail = position._target->prev;
+	
+	position._target->prev->next = position._target->next;
+	position._target->next->prev = position._target->prev;
+	--_size;
+	
+	delete position._target;
+
+	return (ret);
+}
+
+template <class T, class Alloc>
+typename ft::list<T, Alloc>::iterator
+ft::list<T, Alloc>::erase(iterator first, iterator last)
+{
+	first->prev->next = last;
+	last->prev = first->prev;
+
+	DLNode<T> * to_del;
+	while (first != last)
+	{
+		to_del = first._target;
+		++first;
+		delete to_del;
+		--_size;
+	}
+	return (last);
+
+	/*list tmp(first, last);
+	splice(last, *this, first, last);*/
+	
 }
 
 template <class T, class Alloc>
@@ -311,6 +353,16 @@ ft::list<T, Alloc>::swap(list & x)
 		std::swap(_tail, x._tail);
 		std::swap(_end, x._end);
 	}
+}
+
+template <class T, class Alloc>
+void
+ft::list<T, Alloc>::resize(size_type n, value_type val)
+{
+	for (; n > _size; --n)
+		push_back(val);
+	for (; n < _size; --n)
+		pop_back();
 }
 
 template <class T, class Alloc>
@@ -393,6 +445,20 @@ ft::list<T, Alloc>::splice(iterator position, list & x, iterator first, iterator
 
 	_actualize_head_tail();
 	x._actualize_head_tail();
+}
+
+template <class T, class Alloc>
+void
+ft::list<T, Alloc>::reverse(void)
+{
+	while (_head != _end)
+	{
+		std::swap(_head->prev, _head->next);
+		_head = _head->prev;
+	}
+	std::swap(_end->prev, _end->next);
+	_tail = _end->prev;
+	_head = _end->next;
 }
 
 /* Private functions */

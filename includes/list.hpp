@@ -78,15 +78,20 @@ namespace ft
 											void insert(iterator position,
 															InputIterator first,
 															InputIterator last);
-
+				iterator erase(iterator position);
+				iterator erase(iterator first, iterator last);
 				void swap(list & x);
-
+				void resize(size_type n, value_type val = value_type());
 				void clear(void);
+
 			/** Operations **/
 				/*** entire list (1) ***/ void splice(iterator position, list & x);
 				/*** single element (2)	***/ void splice(iterator position, list & x, iterator i);
 				/*** element range (3) ***/ void splice(iterator position, list & x, iterator first, iterator last);
 			void _swap(const_iterator & a, const_iterator & b);
+
+				void reverse(void);
+
 		private:
 		/* Private Functions */
 			void _copy(list const & other);
