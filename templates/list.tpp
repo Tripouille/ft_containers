@@ -271,10 +271,7 @@ ft::list<T, Alloc>::insert(iterator position, const value_type & val)
 	DLNode<T> * n = _new_node(val, position._target->prev, position._target);
 	position._target->prev->next = n;
 	position._target->prev = n;
-	if (position._target == _head)
-		_head = n;
-	if (position._target == _end)
-		_tail = n;
+	_actualize_head_tail();
 	++_size;
 	return (iterator(n));
 }
@@ -302,18 +299,14 @@ template <class T, class Alloc>
 typename ft::list<T, Alloc>::iterator
 ft::list<T, Alloc>::erase(iterator position)
 {
-	iterator ret = iterator(position._target->next);
-
-	if (position._target == _head)
-		_head = position._target->next;
-	if (position._target == _tail)
-		_tail = position._target->prev;
+	iterator ret(position._target->next);
 	
 	position._target->prev->next = position._target->next;
 	position._target->next->prev = position._target->prev;
-	--_size;
-	
+	_actualize_head_tail();
+
 	delete position._target;
+	--_size;
 
 	return (ret);
 }
@@ -444,15 +437,6 @@ ft::list<T, Alloc>::splice(iterator position, list & x, iterator first, iterator
 	x._actualize_head_tail();
 }
 
-/*** (1) ***/
-template <class T, class Alloc>
-void
-ft::list<T, Alloc>::sort(void)
-{
-	if (_size > 1)
-		_quick_sort(begin(), --end(), std::less<T>());
-}
-
 template <class T, class Alloc>
 void
 ft::list<T, Alloc>::remove(const value_type & val)
@@ -488,6 +472,77 @@ ft::list<T, Alloc>::remove_if(Predicate pred)
 
 template <class T, class Alloc>
 void
+ft::list<T, Alloc>::unique(void)
+{
+	unique(std::equal_to<T>());
+}
+
+
+template <class T, class Alloc>
+template <class BinaryPredicate>
+void
+ft::list<T, Alloc>::unique(BinaryPredicate binary_pred)
+{
+	iterator it = begin();
+	iterator it2 = ++begin();
+	iterator ite = end();
+
+	while (it2 != ite)
+	{
+		if (binary_pred(*it, *it2))
+			it2 = erase(it2);
+		else
+		{
+			++it;
+			++it2;
+		}
+	}
+}
+
+template <class T, class Alloc>
+void
+ft::list<T, Alloc>::merge(list & x)
+{
+	merge(x, std::less<T>());
+}
+
+
+template <class T, class Alloc>
+template <class Compare>
+void
+ft::list<T, Alloc>::merge(list & x, Compare comp)
+{
+	if (&x == this)
+		return ;
+	
+	iterator x_it = x.begin();
+	iterator tmp;
+	iterator x_ite = x.end();
+	iterator it = begin();
+	iterator ite = end();
+
+	while (x_it != x_ite)
+	{
+		while (it != ite && !comp(*x_it, *it))
+			++it;
+		tmp = x_it; ++tmp;
+		splice(it, x, x_it);
+		x_it = tmp;
+	}
+}
+
+
+/*** (1) ***/
+template <class T, class Alloc>
+void
+ft::list<T, Alloc>::sort(void)
+{
+	if (_size > 1)
+		_quick_sort(begin(), --end(), std::less<T>());
+}
+
+template <class T, class Alloc>
+void
 ft::list<T, Alloc>::reverse(void)
 {
 	while (_head != _end)
@@ -496,11 +551,19 @@ ft::list<T, Alloc>::reverse(void)
 		_head = _head->prev;
 	}
 	std::swap(_end->prev, _end->next);
-	_tail = _end->prev;
-	_head = _end->next;
+	_actualize_head_tail();
 }
 
-/* Private functions */
+/** Observers **/
+template <class T, class Alloc>
+typename ft::list<T, Alloc>::allocator_type
+ft::list<T, Alloc>::get_allocator(void) const
+{
+	return (_alloc);
+}
+
+
+/** Private functions **/
 template <class T, class Alloc>
 void
 ft::list<T, Alloc>::_copy(list const & other)
@@ -634,4 +697,13 @@ ft::list<T, Alloc>::_quick_sort(const_iterator l, const_iterator r, Comp c)
 		_quick_sort(l, --const_iterator(p), c);
 		_quick_sort(++p, r, c);
 	}
+}
+
+/** Non-member function overloads **/
+
+template <class T, class Alloc>
+void
+ft::swap(ft::list<T, Alloc> & x, ft::list<T, Alloc> & y)
+{
+	x.swap(y);
 }

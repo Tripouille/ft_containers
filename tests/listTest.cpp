@@ -82,11 +82,13 @@ inc_iterator(T it, long n = 1)
 	return (it);
 }
 
-bool single_digit (const int & value) {return (value < 10);}
+bool single_digit(const int & value) {return (value < 10);}
 struct is_odd
 {
-	bool operator() (const int & value) {return (value % 2 == 1);}
+	bool operator()(const int & value) {return (value % 2 == 1);}
 };
+bool same_integral_part(double first, double second) {return (int(first) == int(second));}
+bool comp_integral_part(double first, double second) {return (int(first) < int(second));}
 
 template <template <class T, class Alloc = std::allocator<T> > class containerT>
 void
@@ -126,6 +128,7 @@ test_list(void)
 	print_list(listD, "listD");
 	FILE << ENDL;
 
+	FILE << SUBTITLE << "Operator" << ENDL;
 	FILE << CATEGORY << "===> Operator=" << ENDL;
 	print_list(listB, "listB");
 	print_list(listC, "listC");
@@ -537,6 +540,57 @@ test_list(void)
 	print_list(listA, "listA");
 	FILE << ENDL;
 
+	FILE << CATEGORY << "===> Unique" << ENDL;
+	FILE << SUBCATEGORY << "=====> unique()" << ENDL;
+	listA.clear();
+	print_list(listA, "listA", f);
+	FILE << "listA.unique(); listA.push_front(0); listA.push_back(1);" << ENDL; listA.unique(); listA.push_front(0); listA.push_back(1);
+	print_list(listA, "listA", f);
+	double mydoubles[] = {3.14, 3.14, 4.5, 12.1, 12.1, 12.1, 12.7, 13.1, 13.2, 13.3, 72.2, 72.72, 73.6};
+	containerT<double> listJ(mydoubles, mydoubles + 13);
+	print_list(listJ, "listJ", f);
+	FILE << "listJ.unique();" << ENDL; listJ.unique();
+	print_list(listJ, "listJ", f);
+	FILE << "listJ.unique();" << ENDL; listJ.unique();
+	print_list(listJ, "listJ", f);
+	FILE << SUBCATEGORY << "=====> unique(binary_pred)" << ENDL;
+	FILE << SUBCATEGORY << "bool same_integral_part(double first, double second) {return (int(first) == int(second));}" << ENDL;
+	FILE << "listJ.unique(same_integral_part);" << ENDL; listJ.unique(same_integral_part);
+	print_list(listJ, "listJ", f);
+	FILE << "listJ.unique(same_integral_part);" << ENDL; listJ.unique(same_integral_part);
+	print_list(listJ, "listJ", f);
+	FILE << ENDL;
+
+	FILE << CATEGORY << "===> Merge" << ENDL;
+	FILE << SUBCATEGORY << "=====> merge(list & x)" << ENDL;
+	print_list(listJ, "listJ", f);
+	double mydoubles2[] = {1.2, 2.3, 4.1, 72.3, 73.7, 73.8};
+	containerT<double> listK(mydoubles2, mydoubles2 + 6);
+	print_list(listK, "listK", f);
+	FILE << "listJ.merge(listK);" << ENDL; listJ.merge(listK);
+	print_list(listJ, "listJ", f);
+	print_list(listK, "listK", f);
+	FILE << "listJ.merge(listK);" << ENDL; listJ.merge(listK);
+	print_list(listJ, "listJ", f);
+	print_list(listK, "listK", f);
+	FILE << SUBCATEGORY << "=====> merge(list & x, Compare comp)" << ENDL;
+	FILE << "listK.push_back(4.3);" << ENDL; listK.push_back(4.3); print_list(listK, "listK", f);
+	FILE << "listJ.merge(listK, comp_integral_part);" << ENDL; listJ.merge(listK, comp_integral_part);
+	print_list(listJ, "listJ", f);
+	print_list(listK, "listK", f);
+	FILE << "listJ.merge(listK, comp_integral_part);" << ENDL; listJ.merge(listK, comp_integral_part);
+	print_list(listJ, "listJ", f);
+	print_list(listK, "listK", f);
+	FILE << ENDL;
+
+	/*FILE << CATEGORY << "===> Sort" << ENDL;
+	FILE << "containerT<int> listunsorted(listdest4);" << ENDL; containerT<int> listunsorted(listdest4);
+	FILE << "listunsorted.reverse()" << ENDL; listunsorted.reverse(); print_list(listunsorted, "listunsorted", f);
+	typename containerT<int>::iterator oldbegin = listunsorted.begin();
+	FILE << *oldbegin << ENDL;
+	FILE << "listunsorted.sort()" << ENDL; listunsorted.sort(); print_list(listunsorted, "listunsorted", f);
+	FILE << *oldbegin << ENDL;
+	FILE << ENDL;*/
 
 	/*FILE << CATEGORY << "===> Reverse" << ENDL;
 	print_list(listA, "listA");
@@ -550,7 +604,6 @@ test_list(void)
 	FILE << "listB.push_front(6);" << ENDL; listB.push_front(6);
 	print_list(listB, "listB");
 	FILE << "listB.reverse();" << ENDL; listB.reverse();
-	print_list(listB, "listB");
 	FILE << ENDL;*/
 
 	FILE << "containerT<const int> listunsorted()" << ENDL; containerT<int> listunsorted;
@@ -562,10 +615,51 @@ test_list(void)
 	FILE << *oldbegin << ENDL;
 
 
+	print_list(listB, "listB", f);
+	FILE << "listB.reverse();" << ENDL; listB.reverse();
+	print_list(listB, "listB", f);
+	FILE << ENDL;
+
+	FILE << SUBTITLE << "Observers" << ENDL;
+	FILE << CATEGORY << "===> Get_allocator" << ENDL;
+	FILE << "list<int> mylist; int * p;" << ENDL; containerT<int> mylist; int * p;
+	FILE << "p = mylist.get_allocator().allocate(5);" << ENDL; p = mylist.get_allocator().allocate(5);
+	FILE << "for (int i = 0; i < 5; ++i) p[i] = i;" << ENDL; for (int i = 0; i < 5; ++i) p[i] = i;
+	FILE << "for (int i = 0; i < 5; ++i) std::cout << ' ' << p[i];" << ENDL;
+	for (int i = 0; i < 5; ++i) FILE << OUTPUT << p[i] << ' '; FILE << ENDL;
+	FILE << "mylist.get_allocator().deallocate(p,5);" << ENDL; mylist.get_allocator().deallocate(p,5);
+	FILE << ENDL;
+
+	FILE << SUBTITLE << "Non-member function overloads" << ENDL;
+	FILE << CATEGORY << "===> Swap" << ENDL;
+	print_list(listA, "listA", f);
+	listB.assign(myints, myints + 3); 
+	print_list(listB, "listB", f);
+	FILE << "swap(listA, listB);" << ENDL; swap(listA, listB);
+	print_list(listA, "listA", f);
+	print_list(listB, "listB", f);
+	FILE << "swap(listA, listB);" << ENDL; swap(listA, listB);
+	print_list(listA, "listA", f);
+	print_list(listB, "listB", f);
+	FILE << "listA.clear(); swap(listA, listB);" << ENDL; listA.clear(); swap(listA, listB);
+	print_list(listA, "listA", f);
+	print_list(listB, "listB", f);
+	FILE << "swap(listA, listB);" << ENDL; swap(listA, listB);
+	print_list(listA, "listA", f);
+	print_list(listB, "listB", f);
+	FILE << SUBCATEGORY << "(modifying lists)" << ENDL;
+	listA.push_back(1); listB.erase(listB.begin(), --listB.end());
+	print_list(listA, "listA", f);
+	print_list(listB, "listB", f);
+	FILE << "swap(listA, listB);" << ENDL; swap(listA, listB);
+	print_list(listA, "listA", f);
+	print_list(listB, "listB", f);
+	FILE << ENDL;
+
 	FILE << TITLE << "=> ENDING list tests" << ENDL << ENDL;
+	std::cout.rdbuf(coutbuf);
 }
 
-int	
 main(void)
 {
     test_list<std::list>();

@@ -41,8 +41,8 @@ namespace ft
 		/* Operator */
 			list<T, Alloc> &			operator=(list const & other);
 
-		/* Public functions */
-			/** Iterator **/
+		/* Member functions */
+			/** Iterators **/
 				iterator begin(void);
 				const_iterator begin(void) const;
 				iterator end(void);
@@ -51,10 +51,12 @@ namespace ft
 				const_reverse_iterator rbegin(void) const;
 				reverse_iterator rend(void);
 				const_reverse_iterator rend(void) const;
+
 			/** Capacity **/
 				bool empty(void) const;
 				size_type size(void) const;
 				size_type max_size(void) const;
+
 			/** Element access **/
 				reference front(void);
 				const_reference front(void) const;
@@ -88,14 +90,22 @@ namespace ft
 				/*** entire list (1) ***/ void splice(iterator position, list & x);
 				/*** single element (2)	***/ void splice(iterator position, list & x, iterator i);
 				/*** element range (3) ***/ void splice(iterator position, list & x, iterator first, iterator last);
-				/*** (1) ***/ void sort(void);
-				/*** (2) ***/ template <class Compare>
-							  void sort(Compare comp);
 				void remove(const value_type & val);
 				template <class Predicate>
 				void remove_if(Predicate pred);
-
+				void unique();
+				template <class BinaryPredicate>
+				void unique(BinaryPredicate binary_pred);
+				void merge(list & x);
+				template <class Compare>
+				void merge(list & x, Compare comp);
+				/*** (1) ***/ void sort(void);
+				/*** (2) ***/ template <class Compare>
+							  void sort(Compare comp);
 				void reverse(void);
+
+			/** Observers **/
+				allocator_type get_allocator(void) const;
 
 			void _swap(const_iterator & a, const_iterator & b);
 		private:
@@ -125,6 +135,13 @@ namespace ft
 			DLNode<T> *				_tail;
 			DLNode<T> *				_end;
 	};
+
+	/* Non-member function overloads */
+		/** Relational operators **/
+
+		/** swap **/
+		template <class T, class Alloc>
+		void swap(list<T, Alloc> & x, list<T, Alloc> & y);
 }
 
 # include "list.tpp"
