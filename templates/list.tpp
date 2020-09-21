@@ -702,6 +702,33 @@ ft::list<T, Alloc>::_quick_sort(const_iterator l, const_iterator r, Comp c)
 /** Non-member function overloads **/
 
 template <class T, class Alloc>
+bool
+ft::operator==(const list<T, Alloc> & lhs, const list<T, Alloc> & rhs)
+{
+	if (lhs.size() != rhs.size())
+		return (false);
+	
+	typename ft::list<T, Alloc>::iterator lhs_it = lhs.begin();
+	typename ft::list<T, Alloc>::iterator lhs_ite = lhs.end();
+	typename ft::list<T, Alloc>::iterator rhs_it = rhs.begin();
+	while (lhs_it != lhs_ite)
+	{
+		if (*lhs_it != *rhs_it)
+			return (false);
+		++lhs_it;
+		++rhs_it;
+	}
+	return (true);
+}
+
+template <class T, class Alloc>
+bool
+ft::operator!=(const list<T, Alloc> & lhs, const list<T, Alloc> & rhs)
+{
+	return (!(lhs == rhs));
+}
+
+template <class T, class Alloc>
 void
 ft::swap(ft::list<T, Alloc> & x, ft::list<T, Alloc> & y)
 {

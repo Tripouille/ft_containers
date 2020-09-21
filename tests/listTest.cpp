@@ -622,7 +622,7 @@ test_list(void)
 	FILE << SUBTITLE << "Non-member function overloads" << ENDL;
 	FILE << CATEGORY << "===> Swap" << ENDL;
 	print_list(listA, "listA");
-	listB.assign(myints, myints + 3); 
+	listB.assign(myints, myints + 3);
 	print_list(listB, "listB");
 	FILE << "swap(listA, listB);" << ENDL; swap(listA, listB);
 	print_list(listA, "listA");
