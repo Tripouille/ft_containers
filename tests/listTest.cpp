@@ -583,14 +583,14 @@ test_list(void)
 	print_list(listK, "listK");
 	FILE << ENDL;
 
-	FILE << CATEGORY << "===> Sort" << ENDL;
+	/*FILE << CATEGORY << "===> Sort" << ENDL;
 	FILE << "containerT<int> listunsorted(listdest4);" << ENDL; containerT<int> listunsorted(listdest4);
 	FILE << "listunsorted.reverse()" << ENDL; listunsorted.reverse(); print_list(listunsorted, "listunsorted");
 	typename containerT<int>::iterator oldbegin = listunsorted.begin();
 	FILE << *oldbegin << ENDL;
 	FILE << "listunsorted.sort()" << ENDL; listunsorted.sort(); print_list(listunsorted, "listunsorted");
 	FILE << *oldbegin << ENDL;
-	FILE << ENDL;
+	FILE << ENDL;*/
 
 	FILE << CATEGORY << "===> Reverse" << ENDL;
 	print_list(listA, "listA");

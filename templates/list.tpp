@@ -515,19 +515,20 @@ ft::list<T, Alloc>::merge(list & x, Compare comp)
 	if (&x == this)
 		return ;
 	
-	iterator x_it = x.begin();
+	iterator x_it_first = x.begin();
 	iterator x_ite = x.end();
 	iterator it = begin();
 	iterator ite = end();
 	iterator tmp;
-
-	while (x_it != x_ite)
+	while (x_it_first != x_ite)
 	{
-		while (it != ite && !comp(*x_it, *it))
+		while (it != ite && !comp(*x_it_first, *it))
 			++it;
-		tmp = x_it; ++tmp;
-		splice(it, x, x_it);
-		x_it = tmp;
+		iterator x_it_last = ++iterator(x_it_first);
+		while (x_it_last != x_ite && (it == ite || !comp(*it, *x_it_last)))
+			++x_it_last;
+		splice(it, x, x_it_first, x_it_last);
+		x_it_first = x_it_last;
 	}
 }
 

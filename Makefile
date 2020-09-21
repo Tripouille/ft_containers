@@ -27,10 +27,10 @@ $(MAKE_RESULT): %: color %sed tests/%Test
 $(MAKE_RESULT:%=show\:\:%): show\:\:%: %
 	cat results/$<.result
 
-$(CONTAINERS:%=diff\:\:%): diff\:\:%: ft\:\:% std\:\:%
+$(CONTAINERS:%=diff\:\:%): diff\:\:%: std\:\:% ft\:\:%
 	diff -s --unified=0 results/ft::$*.result results/std::$*.result
 
-$(CONTAINERS): %: ft\:\:% std\:\:%
+$(CONTAINERS): %: std\:\:% ft\:\:%
 	cat results/ft::$@.result
 	diff -s --unified=0 results/ft::$@.result results/std::$@.result
 
