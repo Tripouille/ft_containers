@@ -585,6 +585,16 @@ test_list(void)
 	print_list(listK, "listK", f);
 	FILE << ENDL;
 
+	FILE << SUBTITLE << "Observers" << ENDL;
+	FILE << CATEGORY << "===> Get_allocator" << ENDL;
+	FILE << "list<int> mylist; int * p;" << ENDL; containerT<int> mylist; int * p;
+	FILE << "p = mylist.get_allocator().allocate(5);" << ENDL; p = mylist.get_allocator().allocate(5);
+	FILE << "for (int i = 0; i < 5; ++i) p[i] = i;" << ENDL; for (int i = 0; i < 5; ++i) p[i] = i;
+	FILE << "for (int i = 0; i < 5; ++i) std::cout << ' ' << p[i];" << ENDL;
+	for (int i = 0; i < 5; ++i) FILE << OUTPUT << p[i] << ' '; FILE << ENDL;
+	FILE << "mylist.get_allocator().deallocate(p,5);" << ENDL; mylist.get_allocator().deallocate(p,5);
+	FILE << ENDL;
+
 	/*FILE << CATEGORY << "===> Reverse" << ENDL;
 	print_list(listA, "listA", f);
 	FILE << "listA.reverse();" << ENDL; listA.reverse();

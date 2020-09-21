@@ -102,6 +102,9 @@ namespace ft
 							  void sort(Compare comp);
 				void reverse(void);
 
+			/** Observers **/
+				allocator_type get_allocator(void) const;
+
 			void _swap(const_iterator & a, const_iterator & b);
 		private:
 		/* Private Functions */

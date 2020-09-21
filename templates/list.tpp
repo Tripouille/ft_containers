@@ -554,7 +554,16 @@ ft::list<T, Alloc>::reverse(void)
 	_actualize_head_tail();
 }
 
-/* Private functions */
+/** Observers **/
+template <class T, class Alloc>
+typename ft::list<T, Alloc>::allocator_type
+ft::list<T, Alloc>::get_allocator(void) const
+{
+	return (_alloc);
+}
+
+
+/** Private functions **/
 template <class T, class Alloc>
 void
 ft::list<T, Alloc>::_copy(list const & other)
