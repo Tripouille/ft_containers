@@ -75,8 +75,9 @@ inc_iterator(T it, long n = 1)
 	if (n < 0)
 		while (n++ < 0)
 			--it;
-	while (n-- > 0)
-		++it;
+	else
+		while (n-- > 0)
+			++it;
 	return (it);
 }
 
@@ -441,7 +442,12 @@ test_list(void)
 	FILE << "listempty.push_back(42)" << ENDL; listempty.push_back(42); print_list(listempty, "listempty", f);
 	FILE << "listempty.push_front(21)" << ENDL; listempty.push_front(21); print_list(listempty, "listempty", f);
 
-	FILE << TITLE << "=> ENDING list tests" << ENDL;
+	FILE << "containerT<int> listunsorted(listdest4);" << ENDL; containerT<int> listunsorted(listdest4);
+	FILE << "listunsorted.reverse()" << ENDL; listunsorted.reverse(); print_list(listunsorted, "listunsorted", f);
+	typename containerT<int>::iterator oldbegin = listunsorted.begin();
+	FILE << *oldbegin << ENDL;
+	FILE << "listunsorted.sort()" << ENDL; listunsorted.sort(); print_list(listunsorted, "listunsorted", f);
+	FILE << *oldbegin << ENDL;
 	std::cout.rdbuf(coutbuf);
 }
 

@@ -447,6 +447,15 @@ ft::list<T, Alloc>::splice(iterator position, list & x, iterator first, iterator
 	x._actualize_head_tail();
 }
 
+/*** (1) ***/
+template <class T, class Alloc>
+void
+ft::list<T, Alloc>::sort(void)
+{
+	if (_size > 1)
+		_quick_sort(begin(), --end(), std::less<T>());
+}
+
 template <class T, class Alloc>
 void
 ft::list<T, Alloc>::reverse(void)
@@ -564,9 +573,10 @@ ft::list<T, Alloc>::_debug(void) const
 	}
 	std::cout << "]" << std::endl;
 }
+
 template <class T, class Alloc>
 void
-ft::list<T, Alloc>::_swap(const_iterator & a, const_iterator & b)
+ft::list<T, Alloc>::_swap(const_iterator a, const_iterator b)
 {
 	if (a == b)
 		return ;
@@ -577,4 +587,21 @@ ft::list<T, Alloc>::_swap(const_iterator & a, const_iterator & b)
 	b._target->prev->next = b._target;
 	b._target->next->prev = b._target;
 	_actualize_head_tail();
+}
+
+template <class T, class Alloc>
+template <class Comp>
+void
+ft::list<T, Alloc>::_quick_sort(const_iterator l, const_iterator r, Comp c)
+{
+	if (l != r && r._target->next != l._target)
+	{
+		const_iterator p = l;
+		for (const_iterator actual = l; actual != r; ++actual)
+			if (c(*actual, *r))
+				std::swap(const_cast<T&>(*actual), const_cast<T&>(*p++));
+		std::swap(const_cast<T&>(*p), const_cast<T&>(*r));
+		_quick_sort(l, --const_iterator(p), c);
+		_quick_sort(++p, r, c);
+	}
 }
