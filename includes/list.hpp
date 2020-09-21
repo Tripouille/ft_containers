@@ -88,10 +88,11 @@ namespace ft
 				/*** entire list (1) ***/ void splice(iterator position, list & x);
 				/*** single element (2)	***/ void splice(iterator position, list & x, iterator i);
 				/*** element range (3) ***/ void splice(iterator position, list & x, iterator first, iterator last);
-			void _swap(const_iterator & a, const_iterator & b);
+				void remove(const value_type & val);
 
 				void reverse(void);
 
+			void _swap(const_iterator & a, const_iterator & b);
 		private:
 		/* Private Functions */
 			void _copy(list const & other);
@@ -101,7 +102,7 @@ namespace ft
 			void _fill_list_dispatch(Integer & first, Integer & last, INT_TYPE);
 			template <class InputIterator>
 			void _fill_list_dispatch(InputIterator & first, InputIterator & last, NO_INT_TYPE);
-			void _fill_with_value(size_type n, T const & val);
+			void _fill_with_value(size_type n, value_type const & val);
 			template <class InputIterator>
 			void _fill_from_iterators(InputIterator & first, InputIterator & last);
 			void _actualize_end(void);

@@ -446,6 +446,21 @@ ft::list<T, Alloc>::splice(iterator position, list & x, iterator first, iterator
 
 template <class T, class Alloc>
 void
+ft::list<T, Alloc>::remove(const value_type & val)
+{
+	iterator	it = begin();
+
+	while (it != end())
+	{
+		if (*it == val)
+			it = erase(it);
+		else
+			++it;
+	}
+}
+
+template <class T, class Alloc>
+void
 ft::list<T, Alloc>::reverse(void)
 {
 	while (_head != _end)
@@ -492,7 +507,7 @@ ft::list<T, Alloc>::_new_node(const T & v, DLNode<T> * p, DLNode<T> * n)
 }
 
 template <typename T, class Alloc>
-void ft::list<T, Alloc>::_fill_with_value(size_type n, T const & val)
+void ft::list<T, Alloc>::_fill_with_value(size_type n, value_type const & val)
 {
 	for (; n; --n)
 		push_front(val);
