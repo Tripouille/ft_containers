@@ -543,52 +543,52 @@ test_list(void)
 	FILE << CATEGORY << "===> Unique" << ENDL;
 	FILE << SUBCATEGORY << "=====> unique()" << ENDL;
 	listA.clear();
-	print_list(listA, "listA", f);
+	print_list(listA, "listA");
 	FILE << "listA.unique(); listA.push_front(0); listA.push_back(1);" << ENDL; listA.unique(); listA.push_front(0); listA.push_back(1);
-	print_list(listA, "listA", f);
+	print_list(listA, "listA");
 	double mydoubles[] = {3.14, 3.14, 4.5, 12.1, 12.1, 12.1, 12.7, 13.1, 13.2, 13.3, 72.2, 72.72, 73.6};
 	containerT<double> listJ(mydoubles, mydoubles + 13);
-	print_list(listJ, "listJ", f);
+	print_list(listJ, "listJ");
 	FILE << "listJ.unique();" << ENDL; listJ.unique();
-	print_list(listJ, "listJ", f);
+	print_list(listJ, "listJ");
 	FILE << "listJ.unique();" << ENDL; listJ.unique();
-	print_list(listJ, "listJ", f);
+	print_list(listJ, "listJ");
 	FILE << SUBCATEGORY << "=====> unique(binary_pred)" << ENDL;
 	FILE << SUBCATEGORY << "bool same_integral_part(double first, double second) {return (int(first) == int(second));}" << ENDL;
 	FILE << "listJ.unique(same_integral_part);" << ENDL; listJ.unique(same_integral_part);
-	print_list(listJ, "listJ", f);
+	print_list(listJ, "listJ");
 	FILE << "listJ.unique(same_integral_part);" << ENDL; listJ.unique(same_integral_part);
-	print_list(listJ, "listJ", f);
+	print_list(listJ, "listJ");
 	FILE << ENDL;
 
 	FILE << CATEGORY << "===> Merge" << ENDL;
 	FILE << SUBCATEGORY << "=====> merge(list & x)" << ENDL;
-	print_list(listJ, "listJ", f);
+	print_list(listJ, "listJ");
 	double mydoubles2[] = {1.2, 2.3, 4.1, 72.3, 73.7, 73.8};
 	containerT<double> listK(mydoubles2, mydoubles2 + 6);
-	print_list(listK, "listK", f);
+	print_list(listK, "listK");
 	FILE << "listJ.merge(listK);" << ENDL; listJ.merge(listK);
-	print_list(listJ, "listJ", f);
-	print_list(listK, "listK", f);
+	print_list(listJ, "listJ");
+	print_list(listK, "listK");
 	FILE << "listJ.merge(listK);" << ENDL; listJ.merge(listK);
-	print_list(listJ, "listJ", f);
-	print_list(listK, "listK", f);
+	print_list(listJ, "listJ");
+	print_list(listK, "listK");
 	FILE << SUBCATEGORY << "=====> merge(list & x, Compare comp)" << ENDL;
-	FILE << "listK.push_back(4.3);" << ENDL; listK.push_back(4.3); print_list(listK, "listK", f);
+	FILE << "listK.push_back(4.3);" << ENDL; listK.push_back(4.3); print_list(listK, "listK");
 	FILE << "listJ.merge(listK, comp_integral_part);" << ENDL; listJ.merge(listK, comp_integral_part);
-	print_list(listJ, "listJ", f);
-	print_list(listK, "listK", f);
+	print_list(listJ, "listJ");
+	print_list(listK, "listK");
 	FILE << "listJ.merge(listK, comp_integral_part);" << ENDL; listJ.merge(listK, comp_integral_part);
-	print_list(listJ, "listJ", f);
-	print_list(listK, "listK", f);
+	print_list(listJ, "listJ");
+	print_list(listK, "listK");
 	FILE << ENDL;
 
 	/*FILE << CATEGORY << "===> Sort" << ENDL;
 	FILE << "containerT<int> listunsorted(listdest4);" << ENDL; containerT<int> listunsorted(listdest4);
-	FILE << "listunsorted.reverse()" << ENDL; listunsorted.reverse(); print_list(listunsorted, "listunsorted", f);
+	FILE << "listunsorted.reverse()" << ENDL; listunsorted.reverse(); print_list(listunsorted, "listunsorted");
 	typename containerT<int>::iterator oldbegin = listunsorted.begin();
 	FILE << *oldbegin << ENDL;
-	FILE << "listunsorted.sort()" << ENDL; listunsorted.sort(); print_list(listunsorted, "listunsorted", f);
+	FILE << "listunsorted.sort()" << ENDL; listunsorted.sort(); print_list(listunsorted, "listunsorted");
 	FILE << *oldbegin << ENDL;
 	FILE << ENDL;*/
 
@@ -615,9 +615,9 @@ test_list(void)
 	FILE << *oldbegin << ENDL;
 
 
-	print_list(listB, "listB", f);
+	print_list(listB, "listB");
 	FILE << "listB.reverse();" << ENDL; listB.reverse();
-	print_list(listB, "listB", f);
+	print_list(listB, "listB");
 	FILE << ENDL;
 
 	FILE << SUBTITLE << "Observers" << ENDL;
@@ -632,34 +632,34 @@ test_list(void)
 
 	FILE << SUBTITLE << "Non-member function overloads" << ENDL;
 	FILE << CATEGORY << "===> Swap" << ENDL;
-	print_list(listA, "listA", f);
+	print_list(listA, "listA");
 	listB.assign(myints, myints + 3); 
-	print_list(listB, "listB", f);
+	print_list(listB, "listB");
 	FILE << "swap(listA, listB);" << ENDL; swap(listA, listB);
-	print_list(listA, "listA", f);
-	print_list(listB, "listB", f);
+	print_list(listA, "listA");
+	print_list(listB, "listB");
 	FILE << "swap(listA, listB);" << ENDL; swap(listA, listB);
-	print_list(listA, "listA", f);
-	print_list(listB, "listB", f);
+	print_list(listA, "listA");
+	print_list(listB, "listB");
 	FILE << "listA.clear(); swap(listA, listB);" << ENDL; listA.clear(); swap(listA, listB);
-	print_list(listA, "listA", f);
-	print_list(listB, "listB", f);
+	print_list(listA, "listA");
+	print_list(listB, "listB");
 	FILE << "swap(listA, listB);" << ENDL; swap(listA, listB);
-	print_list(listA, "listA", f);
-	print_list(listB, "listB", f);
+	print_list(listA, "listA");
+	print_list(listB, "listB");
 	FILE << SUBCATEGORY << "(modifying lists)" << ENDL;
 	listA.push_back(1); listB.erase(listB.begin(), --listB.end());
-	print_list(listA, "listA", f);
-	print_list(listB, "listB", f);
+	print_list(listA, "listA");
+	print_list(listB, "listB");
 	FILE << "swap(listA, listB);" << ENDL; swap(listA, listB);
-	print_list(listA, "listA", f);
-	print_list(listB, "listB", f);
+	print_list(listA, "listA");
+	print_list(listB, "listB");
 	FILE << ENDL;
 
 	FILE << TITLE << "=> ENDING list tests" << ENDL << ENDL;
-	std::cout.rdbuf(coutbuf);
 }
 
+int
 main(void)
 {
     test_list<std::list>();
