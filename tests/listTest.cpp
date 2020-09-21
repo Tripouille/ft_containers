@@ -599,7 +599,14 @@ test_list(void)
 	FILE << SUBCATEGORY << "(modifyling list)" << ENDL;
 	int array5[] = {-2, 8, 4, 9, 0, 0, 2, 8, 3, 1, 10, 10000, 5000, -4321}; listD.assign(array5, array5 + sizeof(array5) / sizeof(*array5));
 	print_list(listD, "listD");
+	FILE << "iterator listD_last = --listD.end()" << ENDL; typename containerT<int>::iterator listD_last = --listD.end();
+	FILE << "*listD_last = " << *listD_last << ENDL;
 	FILE << "listD.sort();" << ENDL; listD.sort(); print_list(listD, "listD");
+	FILE << "*listD_last = " << *listD_last << ENDL;
+	FILE << "listD_last = --listD.end()" << ENDL; listD_last = --listD.end();
+	FILE << "*listD_last = " << *listD_last << ENDL;
+	FILE << "listD.sort(std::greater<int>());" << ENDL; listD.sort(std::greater<int>()); print_list(listD, "listD");
+	FILE << "*listD_last = " << *listD_last << ENDL;
 	listD.clear();
 
 	FILE << ENDL;
