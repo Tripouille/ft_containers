@@ -81,6 +81,12 @@ inc_iterator(T it, long n = 1)
 	return (it);
 }
 
+bool single_digit (const int & value) {return (value < 10);}
+struct is_odd
+{
+	bool operator() (const int & value) {return (value % 2 == 1);}
+};
+
 template <template <class T, class Alloc = std::allocator<T> > class containerT>
 void
 test_list(void)
@@ -514,6 +520,25 @@ test_list(void)
 	FILE << "listA.push_back(1); listA.push_front(0);" << ENDL; listA.push_back(1); listA.push_front(0);
 	print_list(listA, "listA", f);
 	FILE << ENDL;
+
+	FILE << CATEGORY << "===> Remove_if" << ENDL;
+	FILE << SUBCATEGORY << "bool single_digit (const int & value) {return (value < 10);}" << ENDL;
+	listA.clear();
+	print_list(listA, "listA", f);
+	FILE << "listA.remove_if(single_digit);" << ENDL; listA.remove_if(single_digit);
+	print_list(listA, "listA", f);
+	FILE << SUBCATEGORY << "(modifyling list)" << ENDL;
+	int array2[] = {15, 36, 7, 17, 20, 39, 4, 1}; listA.assign(array2, array2 + 8);
+	print_list(listA, "listA", f);
+	FILE << "listA.remove_if(single_digit);" << ENDL; listA.remove_if(single_digit);
+	print_list(listA, "listA", f);
+	FILE << "listA.remove_if(single_digit);" << ENDL; listA.remove_if(single_digit);
+	print_list(listA, "listA", f);
+	FILE << SUBCATEGORY << "struct is_odd {bool operator() (const int & value) {return (value % 2 == 1);}};" << ENDL;
+	FILE << "listA.remove_if(is_odd());" << ENDL; listA.remove_if(is_odd());
+	print_list(listA, "listA", f);
+	FILE << ENDL;
+
 
 	/*FILE << CATEGORY << "===> Reverse" << ENDL;
 	print_list(listA, "listA", f);

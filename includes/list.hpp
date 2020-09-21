@@ -89,6 +89,8 @@ namespace ft
 				/*** single element (2)	***/ void splice(iterator position, list & x, iterator i);
 				/*** element range (3) ***/ void splice(iterator position, list & x, iterator first, iterator last);
 				void remove(const value_type & val);
+				template <class Predicate>
+				void remove_if(Predicate pred);
 
 				void reverse(void);
 

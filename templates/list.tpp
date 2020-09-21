@@ -448,11 +448,29 @@ template <class T, class Alloc>
 void
 ft::list<T, Alloc>::remove(const value_type & val)
 {
-	iterator	it = begin();
+	iterator it = begin();
+	iterator ite = end();
 
-	while (it != end())
+	while (it != ite)
 	{
 		if (*it == val)
+			it = erase(it);
+		else
+			++it;
+	}
+}
+
+template <class T, class Alloc>
+template <class Predicate>
+void
+ft::list<T, Alloc>::remove_if(Predicate pred)
+{
+	iterator it = begin();
+	iterator ite = end();
+
+	while (it != ite)
+	{
+		if (pred(*it))
 			it = erase(it);
 		else
 			++it;
