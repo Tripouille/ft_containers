@@ -107,7 +107,6 @@ namespace ft
 			/** Observers **/
 				allocator_type get_allocator(void) const;
 
-			void _swap(const_iterator & a, const_iterator & b);
 		private:
 		/* Private Functions */
 			void _copy(list const & other);

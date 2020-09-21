@@ -538,7 +538,7 @@ void
 ft::list<T, Alloc>::sort(void)
 {
 	if (_size > 1)
-		_quick_sort(begin(), --end(), std::less<T>());
+		_quick_sort(end(), end(), std::less<T>());
 }
 
 template <class T, class Alloc>
@@ -685,17 +685,36 @@ ft::list<T, Alloc>::_swap(const_iterator a, const_iterator b)
 template <class T, class Alloc>
 template <class Comp>
 void
-ft::list<T, Alloc>::_quick_sort(const_iterator l, const_iterator r, Comp c)
+ft::list<T, Alloc>::_quick_sort(const_iterator s, const_iterator e, Comp c)
 {
+	const_iterator l(s._target->next);
+	const_iterator r(e._target->prev);
+	const_iterator p = l;
+	_debug();
+	std::cout << "debut du quick l = " << *l << " p = " << *p << " r = " << *r <<  std::endl;
 	if (l != r && r._target->next != l._target)
 	{
-		const_iterator p = l;
-		for (const_iterator actual = l; actual != r; ++actual)
+		std::cout << "dans le if du quick sort" << std::endl;
+		for (const_iterator actual = l; actual != r;)
+		{
+			std::cout << "debut du for" << std::endl;
+			const_iterator next(actual._target->next);
 			if (c(*actual, *r))
-				std::swap(const_cast<T&>(*actual), const_cast<T&>(*p++));
-		std::swap(const_cast<T&>(*p), const_cast<T&>(*r));
-		_quick_sort(l, --const_iterator(p), c);
-		_quick_sort(++p, r, c);
+			{
+				std::cout << "lower" << std::endl;
+				_swap(actual, p);
+				p = actual._target->next;
+			}
+			actual = next;
+			_debug();
+			std::cout << "fin du for" << std::endl;
+		}
+		if (p._target != r._target->prev)
+			_swap(p, r);
+		_debug();
+		std::cout << "fin du quick" << std::endl;
+		_quick_sort(s, p, c);
+		_quick_sort(p, e, c);
 	}
 }
 
