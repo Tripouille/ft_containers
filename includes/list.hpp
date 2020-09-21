@@ -41,8 +41,8 @@ namespace ft
 		/* Operator */
 			list<T, Alloc> &			operator=(list const & other);
 
-		/* Public functions */
-			/** Iterator **/
+		/* Member functions */
+			/** Iterators **/
 				iterator begin(void);
 				const_iterator begin(void) const;
 				iterator end(void);
@@ -51,10 +51,12 @@ namespace ft
 				const_reverse_iterator rbegin(void) const;
 				reverse_iterator rend(void);
 				const_reverse_iterator rend(void) const;
+
 			/** Capacity **/
 				bool empty(void) const;
 				size_type size(void) const;
 				size_type max_size(void) const;
+
 			/** Element access **/
 				reference front(void);
 				const_reference front(void) const;
@@ -133,6 +135,13 @@ namespace ft
 			DLNode<T> *				_tail;
 			DLNode<T> *				_end;
 	};
+
+	/* Non-member function overloads */
+		/** Relational operators **/
+
+		/** swap **/
+		template <class T, class Alloc>
+		void swap(list<T, Alloc> & x, list<T, Alloc> & y);
 }
 
 # include "list.tpp"

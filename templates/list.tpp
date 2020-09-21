@@ -698,3 +698,12 @@ ft::list<T, Alloc>::_quick_sort(const_iterator l, const_iterator r, Comp c)
 		_quick_sort(++p, r, c);
 	}
 }
+
+/** Non-member function overloads **/
+
+template <class T, class Alloc>
+void
+ft::swap(ft::list<T, Alloc> & x, ft::list<T, Alloc> & y)
+{
+	x.swap(y);
+}

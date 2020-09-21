@@ -131,6 +131,7 @@ test_list(void)
 	print_list(listD, "listD", f);
 	FILE << ENDL;
 
+	FILE << SUBTITLE << "Operator" << ENDL;
 	FILE << CATEGORY << "===> Operator=" << ENDL;
 	print_list(listB, "listB", f);
 	print_list(listC, "listC", f);
@@ -620,6 +621,32 @@ test_list(void)
 	FILE << "for (int i = 0; i < 5; ++i) std::cout << ' ' << p[i];" << ENDL;
 	for (int i = 0; i < 5; ++i) FILE << OUTPUT << p[i] << ' '; FILE << ENDL;
 	FILE << "mylist.get_allocator().deallocate(p,5);" << ENDL; mylist.get_allocator().deallocate(p,5);
+	FILE << ENDL;
+
+	FILE << SUBTITLE << "Non-member function overloads" << ENDL;
+	FILE << CATEGORY << "===> Swap" << ENDL;
+	print_list(listA, "listA", f);
+	listB.assign(myints, myints + 3); 
+	print_list(listB, "listB", f);
+	FILE << "swap(listA, listB);" << ENDL; swap(listA, listB);
+	print_list(listA, "listA", f);
+	print_list(listB, "listB", f);
+	FILE << "swap(listA, listB);" << ENDL; swap(listA, listB);
+	print_list(listA, "listA", f);
+	print_list(listB, "listB", f);
+	FILE << "listA.clear(); swap(listA, listB);" << ENDL; listA.clear(); swap(listA, listB);
+	print_list(listA, "listA", f);
+	print_list(listB, "listB", f);
+	FILE << "swap(listA, listB);" << ENDL; swap(listA, listB);
+	print_list(listA, "listA", f);
+	print_list(listB, "listB", f);
+	FILE << SUBCATEGORY << "(modifying lists)" << ENDL;
+	listA.push_back(1); listB.erase(listB.begin(), --listB.end());
+	print_list(listA, "listA", f);
+	print_list(listB, "listB", f);
+	FILE << "swap(listA, listB);" << ENDL; swap(listA, listB);
+	print_list(listA, "listA", f);
+	print_list(listB, "listB", f);
 	FILE << ENDL;
 
 	FILE << TITLE << "=> ENDING list tests" << ENDL << ENDL;
