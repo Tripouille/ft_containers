@@ -515,19 +515,20 @@ ft::list<T, Alloc>::merge(list & x, Compare comp)
 	if (&x == this)
 		return ;
 	
-	iterator x_it = x.begin();
+	iterator x_it_first = x.begin();
 	iterator x_ite = x.end();
 	iterator it = begin();
 	iterator ite = end();
 	iterator tmp;
-
-	while (x_it != x_ite)
+	while (x_it_first != x_ite)
 	{
-		while (it != ite && !comp(*x_it, *it))
+		while (it != ite && !comp(*x_it_first, *it))
 			++it;
-		tmp = x_it; ++tmp;
-		splice(it, x, x_it);
-		x_it = tmp;
+		iterator x_it_last = ++iterator(x_it_first);
+		while (x_it_last != x_ite && (it == ite || !comp(*it, *x_it_last)))
+			++x_it_last;
+		splice(it, x, x_it_first, x_it_last);
+		x_it_first = x_it_last;
 	}
 }
 
@@ -719,6 +720,33 @@ ft::list<T, Alloc>::_quick_sort(const_iterator s, const_iterator e, Comp c)
 }
 
 /** Non-member function overloads **/
+
+template <class T, class Alloc>
+bool
+ft::operator==(const list<T, Alloc> & lhs, const list<T, Alloc> & rhs)
+{
+	if (lhs.size() != rhs.size())
+		return (false);
+	
+	typename ft::list<T, Alloc>::iterator lhs_it = lhs.begin();
+	typename ft::list<T, Alloc>::iterator lhs_ite = lhs.end();
+	typename ft::list<T, Alloc>::iterator rhs_it = rhs.begin();
+	while (lhs_it != lhs_ite)
+	{
+		if (*lhs_it != *rhs_it)
+			return (false);
+		++lhs_it;
+		++rhs_it;
+	}
+	return (true);
+}
+
+template <class T, class Alloc>
+bool
+ft::operator!=(const list<T, Alloc> & lhs, const list<T, Alloc> & rhs)
+{
+	return (!(lhs == rhs));
+}
 
 template <class T, class Alloc>
 void

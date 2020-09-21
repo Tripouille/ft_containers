@@ -583,14 +583,14 @@ test_list(void)
 	print_list(listK, "listK");
 	FILE << ENDL;
 
-	FILE << CATEGORY << "===> Sort" << ENDL;
+	/*FILE << CATEGORY << "===> Sort" << ENDL;
 	FILE << "containerT<int> listunsorted(listdest4);" << ENDL; containerT<int> listunsorted(listdest4);
 	FILE << "listunsorted.reverse()" << ENDL; listunsorted.reverse(); print_list(listunsorted, "listunsorted");
 	typename containerT<int>::iterator oldbegin = listunsorted.begin();
 	FILE << *oldbegin << ENDL;
 	FILE << "listunsorted.sort()" << ENDL; listunsorted.sort(); print_list(listunsorted, "listunsorted");
 	FILE << *oldbegin << ENDL;
-	FILE << ENDL;
+	FILE << ENDL;*/
 
 	FILE << CATEGORY << "===> Reverse" << ENDL;
 	print_list(listA, "listA");
@@ -622,7 +622,7 @@ test_list(void)
 	FILE << SUBTITLE << "Non-member function overloads" << ENDL;
 	FILE << CATEGORY << "===> Swap" << ENDL;
 	print_list(listA, "listA");
-	listB.assign(myints, myints + 3); 
+	listB.assign(myints, myints + 3);
 	print_list(listB, "listB");
 	FILE << "swap(listA, listB);" << ENDL; swap(listA, listB);
 	print_list(listA, "listA");
