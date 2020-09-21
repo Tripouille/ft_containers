@@ -88,6 +88,9 @@ namespace ft
 				/*** entire list (1) ***/ void splice(iterator position, list & x);
 				/*** single element (2)	***/ void splice(iterator position, list & x, iterator i);
 				/*** element range (3) ***/ void splice(iterator position, list & x, iterator first, iterator last);
+				/*** (1) ***/ void sort(void);
+				/*** (2) ***/ template <class Compare>
+							  void sort(Compare comp);
 				void remove(const value_type & val);
 				template <class Predicate>
 				void remove_if(Predicate pred);
@@ -112,6 +115,10 @@ namespace ft
 			void _fill_from_iterators(InputIterator & first, InputIterator & last);
 			void _actualize_end(void);
 			void _actualize_head_tail(void);
+			void _swap(const_iterator a, const_iterator b);
+			template <class Comp>
+			void _quick_sort(const_iterator l, const_iterator r, Comp c);
+
 
 		/* Private variables */
 			allocator_type			_alloc;
