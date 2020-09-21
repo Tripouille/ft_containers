@@ -88,16 +88,18 @@ namespace ft
 				/*** entire list (1) ***/ void splice(iterator position, list & x);
 				/*** single element (2)	***/ void splice(iterator position, list & x, iterator i);
 				/*** element range (3) ***/ void splice(iterator position, list & x, iterator first, iterator last);
-				/*** (1) ***/ void sort(void);
-				/*** (2) ***/ template <class Compare>
-							  void sort(Compare comp);
 				void remove(const value_type & val);
 				template <class Predicate>
 				void remove_if(Predicate pred);
 				void unique();
 				template <class BinaryPredicate>
 				void unique(BinaryPredicate binary_pred);
-
+				void merge(list & x);
+				template <class Compare>
+				void merge(list & x, Compare comp);
+				/*** (1) ***/ void sort(void);
+				/*** (2) ***/ template <class Compare>
+							  void sort(Compare comp);
 				void reverse(void);
 
 			void _swap(const_iterator & a, const_iterator & b);

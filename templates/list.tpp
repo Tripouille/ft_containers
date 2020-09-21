@@ -437,15 +437,6 @@ ft::list<T, Alloc>::splice(iterator position, list & x, iterator first, iterator
 	x._actualize_head_tail();
 }
 
-/*** (1) ***/
-template <class T, class Alloc>
-void
-ft::list<T, Alloc>::sort(void)
-{
-	if (_size > 1)
-		_quick_sort(begin(), --end(), std::less<T>());
-}
-
 template <class T, class Alloc>
 void
 ft::list<T, Alloc>::remove(const value_type & val)
@@ -506,6 +497,48 @@ ft::list<T, Alloc>::unique(BinaryPredicate binary_pred)
 			++it2;
 		}
 	}
+}
+
+template <class T, class Alloc>
+void
+ft::list<T, Alloc>::merge(list & x)
+{
+	merge(x, std::less<T>());
+}
+
+
+template <class T, class Alloc>
+template <class Compare>
+void
+ft::list<T, Alloc>::merge(list & x, Compare comp)
+{
+	if (&x == this)
+		return ;
+	
+	iterator x_it = x.begin();
+	iterator tmp;
+	iterator x_ite = x.end();
+	iterator it = begin();
+	iterator ite = end();
+
+	while (x_it != x_ite)
+	{
+		while (it != ite && !comp(*x_it, *it))
+			++it;
+		tmp = x_it; ++tmp;
+		splice(it, x, x_it);
+		x_it = tmp;
+	}
+}
+
+
+/*** (1) ***/
+template <class T, class Alloc>
+void
+ft::list<T, Alloc>::sort(void)
+{
+	if (_size > 1)
+		_quick_sort(begin(), --end(), std::less<T>());
 }
 
 template <class T, class Alloc>

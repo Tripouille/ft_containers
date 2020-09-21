@@ -88,6 +88,7 @@ struct is_odd
 	bool operator()(const int & value) {return (value % 2 == 1);}
 };
 bool same_integral_part(double first, double second) {return (int(first) == int(second));}
+bool comp_integral_part(double first, double second) {return (int(first) < int(second));}
 
 template <template <class T, class Alloc = std::allocator<T> > class containerT>
 void
@@ -562,7 +563,27 @@ test_list(void)
 	print_list(listJ, "listJ", f);
 	FILE << ENDL;
 
-
+	FILE << CATEGORY << "===> Merge" << ENDL;
+	FILE << SUBCATEGORY << "=====> merge(list & x)" << ENDL;
+	print_list(listJ, "listJ", f);
+	double mydoubles2[] = {1.2, 2.3, 4.1, 72.3, 73.7, 73.8};
+	containerT<double> listK(mydoubles2, mydoubles2 + 6);
+	print_list(listK, "listK", f);
+	FILE << "listJ.merge(listK);" << ENDL; listJ.merge(listK);
+	print_list(listJ, "listJ", f);
+	print_list(listK, "listK", f);
+	FILE << "listJ.merge(listK);" << ENDL; listJ.merge(listK);
+	print_list(listJ, "listJ", f);
+	print_list(listK, "listK", f);
+	FILE << SUBCATEGORY << "=====> merge(list & x, Compare comp)" << ENDL;
+	FILE << "listK.push_back(4.3);" << ENDL; listK.push_back(4.3); print_list(listK, "listK", f);
+	FILE << "listJ.merge(listK, comp_integral_part);" << ENDL; listJ.merge(listK, comp_integral_part);
+	print_list(listJ, "listJ", f);
+	print_list(listK, "listK", f);
+	FILE << "listJ.merge(listK, comp_integral_part);" << ENDL; listJ.merge(listK, comp_integral_part);
+	print_list(listJ, "listJ", f);
+	print_list(listK, "listK", f);
+	FILE << ENDL;
 
 	/*FILE << CATEGORY << "===> Reverse" << ENDL;
 	print_list(listA, "listA", f);
@@ -579,14 +600,16 @@ test_list(void)
 	print_list(listB, "listB", f);
 	FILE << ENDL;*/
 
+	/*FILE << CATEGORY << "===> Sort" << ENDL;
 	FILE << "containerT<int> listunsorted(listdest4);" << ENDL; containerT<int> listunsorted(listdest4);
 	FILE << "listunsorted.reverse()" << ENDL; listunsorted.reverse(); print_list(listunsorted, "listunsorted", f);
 	typename containerT<int>::iterator oldbegin = listunsorted.begin();
 	FILE << *oldbegin << ENDL;
 	FILE << "listunsorted.sort()" << ENDL; listunsorted.sort(); print_list(listunsorted, "listunsorted", f);
 	FILE << *oldbegin << ENDL;
+	FILE << ENDL;*/
+
 	FILE << TITLE << "=> ENDING list tests" << ENDL << ENDL;
-	
 	std::cout.rdbuf(coutbuf);
 }
 
