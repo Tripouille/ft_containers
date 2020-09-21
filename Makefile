@@ -32,6 +32,7 @@ $(CONTAINERS:%=diff\:\:%): diff\:\:%: std\:\:% ft\:\:%
 
 $(CONTAINERS): %: std\:\:% ft\:\:%
 	cat results/ft::$@.result
+	@tput setaf 6
 	diff -s --unified=0 results/ft::$@.result results/std::$@.result
 
 clean: color

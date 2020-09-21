@@ -122,9 +122,6 @@ namespace ft
 			void _actualize_end(void);
 			void _actualize_head_tail(void);
 			void _swap(const_iterator a, const_iterator b);
-			template <class Comp>
-			void _quick_sort(const_iterator l, const_iterator r, Comp c);
-
 
 		/* Private variables */
 			allocator_type			_alloc;

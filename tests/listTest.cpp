@@ -583,14 +583,26 @@ test_list(void)
 	print_list(listK, "listK");
 	FILE << ENDL;
 
-	/*FILE << CATEGORY << "===> Sort" << ENDL;
-	FILE << "containerT<int> listunsorted(listdest4);" << ENDL; containerT<int> listunsorted(listdest4);
-	FILE << "listunsorted.reverse()" << ENDL; listunsorted.reverse(); print_list(listunsorted, "listunsorted");
-	typename containerT<int>::iterator oldbegin = listunsorted.begin();
-	FILE << *oldbegin << ENDL;
-	FILE << "listunsorted.sort()" << ENDL; listunsorted.sort(); print_list(listunsorted, "listunsorted");
-	FILE << *oldbegin << ENDL;
-	FILE << ENDL;*/
+	FILE << CATEGORY << "===> Sort" << ENDL;
+	print_list(listD, "listD");
+	FILE << "listD.sort();" << ENDL; listD.sort(); print_list(listD, "listD");
+	FILE << "listD.clear();" << ENDL; listD.clear(); print_list(listD, "listD");
+	FILE << "listD.sort();" << ENDL; listD.sort(); print_list(listD, "listD");
+	FILE << SUBCATEGORY << "(modifyling list)" << ENDL;
+	int array3[] = {1}; listD.assign(array3, array3 + sizeof(array3) / sizeof(*array3));
+	print_list(listD, "listD");
+	FILE << "listD.sort();" << ENDL; listD.sort(); print_list(listD, "listD");
+	FILE << SUBCATEGORY << "(modifyling list)" << ENDL;
+	int array4[] = {6, 5, 4, 3, 2, 2, 1}; listD.assign(array4, array4 + sizeof(array4) / sizeof(*array4));
+	print_list(listD, "listD");
+	FILE << "listD.sort();" << ENDL; listD.sort(); print_list(listD, "listD");
+	FILE << SUBCATEGORY << "(modifyling list)" << ENDL;
+	int array5[] = {-2, 8, 4, 9, 0, 0, 2, 8, 3, 1, 10, 10000, 5000, -4321}; listD.assign(array5, array5 + sizeof(array5) / sizeof(*array5));
+	print_list(listD, "listD");
+	FILE << "listD.sort();" << ENDL; listD.sort(); print_list(listD, "listD");
+	listD.clear();
+
+	FILE << ENDL;
 
 	FILE << CATEGORY << "===> Reverse" << ENDL;
 	print_list(listA, "listA");
