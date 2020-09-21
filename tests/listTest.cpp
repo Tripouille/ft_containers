@@ -585,17 +585,16 @@ test_list(void)
 	print_list(listK, "listK", f);
 	FILE << ENDL;
 
-	FILE << SUBTITLE << "Observers" << ENDL;
-	FILE << CATEGORY << "===> Get_allocator" << ENDL;
-	FILE << "list<int> mylist; int * p;" << ENDL; containerT<int> mylist; int * p;
-	FILE << "p = mylist.get_allocator().allocate(5);" << ENDL; p = mylist.get_allocator().allocate(5);
-	FILE << "for (int i = 0; i < 5; ++i) p[i] = i;" << ENDL; for (int i = 0; i < 5; ++i) p[i] = i;
-	FILE << "for (int i = 0; i < 5; ++i) std::cout << ' ' << p[i];" << ENDL;
-	for (int i = 0; i < 5; ++i) FILE << OUTPUT << p[i] << ' '; FILE << ENDL;
-	FILE << "mylist.get_allocator().deallocate(p,5);" << ENDL; mylist.get_allocator().deallocate(p,5);
-	FILE << ENDL;
+	/*FILE << CATEGORY << "===> Sort" << ENDL;
+	FILE << "containerT<int> listunsorted(listdest4);" << ENDL; containerT<int> listunsorted(listdest4);
+	FILE << "listunsorted.reverse()" << ENDL; listunsorted.reverse(); print_list(listunsorted, "listunsorted", f);
+	typename containerT<int>::iterator oldbegin = listunsorted.begin();
+	FILE << *oldbegin << ENDL;
+	FILE << "listunsorted.sort()" << ENDL; listunsorted.sort(); print_list(listunsorted, "listunsorted", f);
+	FILE << *oldbegin << ENDL;
+	FILE << ENDL;*/
 
-	/*FILE << CATEGORY << "===> Reverse" << ENDL;
+	FILE << CATEGORY << "===> Reverse" << ENDL;
 	print_list(listA, "listA", f);
 	FILE << "listA.reverse();" << ENDL; listA.reverse();
 	print_list(listA, "listA", f);
@@ -608,16 +607,20 @@ test_list(void)
 	print_list(listB, "listB", f);
 	FILE << "listB.reverse();" << ENDL; listB.reverse();
 	print_list(listB, "listB", f);
-	FILE << ENDL;*/
+	FILE << "listB.clear();" << ENDL; listB.clear();
+	FILE << "listB.reverse();" << ENDL; listB.reverse();
+	print_list(listB, "listB", f);
+	FILE << ENDL;
 
-	/*FILE << CATEGORY << "===> Sort" << ENDL;
-	FILE << "containerT<int> listunsorted(listdest4);" << ENDL; containerT<int> listunsorted(listdest4);
-	FILE << "listunsorted.reverse()" << ENDL; listunsorted.reverse(); print_list(listunsorted, "listunsorted", f);
-	typename containerT<int>::iterator oldbegin = listunsorted.begin();
-	FILE << *oldbegin << ENDL;
-	FILE << "listunsorted.sort()" << ENDL; listunsorted.sort(); print_list(listunsorted, "listunsorted", f);
-	FILE << *oldbegin << ENDL;
-	FILE << ENDL;*/
+	FILE << SUBTITLE << "Observers" << ENDL;
+	FILE << CATEGORY << "===> Get_allocator" << ENDL;
+	FILE << "list<int> mylist; int * p;" << ENDL; containerT<int> mylist; int * p;
+	FILE << "p = mylist.get_allocator().allocate(5);" << ENDL; p = mylist.get_allocator().allocate(5);
+	FILE << "for (int i = 0; i < 5; ++i) p[i] = i;" << ENDL; for (int i = 0; i < 5; ++i) p[i] = i;
+	FILE << "for (int i = 0; i < 5; ++i) std::cout << ' ' << p[i];" << ENDL;
+	for (int i = 0; i < 5; ++i) FILE << OUTPUT << p[i] << ' '; FILE << ENDL;
+	FILE << "mylist.get_allocator().deallocate(p,5);" << ENDL; mylist.get_allocator().deallocate(p,5);
+	FILE << ENDL;
 
 	FILE << TITLE << "=> ENDING list tests" << ENDL << ENDL;
 	std::cout.rdbuf(coutbuf);
