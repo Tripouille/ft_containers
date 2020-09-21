@@ -81,11 +81,12 @@ inc_iterator(T it, long n = 1)
 	return (it);
 }
 
-bool single_digit (const int & value) {return (value < 10);}
+bool single_digit(const int & value) {return (value < 10);}
 struct is_odd
 {
-	bool operator() (const int & value) {return (value % 2 == 1);}
+	bool operator()(const int & value) {return (value % 2 == 1);}
 };
+bool same_integral_part(double first, double second) {return (int(first) == int(second));}
 
 template <template <class T, class Alloc = std::allocator<T> > class containerT>
 void
@@ -538,6 +539,28 @@ test_list(void)
 	FILE << "listA.remove_if(is_odd());" << ENDL; listA.remove_if(is_odd());
 	print_list(listA, "listA", f);
 	FILE << ENDL;
+
+	FILE << CATEGORY << "===> Unique" << ENDL;
+	FILE << SUBCATEGORY << "=====> unique()" << ENDL;
+	listA.clear();
+	print_list(listA, "listA", f);
+	FILE << "listA.unique(); listA.push_front(0); listA.push_back(1);" << ENDL; listA.unique(); listA.push_front(0); listA.push_back(1);
+	print_list(listA, "listA", f);
+	double mydoubles[] = {3.14, 3.14, 4.5, 12.1, 12.1, 12.1, 12.7, 13.1, 13.2, 13.3, 72.2, 72.72, 73.6};
+	containerT<double> listJ(mydoubles, mydoubles + 13);
+	print_list(listJ, "listJ", f);
+	FILE << "listJ.unique();" << ENDL; listJ.unique();
+	print_list(listJ, "listJ", f);
+	FILE << "listJ.unique();" << ENDL; listJ.unique();
+	print_list(listJ, "listJ", f);
+	FILE << SUBCATEGORY << "=====> unique(binary_pred)" << ENDL;
+	FILE << SUBCATEGORY << "bool same_integral_part(double first, double second) {return (int(first) == int(second));}" << ENDL;
+	FILE << "listJ.unique(same_integral_part);" << ENDL; listJ.unique(same_integral_part);
+	print_list(listJ, "listJ", f);
+	FILE << "listJ.unique(same_integral_part);" << ENDL; listJ.unique(same_integral_part);
+	print_list(listJ, "listJ", f);
+	FILE << ENDL;
+
 
 
 	/*FILE << CATEGORY << "===> Reverse" << ENDL;

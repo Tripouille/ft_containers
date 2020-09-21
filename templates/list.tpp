@@ -271,10 +271,7 @@ ft::list<T, Alloc>::insert(iterator position, const value_type & val)
 	DLNode<T> * n = _new_node(val, position._target->prev, position._target);
 	position._target->prev->next = n;
 	position._target->prev = n;
-	if (position._target == _head)
-		_head = n;
-	if (position._target == _end)
-		_tail = n;
+	_actualize_head_tail();
 	++_size;
 	return (iterator(n));
 }
@@ -302,18 +299,14 @@ template <class T, class Alloc>
 typename ft::list<T, Alloc>::iterator
 ft::list<T, Alloc>::erase(iterator position)
 {
-	iterator ret = iterator(position._target->next);
-
-	if (position._target == _head)
-		_head = position._target->next;
-	if (position._target == _tail)
-		_tail = position._target->prev;
+	iterator ret(position._target->next);
 	
 	position._target->prev->next = position._target->next;
 	position._target->next->prev = position._target->prev;
-	--_size;
-	
+	_actualize_head_tail();
+
 	delete position._target;
+	--_size;
 
 	return (ret);
 }
@@ -479,6 +472,35 @@ ft::list<T, Alloc>::remove_if(Predicate pred)
 
 template <class T, class Alloc>
 void
+ft::list<T, Alloc>::unique(void)
+{
+	unique(std::equal_to<T>());
+}
+
+
+template <class T, class Alloc>
+template <class BinaryPredicate>
+void
+ft::list<T, Alloc>::unique(BinaryPredicate binary_pred)
+{
+	iterator it = begin();
+	iterator it2 = ++begin();
+	iterator ite = end();
+
+	while (it2 != ite)
+	{
+		if (binary_pred(*it, *it2))
+			it2 = erase(it2);
+		else
+		{
+			++it;
+			++it2;
+		}
+	}
+}
+
+template <class T, class Alloc>
+void
 ft::list<T, Alloc>::reverse(void)
 {
 	while (_head != _end)
@@ -487,8 +509,7 @@ ft::list<T, Alloc>::reverse(void)
 		_head = _head->prev;
 	}
 	std::swap(_end->prev, _end->next);
-	_tail = _end->prev;
-	_head = _end->next;
+	_actualize_head_tail();
 }
 
 /* Private functions */

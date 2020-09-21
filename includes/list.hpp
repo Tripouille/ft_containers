@@ -91,6 +91,9 @@ namespace ft
 				void remove(const value_type & val);
 				template <class Predicate>
 				void remove_if(Predicate pred);
+				void unique();
+				template <class BinaryPredicate>
+				void unique(BinaryPredicate binary_pred);
 
 				void reverse(void);
 
