@@ -583,16 +583,16 @@ test_list(void)
 	print_list(listK, "listK");
 	FILE << ENDL;
 
-	/*FILE << CATEGORY << "===> Sort" << ENDL;
+	FILE << CATEGORY << "===> Sort" << ENDL;
 	FILE << "containerT<int> listunsorted(listdest4);" << ENDL; containerT<int> listunsorted(listdest4);
 	FILE << "listunsorted.reverse()" << ENDL; listunsorted.reverse(); print_list(listunsorted, "listunsorted");
 	typename containerT<int>::iterator oldbegin = listunsorted.begin();
 	FILE << *oldbegin << ENDL;
 	FILE << "listunsorted.sort()" << ENDL; listunsorted.sort(); print_list(listunsorted, "listunsorted");
 	FILE << *oldbegin << ENDL;
-	FILE << ENDL;*/
+	FILE << ENDL;
 
-	/*FILE << CATEGORY << "===> Reverse" << ENDL;
+	FILE << CATEGORY << "===> Reverse" << ENDL;
 	print_list(listA, "listA");
 	FILE << "listA.reverse();" << ENDL; listA.reverse();
 	print_list(listA, "listA");
@@ -604,17 +604,6 @@ test_list(void)
 	FILE << "listB.push_front(6);" << ENDL; listB.push_front(6);
 	print_list(listB, "listB");
 	FILE << "listB.reverse();" << ENDL; listB.reverse();
-	FILE << ENDL;*/
-
-	FILE << "containerT<const int> listunsorted()" << ENDL; containerT<int> listunsorted;
-	listunsorted.push_back(8);
-	listunsorted.push_back(1);
-	typename containerT<int>::iterator oldbegin = listunsorted.begin(); print_list(listunsorted, "listunsorted");
-	FILE << *oldbegin << ENDL;
-	FILE << "listunsorted.sort()" << ENDL; listunsorted.sort(); print_list(listunsorted, "listunsorted");
-	FILE << *oldbegin << ENDL;
-
-
 	print_list(listB, "listB");
 	FILE << "listB.reverse();" << ENDL; listB.reverse();
 	print_list(listB, "listB");
@@ -662,5 +651,5 @@ test_list(void)
 int
 main(void)
 {
-    test_list<std::list>();
+    test_list<ft::list>();
 }

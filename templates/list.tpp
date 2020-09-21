@@ -516,10 +516,10 @@ ft::list<T, Alloc>::merge(list & x, Compare comp)
 		return ;
 	
 	iterator x_it = x.begin();
-	iterator tmp;
 	iterator x_ite = x.end();
 	iterator it = begin();
 	iterator ite = end();
+	iterator tmp;
 
 	while (x_it != x_ite)
 	{
