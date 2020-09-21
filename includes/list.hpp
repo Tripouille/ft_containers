@@ -91,8 +91,13 @@ namespace ft
 				/*** (1) ***/ void sort(void);
 				/*** (2) ***/ template <class Compare>
 							  void sort(Compare comp);
+				void remove(const value_type & val);
+				template <class Predicate>
+				void remove_if(Predicate pred);
+
 				void reverse(void);
 
+			void _swap(const_iterator & a, const_iterator & b);
 		private:
 		/* Private Functions */
 			void _copy(list const & other);
@@ -102,7 +107,7 @@ namespace ft
 			void _fill_list_dispatch(Integer & first, Integer & last, INT_TYPE);
 			template <class InputIterator>
 			void _fill_list_dispatch(InputIterator & first, InputIterator & last, NO_INT_TYPE);
-			void _fill_with_value(size_type n, T const & val);
+			void _fill_with_value(size_type n, value_type const & val);
 			template <class InputIterator>
 			void _fill_from_iterators(InputIterator & first, InputIterator & last);
 			void _actualize_end(void);

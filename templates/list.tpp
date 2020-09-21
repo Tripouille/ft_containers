@@ -322,8 +322,9 @@ template <class T, class Alloc>
 typename ft::list<T, Alloc>::iterator
 ft::list<T, Alloc>::erase(iterator first, iterator last)
 {
-	first->prev->next = last;
-	last->prev = first->prev;
+	first._target->prev->next = last._target;
+	last._target->prev = first._target->prev;
+	_actualize_head_tail();
 
 	DLNode<T> * to_del;
 	while (first != last)
@@ -334,10 +335,6 @@ ft::list<T, Alloc>::erase(iterator first, iterator last)
 		--_size;
 	}
 	return (last);
-
-	/*list tmp(first, last);
-	splice(last, *this, first, last);*/
-	
 }
 
 template <class T, class Alloc>
@@ -359,9 +356,9 @@ template <class T, class Alloc>
 void
 ft::list<T, Alloc>::resize(size_type n, value_type val)
 {
-	for (; n > _size; --n)
+	while (n > _size)
 		push_back(val);
-	for (; n < _size; --n)
+	while (n < _size)
 		pop_back();
 }
 
@@ -458,6 +455,39 @@ ft::list<T, Alloc>::sort(void)
 
 template <class T, class Alloc>
 void
+ft::list<T, Alloc>::remove(const value_type & val)
+{
+	iterator it = begin();
+	iterator ite = end();
+
+	while (it != ite)
+	{
+		if (*it == val)
+			it = erase(it);
+		else
+			++it;
+	}
+}
+
+template <class T, class Alloc>
+template <class Predicate>
+void
+ft::list<T, Alloc>::remove_if(Predicate pred)
+{
+	iterator it = begin();
+	iterator ite = end();
+
+	while (it != ite)
+	{
+		if (pred(*it))
+			it = erase(it);
+		else
+			++it;
+	}
+}
+
+template <class T, class Alloc>
+void
 ft::list<T, Alloc>::reverse(void)
 {
 	while (_head != _end)
@@ -504,7 +534,7 @@ ft::list<T, Alloc>::_new_node(const T & v, DLNode<T> * p, DLNode<T> * n)
 }
 
 template <typename T, class Alloc>
-void ft::list<T, Alloc>::_fill_with_value(size_type n, T const & val)
+void ft::list<T, Alloc>::_fill_with_value(size_type n, value_type const & val)
 {
 	for (; n; --n)
 		push_front(val);
