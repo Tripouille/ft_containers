@@ -138,10 +138,14 @@ namespace ft
 			bool operator==(const list<T, Alloc> & lhs, const list<T, Alloc> & rhs);
 			template <class T, class Alloc>
 			bool operator!=(const list<T, Alloc> & lhs, const list<T, Alloc> & rhs);
-			/*bool operator<(const list<T, Alloc> & lhs, const list<T, Alloc> & rhs);
+			template <class T, class Alloc>
+			bool operator<(const list<T, Alloc> & lhs, const list<T, Alloc> & rhs);
+			template <class T, class Alloc>
 			bool operator<=(const list<T, Alloc> & lhs, const list<T, Alloc> & rhs);
+			template <class T, class Alloc>
 			bool operator>(const list<T, Alloc> & lhs, const list<T, Alloc> & rhs);
-			bool operator>=(const list<T, Alloc> & lhs, const list<T, Alloc> & rhs);*/
+			template <class T, class Alloc>
+			bool operator>=(const list<T, Alloc> & lhs, const list<T, Alloc> & rhs);
 
 		/** swap **/
 			template <class T, class Alloc>

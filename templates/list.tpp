@@ -506,7 +506,6 @@ ft::list<T, Alloc>::merge(list & x)
 	merge(x, std::less<T>());
 }
 
-
 template <class T, class Alloc>
 template <class Compare>
 void
@@ -707,12 +706,12 @@ ft::operator==(const list<T, Alloc> & lhs, const list<T, Alloc> & rhs)
 	if (lhs.size() != rhs.size())
 		return (false);
 	
-	typename ft::list<T, Alloc>::iterator lhs_it = lhs.begin();
-	typename ft::list<T, Alloc>::iterator lhs_ite = lhs.end();
-	typename ft::list<T, Alloc>::iterator rhs_it = rhs.begin();
+	typename ft::list<T, Alloc>::const_iterator lhs_it = lhs.begin();
+	typename ft::list<T, Alloc>::const_iterator lhs_ite = lhs.end();
+	typename ft::list<T, Alloc>::const_iterator rhs_it = rhs.begin();
 	while (lhs_it != lhs_ite)
 	{
-		if (*lhs_it != *rhs_it)
+		if (!(*lhs_it == *rhs_it))
 			return (false);
 		++lhs_it;
 		++rhs_it;
@@ -725,6 +724,47 @@ bool
 ft::operator!=(const list<T, Alloc> & lhs, const list<T, Alloc> & rhs)
 {
 	return (!(lhs == rhs));
+}
+
+template <class T, class Alloc>
+bool
+ft::operator<(const list<T, Alloc> & lhs, const list<T, Alloc> & rhs)
+{
+	typename ft::list<T, Alloc>::const_iterator lhs_it = lhs.begin();
+	typename ft::list<T, Alloc>::const_iterator lhs_ite = lhs.end();
+	typename ft::list<T, Alloc>::const_iterator rhs_it = rhs.begin();
+	typename ft::list<T, Alloc>::const_iterator rhs_ite = rhs.end();
+	while (lhs_it != lhs_ite)
+	{
+		if (rhs_it == rhs_ite || *rhs_it < *lhs_it)
+			return (false);
+		else if (*lhs_it < *rhs_it)
+			return (true);
+		++lhs_it;
+		++rhs_it;
+	}
+	return (rhs_it != rhs_ite);
+}
+
+template <class T, class Alloc>
+bool
+ft::operator<=(const list<T, Alloc> & lhs, const list<T, Alloc> & rhs)
+{
+	return (!(rhs < lhs));
+}
+
+template <class T, class Alloc>
+bool
+ft::operator>(const list<T, Alloc> & lhs, const list<T, Alloc> & rhs)
+{
+	return (rhs < lhs);
+}
+
+template <class T, class Alloc>
+bool
+ft::operator>=(const list<T, Alloc> & lhs, const list<T, Alloc> & rhs)
+{
+	return (!(lhs < rhs));
 }
 
 template <class T, class Alloc>
