@@ -496,6 +496,12 @@ test_list(void)
 	print_list(listempty, "listempty");
 	FILE << "listempty.push_back(42)" << ENDL; listempty.push_back(42); print_list(listempty, "listempty");
 	FILE << "listempty.push_front(21)" << ENDL; listempty.push_front(21); print_list(listempty, "listempty");
+	FILE << "listdest4.splice(listdest4.end(), listdest4, listdest4.begin(), listdest4.end());" << ENDL;
+	listdest4.splice(listdest4.end(), listdest4, listdest4.begin(), listdest4.end());
+	print_list(listdest4, "listdest4");
+	FILE << "listdest4.splice(listdest4.end(), listdest4, listdest4.begin());" << ENDL;
+	listdest4.splice(listdest4.end(), listdest4, listdest4.begin());
+	print_list(listdest4, "listdest4");
 	FILE << ENDL;
 
 	FILE << CATEGORY << "===> Remove" << ENDL;
