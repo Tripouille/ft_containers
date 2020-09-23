@@ -1,5 +1,5 @@
 
-CONTAINERS	= list #Vector
+CONTAINERS	= list vector
 INCLUDES	= $(CONTAINERS:%=includes/%.hpp) $(addprefix includes/, DLNode.hpp Color.hpp types.hpp)
 TEMPLATE	= $(CONTAINERS:%=templates/%.tpp) $(addprefix templates/, DLNode.tpp)
 BINS		= $(CONTAINERS:%=tests/ft::%Test) $(CONTAINERS:%=tests/std::%Test)

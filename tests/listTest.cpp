@@ -45,15 +45,6 @@ struct intStruct
 };
 std::ostream&	operator<<(std::ostream& os, intStruct const& obj) {os << obj.a; return (os);}
 
-std::string const
-get_file_name(std::string s)
-{
-	std::string file_name = "results/"
-			+ s.substr(s.find_last_of(' ') + 1, s.size() - s.find_last_of(' ') - 2)
-			+ ".result";
-	return (file_name);
-}
-
 template<class T>
 void
 print_list(T list, std::string const & name)
