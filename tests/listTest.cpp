@@ -82,7 +82,8 @@ struct is_odd
 bool same_integral_part(double first, double second) {return (int(first) == int(second));}
 bool comp_integral_part(double first, double second) {return (int(first) < int(second));}
 
-template <template <class T, class Alloc = std::allocator<T> > class containerT>
+//template <template <class T, class Alloc = std::allocator<T> > class containerT>
+template <template <class T, class Alloc = myAllocator<T> > class containerT>
 void
 test_list(void)
 {

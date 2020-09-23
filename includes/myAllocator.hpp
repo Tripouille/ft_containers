@@ -21,17 +21,13 @@ class myAllocator
 		pointer allocate(size_type n, void * const = 0)
 		{
 			T* t = std::allocator<T>().allocate(n);
-			//std::cout << "myAllocator : allocate" << std::endl;
 			return (t);
 		}
 		
 		void  deallocate(void * p, size_type n)
 		{
 			if (p)
-			{
 				std::allocator<T>().deallocate((T*)p, n);
-				//std::cout << "myAllocator : deallocate" << std::endl;
-			}
 		}
 
 		pointer address(reference x) const {return (&x);}
@@ -40,11 +36,10 @@ class myAllocator
 		void construct(pointer p, T const & val)
 		{
 			std::allocator<T>().construct(p, val);
-			//std::cout << "myAllocator : construct" << std::endl;
 		}
 		void destroy(pointer p) { p->~T(); }
 
-		size_type max_size() const { return size_t(-1); }
+		size_type max_size() const { return size_t(42); }
 
 		template <class U>
 		struct rebind { typedef myAllocator<U> other; };
