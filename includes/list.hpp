@@ -2,6 +2,7 @@
 # define LIST_HPP
 # include <iostream>
 # include <limits>
+# include <cstddef>
 # include "DLNode.hpp"
 # include "types.hpp"
 
@@ -14,16 +15,20 @@ namespace ft
 		/* Typedef */
 			typedef T value_type;
 			typedef Alloc allocator_type;
-			typedef typename Alloc::template rebind<DLNode<T, Alloc> >::other node_allocator_type;
 			typedef value_type & reference;
 			typedef const value_type & const_reference;
 			typedef value_type * pointer;
 			typedef const value_type * const_pointer;
-			typedef unsigned long size_type;
 			typedef typename ft::DLNode<T, Alloc>::iterator iterator;
 			typedef typename ft::DLNode<T, Alloc>::const_iterator const_iterator;
 			typedef typename ft::DLNode<T, Alloc>::reverse_iterator reverse_iterator;
 			typedef typename ft::DLNode<T, Alloc>::const_reverse_iterator const_reverse_iterator;
+			typedef ptrdiff_t difference_type;
+			typedef size_t size_type;
+
+		private:
+		/* Typedef */
+			typedef typename Alloc::template rebind<DLNode<T, Alloc> >::other node_allocator_type;
 
 		public:
 		/* Constructor */
@@ -124,9 +129,9 @@ namespace ft
 			void _swap(const_iterator a, const_iterator b);
 
 		/* Private variables */
-			allocator_type			_alloc;
-			node_allocator_type		_node_alloc;
-			size_type				_size;
+			allocator_type					_alloc;
+			node_allocator_type				_node_alloc;
+			size_type						_size;
 			DLNode<T, Alloc> *				_head;
 			DLNode<T, Alloc> *				_tail;
 			DLNode<T, Alloc> *				_end;
