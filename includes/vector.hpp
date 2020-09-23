@@ -124,12 +124,10 @@ namespace ft
 			void _swap(const_iterator a, const_iterator b);*/
 
 		/* Private variables */
-			/*allocator_type			_alloc;
-			node_allocator_type		_node_alloc;
+			allocator_type			_alloc;
+			pointer					_array;
 			size_type				_size;
-			DLNode<T> *				_head;
-			DLNode<T> *				_tail;
-			DLNode<T> *				_end;*/
+			size_type				_capacity;
 	};
 
 	/* Non-member function overloads */

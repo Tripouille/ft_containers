@@ -13,17 +13,17 @@ namespace ft
 		public:
 		/* Typedef */
 			typedef T value_type;
-			typedef std::allocator<value_type> allocator_type;
-			typedef std::allocator<DLNode<T> > node_allocator_type;
+			typedef Alloc allocator_type;
+			typedef typename Alloc::template rebind<DLNode<T, Alloc> >::other node_allocator_type;
 			typedef value_type & reference;
 			typedef const value_type & const_reference;
 			typedef value_type * pointer;
 			typedef const value_type * const_pointer;
 			typedef unsigned long size_type;
-			typedef typename ft::DLNode<T>::iterator iterator;
-			typedef typename ft::DLNode<T>::const_iterator const_iterator;
-			typedef typename ft::DLNode<T>::reverse_iterator reverse_iterator;
-			typedef typename ft::DLNode<T>::const_reverse_iterator const_reverse_iterator;
+			typedef typename ft::DLNode<T, Alloc>::iterator iterator;
+			typedef typename ft::DLNode<T, Alloc>::const_iterator const_iterator;
+			typedef typename ft::DLNode<T, Alloc>::reverse_iterator reverse_iterator;
+			typedef typename ft::DLNode<T, Alloc>::const_reverse_iterator const_reverse_iterator;
 
 		public:
 		/* Constructor */
@@ -111,7 +111,7 @@ namespace ft
 		/* Private Functions */
 			void _copy(list const & other);
 			void _debug(void) const;
-			DLNode<T> * _new_node(const T & v, DLNode<T> * p, DLNode<T> * n);
+			DLNode<T, Alloc> * _new_node(const T & v, DLNode<T, Alloc> * p, DLNode<T, Alloc> * n);
 			template <class Integer>
 			void _fill_list_dispatch(Integer & first, Integer & last, INT_TYPE);
 			template <class InputIterator>
@@ -127,9 +127,9 @@ namespace ft
 			allocator_type			_alloc;
 			node_allocator_type		_node_alloc;
 			size_type				_size;
-			DLNode<T> *				_head;
-			DLNode<T> *				_tail;
-			DLNode<T> *				_end;
+			DLNode<T, Alloc> *				_head;
+			DLNode<T, Alloc> *				_tail;
+			DLNode<T, Alloc> *				_end;
 	};
 
 	/* Non-member function overloads */

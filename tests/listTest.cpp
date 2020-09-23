@@ -1,4 +1,5 @@
 #include "list.hpp"
+#include "myAllocator.hpp"
 #include <list>
 #include <iostream>
 #include <fstream>
@@ -231,7 +232,6 @@ test_list(void)
 	while (c_it != c_ite)
 	{
 		FILE << "*c_it = " << OUTPUT << *c_it << ENDL;
-		//*c_it += 1;
 		c_it++;
 	}
 	FILE << "c_it--;" << ENDL; c_it--;
@@ -260,7 +260,6 @@ test_list(void)
 	while (cr_it != cr_ite)
 	{
 		FILE << "*cr_it = " << OUTPUT << *cr_it << ENDL;
-		//*cr_it += 1;
 		cr_it++;
 	}
 	FILE << "cr_it--;" << ENDL; cr_it--;

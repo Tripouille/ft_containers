@@ -6,13 +6,13 @@ namespace ft
 {
 	template <class T, class Alloc = std::allocator<T> >
 	class list;
-	template <class T>
+	template <class T, class Alloc>
 	struct DLNode
 	{
 		class BaseIterator : public std::iterator<std::bidirectional_iterator_tag, T>
 		{
 			public:
-				BaseIterator(DLNode<T> * t = NULL);
+				BaseIterator(DLNode<T, Alloc> * t = NULL);
 				virtual ~BaseIterator(void);
 				BaseIterator(BaseIterator const & other);
 
@@ -22,14 +22,14 @@ namespace ft
 
 			protected:
 				void				_copy(BaseIterator const & other);
-				DLNode<T> *			_target;
-			friend class ft::list<T>;
+				DLNode<T, Alloc> *	_target;
+			friend class ft::list<T, Alloc>;
 		};
 
 		class Iterator : public BaseIterator
 		{
 			public:
-				Iterator(DLNode<T> * t = NULL);
+				Iterator(DLNode<T, Alloc> * t = NULL);
 				~Iterator(void);
 				Iterator(Iterator const & other);
 
@@ -45,7 +45,7 @@ namespace ft
 		class CIterator : public BaseIterator
 		{
 			public:
-				CIterator(DLNode<T> * t = NULL);
+				CIterator(DLNode<T, Alloc> * t = NULL);
 				CIterator(Iterator const & it);
 				~CIterator(void);
 				CIterator(CIterator const & other);
@@ -62,7 +62,7 @@ namespace ft
 		class RIterator : public BaseIterator
 		{
 			public:
-				RIterator(DLNode<T> * t = NULL);
+				RIterator(DLNode<T, Alloc> * t = NULL);
 				~RIterator(void);
 				RIterator(RIterator const & other);
 
@@ -78,7 +78,7 @@ namespace ft
 		class CRIterator : public BaseIterator
 		{
 			public:
-				CRIterator(DLNode<T> * t = NULL);
+				CRIterator(DLNode<T, Alloc> * t = NULL);
 				CRIterator(RIterator const & rit);
 				~CRIterator(void);
 				CRIterator(CRIterator const & other);
@@ -92,10 +92,10 @@ namespace ft
 				T const *		operator->(void) const;
 		};
 
-		typedef ft::DLNode<T>::Iterator iterator;
-		typedef ft::DLNode<T>::CIterator const_iterator;
-		typedef ft::DLNode<T>::RIterator reverse_iterator;
-		typedef ft::DLNode<T>::CRIterator const_reverse_iterator;
+		typedef ft::DLNode<T, Alloc>::Iterator iterator;
+		typedef ft::DLNode<T, Alloc>::CIterator const_iterator;
+		typedef ft::DLNode<T, Alloc>::RIterator reverse_iterator;
+		typedef ft::DLNode<T, Alloc>::CRIterator const_reverse_iterator;
 
 		DLNode(void);
 		DLNode(const T & v, DLNode * p = NULL, DLNode * n = NULL);
@@ -105,8 +105,8 @@ namespace ft
 		DLNode &				operator=(DLNode const & other);
 
 		T						value;
-		DLNode<T> *				prev;
-		DLNode<T> *				next;
+		DLNode<T, Alloc> *		prev;
+		DLNode<T, Alloc> *		next;
 
 		private:
 			void					_copy(DLNode const & other);
