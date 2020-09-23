@@ -4,7 +4,8 @@ INCLUDES	= $(CONTAINERS:%=includes/%.hpp) $(addprefix includes/, DLNode.hpp Colo
 TEMPLATE	= $(CONTAINERS:%=templates/%.tpp) $(addprefix templates/, DLNode.tpp)
 BINS		= $(CONTAINERS:%=tests/ft::%Test) $(CONTAINERS:%=tests/std::%Test)
 MAKE_RESULT	= $(CONTAINERS:%=ft\:\:%) $(CONTAINERS:%=std\:\:%)
-SED			= $(CONTAINERS:%=ft\:\:%sed) $(CONTAINERS:%=std\:\:%sed)
+FT_SED		= $(CONTAINERS:%=ft\:\:%sed)
+STD_SED		= $(CONTAINERS:%=std\:\:%sed)
 RESULTS		= $(CONTAINERS:%=results/ft::%.result) $(CONTAINERS:%=results/std::%.result)
 FT_COLORS	= $(CONTAINERS:%=ft\:\:%color)
 STD_COLORS	= $(CONTAINERS:%=std\:\:%color)
@@ -20,8 +21,11 @@ $(CONTAINERS:%=tests/ft\:\:%Test): tests/ft\:\:%: tests/%.cpp $(INCLUDES) $(TEMP
 $(CONTAINERS:%=tests/std\:\:%Test): tests/std\:\:%: tests/%.cpp $(INCLUDES) $(TEMPLATE)
 	$(CC) $(CFLAGS) tests/$*.cpp -o $@
 
-$(SED): %sed:
-	sed -ri s/"(test_list<).*(>)"/"\1$*\2"/ tests/listTest.cpp
+$(FT_SED): ft\:\:%sed:
+	sed -ri s/"(test_$*<).*(>)"/"\1ft::$*\2"/ tests/$*Test.cpp
+
+$(STD_SED): std\:\:%sed:
+	sed -ri s/"(test_$*<).*(>)"/"\1std::$*\2"/ tests/$*Test.cpp
 
 $(MAKE_RESULT): %: %color %sed tests/%Test
 	valgrind -q --leak-check=full ./tests/$@Test > results/$@.result
