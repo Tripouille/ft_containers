@@ -130,6 +130,7 @@ ft::vector<T, Alloc>::_construct_vector_dispatch(InputIterator & first, InputIte
 		++first;
 		++i;
 	}
+	_end = _limit = _start + i;
 }
 
 template <class T, class Alloc>
@@ -138,14 +139,14 @@ ft::vector<T, Alloc>::_construct_vector_with_val(size_type n, const value_type &
 {
 	for (size_type i = 0; i < n; ++i)
 		_alloc.construct(_start + i, val);
+	_end = _limit = _start + n;
 }
 
 /** Non-member function overloads **/
 
 /* BaseIterator */
 template <class T, class Alloc>
-
-ft::vector<T, Alloc>::BaseIterator::BaseIterator(vector<T, Alloc> * t)
+ft::vector<T, Alloc>::BaseIterator::BaseIterator(T * t)
 					 : _target(t)
 {
 }
@@ -222,7 +223,7 @@ ft::vector<T, Alloc>::BaseIterator::operator>=(BaseIterator const & other) const
 
 /* Iterator */
 template <class T, class Alloc>
-ft::vector<T, Alloc>::Iterator::Iterator(vector<T, Alloc> * t)
+ft::vector<T, Alloc>::Iterator::Iterator(T * t)
 						: BaseIterator(t)
 {
 }

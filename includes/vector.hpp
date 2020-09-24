@@ -21,7 +21,7 @@ namespace ft
 				typedef T & reference;
 				typedef random_access_iterator_tag iterator_category;
 
-				BaseIterator(vector<T, Alloc> * t = NULL);
+				BaseIterator(T * t = NULL);
 				virtual ~BaseIterator(void);
 				BaseIterator(BaseIterator const & other);
 
@@ -41,7 +41,7 @@ namespace ft
 		class Iterator : public BaseIterator
 		{
 			public:
-				Iterator(vector<T, Alloc> * t = NULL);
+				Iterator(T * t = NULL);
 				~Iterator(void);
 				Iterator(Iterator const & other);
 

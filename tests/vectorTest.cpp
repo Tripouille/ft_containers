@@ -28,7 +28,7 @@ print_vector(T vector, std::string const & name)
 	std::cout << "] Size = " << list.size() << ENDL;*/
 }
 
-template <template <class T, class Alloc = std::allocator<T> > class containerT>
+template <template <class T, class Alloc = std::allocator<T> > class vec>
 void
 test_vector(void)
 {
@@ -36,16 +36,20 @@ test_vector(void)
 
 	FILE << SUBTITLE << "Constructors" << ENDL;
 	FILE << CATEGORY << "===> Default constructor" << ENDL;
-	FILE << "containerT<int> vectorA;" << ENDL; containerT<int> vectorA;
+	FILE << "vec<int> vectorA;" << ENDL; vec<int> vectorA;
 	FILE << ENDL;
 
 	FILE << CATEGORY << "===> Fill constructor" << ENDL;
-	FILE << "containerT<int> vectorB(3, 2);" << ENDL; containerT<int> vectorB(3, 2);
+	FILE << "vec<int> vectorB(3, 2);" << ENDL; vec<int> vectorB(3, 2);
 	FILE << ENDL;
 
+	typename vec<int>::iterator it = vectorB.begin();
+	typename vec<int>::iterator ite = vectorB.end();
+	for (; it != ite; ++it)
+		FILE << *it << ENDL;
 	/*FILE << CATEGORY << "===> Range constructor" << ENDL;
 	FILE << "int intArrayA[] = {1, 2, 3, 4, 5};" << ENDL; int intArrayA[] = {1, 2, 3, 4, 5};
-	FILE << "containerT<int> vectorC(intArrayA, intArrayA + 5);" << ENDL; containerT<int> vectorC(intArrayA, intArrayA + 5);
+	FILE << "vec<int> vectorC(intArrayA, intArrayA + 5);" << ENDL; vec<int> vectorC(intArrayA, intArrayA + 5);
 	FILE << ENDL;*/
 
 	FILE << TITLE << "=> ENDING vector tests" << ENDL << ENDL;
