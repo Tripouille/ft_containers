@@ -36,7 +36,17 @@ test_vector(void)
 
 	FILE << SUBTITLE << "Constructors" << ENDL;
 	FILE << CATEGORY << "===> Default constructor" << ENDL;
+	FILE << "containerT<int> vectorA;" << ENDL; containerT<int> vectorA;
 	FILE << ENDL;
+
+	FILE << CATEGORY << "===> Fill constructor" << ENDL;
+	FILE << "containerT<int> vectorB(3, 2);" << ENDL; containerT<int> vectorB(3, 2);
+	FILE << ENDL;
+
+	/*FILE << CATEGORY << "===> Range constructor" << ENDL;
+	FILE << "int intArrayA[] = {1, 2, 3, 4, 5};" << ENDL; int intArrayA[] = {1, 2, 3, 4, 5};
+	FILE << "containerT<int> vectorC(intArrayA, intArrayA + 5);" << ENDL; containerT<int> vectorC(intArrayA, intArrayA + 5);
+	FILE << ENDL;*/
 
 	FILE << TITLE << "=> ENDING vector tests" << ENDL << ENDL;
 }
