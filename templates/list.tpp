@@ -416,7 +416,7 @@ template <class T, class Alloc>
 void
 ft::list<T, Alloc>::splice(iterator position, list & x, iterator first, iterator last)
 {
-	unsigned long size = static_cast<unsigned long>(std::distance(first, last));
+	unsigned long size = static_cast<unsigned long>(_distance(first, last));
 
 	if (x.empty() || size == 0)
 		return ;
@@ -668,22 +668,6 @@ ft::list<T, Alloc>::_actualize_head_tail(void)
 
 template <class T, class Alloc>
 void
-ft::list<T, Alloc>::_debug(void) const
-{
-	DLNode<T, Alloc> * tmp = _head;
-	std::cout << "Head = " << _head << " Tail = " << _tail << " End = " << _end << std::endl;
-	std::cout << "List: [ ";
-	int i = 0;
-	while (tmp != _end && i++ < 100)
-	{
-		std::cout << tmp->value << " ";
-		tmp = tmp->next;
-	}
-	std::cout << "]" << std::endl;
-}
-
-template <class T, class Alloc>
-void
 ft::list<T, Alloc>::_swap(const_iterator a, const_iterator b)
 {
 	if (a == b)
@@ -695,6 +679,17 @@ ft::list<T, Alloc>::_swap(const_iterator a, const_iterator b)
 	b._target->prev->next = b._target;
 	b._target->next->prev = b._target;
 	_actualize_head_tail();
+}
+
+/** Iterator utils **/
+template <class T, class Alloc>
+typename ft::list<T, Alloc>::const_iterator::difference_type
+ft::list<T, Alloc>::_distance(const_iterator first, const_iterator last)
+{
+	typename const_iterator::difference_type result = 0;
+	for (; first != last; ++first)
+		++result;
+	return (result);
 }
 
 /** Non-member function overloads **/

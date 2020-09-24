@@ -8,7 +8,7 @@
 
 namespace ft
 {
-	template <class T, class Alloc>
+	template <class T, class Alloc = std::allocator<T> >
 	class list
 	{
 		public:
@@ -115,7 +115,6 @@ namespace ft
 		private:
 		/* Private Functions */
 			void _copy(list const & other);
-			void _debug(void) const;
 			DLNode<T, Alloc> * _new_node(const T & v, DLNode<T, Alloc> * p, DLNode<T, Alloc> * n);
 			template <class Integer>
 			void _fill_list_dispatch(Integer & first, Integer & last, INT_TYPE);
@@ -127,6 +126,8 @@ namespace ft
 			void _actualize_end(void);
 			void _actualize_head_tail(void);
 			void _swap(const_iterator a, const_iterator b);
+			/** Iterator utils **/
+			static typename ft::list<T, Alloc>::const_iterator::difference_type _distance(const_iterator first, const_iterator last);
 
 		/* Private variables */
 			allocator_type					_alloc;
