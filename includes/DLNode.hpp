@@ -1,5 +1,6 @@
 #ifndef DLNODE_HPP
 # define DLNODE_HPP
+# include <cstddef>
 
 namespace ft
 {

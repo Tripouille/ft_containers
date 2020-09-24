@@ -44,5 +44,5 @@ test_vector(void)
 int
 main(void)
 {
-    test_vector<ft::vector>();
+    test_vector<std::vector>();
 }
