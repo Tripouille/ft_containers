@@ -2,6 +2,7 @@
 # define VECTOR_HPP
 # include <iostream>
 # include <limits>
+# include <cstddef>
 # include "types.hpp"
 
 namespace ft
@@ -9,19 +10,68 @@ namespace ft
 	template <class T, class Alloc>
 	class vector
 	{
+
+		struct random_access_iterator_tag {};
+		class BaseIterator
+		{
+			public:
+				typedef T value_type;
+				typedef ptrdiff_t difference_type;
+				typedef T * pointer;
+				typedef T & reference;
+				typedef random_access_iterator_tag iterator_category;
+
+				BaseIterator(vector<T, Alloc> * t = NULL);
+				virtual ~BaseIterator(void);
+				BaseIterator(BaseIterator const & other);
+
+				BaseIterator &		operator=(BaseIterator const & other);
+				bool				operator==(BaseIterator const & other) const;
+				bool				operator!=(BaseIterator const & other) const;
+				bool				operator<(BaseIterator const & other) const;
+				bool				operator>(BaseIterator const & other) const;
+				bool				operator<=(BaseIterator const & other) const;
+				bool				operator>=(BaseIterator const & other) const;
+
+			protected:
+				void				_copy(BaseIterator const & other);
+				T *					_target;
+		};
+
+		class Iterator : public BaseIterator
+		{
+			public:
+				Iterator(vector<T, Alloc> * t = NULL);
+				~Iterator(void);
+				Iterator(Iterator const & other);
+
+				Iterator &			operator=(Iterator const & other);
+				T &					operator*(void) const;
+				T *					operator->(void) const;
+				Iterator &			operator++(void);
+				Iterator			operator++(int);
+				Iterator &			operator--(void);
+				Iterator			operator--(int);
+				Iterator 			operator+(typename BaseIterator::difference_type i) const;
+				Iterator 			operator-(typename BaseIterator::difference_type i) const;
+				typename BaseIterator::difference_type
+									operator-(Iterator const & other) const;
+				Iterator &			operator+=(typename BaseIterator::difference_type i);
+				Iterator &			operator-=(typename BaseIterator::difference_type i);
+				T &					operator[](typename BaseIterator::difference_type i) const;
+		};
+
 		public:
 		/* Typedef */
 			typedef T value_type;
-			typedef std::allocator<value_type> allocator_type;
+			typedef Alloc allocator_type;
 			typedef value_type & reference;
 			typedef const value_type & const_reference;
 			typedef value_type * pointer;
 			typedef const value_type * const_pointer;
-			typedef unsigned long size_type;
-			//typedef typename ft::DLNode<T>::iterator iterator;
-			//typedef typename ft::DLNode<T>::const_iterator const_iterator;
-			//typedef typename ft::DLNode<T>::reverse_iterator reverse_iterator;
-			//typedef typename ft::DLNode<T>::const_reverse_iterator const_reverse_iterator;
+			typedef typename ft::vector<T, Alloc>::Iterator iterator;
+			typedef ptrdiff_t difference_type;
+			typedef size_t size_type;
 
 		public:
 		/* Constructor */
@@ -41,9 +91,10 @@ namespace ft
 
 		/* Member functions */
 			/** Iterators **/
-				/*iterator begin(void);
-				const_iterator begin(void) const;
+				iterator begin(void);
 				iterator end(void);
+				/*
+				const_iterator begin(void) const;
 				const_iterator end(void) const;
 				reverse_iterator rbegin(void);
 				const_reverse_iterator rbegin(void) const;
@@ -108,8 +159,7 @@ namespace ft
 		private:
 		/* Private Functions */
 			//void _copy(list const & other);
-			//void _debug(void) const;
-			//DLNode<T> * _new_node(const T & v, DLNode<T> * p, DLNode<T> * n);
+			//vector<T> * _new_node(const T & v, vector<T> * p, vector<T> * n);
 			template <class Integer>
 			void _construct_vector_dispatch(Integer & first, Integer & last, INT_TYPE);
 			template <class InputIterator>
@@ -146,6 +196,10 @@ namespace ft
 		/** swap **/
 			/*template <class T, class Alloc>
 			void swap(list<T, Alloc> & x, list<T, Alloc> & y);*/
+
+	/* Non-member function for iterator */
+	//ptrdiff_t operator+(int i, Iterator const & it);
+
 }
 
 # include "vector.tpp"
