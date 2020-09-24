@@ -8,6 +8,7 @@ namespace ft
 	template <class T, class Alloc>
 	struct DLNode
 	{
+		struct bidirectional_iterator_tag {};
 		class BaseIterator
 		{
 			public:
@@ -15,7 +16,7 @@ namespace ft
 				typedef ptrdiff_t difference_type;
 				typedef T * pointer;
 				typedef T & reference;
-				typedef std::bidirectional_iterator_tag iterator_category;
+				typedef bidirectional_iterator_tag iterator_category;
 
 				BaseIterator(DLNode<T, Alloc> * t = NULL);
 				virtual ~BaseIterator(void);
