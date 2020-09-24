@@ -1,17 +1,23 @@
 #ifndef DLNODE_HPP
 # define DLNODE_HPP
-# include <iterator>
 
 namespace ft
 {
-	template <class T, class Alloc = std::allocator<T> >
+	template <class T, class Alloc>
 	class list;
 	template <class T, class Alloc>
 	struct DLNode
 	{
-		class BaseIterator : public std::iterator<std::bidirectional_iterator_tag, T>
+		struct bidirectional_iterator_tag {};
+		class BaseIterator
 		{
 			public:
+				typedef T value_type;
+				typedef ptrdiff_t difference_type;
+				typedef T * pointer;
+				typedef T & reference;
+				typedef bidirectional_iterator_tag iterator_category;
+
 				BaseIterator(DLNode<T, Alloc> * t = NULL);
 				virtual ~BaseIterator(void);
 				BaseIterator(BaseIterator const & other);
