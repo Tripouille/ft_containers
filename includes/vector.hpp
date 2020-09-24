@@ -129,11 +129,11 @@ namespace ft
 											void insert(iterator position,
 															InputIterator first,
 															InputIterator last);*/
-				/*iterator erase(iterator position);
-				iterator erase(iterator first, iterator last);
-				void swap(list & x);
-				void resize(size_type n, value_type val = value_type());
-				void clear(void);*/
+				//iterator erase(iterator position);
+				//iterator erase(iterator first, iterator last);
+				//void swap(list & x);
+				//void resize(size_type n, value_type val = value_type());
+				void clear(void);
 
 			/** Operations **/
 				/*** entire list (1) ***/ //void splice(iterator position, list & x);
@@ -158,8 +158,9 @@ namespace ft
 
 		private:
 		/* Private Functions */
-			//void _copy(list const & other);
-			//vector<T> * _new_node(const T & v, vector<T> * p, vector<T> * n);
+			void _copy(vector const & other);
+			//void _debug(void) const;
+			//DLNode<T> * _new_node(const T & v, DLNode<T> * p, DLNode<T> * n);
 			template <class Integer>
 			void _construct_vector_dispatch(Integer & first, Integer & last, INT_TYPE);
 			template <class InputIterator>

@@ -33,14 +33,14 @@ ft::vector<T, Alloc>::vector(InputIterator first, InputIterator last,
 template <class T, class Alloc>
 ft::vector<T, Alloc>::vector(vector const & other)
 {
-	(void)other;
+	_copy(other);
 }
 
 /* Destructor */
 template <class T, class Alloc>
 ft::vector<T, Alloc>::~vector(void)
 {
-	delete[] _start;
+	_alloc.deallocate(_start, static_cast<size_type>(_end - _start));
 }
 
 /* Operator */
@@ -48,7 +48,11 @@ template <class T, class Alloc>
 ft::vector<T, Alloc> &
 ft::vector<T, Alloc>::operator=(vector const & other)
 {
-	(void)other;
+	if (this == &other)
+	{
+		clear();
+		_copy(other);
+	}
 	return (*this);
 }
 
@@ -74,13 +78,39 @@ ft::vector<T, Alloc>::end(void)
 
 /** Modifiers **/
 
+template <typename T, class Alloc>
+void
+ft::vector<T, Alloc>::clear(void)
+{
+	delete[] _start;
+	_start = NULL;
+	_end = NULL;
+	_limit = NULL;
+}
+
 /** Operations **/
 
 /** Observers **/
 
 /** Private functions **/
 
-template <class T, class Alloc>
+template <typename T, class Alloc>
+void
+ft::vector<T, Alloc>::_copy(vector const & other)
+{
+	_start = _alloc.allocate(other._end - other._start);
+	pointer this_ptr = _start;
+	pointer other_ptr = other._start;
+	while (other_ptr != other._end)
+	{
+		_alloc.construct(this_ptr, *other_ptr);
+		++this_ptr;
+		++other_ptr;
+	}
+	_end = _limit = this_ptr;
+}
+
+template <typename T, class Alloc>
 template <class Integer>
 void
 ft::vector<T, Alloc>::_construct_vector_dispatch(Integer & n, Integer & val, INT_TYPE)
