@@ -2,7 +2,6 @@
 # define VECTOR_HPP
 # include <iostream>
 # include <limits>
-# include "DLNode.hpp"
 # include "types.hpp"
 
 namespace ft
@@ -14,25 +13,24 @@ namespace ft
 		/* Typedef */
 			typedef T value_type;
 			typedef std::allocator<value_type> allocator_type;
-			//typedef std::allocator<DLNode<T> > node_allocator_type;
 			typedef value_type & reference;
 			typedef const value_type & const_reference;
 			typedef value_type * pointer;
 			typedef const value_type * const_pointer;
 			typedef unsigned long size_type;
-			typedef typename ft::DLNode<T>::iterator iterator;
-			typedef typename ft::DLNode<T>::const_iterator const_iterator;
-			typedef typename ft::DLNode<T>::reverse_iterator reverse_iterator;
-			typedef typename ft::DLNode<T>::const_reverse_iterator const_reverse_iterator;
+			//typedef typename ft::DLNode<T>::iterator iterator;
+			//typedef typename ft::DLNode<T>::const_iterator const_iterator;
+			//typedef typename ft::DLNode<T>::reverse_iterator reverse_iterator;
+			//typedef typename ft::DLNode<T>::const_reverse_iterator const_reverse_iterator;
 
 		public:
 		/* Constructor */
 			/** default	(1) **/	explicit vector(const allocator_type & alloc = allocator_type());
 			/** fill	(2) **/	explicit vector(size_type n, const value_type & val = value_type(),
 															const allocator_type & alloc = allocator_type());
-			/** range	(3) **/	template <class InputIterator>
+			/** range	(3) **/	/*template <class InputIterator>
 								vector(InputIterator first, InputIterator last,
-															const allocator_type & alloc = allocator_type());
+															const allocator_type & alloc = allocator_type());*/
 			/** copy	(4) **/	vector(vector const & other);
 
 		/* Destructor */
@@ -109,25 +107,25 @@ namespace ft
 
 		private:
 		/* Private Functions */
-			/*void _copy(list const & other);
-			void _debug(void) const;
-			DLNode<T> * _new_node(const T & v, DLNode<T> * p, DLNode<T> * n);
+			//void _copy(list const & other);
+			//void _debug(void) const;
+			//DLNode<T> * _new_node(const T & v, DLNode<T> * p, DLNode<T> * n);
 			template <class Integer>
-			void _fill_list_dispatch(Integer & first, Integer & last, INT_TYPE);
+			void _construct_vector_dispatch(Integer & first, Integer & last, INT_TYPE);
 			template <class InputIterator>
-			void _fill_list_dispatch(InputIterator & first, InputIterator & last, NO_INT_TYPE);
-			void _fill_with_value(size_type n, value_type const & val);
-			template <class InputIterator>
-			void _fill_from_iterators(InputIterator & first, InputIterator & last);
-			void _actualize_end(void);
-			void _actualize_head_tail(void);
-			void _swap(const_iterator a, const_iterator b);*/
+			void _construct_vector_dispatch(InputIterator & first, InputIterator & last, NO_INT_TYPE);
+			void _construct_vector_with_val(size_type n, value_type const & val);
+			//template <class InputIterator>
+			//void _fill_from_iterators(InputIterator & first, InputIterator & last);
+			//void _actualize_end(void);
+			//void _actualize_head_tail(void);
+			//void _swap(const_iterator a, const_iterator b);
 
 		/* Private variables */
 			allocator_type			_alloc;
-			pointer					_array;
-			size_type				_size;
-			size_type				_capacity;
+			pointer					_start;
+			pointer					_end;
+			pointer					_limit;
 	};
 
 	/* Non-member function overloads */
