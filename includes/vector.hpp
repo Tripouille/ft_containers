@@ -1,7 +1,9 @@
 #ifndef VECTOR_HPP
 # define VECTOR_HPP
 # include <iostream>
+# include <sstream>
 # include <limits>
+# include <exception>
 # include <cstddef>
 # include "types.hpp"
 
@@ -173,6 +175,7 @@ namespace ft
 			template <class InputIterator>
 			void _construct_vector_from_range(InputIterator & first, InputIterator & last);
 			void _reallocate(void);
+			void _range_check(size_type n) const throw(std::out_of_range);
 			//template <class InputIterator>
 			//void _fill_from_iterators(InputIterator & first, InputIterator & last);
 			//void _actualize_end(void);

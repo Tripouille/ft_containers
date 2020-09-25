@@ -99,8 +99,7 @@ template <typename T, class Alloc>
 typename ft::vector<T, Alloc>::reference
 ft::vector<T, Alloc>::at(size_type n)
 {
-	if (n >= size())
-		throw out_of_range();
+	_range_check(n);
 	return (_start[n]);
 }
 
@@ -108,8 +107,7 @@ template <typename T, class Alloc>
 typename ft::vector<T, Alloc>::const_reference
 ft::vector<T, Alloc>::at(size_type n) const
 {
-	if (n >= size())
-		throw out_of_range();
+	_range_check(n);
 	return (_start[n]);
 }
 
@@ -210,6 +208,19 @@ ft::vector<T, Alloc>::_reallocate(void)
 	_end = _start + prev_size;
 	_limit = _start + prev_size + 10;
 	_alloc.deallocate(tmp, prev_size);
+}
+
+template <class T, class Alloc>
+void
+ft::vector<T, Alloc>::_range_check(size_type n) const
+throw(std::out_of_range)
+{
+	if (n < size())
+		return ;
+	std::stringstream msg;
+	msg << "vector::_M_range_check: __n (which is " << n
+		<< ") >= this->size() (which is " << size() << ")";
+	throw std::out_of_range(msg.str());
 }
 
 /** Non-member function overloads **/

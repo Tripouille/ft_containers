@@ -101,9 +101,12 @@ test_vector(void)
 	FILE << "test[0] : " << test[0] << ENDL;
 	FILE << "vec<int> const const_test(1, 42);" << ENDL; vec<int> const const_test(1, 42);
 	FILE << "const_test[0] : " << const_test[0] << ENDL;
-
-
-
+	FILE << CATEGORY << "===> at" << ENDL;
+	FILE << "test.at(0) : " << test.at(0) << ENDL;
+	try
+		{FILE << "test.at(42) : " << test.at(42) << ENDL;}
+	catch (std::out_of_range const & e)
+		{FILE << e.what() << ENDL;}
 
 	FILE << TITLE << "=> ENDING vector tests" << ENDL << ENDL;
 }
