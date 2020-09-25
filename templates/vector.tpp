@@ -453,9 +453,8 @@ template <class T, class Alloc>
 T &
 ft::vector<T, Alloc>::Iterator::operator[](typename Iterator::difference_type i) const
 {
-	return (*(this->_target + i));
+	return (this->_target[i]);
 }
-
 
 /* CIterator */
 template <class T, class Alloc>
@@ -579,6 +578,125 @@ template <class T, class Alloc>
 T const &
 ft::vector<T, Alloc>::CIterator::operator[](typename CIterator::difference_type i) const
 {
-	return (*(this->_target + i));
+	return (this->_target[i]);
 }
 
+/* RIterator */
+template <class T, class Alloc>
+ft::vector<T, Alloc>::RIterator::RIterator(T * t)
+						: BaseIterator(t)
+{
+}
+
+template <class T, class Alloc>
+ft::vector<T, Alloc>::RIterator::~RIterator(void)
+{
+}
+
+
+template <class T, class Alloc>
+ft::vector<T, Alloc>::RIterator::RIterator(RIterator const & other)
+						 : BaseIterator(other)
+{
+}
+
+template <class T, class Alloc>
+typename ft::vector<T, Alloc>::RIterator &
+ft::vector<T, Alloc>::RIterator::operator=(RIterator const & other)
+{
+	if (this != &other)
+		BaseIterator::operator=(other);
+	return (*this);
+}
+
+template <class T, class Alloc>
+T &
+ft::vector<T, Alloc>::RIterator::operator*(void) const
+{
+	return (*(this->_target));
+}
+
+template <class T, class Alloc>
+T *
+ft::vector<T, Alloc>::RIterator::operator->(void) const
+{
+	return (this->_target);
+}
+
+template <class T, class Alloc>
+typename ft::vector<T, Alloc>::RIterator &
+ft::vector<T, Alloc>::RIterator::operator++(void)
+{
+	--this->_target;
+	return (*this);
+}
+
+template <class T, class Alloc>
+typename ft::vector<T, Alloc>::RIterator
+ft::vector<T, Alloc>::RIterator::operator++(int)
+{
+	RIterator tmp(*this);
+	++*this;
+	return (tmp);
+}
+
+template <class T, class Alloc>
+typename ft::vector<T, Alloc>::RIterator &
+ft::vector<T, Alloc>::RIterator::operator--(void)
+{
+	++this->_target;
+	return (*this);
+}
+
+template <class T, class Alloc>
+typename ft::vector<T, Alloc>::RIterator
+ft::vector<T, Alloc>::RIterator::operator--(int)
+{
+	RIterator tmp(*this);
+	--*this;
+	return (tmp);
+}
+
+template <class T, class Alloc>
+typename ft::vector<T, Alloc>::RIterator
+ft::vector<T, Alloc>::RIterator::operator+(typename RIterator::difference_type i) const
+{
+	return (RIterator(this->_target - i));
+}
+
+template <class T, class Alloc>
+typename ft::vector<T, Alloc>::RIterator
+ft::vector<T, Alloc>::RIterator::operator-(typename RIterator::difference_type i) const
+{
+	return (RIterator(this->_target + i));
+}
+
+template <class T, class Alloc>
+typename ft::vector<T, Alloc>::RIterator::difference_type
+ft::vector<T, Alloc>::RIterator::operator-(RIterator const & other) const
+{
+	return (this->_target - other._target);
+}
+
+template <class T, class Alloc>
+typename ft::vector<T, Alloc>::RIterator &
+ft::vector<T, Alloc>::RIterator::operator+=(typename RIterator::difference_type i)
+{
+	this->_target -= i;
+	return (*this);
+}
+
+template <class T, class Alloc>
+typename ft::vector<T, Alloc>::RIterator &
+ft::vector<T, Alloc>::RIterator::operator-=(typename RIterator::difference_type i)
+{
+	this->_target += i;
+	return (*this);
+}
+
+template <class T, class Alloc>
+T &
+ft::vector<T, Alloc>::RIterator::operator[](typename RIterator::difference_type i) const
+{
+	return (this->_target[-i]);
+}

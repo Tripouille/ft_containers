@@ -91,6 +91,31 @@ namespace ft
 				T const &					operator[](typename CIterator::difference_type i) const;
 		};
 
+		class RIterator : public BaseIterator
+		{
+			public:
+				RIterator(T * t = NULL);
+				~RIterator(void);
+				RIterator(RIterator const & other);
+
+				RIterator &			operator=(RIterator const & other);
+				T &					operator*(void) const;
+				T *					operator->(void) const;
+				RIterator &			operator++(void);
+				RIterator			operator++(int);
+				RIterator &			operator--(void);
+				RIterator			operator--(int);
+				RIterator 			operator+(typename RIterator::difference_type i) const;
+		 friend RIterator			operator+(typename RIterator::difference_type i, RIterator const & it)
+									{return (RIterator(it._target - i));}
+				RIterator 			operator-(typename RIterator::difference_type i) const;
+				typename RIterator::difference_type
+									operator-(RIterator const & other) const;
+				RIterator &			operator+=(typename RIterator::difference_type i);
+				RIterator &			operator-=(typename RIterator::difference_type i);
+				T &					operator[](typename RIterator::difference_type i) const;
+		};
+
 		public:
 		/* Typedef */
 			typedef T value_type;

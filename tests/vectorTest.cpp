@@ -152,6 +152,9 @@ test_vector(void)
 	FILE << "vec<double> const constDoubleVec(1, 1);" << ENDL; vec<double> const constDoubleVec(1, 1);
 	print_vector(constDoubleVec, "constDoubleVec");
 	FILE << "const_iterator cit = constDoubleVec.begin();" << ENDL; typename vec<double>::const_iterator cit = constDoubleVec.begin();
+	FILE << "const_iterator cite = constDoubleVec.end();" << ENDL; typename vec<double>::const_iterator cite = constDoubleVec.end();
+	FILE << "cit - cite : " << OUTPUT << cit - cite << ENDL;
+	FILE << "cite - cit : " << OUTPUT << cite - cit << ENDL;
 	FILE << "*cit : " << OUTPUT << *cit << ENDL;
 	FILE << "vec<double> doubleVec;" << ENDL; vec<double> doubleVec;
 	print_vector(doubleVec, "doubleVec");
