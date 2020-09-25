@@ -422,3 +422,4 @@ ft::vector<T, Alloc>::Iterator::operator[](typename BaseIterator::difference_typ
 {
 	return (*(BaseIterator::_target + i));
 }
+

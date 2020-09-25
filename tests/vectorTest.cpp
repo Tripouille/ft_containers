@@ -105,7 +105,7 @@ test_vector(void)
 	FILE << "*it : " << OUTPUT << *it << ENDL;
 	FILE << "*(it + 2) : " << OUTPUT << *(it + 2) << ENDL;
 	FILE << "*(it - 1) : " << OUTPUT << *(it - 1) << ENDL;
-	//FILE << "*(2 + it) : " << OUTPUT << *(2 + it) << ENDL;
+	FILE << "*(2 + it) : " << OUTPUT << *(2 + it) << ENDL;
 	FILE << "ite - it : " << OUTPUT << (ite - it) << ENDL;
 	FILE << "*(it += 2) : " << OUTPUT << *(it += 2) << ENDL;
 	FILE << "*(it -= 2) : " << OUTPUT << *(it -= 2) << ENDL;
@@ -149,7 +149,7 @@ test_vector(void)
 int
 main(void)
 {
-    test_vector<std::vector>();
+    test_vector<ft::vector>();
 	/*std::vector<int> test;
 	test.push_back(0);
 	test.push_back(1);

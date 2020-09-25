@@ -55,6 +55,8 @@ namespace ft
 				Iterator &			operator--(void);
 				Iterator			operator--(int);
 				Iterator 			operator+(typename BaseIterator::difference_type i) const;
+				friend Iterator		operator+(typename BaseIterator::difference_type i, Iterator const & it)
+				{return (Iterator(it._target + i));}
 				Iterator 			operator-(typename BaseIterator::difference_type i) const;
 				typename BaseIterator::difference_type
 									operator-(Iterator const & other) const;
@@ -209,8 +211,10 @@ namespace ft
 			void swap(list<T, Alloc> & x, list<T, Alloc> & y);*/
 
 	/* Non-member function for iterator */
-	//ptrdiff_t operator+(int i, Iterator const & it);
-
+		/*template <class T, class Alloc>
+		typename ft::vector<T, Alloc>::Iterator::difference_type
+		operator+(typename ft::vector<T, Alloc>::Iterator::difference_type i,
+					typename ft::vector<T, Alloc>::Iterator const & it);*/
 }
 
 # include "vector.tpp"
