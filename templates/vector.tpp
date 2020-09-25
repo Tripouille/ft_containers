@@ -85,14 +85,32 @@ template <typename T, class Alloc>
 typename ft::vector<T, Alloc>::reference
 ft::vector<T, Alloc>::operator[](size_type n)
 {
-	return (*(_start + n));
+	return (_start[n]);
 }
 
 template <typename T, class Alloc>
 typename ft::vector<T, Alloc>::const_reference
 ft::vector<T, Alloc>::operator[] (size_type n) const
 {
-	return (*(_start + n));
+	return (_start[n]);
+}
+
+template <typename T, class Alloc>
+typename ft::vector<T, Alloc>::reference
+ft::vector<T, Alloc>::at(size_type n)
+{
+	if (n >= size())
+		throw out_of_range();
+	return (_start[n]);
+}
+
+template <typename T, class Alloc>
+typename ft::vector<T, Alloc>::const_reference
+ft::vector<T, Alloc>::at(size_type n) const
+{
+	if (n >= size())
+		throw out_of_range();
+	return (_start[n]);
 }
 
 /** Modifiers **/
@@ -368,7 +386,7 @@ template <class T, class Alloc>
 typename ft::vector<T, Alloc>::BaseIterator::difference_type
 ft::vector<T, Alloc>::Iterator::operator-(Iterator const & other) const
 {
-	return ((BaseIterator::_target - other._target) / sizeof(*BaseIterator::_target));
+	return (BaseIterator::_target - other._target);
 }
 
 template <class T, class Alloc>
