@@ -105,7 +105,7 @@ test_vector(void)
 	FILE << "*it : " << OUTPUT << *it << ENDL;
 	FILE << "*(it + 2) : " << OUTPUT << *(it + 2) << ENDL;
 	FILE << "*(it - 1) : " << OUTPUT << *(it - 1) << ENDL;
-	//FILE << "*(2 + it) : " << OUTPUT << *(2 + it) << ENDL;
+	FILE << "*(2 + it) : " << OUTPUT << *(2 + it) << ENDL;
 	FILE << "ite - it : " << OUTPUT << (ite - it) << ENDL;
 	FILE << "*(it += 2) : " << OUTPUT << *(it += 2) << ENDL;
 	FILE << "*(it -= 2) : " << OUTPUT << *(it -= 2) << ENDL;
