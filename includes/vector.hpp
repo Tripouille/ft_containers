@@ -138,6 +138,7 @@ namespace ft
 				void resize(size_type n, value_type val = value_type());
 				size_type capacity(void) const;
 				bool empty(void) const;
+				void reserve(size_type n);
 
 			/** Element access **/
 			 	reference operator[](size_type n);

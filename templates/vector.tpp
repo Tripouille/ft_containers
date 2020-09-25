@@ -39,6 +39,7 @@ template <class T, class Alloc>
 ft::vector<T, Alloc>::~vector(void)
 {
 	clear();
+	_alloc.deallocate(_start, capacity());
 }
 
 /* Operator */
@@ -49,6 +50,7 @@ ft::vector<T, Alloc>::operator=(vector const & other)
 	if (this != &other)
 	{
 		clear();
+		_alloc.deallocate(_start, capacity());
 		_copy(other);
 	}
 	return (*this);
@@ -132,6 +134,14 @@ ft::vector<T, Alloc>::empty(void) const
 	return (_start == _end);
 }
 
+template <typename T, class Alloc>
+void
+ft::vector<T, Alloc>::reserve(size_type n)
+{
+	if (n > capacity())
+		_reallocate(n);
+}
+
 
 /** Element access **/
 template <typename T, class Alloc>
@@ -170,7 +180,7 @@ void
 ft::vector<T, Alloc>::push_back(const value_type & val)
 {
 	if (_end == _limit)
-		_reallocate(1);
+		_reallocate(size() + 1);
 	_alloc.construct(_end, val);
 	++_end;
 }
@@ -181,10 +191,7 @@ ft::vector<T, Alloc>::clear(void)
 {
 	for (pointer tmp = _start; tmp != _end; ++tmp)
 		_alloc.destroy(tmp);
-	_alloc.deallocate(_start, size());
-	_start = NULL;
-	_end = NULL;
-	_limit = NULL;
+	_end = _start;
 }
 
 /** Operations **/
@@ -256,11 +263,13 @@ void
 ft::vector<T, Alloc>::_reallocate(size_type n)
 {
 	size_type prev_size = size();
-	size_type new_size = std::max(prev_size + prev_size, n);
+	size_type new_size = (n > prev_size + prev_size || prev_size + prev_size < prev_size) ?
+							n : prev_size + prev_size;
 	pointer new_start = _alloc.allocate(new_size);
 	for (size_type i = 0; i < prev_size; ++i)
 		_alloc.construct(new_start + i, _start[i]);
 	clear();
+	_alloc.deallocate(_start, capacity());
 	_start = new_start;
 	_end = _start + prev_size;
 	_limit = _start + new_size;

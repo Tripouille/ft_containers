@@ -199,6 +199,15 @@ test_vector(void)
 	FILE << "vectorA.resize(100);" << ENDL; vectorA.resize(100);
 	print_vector(vectorA, "vectorA");
 	//vectorA.resize(4611686018427387903); //bad_alloc exception, vector in valid state
+	FILE << CATEGORY << "===> reserve()" << ENDL;
+	vectorA.clear();
+	print_vector(vectorA, "vectorA");
+	FILE << "vectorA.reserve(0);" << ENDL; vectorA.reserve(0);
+	print_vector(vectorA, "vectorA");
+	FILE << "vectorA.reserve(150);" << ENDL; vectorA.reserve(150);
+	print_vector(vectorA, "vectorA");
+	FILE << "vectorA.reserve(400);" << ENDL; vectorA.reserve(400);
+	print_vector(vectorA, "vectorA");
 	FILE << ENDL;
 
 	FILE << SUBTITLE << "Element access" << ENDL;
@@ -230,12 +239,4 @@ int
 main(void)
 {
     test_vector<ft::vector>();
-	/*std::vector<int> test;
-	test.push_back(0);
-	test.push_back(1);
-	test.push_back(2);
-	test.push_back(3);
-	std::vector<int>::iterator it = test.begin();
-	std::vector<int>::iterator ite = test.end();
-	std::cout << it - ite << std::endl;*/
 }
