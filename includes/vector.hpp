@@ -109,6 +109,8 @@ namespace ft
 			/** Element access **/
 			 	reference operator[](size_type n);
 				const_reference operator[] (size_type n) const;
+				reference at(size_type n);
+				const_reference at(size_type n) const;
 				/*reference front(void);
 				const_reference front(void) const;
 				reference back(void);
