@@ -38,7 +38,7 @@ ft::vector<T, Alloc>::vector(vector const & other) : _alloc(other._alloc)
 template <class T, class Alloc>
 ft::vector<T, Alloc>::~vector(void)
 {
-	_alloc.deallocate(_start, size());
+	clear();
 }
 
 /* Operator */
@@ -87,13 +87,6 @@ ft::vector<T, Alloc>::end(void) const
 /** Capacity **/
 
 template <typename T, class Alloc>
-bool
-ft::vector<T, Alloc>::empty(void) const
-{
-	return (_start == _end);
-}
-
-template <typename T, class Alloc>
 typename ft::vector<T, Alloc>::size_type
 ft::vector<T, Alloc>::size(void) const
 {
@@ -105,6 +98,13 @@ typename ft::vector<T, Alloc>::size_type
 ft::vector<T, Alloc>::max_size(void) const
 {
 	return (_alloc.max_size());
+}
+
+template <typename T, class Alloc>
+bool
+ft::vector<T, Alloc>::empty(void) const
+{
+	return (_start == _end);
 }
 
 
@@ -154,6 +154,8 @@ template <typename T, class Alloc>
 void
 ft::vector<T, Alloc>::clear(void)
 {
+	for (pointer tmp = _start; tmp != _end; ++tmp)
+		_alloc.destroy(tmp);
 	_alloc.deallocate(_start, size());
 	_start = NULL;
 	_end = NULL;
@@ -233,7 +235,10 @@ ft::vector<T, Alloc>::_reallocate(void)
 	size_type new_size = prev_size + 10;
 	_start = _alloc.allocate(new_size);
 	for (size_type i = 0; i < prev_size; ++i)
+	{
 		_alloc.construct(_start + i, tmp[i]);
+		_alloc.destroy(tmp + i);
+	}
 	_end = _start + prev_size;
 	_limit = _start + new_size;
 	_alloc.deallocate(tmp, prev_size);

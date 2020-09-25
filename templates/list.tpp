@@ -227,7 +227,8 @@ ft::list<T, Alloc>::pop_front(void)
 	{
 		DLNode<T, Alloc> * d = _head;
 		_head = _head->next;
-		delete d;
+		_node_alloc.destroy(d);
+		_node_alloc.deallocate(d, 1);
 		--_size;
 		_actualize_end();
 	}
@@ -257,7 +258,8 @@ ft::list<T, Alloc>::pop_back(void)
 	{
 		DLNode<T, Alloc> * d = _tail;
 		_tail = _tail->prev;
-		delete d;
+		_node_alloc.destroy(d);
+		_node_alloc.deallocate(d, 1);
 		--_size;
 		_actualize_end();
 	}
@@ -305,7 +307,8 @@ ft::list<T, Alloc>::erase(iterator position)
 	position._target->next->prev = position._target->prev;
 	_actualize_head_tail();
 
-	delete position._target;
+	_node_alloc.destroy(position._target);
+	_node_alloc.deallocate(position._target, 1);
 	--_size;
 
 	return (ret);
@@ -324,7 +327,8 @@ ft::list<T, Alloc>::erase(iterator first, iterator last)
 	{
 		to_del = first._target;
 		++first;
-		delete to_del;
+		_node_alloc.destroy(to_del);
+		_node_alloc.deallocate(to_del, 1);
 		--_size;
 	}
 	return (last);
@@ -363,7 +367,8 @@ ft::list<T, Alloc>::clear(void)
 	{
 		_tail = _head;
 		_head = _head->next;
-		delete _tail;
+		_node_alloc.destroy(_tail);
+		_node_alloc.deallocate(_tail, 1);
 	}
 	_tail = _end;
 	_size = 0;
