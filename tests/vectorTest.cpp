@@ -23,7 +23,7 @@ print_vector(T & vector, std::string const & name)
 		std::cout << *begin << " ";
 		++begin;
 	}
-	std::cout << "]"/* Size = " << vector.size()*/ << ENDL;
+	std::cout << "] Size = " << vector.size() << ENDL;
 }
 
 template <template <class T, class Alloc = std::allocator<T> > class vec>
