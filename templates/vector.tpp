@@ -202,11 +202,12 @@ ft::vector<T, Alloc>::_reallocate(void)
 {
 	pointer tmp = _start;
 	size_type prev_size = size();
-	_start = _alloc.allocate(prev_size + 10);
-	for (int i = 0; i < prev_size; ++i)
-		_alloc.construct(_start + i, *tmp + i);
+	size_type new_size = prev_size + 10;
+	_start = _alloc.allocate(new_size);
+	for (size_type i = 0; i < prev_size; ++i)
+		_alloc.construct(_start + i, tmp[i]);
 	_end = _start + prev_size;
-	_limit = _start + prev_size + 10;
+	_limit = _start + new_size;
 	_alloc.deallocate(tmp, prev_size);
 }
 
