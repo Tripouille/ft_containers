@@ -126,6 +126,7 @@ namespace ft
 			typedef const value_type * const_pointer;
 			typedef typename ft::vector<T, Alloc>::Iterator iterator;
 			typedef typename ft::vector<T, Alloc>::CIterator const_iterator;
+			typedef typename ft::vector<T, Alloc>::RIterator reverse_iterator;
 			typedef ptrdiff_t difference_type;
 			typedef size_t size_type;
 
@@ -151,10 +152,10 @@ namespace ft
 				const_iterator begin(void) const;
 				iterator end(void);
 				const_iterator end(void) const;
-				/*
 				reverse_iterator rbegin(void);
-				const_reverse_iterator rbegin(void) const;
 				reverse_iterator rend(void);
+				/*
+				const_reverse_iterator rbegin(void) const;
 				const_reverse_iterator rend(void) const;*/
 
 			/** Capacity **/

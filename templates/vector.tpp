@@ -84,6 +84,20 @@ ft::vector<T, Alloc>::end(void) const
 	return (const_iterator(_end));
 }
 
+template <class T, class Alloc>
+typename ft::vector<T, Alloc>::reverse_iterator
+ft::vector<T, Alloc>::rbegin(void)
+{
+	return (reverse_iterator(_end - 1));
+}
+
+template <class T, class Alloc>
+typename ft::vector<T, Alloc>::reverse_iterator
+ft::vector<T, Alloc>::rend(void)
+{
+	return (reverse_iterator(_start - 1));
+}
+
 /** Capacity **/
 
 template <typename T, class Alloc>
@@ -675,7 +689,7 @@ template <class T, class Alloc>
 typename ft::vector<T, Alloc>::RIterator::difference_type
 ft::vector<T, Alloc>::RIterator::operator-(RIterator const & other) const
 {
-	return (this->_target - other._target);
+	return (other._target - this->_target);
 }
 
 template <class T, class Alloc>
