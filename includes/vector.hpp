@@ -166,6 +166,8 @@ namespace ft
 			template <class InputIterator>
 			void _construct_vector_dispatch(InputIterator & first, InputIterator & last, NO_INT_TYPE);
 			void _construct_vector_with_val(size_type n, value_type const & val);
+			template <class InputIterator>
+			void _construct_vector_from_range(InputIterator & first, InputIterator & last);
 			void _reallocate(void);
 			//template <class InputIterator>
 			//void _fill_from_iterators(InputIterator & first, InputIterator & last);

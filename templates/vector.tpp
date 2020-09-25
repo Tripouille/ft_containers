@@ -38,7 +38,7 @@ ft::vector<T, Alloc>::vector(vector const & other) : _alloc(other._alloc)
 template <class T, class Alloc>
 ft::vector<T, Alloc>::~vector(void)
 {
-	_alloc.deallocate(_start, static_cast<size_type>(_end - _start));
+	_alloc.deallocate(_start, size());
 }
 
 /* Operator */
@@ -98,7 +98,7 @@ template <typename T, class Alloc>
 void
 ft::vector<T, Alloc>::clear(void)
 {
-	delete[] _start;
+	_alloc.deallocate(_start, size());
 	_start = NULL;
 	_end = NULL;
 	_limit = NULL;
@@ -139,15 +139,7 @@ template <class InputIterator>
 void
 ft::vector<T, Alloc>::_construct_vector_dispatch(InputIterator & first, InputIterator & last, NO_INT_TYPE)
 {
-	_start = _alloc.allocate(static_cast<size_type>(last - first));
-	int i = 0;
-	while (first != last)
-	{
-		_alloc.construct(_start + i, *first);
-		++first;
-		++i;
-	}
-	_end = _limit = _start + i;
+	_construct_vector_from_range(first, last);
 }
 
 template <class T, class Alloc>
@@ -161,10 +153,33 @@ ft::vector<T, Alloc>::_construct_vector_with_val(size_type n, const value_type &
 }
 
 template <class T, class Alloc>
+template <class InputIterator>
+void
+ft::vector<T, Alloc>::_construct_vector_from_range(InputIterator & first, InputIterator & last)
+{
+	_start = _alloc.allocate(static_cast<size_type>(last - first));
+	int i = 0;
+	while (first != last)
+	{
+		_alloc.construct(_start + i, *first);
+		++first;
+		++i;
+	}
+	_end = _limit = _start + i;
+}
+
+template <class T, class Alloc>
 void
 ft::vector<T, Alloc>::_reallocate(void)
 {
-	//pointer tmp = _alloc.allocate(static_cast<size_type>())
+	pointer tmp = _start;
+	size_type prev_size = size();
+	_start = _alloc.allocate(prev_size + 10);
+	for (int i = 0; i < prev_size; ++i)
+		_alloc.construct(_start + i, *tmp + i);
+	_end = _start + prev_size;
+	_limit = _start + prev_size + 10;
+	_alloc.deallocate(tmp, prev_size);
 }
 
 /** Non-member function overloads **/
