@@ -54,15 +54,41 @@ namespace ft
 				Iterator			operator++(int);
 				Iterator &			operator--(void);
 				Iterator			operator--(int);
-				Iterator 			operator+(typename BaseIterator::difference_type i) const;
-				friend Iterator		operator+(typename BaseIterator::difference_type i, Iterator const & it)
-				{return (Iterator(it._target + i));}
-				Iterator 			operator-(typename BaseIterator::difference_type i) const;
-				typename BaseIterator::difference_type
+				Iterator 			operator+(typename Iterator::difference_type i) const;
+		 friend Iterator			operator+(typename Iterator::difference_type i, Iterator const & it)
+									{return (Iterator(it._target + i));}
+				Iterator 			operator-(typename Iterator::difference_type i) const;
+				typename Iterator::difference_type
 									operator-(Iterator const & other) const;
-				Iterator &			operator+=(typename BaseIterator::difference_type i);
-				Iterator &			operator-=(typename BaseIterator::difference_type i);
-				T &					operator[](typename BaseIterator::difference_type i) const;
+				Iterator &			operator+=(typename Iterator::difference_type i);
+				Iterator &			operator-=(typename Iterator::difference_type i);
+				T &					operator[](typename Iterator::difference_type i) const;
+		};
+
+		class CIterator : public BaseIterator
+		{
+			public:
+				CIterator(T * t = NULL);
+				CIterator(Iterator const & it);
+				~CIterator(void);
+				CIterator(CIterator const & other);
+
+				CIterator &			operator=(CIterator const & other);
+				T const &			operator*(void) const;
+				T const *			operator->(void) const;
+				CIterator &			operator++(void);
+				CIterator			operator++(int);
+				CIterator &			operator--(void);
+				CIterator			operator--(int);
+				CIterator 			operator+(typename CIterator::difference_type i) const;
+		 friend CIterator			operator+(typename CIterator::difference_type i, CIterator const & cit)
+									{return (CIterator(cit._target + i));}
+				CIterator 			operator-(typename CIterator::difference_type i) const;
+				typename CIterator::difference_type
+									operator-(CIterator const & other) const;
+				CIterator &			operator+=(typename CIterator::difference_type i);
+				CIterator &			operator-=(typename CIterator::difference_type i);
+				T const &					operator[](typename CIterator::difference_type i) const;
 		};
 
 		public:
@@ -74,6 +100,7 @@ namespace ft
 			typedef value_type * pointer;
 			typedef const value_type * const_pointer;
 			typedef typename ft::vector<T, Alloc>::Iterator iterator;
+			typedef typename ft::vector<T, Alloc>::CIterator const_iterator;
 			typedef ptrdiff_t difference_type;
 			typedef size_t size_type;
 
@@ -96,10 +123,10 @@ namespace ft
 		/* Member functions */
 			/** Iterators **/
 				iterator begin(void);
-				iterator end(void);
-				/*
 				const_iterator begin(void) const;
+				iterator end(void);
 				const_iterator end(void) const;
+				/*
 				reverse_iterator rbegin(void);
 				const_reverse_iterator rbegin(void) const;
 				reverse_iterator rend(void);

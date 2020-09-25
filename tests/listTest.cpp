@@ -265,6 +265,11 @@ test_list(void)
 	FILE << "(*cr_it == listA.front()) = " << OUTPUT << std::boolalpha << (*cr_it == listA.front()) << ENDL;
 	FILE << ENDL;
 
+	
+
+
+
+
 	FILE << CATEGORY << "===> Operator-> on iterators" << ENDL;
 	FILE << "list<intStruct> listH;" << ENDL; containerT<intStruct> listH;
 	FILE << "listH.push_back(intStruct(1));" << ENDL; listH.push_back(intStruct(1));
