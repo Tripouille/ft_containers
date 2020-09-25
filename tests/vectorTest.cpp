@@ -11,6 +11,17 @@
 #define OUTPUT FG_GREEN << UNDERLINED
 #define FILE std::cout << RESET_ALL
 
+class AllocatingClass
+{
+	public:
+		AllocatingClass(void) {_array = new int[2];}
+		AllocatingClass(AllocatingClass const & other) {(void)other; _array = new int[2];}
+		~AllocatingClass() {delete[] _array;}
+		AllocatingClass & operator=(AllocatingClass const & other) {(void)other; return (*this);}
+	private:
+		int* _array;
+};
+
 template<class T>
 void
 print_vector(T & vector, std::string const & name)
@@ -58,6 +69,11 @@ test_vector(void)
 	FILE << "vector<int> vectorD(vectorC);" << ENDL; vec<int> vectorD(vectorC);
 	print_vector(vectorC, "vectorC");
 	print_vector(vectorD, "vectorD");
+	FILE << ENDL;
+
+	FILE << CATEGORY << "===> Destructor" << ENDL;
+	FILE << "vec<AllocatingClass> allocatingVector(3);" << ENDL;
+	vec<AllocatingClass> allocatingVector(3);
 	FILE << ENDL;
 
 	FILE << SUBTITLE << "Operator" << ENDL;
