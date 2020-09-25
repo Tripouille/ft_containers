@@ -64,10 +64,24 @@ ft::vector<T, Alloc>::begin(void)
 }
 
 template <class T, class Alloc>
+typename ft::vector<T, Alloc>::const_iterator
+ft::vector<T, Alloc>::begin(void) const
+{
+	return (const_iterator(_start));
+}
+
+template <class T, class Alloc>
 typename ft::vector<T, Alloc>::iterator
 ft::vector<T, Alloc>::end(void)
 {
 	return (iterator(_end));
+}
+
+template <class T, class Alloc>
+typename ft::vector<T, Alloc>::const_iterator
+ft::vector<T, Alloc>::end(void) const
+{
+	return (const_iterator(_end));
 }
 
 /** Capacity **/
@@ -379,21 +393,21 @@ template <class T, class Alloc>
 T &
 ft::vector<T, Alloc>::Iterator::operator*(void) const
 {
-	return (*(Iterator::_target));
+	return (*(this->_target));
 }
 
 template <class T, class Alloc>
 T *
 ft::vector<T, Alloc>::Iterator::operator->(void) const
 {
-	return (Iterator::_target);
+	return (this->_target);
 }
 
 template <class T, class Alloc>
 typename ft::vector<T, Alloc>::Iterator &
 ft::vector<T, Alloc>::Iterator::operator++(void)
 {
-	++BaseIterator::_target;
+	++this->_target;
 	return (*this);
 }
 
@@ -410,7 +424,7 @@ template <class T, class Alloc>
 typename ft::vector<T, Alloc>::Iterator &
 ft::vector<T, Alloc>::Iterator::operator--(void)
 {
-	--BaseIterator::_target;
+	--this->_target;
 	return (*this);
 }
 
@@ -425,45 +439,171 @@ ft::vector<T, Alloc>::Iterator::operator--(int)
 
 template <class T, class Alloc>
 typename ft::vector<T, Alloc>::Iterator
-ft::vector<T, Alloc>::Iterator::operator+(typename BaseIterator::difference_type i) const
+ft::vector<T, Alloc>::Iterator::operator+(typename Iterator::difference_type i) const
 {
-	return (Iterator(BaseIterator::_target + i));
+	return (Iterator(this->_target + i));
 }
 
 template <class T, class Alloc>
 typename ft::vector<T, Alloc>::Iterator
-ft::vector<T, Alloc>::Iterator::operator-(typename BaseIterator::difference_type i) const
+ft::vector<T, Alloc>::Iterator::operator-(typename Iterator::difference_type i) const
 {
-	return (Iterator(BaseIterator::_target - i));
+	return (Iterator(this->_target - i));
 }
 
 template <class T, class Alloc>
-typename ft::vector<T, Alloc>::BaseIterator::difference_type
+typename ft::vector<T, Alloc>::Iterator::difference_type
 ft::vector<T, Alloc>::Iterator::operator-(Iterator const & other) const
 {
-	return (BaseIterator::_target - other._target);
+	return (this->_target - other._target);
 }
 
 template <class T, class Alloc>
 typename ft::vector<T, Alloc>::Iterator &
-ft::vector<T, Alloc>::Iterator::operator+=(typename BaseIterator::difference_type i)
+ft::vector<T, Alloc>::Iterator::operator+=(typename Iterator::difference_type i)
 {
-	BaseIterator::_target += i;
+	this->_target += i;
 	return (*this);
 }
 
 template <class T, class Alloc>
 typename ft::vector<T, Alloc>::Iterator &
-ft::vector<T, Alloc>::Iterator::operator-=(typename BaseIterator::difference_type i)
+ft::vector<T, Alloc>::Iterator::operator-=(typename Iterator::difference_type i)
 {
-	BaseIterator::_target -= i;
+	this->_target -= i;
 	return (*this);
 }
 
 template <class T, class Alloc>
 T &
-ft::vector<T, Alloc>::Iterator::operator[](typename BaseIterator::difference_type i) const
+ft::vector<T, Alloc>::Iterator::operator[](typename Iterator::difference_type i) const
 {
-	return (*(BaseIterator::_target + i));
+	return (*(this->_target + i));
+}
+
+
+/* CIterator */
+template <class T, class Alloc>
+ft::vector<T, Alloc>::CIterator::CIterator(T * t)
+						: BaseIterator(t)
+{
+}
+
+template <class T, class Alloc>
+ft::vector<T, Alloc>::CIterator::CIterator(Iterator const & it)
+						 : BaseIterator(it)
+{
+}
+
+template <class T, class Alloc>
+ft::vector<T, Alloc>::CIterator::~CIterator(void)
+{
+}
+
+template <class T, class Alloc>
+ft::vector<T, Alloc>::CIterator::CIterator(CIterator const & other)
+						 : BaseIterator(other)
+{
+}
+
+template <class T, class Alloc>
+typename ft::vector<T, Alloc>::CIterator &
+ft::vector<T, Alloc>::CIterator::operator=(CIterator const & other)
+{
+	if (this != &other)
+		BaseIterator::operator=(other);
+	return (*this);
+}
+
+template <class T, class Alloc>
+T const &
+ft::vector<T, Alloc>::CIterator::operator*(void) const
+{
+	return (*(this->_target));
+}
+
+template <class T, class Alloc>
+T const *
+ft::vector<T, Alloc>::CIterator::operator->(void) const
+{
+	return (this->_target);
+}
+
+template <class T, class Alloc>
+typename ft::vector<T, Alloc>::CIterator &
+ft::vector<T, Alloc>::CIterator::operator++(void)
+{
+	++this->_target;
+	return (*this);
+}
+
+template <class T, class Alloc>
+typename ft::vector<T, Alloc>::CIterator
+ft::vector<T, Alloc>::CIterator::operator++(int)
+{
+	CIterator tmp(*this);
+	++*this;
+	return (tmp);
+}
+
+template <class T, class Alloc>
+typename ft::vector<T, Alloc>::CIterator &
+ft::vector<T, Alloc>::CIterator::operator--(void)
+{
+	--this->_target;
+	return (*this);
+}
+
+template <class T, class Alloc>
+typename ft::vector<T, Alloc>::CIterator
+ft::vector<T, Alloc>::CIterator::operator--(int)
+{
+	CIterator tmp(*this);
+	--*this;
+	return (tmp);
+}
+
+template <class T, class Alloc>
+typename ft::vector<T, Alloc>::CIterator
+ft::vector<T, Alloc>::CIterator::operator+(typename CIterator::difference_type i) const
+{
+	return (CIterator(this->_target + i));
+}
+
+template <class T, class Alloc>
+typename ft::vector<T, Alloc>::CIterator
+ft::vector<T, Alloc>::CIterator::operator-(typename CIterator::difference_type i) const
+{
+	return (CIterator(this->_target - i));
+}
+
+template <class T, class Alloc>
+typename ft::vector<T, Alloc>::CIterator::difference_type
+ft::vector<T, Alloc>::CIterator::operator-(CIterator const & other) const
+{
+	return (this->_target - other._target);
+}
+
+template <class T, class Alloc>
+typename ft::vector<T, Alloc>::CIterator &
+ft::vector<T, Alloc>::CIterator::operator+=(typename CIterator::difference_type i)
+{
+	this->_target += i;
+	return (*this);
+}
+
+template <class T, class Alloc>
+typename ft::vector<T, Alloc>::CIterator &
+ft::vector<T, Alloc>::CIterator::operator-=(typename CIterator::difference_type i)
+{
+	this->_target -= i;
+	return (*this);
+}
+
+template <class T, class Alloc>
+T const &
+ft::vector<T, Alloc>::CIterator::operator[](typename CIterator::difference_type i) const
+{
+	return (*(this->_target + i));
 }
 

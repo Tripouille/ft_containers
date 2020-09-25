@@ -24,12 +24,12 @@ class AllocatingClass
 
 template<class T>
 void
-print_vector(T & vector, std::string const & name)
+print_vector(T const & vector, std::string const & name)
 {
-	typename T::iterator begin = vector.begin();
-	typename T::iterator end = vector.end();
+	typename T::const_iterator begin = vector.begin();
+	typename T::const_iterator end = vector.end();
 	std::cout << OUTPUT << name << " = [ ";
-	while (begin != end)
+	while (begin < end)
 	{
 		std::cout << *begin << " ";
 		++begin;
@@ -99,6 +99,12 @@ test_vector(void)
 	//FILE << "(*it == vectorA.front()) = " << OUTPUT << std::boolalpha << (*it == vectorA.front()) << ENDL;
 	FILE << "it == vectorA.end() : " << OUTPUT << std::boolalpha << (it == vectorA.end()) << ENDL;
 	FILE << "it != vectorA.end() : " << OUTPUT << std::boolalpha << (it != vectorA.end()) << ENDL;
+	FILE << "it < ite : " << OUTPUT << std::boolalpha << (it < ite) << ENDL;
+	FILE << "it <= ite : " << OUTPUT << std::boolalpha << (it <= ite) << ENDL;
+	FILE << "it > ite : " << OUTPUT << std::boolalpha << (it > ite) << ENDL;
+	FILE << "it >= ite : " << OUTPUT << std::boolalpha << (it >= ite) << ENDL;
+	FILE << "it <= it : " << OUTPUT << std::boolalpha << (it <= it) << ENDL;
+	FILE << "it >= it : " << OUTPUT << std::boolalpha << (it >= it) << ENDL;
 	FILE << "while (it != ite) {...; it++;}" << ENDL;
 	while (it != ite)
 	{
@@ -138,6 +144,40 @@ test_vector(void)
 	typename vec<int>::iterator const const_it = vectorA.begin();
 	FILE << "const_it[0] : " << OUTPUT << const_it[0] << ENDL;
 	FILE << "const_it[2] : " << OUTPUT << const_it[2] << ENDL;
+	FILE << ENDL;
+
+	FILE << CATEGORY << "===> Const Iterators" << ENDL;
+	FILE << "vec<double> const constDoubleVec(1, 1);" << ENDL; vec<double> const constDoubleVec(1, 1);
+	print_vector(constDoubleVec, "constDoubleVec");
+	FILE << "const_iterator cit = constDoubleVec.begin();" << ENDL; typename vec<double>::const_iterator cit = constDoubleVec.begin();
+	FILE << "*cit : " << OUTPUT << *cit << ENDL;
+	FILE << "vec<double> doubleVec;" << ENDL; vec<double> doubleVec;
+	print_vector(doubleVec, "doubleVec");
+	FILE << "doubleVec.push_back(5);" << ENDL; doubleVec.push_back(5);
+	FILE << "doubleVec.push_back(4);" << ENDL; doubleVec.push_back(4);
+	FILE << "doubleVec.push_back(3);" << ENDL; doubleVec.push_back(3);
+	print_vector(doubleVec, "doubleVec");
+	FILE << "cit = doubleVec.begin();" << ENDL;cit = doubleVec.begin();
+	FILE << "*cit : " << OUTPUT << *cit << ENDL;
+	FILE << "*++cit : " << OUTPUT << *++cit << ENDL;
+	FILE << "*--cit : " << OUTPUT << *--cit << ENDL;
+	FILE << "*cit++ : " << OUTPUT << *cit++ << ENDL;
+	FILE << "*cit-- : " << OUTPUT << *cit-- << ENDL;
+	FILE << "*cit : " << OUTPUT << *cit << ENDL;
+	FILE << "*(cit + 2) : " << OUTPUT << *(cit + 2) << ENDL;
+	FILE << "*(2 + cit) : " << OUTPUT << *(2 + cit) << ENDL;
+	FILE << "*++cit : " << OUTPUT << *++cit << ENDL;
+	FILE << "*(cit - 1) : " << OUTPUT << *(cit - 1) << ENDL;
+	FILE << "*--cit : " << OUTPUT << *--cit << ENDL;
+	FILE << "*((cit += 2) = doubleVec.begin()): " << OUTPUT << *((cit += 2) = doubleVec.begin()) << ENDL;
+	FILE << "*(cit += 2) : " << OUTPUT << *(cit += 2) << ENDL;
+	FILE << "*((cit -= 2) = --doubleVec.end()): " << OUTPUT << *((cit -= 2) = --doubleVec.end()) << ENDL;
+	FILE << "*(cit -= 2) : " << OUTPUT << *(cit -= 2) << ENDL;
+	FILE << "cit[0] : " << OUTPUT << cit[0] << ENDL;
+	FILE << "*++cit : " << OUTPUT << *++cit << ENDL;
+	FILE << "cit[-1] : " << OUTPUT << cit[-1] << ENDL;
+	FILE << "cit[0] : " << OUTPUT << cit[0] << ENDL;
+	FILE << "cit[1] : " << OUTPUT << cit[1] << ENDL;
 	FILE << ENDL;
 
 	FILE << SUBTITLE << "Capacity" << ENDL;
