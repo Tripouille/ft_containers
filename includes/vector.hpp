@@ -107,6 +107,8 @@ namespace ft
 				//size_type max_size(void) const;
 
 			/** Element access **/
+			 	reference operator[](size_type n);
+				const_reference operator[] (size_type n) const;
 				/*reference front(void);
 				const_reference front(void) const;
 				reference back(void);

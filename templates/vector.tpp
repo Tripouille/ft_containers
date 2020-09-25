@@ -81,9 +81,21 @@ ft::vector<T, Alloc>::size(void) const
 
 
 /** Element access **/
+template <typename T, class Alloc>
+typename ft::vector<T, Alloc>::reference
+ft::vector<T, Alloc>::operator[](size_type n)
+{
+	return (*(_start + n));
+}
+
+template <typename T, class Alloc>
+typename ft::vector<T, Alloc>::const_reference
+ft::vector<T, Alloc>::operator[] (size_type n) const
+{
+	return (*(_start + n));
+}
 
 /** Modifiers **/
-
 template <typename T, class Alloc>
 void
 ft::vector<T, Alloc>::push_back(const value_type & val)
