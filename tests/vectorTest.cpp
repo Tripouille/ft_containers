@@ -65,8 +65,8 @@ test_vector(void)
 	print_vector(vectorB, "vectorB");
 	print_vector(vectorC, "vectorC");
 	FILE << "vectorB = vectorC;" << ENDL; vectorB = vectorC;
-	//print_vector(vectorB, "vectorB");
-	//FILE << "vectorB.push_back(0);" << ENDL; vectorB.push_back(0);
+	print_vector(vectorB, "vectorB");
+	FILE << "vectorB.push_back(6);" << ENDL; vectorB.push_back(6);
 	print_vector(vectorB, "vectorB");
 	print_vector(vectorC, "vectorC");
 	FILE << ENDL;
@@ -76,9 +76,9 @@ test_vector(void)
 	vectorA.clear();
 	print_vector(vectorA, "vectorA");
 	FILE << "vectorA.begin() == vectorA.end() : " << OUTPUT << std::boolalpha << (vectorA.begin() == vectorA.end()) << ENDL;
-	//FILE << SUBCATEGORY << "(Pushing some values)" << ENDL;
-	//vectorA.push_back(1); vectorA.push_back(2); vectorA.push_back(3);
-	//print_vector(vectorA, "vectorA");
+	FILE << SUBCATEGORY << "(Pushing some values)" << ENDL;
+	vectorA.push_back(1); vectorA.push_back(2); vectorA.push_back(3);
+	print_vector(vectorA, "vectorA");
 	FILE << "vec<int>::iterator it = vectorA.begin();" << ENDL; typename vec<int>::iterator it = vectorA.begin();
 	FILE << "vec<int>::iterator ite = vectorA.end();" << ENDL; typename vec<int>::iterator ite = vectorA.end();
 	//FILE << "(*it == vectorA.front()) = " << OUTPUT << std::boolalpha << (*it == vectorA.front()) << ENDL;
@@ -90,9 +90,10 @@ test_vector(void)
 	}
 	FILE << "it--;" << ENDL; it--;
 	//FILE << "(*it == vectorA.back()) = " << OUTPUT << std::boolalpha << (*it == vectorA.back()) << ENDL;
-	//FILE << "*it = 42;" << ENDL; *it = 42;
-	//print_vector(vectorA, "vectorA");
+	FILE << "*it = 42;" << ENDL; *it = 42;
+	print_vector(vectorA, "vectorA");
 	FILE << ENDL;
+
 	FILE << SUBTITLE << "Element access" << ENDL;
 	FILE << CATEGORY << "===> operator[]" << ENDL;
 	FILE << "vec<int> test(1, 1);" << ENDL; vec<int> test(1, 1);
@@ -101,8 +102,6 @@ test_vector(void)
 	FILE << "test[0] : " << test[0] << ENDL;
 	FILE << "vec<int> const const_test(1, 42);" << ENDL; vec<int> const const_test(1, 42);
 	FILE << "const_test[0] : " << const_test[0] << ENDL;
-
-
 
 
 	FILE << TITLE << "=> ENDING vector tests" << ENDL << ENDL;
