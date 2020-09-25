@@ -36,24 +36,62 @@ test_vector(void)
 	FILE << CATEGORY << "===> Default constructor" << ENDL;
 	FILE << "vec<int> vectorA;" << ENDL; vec<int> vectorA;
 	print_vector(vectorA, "vectorA");
+	//FILE << "vectorA.max_size() = " << OUTPUT << vectorA.max_size() << ENDL;
+	//FILE << std::boolalpha << "vectorA.empty() = " << OUTPUT << vectorA.max_size() << ENDL;
 	FILE << ENDL;
 
 	FILE << CATEGORY << "===> Fill constructor" << ENDL;
 	FILE << "vec<int> vectorB(3, 2);" << ENDL; vec<int> vectorB(3, 2);
 	print_vector(vectorB, "vectorB");
+	//FILE << std::boolalpha << "vectorA.empty() = " << OUTPUT << vectorA.max_size() << ENDL;
 	FILE << ENDL;
 
 	FILE << CATEGORY << "===> Range constructor" << ENDL;
 	FILE << "int intArrayA[] = {1, 2, 3, 4, 5};" << ENDL; int intArrayA[] = {1, 2, 3, 4, 5};
 	FILE << "vec<int> vectorC(intArrayA, intArrayA + 5);" << ENDL; vec<int> vectorC(intArrayA, intArrayA + 5);
 	print_vector(vectorC, "vectorC");
+	//FILE << std::boolalpha << "vectorA.empty() = " << OUTPUT << vectorA.max_size() << ENDL;
+	FILE << ENDL;
+
+	FILE << CATEGORY << "===> Copy constructor" << ENDL;
+	print_vector(vectorC, "vectorC");
+	FILE << "vector<int> vectorD(vectorC);" << ENDL; vec<int> vectorD(vectorC);
+	print_vector(vectorC, "vectorC");
+	print_vector(vectorD, "vectorD");
+	FILE << ENDL;
+
+	FILE << SUBTITLE << "Operator" << ENDL;
+	FILE << CATEGORY << "===> Operator=" << ENDL;
+	print_vector(vectorB, "vectorB");
+	print_vector(vectorC, "vectorC");
+	FILE << "vectorB = vectorC;" << ENDL; vectorB = vectorC;
+	//print_vector(vectorB, "vectorB");
+	//FILE << "vectorB.push_back(0);" << ENDL; vectorB.push_back(0);
+	print_vector(vectorB, "vectorB");
+	print_vector(vectorC, "vectorC");
 	FILE << ENDL;
 
 	FILE << SUBTITLE << "Iterators" << ENDL;
-	typename vec<int>::iterator it = vectorB.begin();
-	typename vec<int>::iterator ite = vectorB.end();
-	for (; it != ite; ++it)
-		FILE << *it << ENDL;
+	FILE << CATEGORY << "===> Iterators" << ENDL;
+	vectorA.clear();
+	print_vector(vectorA, "vectorA");
+	FILE << "vectorA.begin() == vectorA.end() : " << OUTPUT << std::boolalpha << (vectorA.begin() == vectorA.end()) << ENDL;
+	//FILE << SUBCATEGORY << "(Pushing some values)" << ENDL;
+	//vectorA.push_back(1); vectorA.push_back(2); vectorA.push_back(3);
+	//print_vector(vectorA, "vectorA");
+	FILE << "vec<int>::iterator it = vectorA.begin();" << ENDL; typename vec<int>::iterator it = vectorA.begin();
+	FILE << "vec<int>::iterator ite = vectorA.end();" << ENDL; typename vec<int>::iterator ite = vectorA.end();
+	//FILE << "(*it == vectorA.front()) = " << OUTPUT << std::boolalpha << (*it == vectorA.front()) << ENDL;
+	FILE << "while (it != ite) {...; it++;}" << ENDL;
+	while (it != ite)
+	{
+		FILE << "*it = " << OUTPUT << *it << ENDL;
+		it++;
+	}
+	FILE << "it--;" << ENDL; it--;
+	//FILE << "(*it == vectorA.back()) = " << OUTPUT << std::boolalpha << (*it == vectorA.back()) << ENDL;
+	//FILE << "*it = 42;" << ENDL; *it = 42;
+	//print_vector(vectorA, "vectorA");
 	FILE << ENDL;
 
 	FILE << TITLE << "=> ENDING vector tests" << ENDL << ENDL;

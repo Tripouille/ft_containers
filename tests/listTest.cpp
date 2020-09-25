@@ -101,12 +101,10 @@ test_list(void)
 	FILE << "list<int> listB(4, -1);" << ENDL; containerT<int> listB(4, -1);
 	print_list(listB, "listB");
 	FILE << std::boolalpha << "listB.empty() = " << OUTPUT << listB.empty() << ENDL;
-	FILE << "listB.front() = " << OUTPUT << listB.front() << ENDL;
-	FILE << "listB.back() = " << OUTPUT << listB.back() << ENDL;
 	FILE << ENDL;
 
 	FILE << CATEGORY << "===> Range constructor" << ENDL;
-	int intArray[] = {1, 2, 3, 4, 5};
+	FILE << "int intArray[] = {1, 2, 3, 4, 5};" << ENDL; int intArray[] = {1, 2, 3, 4, 5};
 	containerT<int> listC(intArray, intArray + 5);
 	print_list(listC, "listC");
 	FILE << std::boolalpha << "listC.empty() = " << OUTPUT << listC.empty() << ENDL;

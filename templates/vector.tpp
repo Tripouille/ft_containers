@@ -29,7 +29,7 @@ ft::vector<T, Alloc>::vector(InputIterator first, InputIterator last,
 
 /** copy		(4) **/
 template <class T, class Alloc>
-ft::vector<T, Alloc>::vector(vector const & other)
+ft::vector<T, Alloc>::vector(vector const & other) : _alloc(other._alloc)
 {
 	_copy(other);
 }
@@ -46,7 +46,7 @@ template <class T, class Alloc>
 ft::vector<T, Alloc> &
 ft::vector<T, Alloc>::operator=(vector const & other)
 {
-	if (this == &other)
+	if (this != &other)
 	{
 		clear();
 		_copy(other);
