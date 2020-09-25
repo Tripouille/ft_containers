@@ -14,20 +14,18 @@ ft::vector<T, Alloc>::vector(size_type n, const value_type & val,
 										const allocator_type & alloc)
 					 : _alloc(alloc), _start(NULL), _end(NULL), _limit(NULL)
 {
-	_start = _alloc.allocate(n);
 	_construct_vector_with_val(n, val);
 }
 
 /** range		(3) **/
-/*template <class T, class Alloc>
+template <class T, class Alloc>
 template <class InputIterator>
 ft::vector<T, Alloc>::vector(InputIterator first, InputIterator last,
 												const allocator_type & alloc)
 					 : _alloc(alloc)
 {
-	_start = _alloc.allocate(last - first);
 	_construct_vector_dispatch(first, last, typename is_integer<InputIterator>::type());
-}*/
+}
 
 /** copy		(4) **/
 template <class T, class Alloc>
@@ -98,7 +96,7 @@ template <typename T, class Alloc>
 void
 ft::vector<T, Alloc>::_copy(vector const & other)
 {
-	_start = _alloc.allocate(other._end - other._start);
+	_start = _alloc.allocate(static_cast<size_type>(other._end - other._start));
 	pointer this_ptr = _start;
 	pointer other_ptr = other._start;
 	while (other_ptr != other._end)
@@ -115,7 +113,7 @@ template <class Integer>
 void
 ft::vector<T, Alloc>::_construct_vector_dispatch(Integer & n, Integer & val, INT_TYPE)
 {
-	_construct_vector_with_val(n, val);
+	_construct_vector_with_val(static_cast<size_type>(n), val);
 }
 
 template <class T, class Alloc>
@@ -123,6 +121,7 @@ template <class InputIterator>
 void
 ft::vector<T, Alloc>::_construct_vector_dispatch(InputIterator & first, InputIterator & last, NO_INT_TYPE)
 {
+	_start = _alloc.allocate(static_cast<size_type>(last - first));
 	int i = 0;
 	while (first != last)
 	{
@@ -137,6 +136,7 @@ template <class T, class Alloc>
 void
 ft::vector<T, Alloc>::_construct_vector_with_val(size_type n, const value_type & val)
 {
+	_start = _alloc.allocate(n);
 	for (size_type i = 0; i < n; ++i)
 		_alloc.construct(_start + i, val);
 	_end = _limit = _start + n;

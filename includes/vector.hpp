@@ -78,9 +78,9 @@ namespace ft
 			/** default	(1) **/	explicit vector(const allocator_type & alloc = allocator_type());
 			/** fill	(2) **/	explicit vector(size_type n, const value_type & val = value_type(),
 															const allocator_type & alloc = allocator_type());
-			/** range	(3) **/	/*template <class InputIterator>
+			/** range	(3) **/	template <class InputIterator>
 								vector(InputIterator first, InputIterator last,
-															const allocator_type & alloc = allocator_type());*/
+															const allocator_type & alloc = allocator_type());
 			/** copy	(4) **/	vector(vector const & other);
 
 		/* Destructor */
