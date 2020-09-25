@@ -151,6 +151,9 @@ test_vector(void)
 	FILE << "vec<double> const constDoubleVec(1, 1);" << ENDL; vec<double> const constDoubleVec(1, 1);
 	print_vector(constDoubleVec, "constDoubleVec");
 	FILE << "const_iterator cit = constDoubleVec.begin();" << ENDL; typename vec<double>::const_iterator cit = constDoubleVec.begin();
+	FILE << "const_iterator cite = constDoubleVec.end();" << ENDL; typename vec<double>::const_iterator cite = constDoubleVec.end();
+	FILE << "cit - cite : " << OUTPUT << cit - cite << ENDL;
+	FILE << "cite - cit : " << OUTPUT << cite - cit << ENDL;
 	FILE << "*cit : " << OUTPUT << *cit << ENDL;
 	FILE << "vec<double> doubleVec;" << ENDL; vec<double> doubleVec;
 	print_vector(doubleVec, "doubleVec");
@@ -209,6 +212,46 @@ test_vector(void)
 	FILE << "vectorA.reserve(400);" << ENDL; vectorA.reserve(400);
 	print_vector(vectorA, "vectorA");
 	FILE << ENDL;
+
+	FILE << CATEGORY << "===> Reverse Iterators" << ENDL;
+	FILE << "vec<char>  charVec(1, 'A');" << ENDL; vec<char>  charVec(1, 'A');
+	print_vector(charVec, "charVec");
+	FILE << "reverse_iterator rit = charVec.rbegin();" << ENDL; typename vec<char>::reverse_iterator rit = charVec.rbegin();
+	FILE << "reverse_iterator rite = charVec.rend();" << ENDL; typename vec<char>::reverse_iterator rite = charVec.rend();
+	FILE << "rit - rite : " << OUTPUT << rit - rite << ENDL;
+	FILE << "rite - rit : " << OUTPUT << rite - rit << ENDL;
+	FILE << "(rite + (rit - rite)) == rit : " <<  std::boolalpha << OUTPUT << ((rite + (rit - rite)) == rit) << ENDL;
+	FILE << "*rit : " << OUTPUT << *rit << ENDL;
+	FILE << "charVec.push_back('B');" << ENDL; charVec.push_back('B');
+	FILE << "charVec.push_back('C');" << ENDL; charVec.push_back('C');
+	FILE << "charVec.push_back('D');" << ENDL; charVec.push_back('D');
+	print_vector(charVec, "charVec");
+	FILE << "rit = charVec.rbegin();" << ENDL;rit = charVec.rbegin();
+	FILE << "*rit : " << OUTPUT << *rit << ENDL;
+	FILE << "*++rit : " << OUTPUT << *++rit << ENDL;
+	FILE << "*--rit : " << OUTPUT << *--rit << ENDL;
+	FILE << "*rit++ : " << OUTPUT << *rit++ << ENDL;
+	FILE << "*rit-- : " << OUTPUT << *rit-- << ENDL;
+	FILE << "*rit : " << OUTPUT << *rit << ENDL;
+	FILE << "*(rit + 2) : " << OUTPUT << *(rit + 2) << ENDL;
+	FILE << "*(2 + rit) : " << OUTPUT << *(2 + rit) << ENDL;
+	FILE << "*++rit : " << OUTPUT << *++rit << ENDL;
+	FILE << "*(rit - 1) : " << OUTPUT << *(rit - 1) << ENDL;
+	FILE << "*--rit : " << OUTPUT << *--rit << ENDL;
+	FILE << "*((rit += 2) = charVec.rbegin()): " << OUTPUT << *((rit += 2) = charVec.rbegin()) << ENDL;
+	FILE << "*(rit += 2) : " << OUTPUT << *(rit += 2) << ENDL;
+	FILE << "*((rit -= 2) = --charVec.rend()): " << OUTPUT << *((rit -= 2) = --charVec.rend()) << ENDL;
+	FILE << "*(rit -= 2) : " << OUTPUT << *(rit -= 2) << ENDL;
+	FILE << "rit[0] : " << OUTPUT << rit[0] << ENDL;
+	FILE << "*++rit : " << OUTPUT << *++rit << ENDL;
+	FILE << "rit[-1] : " << OUTPUT << rit[-1] << ENDL;
+	FILE << "rit[0] : " << OUTPUT << rit[0] << ENDL;
+	FILE << "rit[1] : " << OUTPUT << rit[1] << ENDL;
+	FILE << "rit[1] = 'Z';" << ENDL; rit[1] = 'Z';
+	FILE << "rit[1] : " << OUTPUT << rit[1] << ENDL;
+	print_vector(charVec, "charVec");
+	FILE << ENDL;
+
 
 	FILE << SUBTITLE << "Element access" << ENDL;
 	FILE << CATEGORY << "===> operator[]" << ENDL;

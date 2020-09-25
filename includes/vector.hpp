@@ -91,6 +91,31 @@ namespace ft
 				T const &					operator[](typename CIterator::difference_type i) const;
 		};
 
+		class RIterator : public BaseIterator
+		{
+			public:
+				RIterator(T * t = NULL);
+				~RIterator(void);
+				RIterator(RIterator const & other);
+
+				RIterator &			operator=(RIterator const & other);
+				T &					operator*(void) const;
+				T *					operator->(void) const;
+				RIterator &			operator++(void);
+				RIterator			operator++(int);
+				RIterator &			operator--(void);
+				RIterator			operator--(int);
+				RIterator 			operator+(typename RIterator::difference_type i) const;
+		 friend RIterator			operator+(typename RIterator::difference_type i, RIterator const & it)
+									{return (RIterator(it._target - i));}
+				RIterator 			operator-(typename RIterator::difference_type i) const;
+				typename RIterator::difference_type
+									operator-(RIterator const & other) const;
+				RIterator &			operator+=(typename RIterator::difference_type i);
+				RIterator &			operator-=(typename RIterator::difference_type i);
+				T &					operator[](typename RIterator::difference_type i) const;
+		};
+
 		public:
 		/* Typedef */
 			typedef T value_type;
@@ -101,6 +126,7 @@ namespace ft
 			typedef const value_type * const_pointer;
 			typedef typename ft::vector<T, Alloc>::Iterator iterator;
 			typedef typename ft::vector<T, Alloc>::CIterator const_iterator;
+			typedef typename ft::vector<T, Alloc>::RIterator reverse_iterator;
 			typedef ptrdiff_t difference_type;
 			typedef size_t size_type;
 
@@ -126,10 +152,10 @@ namespace ft
 				const_iterator begin(void) const;
 				iterator end(void);
 				const_iterator end(void) const;
-				/*
 				reverse_iterator rbegin(void);
-				const_reverse_iterator rbegin(void) const;
 				reverse_iterator rend(void);
+				/*
+				const_reverse_iterator rbegin(void) const;
 				const_reverse_iterator rend(void) const;*/
 
 			/** Capacity **/
