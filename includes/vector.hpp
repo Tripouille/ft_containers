@@ -104,9 +104,9 @@ namespace ft
 				const_reverse_iterator rend(void) const;*/
 
 			/** Capacity **/
-				//bool empty(void) const;
+				bool empty(void) const;
 				size_type size(void) const;
-				//size_type max_size(void) const;
+				size_type max_size(void) const;
 
 			/** Element access **/
 			 	reference operator[](size_type n);
