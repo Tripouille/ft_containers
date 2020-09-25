@@ -47,7 +47,6 @@ test_vector(void)
 	FILE << CATEGORY << "===> Default constructor" << ENDL;
 	FILE << "vec<int> vectorA;" << ENDL; vec<int> vectorA;
 	print_vector(vectorA, "vectorA");
-	FILE << "vectorA.max_size() : " << OUTPUT << vectorA.max_size() << ENDL;
 	FILE << std::boolalpha << "vectorA.empty() : " << OUTPUT << vectorA.empty() << ENDL;
 	FILE << ENDL;
 
@@ -139,6 +138,12 @@ test_vector(void)
 	typename vec<int>::iterator const const_it = vectorA.begin();
 	FILE << "const_it[0] : " << OUTPUT << const_it[0] << ENDL;
 	FILE << "const_it[2] : " << OUTPUT << const_it[2] << ENDL;
+	FILE << ENDL;
+
+	FILE << SUBTITLE << "Capacity" << ENDL;
+	FILE << CATEGORY << "===> max_size()" << ENDL;
+	FILE << "vectorA.max_size() : " << OUTPUT << vectorA.max_size() << ENDL;
+	FILE << CATEGORY << "===> resize()" << ENDL;
 	FILE << ENDL;
 
 	FILE << SUBTITLE << "Element access" << ENDL;

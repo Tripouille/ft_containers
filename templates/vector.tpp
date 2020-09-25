@@ -87,6 +87,31 @@ ft::vector<T, Alloc>::max_size(void) const
 }
 
 template <typename T, class Alloc>
+void
+ft::vector<T, Alloc>::resize(size_type n, value_type val)
+{
+	if (n > capacity())
+		_reallocate(n);
+	while (n > size())
+	{
+		_alloc.contruct(_end, val);
+		++_end;
+	}
+	while (n < size())
+	{
+		--_end();
+		_alloc.destroy(_end);
+	}
+}
+
+template <typename T, class Alloc>
+typename ft::vector<T, Alloc>::size_type
+ft::vector<T, Alloc>::capacity(void) const
+{
+	return (static_cast<size_type>(_limit - _start));
+}
+
+template <typename T, class Alloc>
 bool
 ft::vector<T, Alloc>::empty(void) const
 {
@@ -131,7 +156,7 @@ void
 ft::vector<T, Alloc>::push_back(const value_type & val)
 {
 	if (_end == _limit)
-		_reallocate();
+		_reallocate(1);
 	_alloc.construct(_end, val);
 	++_end;
 }
@@ -214,11 +239,11 @@ ft::vector<T, Alloc>::_construct_vector_from_range(InputIterator & first, InputI
 
 template <class T, class Alloc>
 void
-ft::vector<T, Alloc>::_reallocate(void)
+ft::vector<T, Alloc>::_reallocate(size_type n)
 {
 	pointer tmp = _start;
 	size_type prev_size = size();
-	size_type new_size = prev_size + 10;
+	size_type new_size = prev_size + std::max(size(), n);
 	_start = _alloc.allocate(new_size);
 	for (size_type i = 0; i < prev_size; ++i)
 	{
