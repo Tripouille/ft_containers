@@ -96,10 +96,12 @@ test_vector(void)
 
 	FILE << SUBTITLE << "Element access" << ENDL;
 	FILE << CATEGORY << "===> operator[]" << ENDL;
-	FILE << "vec<int> test(1, 1);" << ENDL; vec<int> test(1, 1);
+	FILE << "vec<int> test(2, 1);" << ENDL; vec<int> test(2, 1);
 	FILE << "test[0] : " << test[0] << ENDL;
-	FILE << "test[0] = 42;" << ENDL; test[0] = 42;
+	FILE << "test[0] = 21;" << ENDL; test[0] = 21;
 	FILE << "test[0] : " << test[0] << ENDL;
+	FILE << "test[1] = 7;" << ENDL; test[1] = 7;
+	FILE << "test[1] : " << test[1] << ENDL;
 	FILE << "vec<int> const const_test(1, 42);" << ENDL; vec<int> const const_test(1, 42);
 	FILE << "const_test[0] : " << const_test[0] << ENDL;
 	FILE << CATEGORY << "===> at" << ENDL;
@@ -108,7 +110,11 @@ test_vector(void)
 		{FILE << "test.at(42) : " << test.at(42) << ENDL;}
 	catch (std::out_of_range const & e)
 		{FILE << e.what() << ENDL;}
-
+	FILE << "const_test.at(0) : " << const_test.at(0) << ENDL;
+	try
+		{FILE << "const_test.at(-1) : " << const_test.at(static_cast<unsigned long>(-1)) << ENDL;}
+	catch (std::out_of_range const & e)
+		{FILE << e.what() << ENDL;}
 	FILE << TITLE << "=> ENDING vector tests" << ENDL << ENDL;
 }
 
