@@ -36,21 +36,21 @@ test_vector(void)
 	FILE << CATEGORY << "===> Default constructor" << ENDL;
 	FILE << "vec<int> vectorA;" << ENDL; vec<int> vectorA;
 	print_vector(vectorA, "vectorA");
-	//FILE << "vectorA.max_size() : " << OUTPUT << vectorA.max_size() << ENDL;
-	//FILE << std::boolalpha << "vectorA.empty() : " << OUTPUT << vectorA.max_size() << ENDL;
+	FILE << "vectorA.max_size() : " << OUTPUT << vectorA.max_size() << ENDL;
+	FILE << std::boolalpha << "vectorA.empty() : " << OUTPUT << vectorA.empty() << ENDL;
 	FILE << ENDL;
 
 	FILE << CATEGORY << "===> Fill constructor" << ENDL;
 	FILE << "vec<int> vectorB(3, 2);" << ENDL; vec<int> vectorB(3, 2);
 	print_vector(vectorB, "vectorB");
-	//FILE << std::boolalpha << "vectorA.empty() : " << OUTPUT << vectorA.max_size() << ENDL;
+	FILE << std::boolalpha << "vectorB.empty() : " << OUTPUT << vectorB.empty() << ENDL;
 	FILE << ENDL;
 
 	FILE << CATEGORY << "===> Range constructor" << ENDL;
 	FILE << "int intArrayA[] = {1, 2, 3, 4, 5};" << ENDL; int intArrayA[] = {1, 2, 3, 4, 5};
 	FILE << "vec<int> vectorC(intArrayA, intArrayA + 5);" << ENDL; vec<int> vectorC(intArrayA, intArrayA + 5);
 	print_vector(vectorC, "vectorC");
-	//FILE << std::boolalpha << "vectorA.empty() : " << OUTPUT << vectorA.max_size() << ENDL;
+	FILE << std::boolalpha << "vectorC.empty() : " << OUTPUT << vectorC.empty() << ENDL;
 	FILE << ENDL;
 
 	FILE << CATEGORY << "===> Copy constructor" << ENDL;
@@ -114,7 +114,11 @@ test_vector(void)
 	FILE << "(it -= 42) = --vectorA.end();" << ENDL; (it -= 42) = --vectorA.end();
 	FILE << "*it : " << OUTPUT << *it << ENDL;
 	FILE << "it[0] : " << OUTPUT << it[0] << ENDL;
+	FILE << "it[0] = -1;" << ENDL; it[0] = -1;
+	print_vector(vectorA, "vectorA");
 	FILE << "it[-2] : " << OUTPUT << it[-2] << ENDL;
+	FILE << "it[-2] = -2;" << ENDL; it[-2] = -2;
+	print_vector(vectorA, "vectorA");
 	FILE << "vec<int>::iterator const const_it = vectorA.begin();" << ENDL;
 	typename vec<int>::iterator const const_it = vectorA.begin();
 	FILE << "const_it[0] : " << OUTPUT << const_it[0] << ENDL;
