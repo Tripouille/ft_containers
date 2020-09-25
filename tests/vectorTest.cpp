@@ -93,6 +93,17 @@ test_vector(void)
 	//FILE << "*it = 42;" << ENDL; *it = 42;
 	//print_vector(vectorA, "vectorA");
 	FILE << ENDL;
+	FILE << SUBTITLE << "Element access" << ENDL;
+	FILE << CATEGORY << "===> operator[]" << ENDL;
+	FILE << "vec<int> test(1, 1);" << ENDL; vec<int> test(1, 1);
+	FILE << "test[0] : " << test[0] << ENDL;
+	FILE << "test[0] = 42;" << ENDL; test[0] = 42;
+	FILE << "test[0] : " << test[0] << ENDL;
+	FILE << "vec<int> const const_test(1, 42);" << ENDL; vec<int> const const_test(1, 42);
+	FILE << "const_test[0] : " << const_test[0] << ENDL;
+
+
+
 
 	FILE << TITLE << "=> ENDING vector tests" << ENDL << ENDL;
 }

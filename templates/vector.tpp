@@ -73,9 +73,21 @@ ft::vector<T, Alloc>::end(void)
 /** Capacity **/
 
 /** Element access **/
+template <typename T, class Alloc>
+typename ft::vector<T, Alloc>::reference
+ft::vector<T, Alloc>::operator[](size_type n)
+{
+	return (*(_start + n));
+}
+
+template <typename T, class Alloc>
+typename ft::vector<T, Alloc>::const_reference
+ft::vector<T, Alloc>::operator[] (size_type n) const
+{
+	return (*(_start + n));
+}
 
 /** Modifiers **/
-
 template <typename T, class Alloc>
 void
 ft::vector<T, Alloc>::clear(void)
