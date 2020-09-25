@@ -102,9 +102,9 @@ namespace ft
 				const_reverse_iterator rend(void) const;*/
 
 			/** Capacity **/
-				/*bool empty(void) const;
+				//bool empty(void) const;
 				size_type size(void) const;
-				size_type max_size(void) const;*/
+				//size_type max_size(void) const;
 
 			/** Element access **/
 				/*reference front(void);
@@ -116,10 +116,10 @@ namespace ft
 				/*** range (1) ***/	/*template <class InputIterator>
 				 					void assign(InputIterator first, InputIterator last);*/
 				/*** fill (2) ***/	//void assign (size_type n, const value_type & val);
-				/*void push_front(const value_type & val);
-				void pop_front(void);
+				//void push_front(const value_type & val);
+				//void pop_front(void);
 				void push_back(const value_type & val);
-				void pop_back(void);*/
+				//void pop_back(void);
 				/*** single element (1) ***//*iterator insert(iterator position,
 															const value_type & val);*/
 				/*** fill (2) ***/			/*void insert(iterator position,
@@ -166,6 +166,7 @@ namespace ft
 			template <class InputIterator>
 			void _construct_vector_dispatch(InputIterator & first, InputIterator & last, NO_INT_TYPE);
 			void _construct_vector_with_val(size_type n, value_type const & val);
+			void _reallocate(void);
 			//template <class InputIterator>
 			//void _fill_from_iterators(InputIterator & first, InputIterator & last);
 			//void _actualize_end(void);

@@ -72,9 +72,27 @@ ft::vector<T, Alloc>::end(void)
 
 /** Capacity **/
 
+template <typename T, class Alloc>
+typename ft::vector<T, Alloc>::size_type
+ft::vector<T, Alloc>::size(void) const
+{
+	return (static_cast<size_type>(_end - _start));
+}
+
+
 /** Element access **/
 
 /** Modifiers **/
+
+template <typename T, class Alloc>
+void
+ft::vector<T, Alloc>::push_back(const value_type & val)
+{
+	if (_end == _limit)
+		_reallocate();
+	_alloc.construct(_end, val);
+	++_end;
+}
 
 template <typename T, class Alloc>
 void
@@ -96,7 +114,7 @@ template <typename T, class Alloc>
 void
 ft::vector<T, Alloc>::_copy(vector const & other)
 {
-	_start = _alloc.allocate(static_cast<size_type>(other._end - other._start));
+	_start = _alloc.allocate(other.size());
 	pointer this_ptr = _start;
 	pointer other_ptr = other._start;
 	while (other_ptr != other._end)
@@ -140,6 +158,13 @@ ft::vector<T, Alloc>::_construct_vector_with_val(size_type n, const value_type &
 	for (size_type i = 0; i < n; ++i)
 		_alloc.construct(_start + i, val);
 	_end = _limit = _start + n;
+}
+
+template <class T, class Alloc>
+void
+ft::vector<T, Alloc>::_reallocate(void)
+{
+	//pointer tmp = _alloc.allocate(static_cast<size_type>())
 }
 
 /** Non-member function overloads **/
