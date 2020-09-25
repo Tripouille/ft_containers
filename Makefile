@@ -29,6 +29,7 @@ $(STD_SED): std\:\:%sed:
 
 $(MAKE_RESULT): %: %color %sed tests/%Test
 	valgrind -q --leak-check=full ./tests/$@Test > results/$@.result
+	#./tests/$@Test > results/$@.result
 
 $(MAKE_RESULT:%=show\:\:%): show\:\:%: %
 	cat results/$<.result

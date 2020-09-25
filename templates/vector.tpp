@@ -108,12 +108,12 @@ ft::vector<T, Alloc>::resize(size_type n, value_type val)
 		_reallocate(n);
 	while (n > size())
 	{
-		_alloc.contruct(_end, val);
+		_alloc.construct(_end, val);
 		++_end;
 	}
 	while (n < size())
 	{
-		--_end();
+		--_end;
 		_alloc.destroy(_end);
 	}
 }
@@ -255,18 +255,15 @@ template <class T, class Alloc>
 void
 ft::vector<T, Alloc>::_reallocate(size_type n)
 {
-	pointer tmp = _start;
 	size_type prev_size = size();
-	size_type new_size = prev_size + std::max(size(), n);
-	_start = _alloc.allocate(new_size);
+	size_type new_size = std::max(prev_size + prev_size, n);
+	pointer new_start = _alloc.allocate(new_size);
 	for (size_type i = 0; i < prev_size; ++i)
-	{
-		_alloc.construct(_start + i, tmp[i]);
-		_alloc.destroy(tmp + i);
-	}
+		_alloc.construct(new_start + i, _start[i]);
+	clear();
+	_start = new_start;
 	_end = _start + prev_size;
 	_limit = _start + new_size;
-	_alloc.deallocate(tmp, prev_size);
 }
 
 template <class T, class Alloc>
