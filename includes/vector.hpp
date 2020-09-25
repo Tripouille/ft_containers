@@ -162,6 +162,7 @@ namespace ft
 				size_type size(void) const;
 				size_type max_size(void) const;
 				void resize(size_type n, value_type val = value_type());
+				size_type capacity(void) const;
 				bool empty(void) const;
 
 			/** Element access **/
@@ -230,7 +231,7 @@ namespace ft
 			void _construct_vector_with_val(size_type n, value_type const & val);
 			template <class InputIterator>
 			void _construct_vector_from_range(InputIterator & first, InputIterator & last);
-			void _reallocate(void);
+			void _reallocate(size_type n);
 			void _range_check(size_type n) const throw(std::out_of_range);
 			//template <class InputIterator>
 			//void _fill_from_iterators(InputIterator & first, InputIterator & last);

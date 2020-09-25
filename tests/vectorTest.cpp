@@ -34,7 +34,8 @@ print_vector(T const & vector, std::string const & name)
 		std::cout << *begin << " ";
 		++begin;
 	}
-	std::cout << "] Size : " << vector.size() << ENDL;
+	std::cout << "] Size : " << vector.size()
+	<< ", Capacity : " << vector.capacity() << ENDL;
 }
 
 template <template <class T, class Alloc = std::allocator<T> > class vec>
@@ -47,7 +48,6 @@ test_vector(void)
 	FILE << CATEGORY << "===> Default constructor" << ENDL;
 	FILE << "vec<int> vectorA;" << ENDL; vec<int> vectorA;
 	print_vector(vectorA, "vectorA");
-	FILE << "vectorA.max_size() : " << OUTPUT << vectorA.max_size() << ENDL;
 	FILE << std::boolalpha << "vectorA.empty() : " << OUTPUT << vectorA.empty() << ENDL;
 	FILE << ENDL;
 
@@ -147,7 +147,6 @@ test_vector(void)
 	FILE << "const_it[2] : " << OUTPUT << const_it[2] << ENDL;
 	FILE << ENDL;
 
-
 	FILE << CATEGORY << "===> Const Iterators" << ENDL;
 	FILE << "vec<double> const constDoubleVec(1, 1);" << ENDL; vec<double> const constDoubleVec(1, 1);
 	print_vector(constDoubleVec, "constDoubleVec");
@@ -185,6 +184,25 @@ test_vector(void)
 	FILE << "cit[1] : " << OUTPUT << cit[1] << ENDL;
 	FILE << ENDL;
 
+	FILE << SUBTITLE << "Capacity" << ENDL;
+	FILE << CATEGORY << "===> max_size()" << ENDL;
+	FILE << "vectorA.max_size() : " << OUTPUT << vectorA.max_size() << ENDL;
+	FILE << CATEGORY << "===> resize()" << ENDL;
+	print_vector(vectorA, "vectorA");
+	FILE << "vectorA.resize(4);" << ENDL; vectorA.resize(4);
+	print_vector(vectorA, "vectorA");
+	FILE << "vectorA.resize(3);" << ENDL; vectorA.resize(3);
+	print_vector(vectorA, "vectorA");
+	FILE << "vectorA.resize(4);" << ENDL; vectorA.resize(4);
+	print_vector(vectorA, "vectorA");
+	FILE << "vectorA.resize(5);" << ENDL; vectorA.resize(5);
+	print_vector(vectorA, "vectorA");
+	FILE << "vectorA.resize(9, 1);" << ENDL; vectorA.resize(9, 1);
+	print_vector(vectorA, "vectorA");
+	FILE << "vectorA.resize(100);" << ENDL; vectorA.resize(100);
+	print_vector(vectorA, "vectorA");
+	//vectorA.resize(4611686018427387903); //bad_alloc exception, vector in valid state
+	FILE << ENDL;
 
 	FILE << CATEGORY << "===> Reverse Iterators" << ENDL;
 	FILE << "vec<char>  charVec(1, 'A');" << ENDL; vec<char>  charVec(1, 'A');
