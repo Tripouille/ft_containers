@@ -19,7 +19,7 @@ class ThrowingExceptionClass
 		ThrowingExceptionClass(int a) : _a(a) {}
 		ThrowingExceptionClass(ThrowingExceptionClass const& other) {(void)other; throw std::exception();}
 		~ThrowingExceptionClass() {}
-		ThrowingExceptionClass& operator=(ThrowingExceptionClass const& other) {(void)other; return (*this);}
+		ThrowingExceptionClass & operator=(ThrowingExceptionClass const & other) {(void)other; return (*this);}
 		int geta(void) const {return (_a);}
 	private:
 		int _a;
@@ -31,13 +31,24 @@ class NoDefaultConstructorClass
 		NoDefaultConstructorClass(int a) : _a(a) {}
 		NoDefaultConstructorClass(NoDefaultConstructorClass const& other) : _a(other._a) {}
 		~NoDefaultConstructorClass() {}
-		NoDefaultConstructorClass& operator=(NoDefaultConstructorClass const& other) {_a = other._a; return (*this);}
+		NoDefaultConstructorClass & operator=(NoDefaultConstructorClass const & other) {_a = other._a; return (*this);}
 		int geta(void) const {return (_a);}
 	private:
 		int _a;
 		NoDefaultConstructorClass(void) {}
 };
 std::ostream&	operator<<(std::ostream& os, NoDefaultConstructorClass const& obj) {os << obj.geta(); return (os);}
+
+class AllocatingClass
+{
+	public:
+		AllocatingClass(void) {_array = new int[2];}
+		AllocatingClass(AllocatingClass const & other) {(void)other; _array = new int[2];}
+		~AllocatingClass() {delete[] _array;}
+		AllocatingClass & operator=(AllocatingClass const & other) {(void)other; return (*this);}
+	private:
+		int* _array;
+};
 
 struct intStruct
 {
@@ -110,6 +121,11 @@ test_list(void)
 	FILE << std::boolalpha << "listC.empty() = " << OUTPUT << listC.empty() << ENDL;
 	FILE << "listC.front() = " << OUTPUT << listC.front() << ENDL;
 	FILE << "listC.back() = " << OUTPUT << listC.back() << ENDL;
+	FILE << ENDL;
+
+	FILE << CATEGORY << "===> Destructor" << ENDL;
+	FILE << "list<AllocatingClass> allocatingList(3);" << ENDL;
+	containerT<AllocatingClass> allocatingList(3);
 	FILE << ENDL;
 
 	FILE << CATEGORY << "===> Copy constructor" << ENDL;

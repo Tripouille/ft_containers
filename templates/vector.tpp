@@ -73,13 +73,6 @@ ft::vector<T, Alloc>::end(void)
 /** Capacity **/
 
 template <typename T, class Alloc>
-bool
-ft::vector<T, Alloc>::empty(void) const
-{
-	return (_start == _end);
-}
-
-template <typename T, class Alloc>
 typename ft::vector<T, Alloc>::size_type
 ft::vector<T, Alloc>::size(void) const
 {
@@ -91,6 +84,13 @@ typename ft::vector<T, Alloc>::size_type
 ft::vector<T, Alloc>::max_size(void) const
 {
 	return (_alloc.max_size());
+}
+
+template <typename T, class Alloc>
+bool
+ft::vector<T, Alloc>::empty(void) const
+{
+	return (_start == _end);
 }
 
 

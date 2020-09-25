@@ -48,6 +48,7 @@ template <class T, class Alloc>
 ft::list<T, Alloc>::~list(void)
 {
 	clear();
+	_node_alloc.destroy(_end);
 	_node_alloc.deallocate(_end, 1);
 }
 
@@ -363,7 +364,8 @@ ft::list<T, Alloc>::clear(void)
 	{
 		_tail = _head;
 		_head = _head->next;
-		delete _tail;
+		_node_alloc.destroy(_tail);
+		_node_alloc.deallocate(_tail, 1);
 	}
 	_tail = _end;
 	_size = 0;
