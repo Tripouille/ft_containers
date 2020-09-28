@@ -184,35 +184,6 @@ test_vector(void)
 	FILE << "cit[1] : " << OUTPUT << cit[1] << ENDL;
 	FILE << ENDL;
 
-	FILE << SUBTITLE << "Capacity" << ENDL;
-	FILE << CATEGORY << "===> max_size()" << ENDL;
-	FILE << "vectorA.max_size() : " << OUTPUT << vectorA.max_size() << ENDL;
-	FILE << CATEGORY << "===> resize()" << ENDL;
-	print_vector(vectorA, "vectorA");
-	FILE << "vectorA.resize(4);" << ENDL; vectorA.resize(4);
-	print_vector(vectorA, "vectorA");
-	FILE << "vectorA.resize(3);" << ENDL; vectorA.resize(3);
-	print_vector(vectorA, "vectorA");
-	FILE << "vectorA.resize(4);" << ENDL; vectorA.resize(4);
-	print_vector(vectorA, "vectorA");
-	FILE << "vectorA.resize(5);" << ENDL; vectorA.resize(5);
-	print_vector(vectorA, "vectorA");
-	FILE << "vectorA.resize(9, 1);" << ENDL; vectorA.resize(9, 1);
-	print_vector(vectorA, "vectorA");
-	FILE << "vectorA.resize(100);" << ENDL; vectorA.resize(100);
-	print_vector(vectorA, "vectorA");
-	//vectorA.resize(4611686018427387903); //bad_alloc exception, vector in valid state
-	FILE << CATEGORY << "===> reserve()" << ENDL;
-	vectorA.clear();
-	print_vector(vectorA, "vectorA");
-	FILE << "vectorA.reserve(0);" << ENDL; vectorA.reserve(0);
-	print_vector(vectorA, "vectorA");
-	FILE << "vectorA.reserve(150);" << ENDL; vectorA.reserve(150);
-	print_vector(vectorA, "vectorA");
-	FILE << "vectorA.reserve(400);" << ENDL; vectorA.reserve(400);
-	print_vector(vectorA, "vectorA");
-	FILE << ENDL;
-
 	FILE << CATEGORY << "===> Reverse Iterators" << ENDL;
 	FILE << "vec<char>  charVec(1, 'A');" << ENDL; vec<char>  charVec(1, 'A');
 	print_vector(charVec, "charVec");
@@ -252,6 +223,34 @@ test_vector(void)
 	print_vector(charVec, "charVec");
 	FILE << ENDL;
 
+	FILE << SUBTITLE << "Capacity" << ENDL;
+	FILE << CATEGORY << "===> max_size()" << ENDL;
+	FILE << "vectorA.max_size() : " << OUTPUT << vectorA.max_size() << ENDL;
+	FILE << CATEGORY << "===> resize()" << ENDL;
+	print_vector(vectorA, "vectorA");
+	FILE << "vectorA.resize(4);" << ENDL; vectorA.resize(4);
+	print_vector(vectorA, "vectorA");
+	FILE << "vectorA.resize(3);" << ENDL; vectorA.resize(3);
+	print_vector(vectorA, "vectorA");
+	FILE << "vectorA.resize(4);" << ENDL; vectorA.resize(4);
+	print_vector(vectorA, "vectorA");
+	FILE << "vectorA.resize(5);" << ENDL; vectorA.resize(5);
+	print_vector(vectorA, "vectorA");
+	FILE << "vectorA.resize(9, 1);" << ENDL; vectorA.resize(9, 1);
+	print_vector(vectorA, "vectorA");
+	FILE << "vectorA.resize(100);" << ENDL; vectorA.resize(100);
+	print_vector(vectorA, "vectorA");
+	//vectorA.resize(4611686018427387903); //bad_alloc exception, vector in valid state
+	FILE << CATEGORY << "===> reserve()" << ENDL;
+	vectorA.clear();
+	print_vector(vectorA, "vectorA");
+	FILE << "vectorA.reserve(0);" << ENDL; vectorA.reserve(0);
+	print_vector(vectorA, "vectorA");
+	FILE << "vectorA.reserve(150);" << ENDL; vectorA.reserve(150);
+	print_vector(vectorA, "vectorA");
+	FILE << "vectorA.reserve(400);" << ENDL; vectorA.reserve(400);
+	print_vector(vectorA, "vectorA");
+	FILE << ENDL;
 
 	FILE << SUBTITLE << "Element access" << ENDL;
 	FILE << CATEGORY << "===> operator[]" << ENDL;
@@ -274,6 +273,17 @@ test_vector(void)
 		{FILE << "const_test.at(-1) : " << const_test.at(static_cast<unsigned long>(-1)) << ENDL;}
 	catch (std::out_of_range const & e)
 		{FILE << OUTPUT << e.what() << ENDL;}
+	FILE << ENDL;
+
+	FILE << SUBTITLE << "Modifiers" << ENDL;
+	FILE << CATEGORY << "===> assign" << ENDL;
+	FILE << CATEGORY << "===> push_back" << ENDL;
+	FILE << CATEGORY << "===> pop_back" << ENDL;
+	FILE << CATEGORY << "===> insert" << ENDL;
+	FILE << CATEGORY << "===> erase" << ENDL;
+	FILE << CATEGORY << "===> swap" << ENDL;
+	FILE << CATEGORY << "===> clear" << ENDL;
+	FILE << ENDL;
 
 	FILE << TITLE << "=> ENDING vector tests" << ENDL << ENDL;
 }
