@@ -11,6 +11,19 @@
 #define OUTPUT FG_GREEN << UNDERLINED
 #define FILE std::cout << RESET_ALL
 
+class ThrowingExceptionClass
+{
+	public:
+		ThrowingExceptionClass(void) : _a(2) {}
+		ThrowingExceptionClass(int a) : _a(a) {}
+		ThrowingExceptionClass(ThrowingExceptionClass const& other) {(void)other; throw std::exception();}
+		~ThrowingExceptionClass() {}
+		ThrowingExceptionClass & operator=(ThrowingExceptionClass const & other) {(void)other; return (*this);}
+		int geta(void) const {return (_a);}
+	private:
+		int _a;
+};
+
 class AllocatingClass
 {
 	public:
@@ -85,6 +98,8 @@ test_vector(void)
 	FILE << "vectorB.push_back(6);" << ENDL; vectorB.push_back(6);
 	print_vector(vectorB, "vectorB");
 	print_vector(vectorC, "vectorC");
+	FILE << "vectorB = vectorC;" << ENDL; vectorB = vectorC;
+	print_vector(vectorB, "vectorB");
 	FILE << ENDL;
 
 	FILE << SUBTITLE << "Iterators" << ENDL;
@@ -276,9 +291,36 @@ test_vector(void)
 	FILE << ENDL;
 
 	FILE << SUBTITLE << "Modifiers" << ENDL;
+	FILE << CATEGORY << "===> Exception-safety test with <ThrowingExceptionClass>, "
+						"a class which throws an exception in copy constructor" << ENDL;
+	FILE << "vec<ThrowingExceptionClass> vectorE;" << ENDL; vec<ThrowingExceptionClass> vectorE;
+	FILE << "ThrowingExceptionClass testObject;" << ENDL; ThrowingExceptionClass testObject;
+	FILE << "try {vectorE.push_back(testobject);}" << ENDL;
+	FILE << "catch(...) {std::cout << \"catched exception\" << std::endl;}" << ENDL;
+	try {vectorE.push_back(testObject);}
+	catch(...) {FILE << OUTPUT << "catched exception" << ENDL;}
+	FILE << "vectorE.size() = " << OUTPUT << vectorE.size() << ENDL;
+	FILE << ENDL;
+
 	FILE << CATEGORY << "===> assign" << ENDL;
-	FILE << CATEGORY << "===> push_back" << ENDL;
-	FILE << CATEGORY << "===> pop_back" << ENDL;
+	FILE << SUBCATEGORY << "=====> fill (2)" << ENDL;
+	print_vector(vectorC, "vectorC");
+	FILE << "vectorC.assign(7, 100);" << ENDL; vectorC.assign(7, 100);
+	print_vector(vectorC, "vectorC");
+	FILE << "vectorC.clear(); vectorC.assign(7, 100);" << ENDL; vectorC.clear(); vectorC.assign(7, 100);
+	print_vector(vectorC, "vectorC");
+	FILE << SUBCATEGORY << "=====> range (1)" << ENDL;
+	print_vector(vectorB, "vectorB");
+	FILE << "vectorC.assign(vectorB.rbegin(), vectorB.rend());" << ENDL; vectorC.assign(vectorB.rbegin(), vectorB.rend());
+	print_vector(vectorC, "vectorC");
+	FILE << "int myints[] = {1337, 4, 7};" << ENDL; int myints[] = {1337, 4, 7};
+	FILE << "vectorC.assign(myints + 1, myints + 3);" << ENDL; vectorC.assign(myints + 1, myints + 3);
+	print_vector(vectorC, "vectorC");
+	FILE << "vectorC.clear(); vectorC.assign(myints + 1, myints + 3);" << ENDL; vectorC.clear(); vectorC.assign(myints + 1, myints + 3);
+	print_vector(vectorC, "vectorC");
+	FILE << ENDL;
+
+	FILE << CATEGORY << "===> push_back / pop_back" << ENDL;
 	FILE << CATEGORY << "===> insert" << ENDL;
 	FILE << CATEGORY << "===> erase" << ENDL;
 	FILE << CATEGORY << "===> swap" << ENDL;

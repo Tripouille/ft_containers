@@ -1,8 +1,3 @@
 astrid :
-tests sur insert, erase, swap, resize, reverse
 
 jean-michel :
-
-fait :
-types dans types.hpp
-test sur operator-> sur iterator

@@ -31,7 +31,9 @@ ft::vector<T, Alloc>::vector(InputIterator first, InputIterator last,
 template <class T, class Alloc>
 ft::vector<T, Alloc>::vector(vector const & other) : _alloc(other._alloc)
 {
+	_start = _alloc.allocate(other.size());
 	_copy(other);
+	_limit = _end;
 }
 
 /* Destructor */
@@ -50,7 +52,8 @@ ft::vector<T, Alloc>::operator=(vector const & other)
 	if (this != &other)
 	{
 		clear();
-		_alloc.deallocate(_start, capacity());
+		if (other.size() > capacity())
+			_reallocate(other.size());
 		_copy(other);
 	}
 	return (*this);
@@ -189,6 +192,26 @@ ft::vector<T, Alloc>::at(size_type n) const
 }
 
 /** Modifiers **/
+
+/*** range (1) ***/
+template <typename T, class Alloc>
+template <class InputIterator>
+void
+ft::vector<T, Alloc>::assign(InputIterator first, InputIterator last)
+{
+	vector tmp(first, last);
+	*this = tmp;
+}
+
+/*** fill (2) ***/
+template <typename T, class Alloc>
+void
+ft::vector<T, Alloc>::assign(size_type n, const value_type & val)
+{
+	vector tmp(n, val);
+	*this = tmp;
+}
+
 template <typename T, class Alloc>
 void
 ft::vector<T, Alloc>::push_back(const value_type & val)
@@ -218,7 +241,6 @@ template <typename T, class Alloc>
 void
 ft::vector<T, Alloc>::_copy(vector const & other)
 {
-	_start = _alloc.allocate(other.size());
 	pointer this_ptr = _start;
 	pointer other_ptr = other._start;
 	while (other_ptr != other._end)
@@ -227,7 +249,7 @@ ft::vector<T, Alloc>::_copy(vector const & other)
 		++this_ptr;
 		++other_ptr;
 	}
-	_end = _limit = this_ptr;
+	_end = this_ptr;
 }
 
 template <typename T, class Alloc>

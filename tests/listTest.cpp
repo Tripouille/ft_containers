@@ -209,7 +209,7 @@ test_list(void)
 						"a class which throws an exception in copy constructor" << ENDL;
 	FILE << "list<ThrowingExceptionClass> listG;" << ENDL; containerT<ThrowingExceptionClass> listG;
 	FILE << "ThrowingExceptionClass testObject;" << ENDL; ThrowingExceptionClass testObject;
-	FILE << "try {safelist.push_back(testobject);}" << ENDL;
+	FILE << "try {listG.push_back(testobject);}" << ENDL;
 	FILE << "catch(...) {std::cout << \"catched exception\" << std::endl;}" << ENDL;
 	try {listG.push_back(testObject);}
 	catch(...) {FILE << OUTPUT << "catched exception" << ENDL;}
@@ -280,11 +280,6 @@ test_list(void)
 	FILE << "cr_it--;" << ENDL; cr_it--;
 	FILE << "(*cr_it == listA.front()) = " << OUTPUT << std::boolalpha << (*cr_it == listA.front()) << ENDL;
 	FILE << ENDL;
-
-	
-
-
-
 
 	FILE << CATEGORY << "===> Operator-> on iterators" << ENDL;
 	FILE << "list<intStruct> listH;" << ENDL; containerT<intStruct> listH;
