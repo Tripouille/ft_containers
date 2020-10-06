@@ -206,6 +206,34 @@ ft::vector<T, Alloc>::at(size_type n) const
 	return (_start[n]);
 }
 
+template <typename T, class Alloc>
+typename ft::vector<T, Alloc>::reference
+ft::vector<T, Alloc>::front(void)
+{
+	return (*_start);
+}
+
+template <typename T, class Alloc>
+typename ft::vector<T, Alloc>::const_reference
+ft::vector<T, Alloc>::front(void) const
+{
+	return (*_start);
+}
+
+template <typename T, class Alloc>
+typename ft::vector<T, Alloc>::reference
+ft::vector<T, Alloc>::back(void)
+{
+	return (_end[-1]);
+}
+
+template <typename T, class Alloc>
+typename ft::vector<T, Alloc>::const_reference
+ft::vector<T, Alloc>::back(void) const
+{
+	return (_end[-1]);
+}
+
 /** Modifiers **/
 
 /*** range (1) ***/

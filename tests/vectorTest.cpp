@@ -301,6 +301,7 @@ test_vector(void)
 	FILE << "vectorA.resize(100);" << ENDL; vectorA.resize(100);
 	print_vector(vectorA, "vectorA");
 	//vectorA.resize(4611686018427387903); //bad_alloc exception, vector in valid state
+	FILE << ENDL;
 	FILE << CATEGORY << "===> reserve()" << ENDL;
 	vectorA.clear();
 	print_vector(vectorA, "vectorA");
@@ -322,6 +323,8 @@ test_vector(void)
 	FILE << "test[1] : " << OUTPUT << test[1] << ENDL;
 	FILE << "vec<int> const const_test(1, 42);" << ENDL; vec<int> const const_test(1, 42);
 	FILE << "const_test[0] : " << OUTPUT << const_test[0] << ENDL;
+	FILE << ENDL;
+
 	FILE << CATEGORY << "===> at" << ENDL;
 	FILE << "test.at(0) : " << OUTPUT << test.at(0) << ENDL;
 	try
@@ -334,6 +337,33 @@ test_vector(void)
 	catch (std::out_of_range const & e)
 		{FILE << OUTPUT << e.what() << ENDL;}
 	FILE << ENDL;
+
+	FILE << CATEGORY << "===> front" << ENDL;
+	print_vector(charVec, "charVec");
+	FILE << "vec<char> const constCharVec(charVec); " << ENDL; vec<char> const constCharVec(charVec);
+	FILE << "charVec.front() = 'W';" << ENDL; charVec.front() = 'W';
+	FILE << "charVec.front() : " << charVec.front() << ENDL;
+
+	print_vector(constCharVec, "constCharVec");
+	#ifdef CONST_TEST
+		FILE << "constCharVec.front() = 'W';" << ENDL; constCharVec.front() = 'W';
+	#endif
+	FILE << "constCharVec.front() : " << constCharVec.front() << ENDL;
+	FILE << ENDL;
+
+	FILE << CATEGORY << "===> back" << ENDL;
+	print_vector(charVec, "charVec");
+	FILE << "charVec.back() = 'O';" << ENDL; charVec.back() = 'O';
+	FILE << "charVec.back() : " << charVec.back() << ENDL;
+
+	print_vector(constCharVec, "constCharVec");
+	#ifdef CONST_TEST
+		FILE << "constCharVec.back() = 'P';" << ENDL; constCharVec.back() = 'P';
+	#endif
+	FILE << "constCharVec.back() : " << constCharVec.back() << ENDL;
+	FILE << ENDL;
+
+
 
 	FILE << SUBTITLE << "Modifiers" << ENDL;
 	FILE << CATEGORY << "===> Exception-safety test with <ThrowingExceptionClass>, "
@@ -354,6 +384,8 @@ test_vector(void)
 	print_vector(vectorC, "vectorC");
 	FILE << "vectorC.clear(); vectorC.assign(7, 100);" << ENDL; vectorC.clear(); vectorC.assign(7, 100);
 	print_vector(vectorC, "vectorC");
+	FILE << ENDL;
+
 	FILE << SUBCATEGORY << "=====> range (1)" << ENDL;
 	print_vector(vectorB, "vectorB");
 	FILE << "vectorC.assign(vectorB.rbegin(), vectorB.rend());" << ENDL; vectorC.assign(vectorB.rbegin(), vectorB.rend());
@@ -390,5 +422,5 @@ test_vector(void)
 int
 main(void)
 {
-    test_vector<std::vector>();
+    test_vector<ft::vector>();
 }

@@ -197,10 +197,10 @@ namespace ft
 				const_reference operator[] (size_type n) const;
 				reference at(size_type n);
 				const_reference at(size_type n) const;
-				/*reference front(void);
+				reference front(void);
 				const_reference front(void) const;
 				reference back(void);
-				const_reference back(void) const;*/
+				const_reference back(void) const;
 
 			/** Modifiers **/
 				/*** range (1) ***/	template <class InputIterator>
