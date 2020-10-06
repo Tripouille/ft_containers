@@ -10,16 +10,20 @@ RESULTS		= $(CONTAINERS:%=results/ft::%.result) $(CONTAINERS:%=results/std::%.re
 FT_COLORS	= $(CONTAINERS:%=ft\:\:%color)
 STD_COLORS	= $(CONTAINERS:%=std\:\:%color)
 
+ifeq ($c, 1)
+	CPPFLAGS   = -D CONST_TEST
+endif
+
 CC		= clang++
 CFLAGS	= -g3 -Wall -Wextra -Werror -Wconversion -std=c++98 -I includes -I templates
 
 all: $(CONTAINERS:%=diff\:\:%)
 
 $(CONTAINERS:%=tests/ft\:\:%Test): tests/ft\:\:%: tests/%.cpp $(INCLUDES) $(TEMPLATE)
-	$(CC) $(CFLAGS) tests/$*.cpp -o $@
+	$(CC) $(CPPFLAGS) $(CFLAGS) tests/$*.cpp -o $@
 
 $(CONTAINERS:%=tests/std\:\:%Test): tests/std\:\:%: tests/%.cpp $(INCLUDES) $(TEMPLATE)
-	$(CC) $(CFLAGS) tests/$*.cpp -o $@
+	$(CC) $(CPPFLAGS) $(CFLAGS) tests/$*.cpp -o $@
 
 $(FT_SED): ft\:\:%sed:
 	sed -ri s/"(test_$*<).*(>)"/"\1ft::$*\2"/ tests/$*Test.cpp

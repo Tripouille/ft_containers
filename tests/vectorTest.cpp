@@ -197,6 +197,9 @@ test_vector(void)
 	FILE << "cit[-1] : " << OUTPUT << cit[-1] << ENDL;
 	FILE << "cit[0] : " << OUTPUT << cit[0] << ENDL;
 	FILE << "cit[1] : " << OUTPUT << cit[1] << ENDL;
+	#ifdef CONST_TEST
+	cit[1] = 42;
+	#endif
 	FILE << ENDL;
 
 	FILE << CATEGORY << "===> Reverse Iterators" << ENDL;
@@ -236,6 +239,48 @@ test_vector(void)
 	FILE << "rit[1] = 'Z';" << ENDL; rit[1] = 'Z';
 	FILE << "rit[1] : " << OUTPUT << rit[1] << ENDL;
 	print_vector(charVec, "charVec");
+	FILE << ENDL;
+
+	FILE << CATEGORY << "===> Const Reverse Iterators" << ENDL;
+	FILE << "vec<char>  charVec(1, 'A');" << ENDL; vec<char>  charVec2(1, 'A');
+	print_vector(charVec2, "charVec2");
+	FILE << "reverse_iterator crit = charVec2.rbegin();" << ENDL; typename vec<char>::const_reverse_iterator crit = charVec2.rbegin();
+	FILE << "reverse_iterator crite = charVec2.rend();" << ENDL; typename vec<char>::const_reverse_iterator crite = charVec2.rend();
+	FILE << "crit - crite : " << OUTPUT << crit - crite << ENDL;
+	FILE << "crite - crit : " << OUTPUT << crite - crit << ENDL;
+	FILE << "(crite + (crit - crite)) == crit : " <<  std::boolalpha << OUTPUT << ((crite + (crit - crite)) == crit) << ENDL;
+	FILE << "*crit : " << OUTPUT << *crit << ENDL;
+	FILE << "charVec2.push_back('B');" << ENDL; charVec2.push_back('B');
+	FILE << "charVec2.push_back('C');" << ENDL; charVec2.push_back('C');
+	FILE << "charVec2.push_back('D');" << ENDL; charVec2.push_back('D');
+	print_vector(charVec2, "charVec2");
+	FILE << "crit = charVec2.rbegin();" << ENDL;crit = charVec2.rbegin();
+	FILE << "*crit : " << OUTPUT << *crit << ENDL;
+	FILE << "*++crit : " << OUTPUT << *++crit << ENDL;
+	FILE << "*--crit : " << OUTPUT << *--crit << ENDL;
+	FILE << "*crit++ : " << OUTPUT << *crit++ << ENDL;
+	FILE << "*crit-- : " << OUTPUT << *crit-- << ENDL;
+	FILE << "*crit : " << OUTPUT << *crit << ENDL;
+	FILE << "*(crit + 2) : " << OUTPUT << *(crit + 2) << ENDL;
+	FILE << "*(2 + crit) : " << OUTPUT << *(2 + crit) << ENDL;
+	FILE << "*++crit : " << OUTPUT << *++crit << ENDL;
+	FILE << "*(crit - 1) : " << OUTPUT << *(crit - 1) << ENDL;
+	FILE << "*--crit : " << OUTPUT << *--crit << ENDL;
+	FILE << "*((crit += 2) = charVec2.rbegin()): " << OUTPUT << *((crit += 2) = charVec2.rbegin()) << ENDL;
+	FILE << "*(crit += 2) : " << OUTPUT << *(crit += 2) << ENDL;
+	FILE << "*((crit -= 2) = --charVec2.rend()): " << OUTPUT << *((crit -= 2) = --charVec2.rend()) << ENDL;
+	FILE << "*(crit -= 2) : " << OUTPUT << *(crit -= 2) << ENDL;
+	FILE << "crit[0] : " << OUTPUT << crit[0] << ENDL;
+	FILE << "*++crit : " << OUTPUT << *++crit << ENDL;
+	FILE << "crit[-1] : " << OUTPUT << crit[-1] << ENDL;
+	FILE << "crit[0] : " << OUTPUT << crit[0] << ENDL;
+	FILE << "crit[1] : " << OUTPUT << crit[1] << ENDL;
+	FILE << "crit[1] : " << OUTPUT << crit[1] << ENDL;
+	FILE << "crit[1] : " << OUTPUT << crit[1] << ENDL;
+	#ifdef CONST_TEST
+	crit[1] = 42;
+	#endif
+	print_vector(charVec2, "charVec2");
 	FILE << ENDL;
 
 	FILE << SUBTITLE << "Capacity" << ENDL;
@@ -333,5 +378,5 @@ test_vector(void)
 int
 main(void)
 {
-    test_vector<ft::vector>();
+    test_vector<std::vector>();
 }
