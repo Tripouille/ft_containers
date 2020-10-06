@@ -206,10 +206,8 @@ namespace ft
 				/*** range (1) ***/	template <class InputIterator>
 				 					void assign(InputIterator first, InputIterator last);
 				/*** fill (2) ***/	void assign(size_type n, const value_type & val);
-				//void push_front(const value_type & val);
-				//void pop_front(void);
 				void push_back(const value_type & val);
-				//void pop_back(void);
+				void pop_back(void);
 				/*** single element (1) ***//*iterator insert(iterator position,
 															const value_type & val);*/
 				/*** fill (2) ***/			/*void insert(iterator position,
@@ -258,7 +256,7 @@ namespace ft
 			void _construct_vector_with_val(size_type n, value_type const & val);
 			template <class InputIterator>
 			void _construct_vector_from_range(InputIterator & first, InputIterator & last);
-			void _reallocate(size_type n);
+			void _reallocate(size_type n, bool reserve_place = false);
 			void _range_check(size_type n) const throw(std::out_of_range);
 			//template <class InputIterator>
 			//void _fill_from_iterators(InputIterator & first, InputIterator & last);

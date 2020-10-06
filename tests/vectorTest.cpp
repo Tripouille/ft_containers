@@ -366,6 +366,18 @@ test_vector(void)
 	FILE << ENDL;
 
 	FILE << CATEGORY << "===> push_back / pop_back" << ENDL;
+	print_vector(vectorC, "vectorC");
+	FILE << "vectorC.push_back(9);" << ENDL; vectorC.push_back(9);
+	print_vector(vectorC, "vectorC");
+	FILE << "vectorC.pop_back();" << ENDL; vectorC.pop_back();
+	print_vector(vectorC, "vectorC");
+	FILE << "vectorC.pop_back();" << ENDL; vectorC.pop_back();
+	print_vector(vectorC, "vectorC");
+	FILE << "vectorC.pop_back();" << ENDL; vectorC.pop_back();
+	print_vector(vectorC, "vectorC");
+	FILE << std::boolalpha << "vectorC.empty() : " << OUTPUT << vectorC.empty() << ENDL;
+	FILE << ENDL;
+
 	FILE << CATEGORY << "===> insert" << ENDL;
 	FILE << CATEGORY << "===> erase" << ENDL;
 	FILE << CATEGORY << "===> swap" << ENDL;

@@ -51,9 +51,10 @@ ft::vector<T, Alloc>::operator=(vector const & other)
 {
 	if (this != &other)
 	{
-		clear();
 		if (other.size() > capacity())
 			_reallocate(other.size());
+		else
+			clear();
 		_copy(other);
 	}
 	return (*this);
@@ -138,7 +139,7 @@ void
 ft::vector<T, Alloc>::resize(size_type n, value_type val)
 {
 	if (n > capacity())
-		_reallocate(n);
+		_reallocate(n, true);
 	while (n > size())
 	{
 		_alloc.construct(_end, val);
@@ -214,7 +215,7 @@ void
 ft::vector<T, Alloc>::assign(InputIterator first, InputIterator last)
 {
 	vector tmp(first, last);
-	*this = tmp;
+	*this = tmp; //ou swap(tmp) ?
 }
 
 /*** fill (2) ***/
@@ -231,9 +232,17 @@ void
 ft::vector<T, Alloc>::push_back(const value_type & val)
 {
 	if (_end == _limit)
-		_reallocate(size() + 1);
+		_reallocate(size() + 1, true);
 	_alloc.construct(_end, val);
 	++_end;
+}
+
+template <typename T, class Alloc>
+void
+ft::vector<T, Alloc>::pop_back(void)
+{
+	--_end;
+	_alloc.destroy(_end);
 }
 
 template <typename T, class Alloc>
@@ -310,19 +319,20 @@ ft::vector<T, Alloc>::_construct_vector_from_range(InputIterator & first, InputI
 
 template <class T, class Alloc>
 void
-ft::vector<T, Alloc>::_reallocate(size_type n)
+ft::vector<T, Alloc>::_reallocate(size_type n, bool reserve_place)
 {
-	size_type prev_size = size();
-	size_type new_size = (n > prev_size + prev_size || prev_size + prev_size < prev_size) ?
-							n : prev_size + prev_size;
-	pointer new_start = _alloc.allocate(new_size);
-	for (size_type i = 0; i < prev_size; ++i)
+	size_type vec_size = size();
+	size_type new_capacity = n;
+	if (reserve_place && 2 * vec_size >= n && 2 * vec_size >= vec_size)
+		new_capacity = 2 * vec_size;
+	pointer new_start = _alloc.allocate(new_capacity);
+	for (size_type i = 0; i < vec_size; ++i)
 		_alloc.construct(new_start + i, _start[i]);
 	clear();
 	_alloc.deallocate(_start, capacity());
 	_start = new_start;
-	_end = _start + prev_size;
-	_limit = _start + new_size;
+	_end = _start + vec_size;
+	_limit = _start + new_capacity;
 }
 
 template <class T, class Alloc>
