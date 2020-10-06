@@ -769,3 +769,123 @@ ft::vector<T, Alloc>::RIterator::operator[](typename RIterator::difference_type 
 {
 	return (this->_target[-i]);
 }
+
+/* CRIterator */
+template <class T, class Alloc>
+ft::vector<T, Alloc>::CRIterator::CRIterator(T * t)
+						: BaseIterator(t)
+{
+}
+
+template <class T, class Alloc>
+ft::vector<T, Alloc>::CRIterator::~CRIterator(void)
+{
+}
+
+
+template <class T, class Alloc>
+ft::vector<T, Alloc>::CRIterator::CRIterator(CRIterator const & other)
+						 : BaseIterator(other)
+{
+}
+
+template <class T, class Alloc>
+typename ft::vector<T, Alloc>::CRIterator &
+ft::vector<T, Alloc>::CRIterator::operator=(CRIterator const & other)
+{
+	if (this != &other)
+		BaseIterator::operator=(other);
+	return (*this);
+}
+
+template <class T, class Alloc>
+T const &
+ft::vector<T, Alloc>::CRIterator::operator*(void) const
+{
+	return (*(this->_target));
+}
+
+template <class T, class Alloc>
+T const *
+ft::vector<T, Alloc>::CRIterator::operator->(void) const
+{
+	return (this->_target);
+}
+
+template <class T, class Alloc>
+typename ft::vector<T, Alloc>::CRIterator &
+ft::vector<T, Alloc>::CRIterator::operator++(void)
+{
+	--this->_target;
+	return (*this);
+}
+
+template <class T, class Alloc>
+typename ft::vector<T, Alloc>::CRIterator
+ft::vector<T, Alloc>::CRIterator::operator++(int)
+{
+	CRIterator tmp(*this);
+	++*this;
+	return (tmp);
+}
+
+template <class T, class Alloc>
+typename ft::vector<T, Alloc>::CRIterator &
+ft::vector<T, Alloc>::CRIterator::operator--(void)
+{
+	++this->_target;
+	return (*this);
+}
+
+template <class T, class Alloc>
+typename ft::vector<T, Alloc>::CRIterator
+ft::vector<T, Alloc>::CRIterator::operator--(int)
+{
+	CRIterator tmp(*this);
+	--*this;
+	return (tmp);
+}
+
+template <class T, class Alloc>
+typename ft::vector<T, Alloc>::CRIterator
+ft::vector<T, Alloc>::CRIterator::operator+(typename CRIterator::difference_type i) const
+{
+	return (CRIterator(this->_target - i));
+}
+
+template <class T, class Alloc>
+typename ft::vector<T, Alloc>::CRIterator
+ft::vector<T, Alloc>::CRIterator::operator-(typename CRIterator::difference_type i) const
+{
+	return (CRIterator(this->_target + i));
+}
+
+template <class T, class Alloc>
+typename ft::vector<T, Alloc>::CRIterator::difference_type
+ft::vector<T, Alloc>::CRIterator::operator-(CRIterator const & other) const
+{
+	return (other._target - this->_target);
+}
+
+template <class T, class Alloc>
+typename ft::vector<T, Alloc>::CRIterator &
+ft::vector<T, Alloc>::CRIterator::operator+=(typename CRIterator::difference_type i)
+{
+	this->_target -= i;
+	return (*this);
+}
+
+template <class T, class Alloc>
+typename ft::vector<T, Alloc>::CRIterator &
+ft::vector<T, Alloc>::CRIterator::operator-=(typename CRIterator::difference_type i)
+{
+	this->_target += i;
+	return (*this);
+}
+
+template <class T, class Alloc>
+T const &
+ft::vector<T, Alloc>::CRIterator::operator[](typename CRIterator::difference_type i) const
+{
+	return (this->_target[-i]);
+}

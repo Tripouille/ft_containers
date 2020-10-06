@@ -88,7 +88,7 @@ namespace ft
 									operator-(CIterator const & other) const;
 				CIterator &			operator+=(typename CIterator::difference_type i);
 				CIterator &			operator-=(typename CIterator::difference_type i);
-				T const &					operator[](typename CIterator::difference_type i) const;
+				T const &			operator[](typename CIterator::difference_type i) const;
 		};
 
 		class RIterator : public BaseIterator
@@ -114,6 +114,31 @@ namespace ft
 				RIterator &			operator+=(typename RIterator::difference_type i);
 				RIterator &			operator-=(typename RIterator::difference_type i);
 				T &					operator[](typename RIterator::difference_type i) const;
+		};
+
+		class CRIterator : public BaseIterator
+		{
+			public:
+				CRIterator(T * t = NULL);
+				~CRIterator(void);
+				CRIterator(CRIterator const & other);
+
+				CRIterator &		operator=(CRIterator const & other);
+				T const &			operator*(void) const;
+				T const *			operator->(void) const;
+				CRIterator &		operator++(void);
+				CRIterator			operator++(int);
+				CRIterator &		operator--(void);
+				CRIterator			operator--(int);
+				CRIterator 			operator+(typename CRIterator::difference_type i) const;
+		 friend CRIterator			operator+(typename CRIterator::difference_type i, CRIterator const & it)
+									{return (CRIterator(it._target - i));}
+				CRIterator 			operator-(typename CRIterator::difference_type i) const;
+				typename CRIterator::difference_type
+									operator-(CRIterator const & other) const;
+				CRIterator &		operator+=(typename CRIterator::difference_type i);
+				CRIterator &		operator-=(typename CRIterator::difference_type i);
+				T const &			operator[](typename CRIterator::difference_type i) const;
 		};
 
 		public:
