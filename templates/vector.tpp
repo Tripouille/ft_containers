@@ -225,6 +225,14 @@ ft::vector<T, Alloc>::push_back(const value_type & val)
 
 template <typename T, class Alloc>
 void
+ft::vector<T, Alloc>::pop_back(void)
+{
+	--_end;
+	_alloc.destroy(_end);
+}
+
+template <typename T, class Alloc>
+void
 ft::vector<T, Alloc>::clear(void)
 {
 	for (pointer tmp = _start; tmp != _end; ++tmp)
