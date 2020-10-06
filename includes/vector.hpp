@@ -232,7 +232,7 @@ namespace ft
 			void _construct_vector_with_val(size_type n, value_type const & val);
 			template <class InputIterator>
 			void _construct_vector_from_range(InputIterator & first, InputIterator & last);
-			void _reallocate(size_type n);
+			void _reallocate(size_type n, bool reserve_place = false);
 			void _range_check(size_type n) const throw(std::out_of_range);
 			//template <class InputIterator>
 			//void _fill_from_iterators(InputIterator & first, InputIterator & last);

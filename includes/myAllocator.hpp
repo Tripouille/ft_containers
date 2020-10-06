@@ -33,22 +33,19 @@ class myAllocator
 		pointer address(reference x) const {return (&x);}
 		const_pointer address(const_reference x) const {return (&x);}
 		myAllocator<T>& operator=(myAllocator const &) {return (*this);}
-		void construct(pointer p, T const & val)
-		{
-			std::allocator<T>().construct(p, val);
-		}
-		void destroy(pointer p) { p->~T(); }
+		void construct(pointer p, T const & val) {new(p) T(val);}
+		void destroy(pointer p) { p->~T();}
 
-		size_type max_size() const { return size_t(42); }
+		size_type max_size() const {return size_t(42);}
 
 		template <class U>
-		struct rebind { typedef myAllocator<U> other; };
+		struct rebind {typedef myAllocator<U> other;};
 
 		template <class U>
 		myAllocator(myAllocator<U> const &) {}
 
 		template <class U>
-		myAllocator& operator=(myAllocator<U> const &) { return *this; }
+		myAllocator& operator=(myAllocator<U> const &) {return *this;}
 };
 
 #endif
