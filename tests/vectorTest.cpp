@@ -411,7 +411,31 @@ test_vector(void)
 	FILE << ENDL;
 
 	FILE << CATEGORY << "===> insert" << ENDL;
+
+
 	FILE << CATEGORY << "===> erase" << ENDL;
+	FILE << SUBCATEGORY << "=====> single" << ENDL;
+	FILE << "vec<int> v(vectorB)" << ENDL; vec<int> v(vectorB);
+	print_vector(v, "v");
+	FILE << "*v.erase(v.begin() + 1) : " << *v.erase(v.begin() + 1) << ENDL;
+	print_vector(v, "v");
+	FILE << "*v.erase(v.begin()) : " << *v.erase(v.begin()) << ENDL;
+	print_vector(v, "v");
+	FILE << "*v.erase(v.end() - 1) : " << *v.erase(v.end() - 1) << ENDL;
+	print_vector(v, "v");
+	FILE << SUBCATEGORY << "=====> range" << ENDL;
+	FILE << "*v.erase(v.begin(), v.end()) : " << *v.erase(v.begin(), v.end()) << ENDL;
+	print_vector(v, "v");
+	FILE << "v = vectorB;" << ENDL; v = vectorB; print_vector(v, "v");
+	FILE << "*v.erase(v.begin() + 1, v.end() - 1) : " << *v.erase(v.begin() + 1, v.end() - 1) << ENDL;
+	print_vector(v, "v");
+	FILE << "v = vectorB;" << ENDL; v = vectorB; print_vector(v, "v");
+	FILE << "*v.erase(v.begin(), v.begin() + 2) : " << *v.erase(v.begin(), v.begin() + 2) << ENDL;
+	print_vector(v, "v");
+	FILE << "*v.erase(v.end() - 2, v.end()) : " << *v.erase(v.end() - 2, v.end()) << ENDL;
+	print_vector(v, "v");
+	FILE << ENDL;
+
 	FILE << CATEGORY << "===> swap" << ENDL;
 	FILE << CATEGORY << "===> clear" << ENDL;
 	FILE << ENDL;
