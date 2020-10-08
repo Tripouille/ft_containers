@@ -355,9 +355,15 @@ ft::vector<T, Alloc>::clear(void)
 	_end = _start;
 }
 
-/** Operations **/
-
 /** Observers **/
+
+template <class T, class Alloc>
+typename ft::vector<T, Alloc>::allocator_type
+ft::vector<T, Alloc>::get_allocator(void) const
+{
+	return (_alloc);
+}
+
 
 /** Private functions **/
 

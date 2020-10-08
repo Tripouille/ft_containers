@@ -223,26 +223,7 @@ namespace ft
 				//iterator erase(iterator position);
 				//iterator erase(iterator first, iterator last);
 				void swap(vector & x);
-				//void resize(size_type n, value_type val = value_type());
 				void clear(void);
-
-			/** Operations **/
-				/*** entire list (1) ***/ //void splice(iterator position, list & x);
-				/*** single element (2)	***/ //void splice(iterator position, list & x, iterator i);
-				/*** element range (3) ***/ //void splice(iterator position, list & x, iterator first, iterator last);
-				/*void remove(const value_type & val);
-				template <class Predicate>
-				void remove_if(Predicate pred);
-				void unique();
-				template <class BinaryPredicate>
-				void unique(BinaryPredicate binary_pred);
-				void merge(list & x);
-				template <class Compare>
-				void merge(list & x, Compare comp);*/
-				/*** (1) ***/ //void sort(void);
-				/*** (2) ***/ /*template <class Compare>
-							  void sort(Compare comp);
-				void reverse(void);*/
 
 			/** Observers **/
 				allocator_type get_allocator(void) const;
