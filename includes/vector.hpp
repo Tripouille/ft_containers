@@ -222,7 +222,7 @@ namespace ft
 															InputIterator last);
 				//iterator erase(iterator position);
 				//iterator erase(iterator first, iterator last);
-				//void swap(list & x);
+				void swap(vector & x);
 				//void resize(size_type n, value_type val = value_type());
 				void clear(void);
 

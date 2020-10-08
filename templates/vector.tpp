@@ -336,6 +336,18 @@ ft::vector<T, Alloc>::insert(iterator position, InputIterator first, InputIterat
 
 template <typename T, class Alloc>
 void
+ft::vector<T, Alloc>::swap(vector & x)
+{
+	if (this != &x)
+	{
+		std::swap(_start, x._start);
+		std::swap(_end, x._end);
+		std::swap(_limit, x._limit);
+	}
+}
+
+template <typename T, class Alloc>
+void
 ft::vector<T, Alloc>::clear(void)
 {
 	for (pointer tmp = _start; tmp != _end; ++tmp)

@@ -363,8 +363,6 @@ test_vector(void)
 	FILE << "constCharVec.back() : " << constCharVec.back() << ENDL;
 	FILE << ENDL;
 
-
-
 	FILE << SUBTITLE << "Modifiers" << ENDL;
 	FILE << CATEGORY << "===> Exception-safety test with <ThrowingExceptionClass>, "
 						"a class which throws an exception in copy constructor" << ENDL;
@@ -439,7 +437,16 @@ test_vector(void)
 
 	FILE << CATEGORY << "===> erase" << ENDL;
 	FILE << CATEGORY << "===> swap" << ENDL;
-	FILE << CATEGORY << "===> clear" << ENDL;
+	print_vector(vectorA, "vectorA");
+	print_vector(vectorB, "vectorB");
+	FILE << "vectorA.swap(vectorB);" << ENDL; vectorA.swap(vectorB);
+	print_vector(vectorA, "vectorA");
+	print_vector(vectorB, "vectorB");
+	print_vector(vectorC, "vectorC");
+	print_vector(vectorD, "vectorD");
+	FILE << "vectorC.swap(vectorD);" << ENDL; vectorC.swap(vectorD);
+	print_vector(vectorC, "vectorC");
+	print_vector(vectorD, "vectorD");
 	FILE << ENDL;
 
 	FILE << TITLE << "=> ENDING vector tests" << ENDL << ENDL;
