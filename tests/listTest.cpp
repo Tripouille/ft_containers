@@ -251,6 +251,9 @@ test_list(void)
 	}
 	FILE << "c_it--;" << ENDL; c_it--;
 	FILE << "(*c_it == listA.back()) = " << OUTPUT << std::boolalpha << (*c_it == listA.back()) << ENDL;
+	#ifdef CONST_TEST
+	*c_it = 42;
+	#endif
 	FILE << ENDL;
 
 	FILE << CATEGORY << "===> Reverse iterators" << ENDL;
@@ -279,6 +282,9 @@ test_list(void)
 	}
 	FILE << "cr_it--;" << ENDL; cr_it--;
 	FILE << "(*cr_it == listA.front()) = " << OUTPUT << std::boolalpha << (*cr_it == listA.front()) << ENDL;
+	#ifdef CONST_TEST
+	*cr_it = 42;
+	#endif
 	FILE << ENDL;
 
 	FILE << CATEGORY << "===> Operator-> on iterators" << ENDL;
@@ -752,5 +758,5 @@ test_list(void)
 int
 main(void)
 {
-    test_list<ft::list>();
+    test_list<std::list>();
 }

@@ -123,6 +123,7 @@ namespace ft
 		{
 			public:
 				CRIterator(T * t = NULL);
+				CRIterator(RIterator const & rit);
 				~CRIterator(void);
 				CRIterator(CRIterator const & other);
 
@@ -155,6 +156,7 @@ namespace ft
 			typedef typename ft::vector<T, Alloc>::Iterator iterator;
 			typedef typename ft::vector<T, Alloc>::CIterator const_iterator;
 			typedef typename ft::vector<T, Alloc>::RIterator reverse_iterator;
+			typedef typename ft::vector<T, Alloc>::CRIterator const_reverse_iterator;
 			typedef ptrdiff_t difference_type;
 			typedef size_t size_type;
 
@@ -181,10 +183,9 @@ namespace ft
 				iterator end(void);
 				const_iterator end(void) const;
 				reverse_iterator rbegin(void);
-				reverse_iterator rend(void);
-				/*
 				const_reverse_iterator rbegin(void) const;
-				const_reverse_iterator rend(void) const;*/
+				reverse_iterator rend(void);
+				const_reverse_iterator rend(void) const;
 
 			/** Capacity **/
 				size_type size(void) const;
@@ -199,10 +200,10 @@ namespace ft
 				const_reference operator[] (size_type n) const;
 				reference at(size_type n);
 				const_reference at(size_type n) const;
-				/*reference front(void);
+				reference front(void);
 				const_reference front(void) const;
 				reference back(void);
-				const_reference back(void) const;*/
+				const_reference back(void) const;
 
 			/** Modifiers **/
 				/*** range (1) ***/	template <class InputIterator>

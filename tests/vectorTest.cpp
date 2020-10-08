@@ -197,6 +197,9 @@ test_vector(void)
 	FILE << "cit[-1] : " << OUTPUT << cit[-1] << ENDL;
 	FILE << "cit[0] : " << OUTPUT << cit[0] << ENDL;
 	FILE << "cit[1] : " << OUTPUT << cit[1] << ENDL;
+	#ifdef CONST_TEST
+	cit[1] = 42;
+	#endif
 	FILE << ENDL;
 
 	FILE << CATEGORY << "===> Reverse Iterators" << ENDL;
@@ -238,6 +241,48 @@ test_vector(void)
 	print_vector(charVec, "charVec");
 	FILE << ENDL;
 
+	FILE << CATEGORY << "===> Const Reverse Iterators" << ENDL;
+	FILE << "vec<char>  charVec(1, 'A');" << ENDL; vec<char>  charVec2(1, 'A');
+	print_vector(charVec2, "charVec2");
+	FILE << "reverse_iterator crit = charVec2.rbegin();" << ENDL; typename vec<char>::const_reverse_iterator crit = charVec2.rbegin();
+	FILE << "reverse_iterator crite = charVec2.rend();" << ENDL; typename vec<char>::const_reverse_iterator crite = charVec2.rend();
+	FILE << "crit - crite : " << OUTPUT << crit - crite << ENDL;
+	FILE << "crite - crit : " << OUTPUT << crite - crit << ENDL;
+	FILE << "(crite + (crit - crite)) == crit : " <<  std::boolalpha << OUTPUT << ((crite + (crit - crite)) == crit) << ENDL;
+	FILE << "*crit : " << OUTPUT << *crit << ENDL;
+	FILE << "charVec2.push_back('B');" << ENDL; charVec2.push_back('B');
+	FILE << "charVec2.push_back('C');" << ENDL; charVec2.push_back('C');
+	FILE << "charVec2.push_back('D');" << ENDL; charVec2.push_back('D');
+	print_vector(charVec2, "charVec2");
+	FILE << "crit = charVec2.rbegin();" << ENDL;crit = charVec2.rbegin();
+	FILE << "*crit : " << OUTPUT << *crit << ENDL;
+	FILE << "*++crit : " << OUTPUT << *++crit << ENDL;
+	FILE << "*--crit : " << OUTPUT << *--crit << ENDL;
+	FILE << "*crit++ : " << OUTPUT << *crit++ << ENDL;
+	FILE << "*crit-- : " << OUTPUT << *crit-- << ENDL;
+	FILE << "*crit : " << OUTPUT << *crit << ENDL;
+	FILE << "*(crit + 2) : " << OUTPUT << *(crit + 2) << ENDL;
+	FILE << "*(2 + crit) : " << OUTPUT << *(2 + crit) << ENDL;
+	FILE << "*++crit : " << OUTPUT << *++crit << ENDL;
+	FILE << "*(crit - 1) : " << OUTPUT << *(crit - 1) << ENDL;
+	FILE << "*--crit : " << OUTPUT << *--crit << ENDL;
+	FILE << "*((crit += 2) = charVec2.rbegin()): " << OUTPUT << *((crit += 2) = charVec2.rbegin()) << ENDL;
+	FILE << "*(crit += 2) : " << OUTPUT << *(crit += 2) << ENDL;
+	FILE << "*((crit -= 2) = --charVec2.rend()): " << OUTPUT << *((crit -= 2) = --charVec2.rend()) << ENDL;
+	FILE << "*(crit -= 2) : " << OUTPUT << *(crit -= 2) << ENDL;
+	FILE << "crit[0] : " << OUTPUT << crit[0] << ENDL;
+	FILE << "*++crit : " << OUTPUT << *++crit << ENDL;
+	FILE << "crit[-1] : " << OUTPUT << crit[-1] << ENDL;
+	FILE << "crit[0] : " << OUTPUT << crit[0] << ENDL;
+	FILE << "crit[1] : " << OUTPUT << crit[1] << ENDL;
+	FILE << "crit[1] : " << OUTPUT << crit[1] << ENDL;
+	FILE << "crit[1] : " << OUTPUT << crit[1] << ENDL;
+	#ifdef CONST_TEST
+	crit[1] = 42;
+	#endif
+	print_vector(charVec2, "charVec2");
+	FILE << ENDL;
+
 	FILE << SUBTITLE << "Capacity" << ENDL;
 	FILE << CATEGORY << "===> max_size()" << ENDL;
 	FILE << "vectorA.max_size() : " << OUTPUT << vectorA.max_size() << ENDL;
@@ -256,6 +301,7 @@ test_vector(void)
 	FILE << "vectorA.resize(100);" << ENDL; vectorA.resize(100);
 	print_vector(vectorA, "vectorA");
 	//vectorA.resize(4611686018427387903); //bad_alloc exception, vector in valid state
+	FILE << ENDL;
 	FILE << CATEGORY << "===> reserve()" << ENDL;
 	vectorA.clear();
 	print_vector(vectorA, "vectorA");
@@ -277,6 +323,8 @@ test_vector(void)
 	FILE << "test[1] : " << OUTPUT << test[1] << ENDL;
 	FILE << "vec<int> const const_test(1, 42);" << ENDL; vec<int> const const_test(1, 42);
 	FILE << "const_test[0] : " << OUTPUT << const_test[0] << ENDL;
+	FILE << ENDL;
+
 	FILE << CATEGORY << "===> at" << ENDL;
 	FILE << "test.at(0) : " << OUTPUT << test.at(0) << ENDL;
 	try
@@ -289,6 +337,33 @@ test_vector(void)
 	catch (std::out_of_range const & e)
 		{FILE << OUTPUT << e.what() << ENDL;}
 	FILE << ENDL;
+
+	FILE << CATEGORY << "===> front" << ENDL;
+	print_vector(charVec, "charVec");
+	FILE << "vec<char> const constCharVec(charVec); " << ENDL; vec<char> const constCharVec(charVec);
+	FILE << "charVec.front() = 'W';" << ENDL; charVec.front() = 'W';
+	FILE << "charVec.front() : " << charVec.front() << ENDL;
+
+	print_vector(constCharVec, "constCharVec");
+	#ifdef CONST_TEST
+		FILE << "constCharVec.front() = 'W';" << ENDL; constCharVec.front() = 'W';
+	#endif
+	FILE << "constCharVec.front() : " << constCharVec.front() << ENDL;
+	FILE << ENDL;
+
+	FILE << CATEGORY << "===> back" << ENDL;
+	print_vector(charVec, "charVec");
+	FILE << "charVec.back() = 'O';" << ENDL; charVec.back() = 'O';
+	FILE << "charVec.back() : " << charVec.back() << ENDL;
+
+	print_vector(constCharVec, "constCharVec");
+	#ifdef CONST_TEST
+		FILE << "constCharVec.back() = 'P';" << ENDL; constCharVec.back() = 'P';
+	#endif
+	FILE << "constCharVec.back() : " << constCharVec.back() << ENDL;
+	FILE << ENDL;
+
+
 
 	FILE << SUBTITLE << "Modifiers" << ENDL;
 	FILE << CATEGORY << "===> Exception-safety test with <ThrowingExceptionClass>, "
@@ -309,6 +384,8 @@ test_vector(void)
 	print_vector(vectorC, "vectorC");
 	FILE << "vectorC.clear(); vectorC.assign(7, 100);" << ENDL; vectorC.clear(); vectorC.assign(7, 100);
 	print_vector(vectorC, "vectorC");
+	FILE << ENDL;
+
 	FILE << SUBCATEGORY << "=====> range (1)" << ENDL;
 	print_vector(vectorB, "vectorB");
 	FILE << "vectorC.assign(vectorB.rbegin(), vectorB.rend());" << ENDL; vectorC.assign(vectorB.rbegin(), vectorB.rend());
