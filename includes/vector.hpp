@@ -231,8 +231,6 @@ namespace ft
 		private:
 		/* Private Functions */
 			void _copy(vector const & other);
-			//void _debug(void) const;
-			//DLNode<T> * _new_node(const T & v, DLNode<T> * p, DLNode<T> * n);
 			template <class Integer>
 			void _construct_vector_dispatch(Integer & first, Integer & last, INT_TYPE);
 			template <class InputIterator>
@@ -242,11 +240,6 @@ namespace ft
 			void _construct_vector_from_range(InputIterator & first, InputIterator & last);
 			void _reallocate(size_type n, bool anticipate_place = false);
 			void _range_check(size_type n) const throw(std::out_of_range);
-			//template <class InputIterator>
-			//void _fill_from_iterators(InputIterator & first, InputIterator & last);
-			//void _actualize_end(void);
-			//void _actualize_head_tail(void);
-			//void _swap(const_iterator a, const_iterator b);
 
 		/* Private variables */
 			allocator_type			_alloc;
@@ -257,18 +250,18 @@ namespace ft
 
 	/* Non-member function overloads */
 		/** Relational operators **/
-			/*template <class T, class Alloc>
-			bool operator==(const list<T, Alloc> & lhs, const list<T, Alloc> & rhs);
 			template <class T, class Alloc>
-			bool operator!=(const list<T, Alloc> & lhs, const list<T, Alloc> & rhs);
+			bool operator==(const vector<T, Alloc> & lhs, const vector<T, Alloc> & rhs);
 			template <class T, class Alloc>
-			bool operator<(const list<T, Alloc> & lhs, const list<T, Alloc> & rhs);
+			bool operator!=(const vector<T, Alloc> & lhs, const vector<T, Alloc> & rhs);
 			template <class T, class Alloc>
-			bool operator<=(const list<T, Alloc> & lhs, const list<T, Alloc> & rhs);
+			bool operator<(const vector<T, Alloc> & lhs, const vector<T, Alloc> & rhs);
 			template <class T, class Alloc>
-			bool operator>(const list<T, Alloc> & lhs, const list<T, Alloc> & rhs);
+			bool operator<=(const vector<T, Alloc> & lhs, const vector<T, Alloc> & rhs);
 			template <class T, class Alloc>
-			bool operator>=(const list<T, Alloc> & lhs, const list<T, Alloc> & rhs);*/
+			bool operator>(const vector<T, Alloc> & lhs, const vector<T, Alloc> & rhs);
+			template <class T, class Alloc>
+			bool operator>=(const vector<T, Alloc> & lhs, const vector<T, Alloc> & rhs);
 
 		/** swap **/
 			/*template <class T, class Alloc>

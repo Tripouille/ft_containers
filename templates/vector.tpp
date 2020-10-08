@@ -455,7 +455,76 @@ throw(std::out_of_range)
 	throw std::out_of_range(msg.str());
 }
 
-/** Non-member function overloads **/
+/* Non-member function overloads */
+/** Relational operators **/
+
+template <class T, class Alloc>
+bool
+ft::operator==(const vector<T, Alloc> & lhs, const vector<T, Alloc> & rhs)
+{
+	if (lhs.size() != rhs.size())
+		return (false);
+	typename ft::vector<T, Alloc>::const_iterator lhs_it = lhs.begin();
+	typename ft::vector<T, Alloc>::const_iterator lhs_ite = lhs.end();
+	typename ft::vector<T, Alloc>::const_iterator rhs_it = rhs.begin();
+	while (lhs_it != lhs_ite)
+	{
+		if (!(*lhs_it == *rhs_it))
+			return (false);
+		++lhs_it;
+		++rhs_it;
+	}
+	return (true);
+}
+
+template <class T, class Alloc>
+bool
+ft::operator!=(const vector<T, Alloc> & lhs, const vector<T, Alloc> & rhs)
+{
+	return (!(lhs == rhs));
+}
+
+template <class T, class Alloc>
+bool
+ft::operator<(const vector<T, Alloc> & lhs, const vector<T, Alloc> & rhs)
+{
+	typename ft::vector<T, Alloc>::const_iterator lhs_it = lhs.begin();
+	typename ft::vector<T, Alloc>::const_iterator lhs_ite = lhs.end();
+	typename ft::vector<T, Alloc>::const_iterator rhs_it = rhs.begin();
+	typename ft::vector<T, Alloc>::const_iterator rhs_ite = rhs.end();
+	while (lhs_it != lhs_ite)
+	{
+		if (rhs_it == rhs_ite || *rhs_it < *lhs_it)
+			return (false);
+		else if (*lhs_it < *rhs_it)
+			return (true);
+		++lhs_it;
+		++rhs_it;
+	}
+	return (rhs_it != rhs_ite);
+}
+
+template <class T, class Alloc>
+bool
+ft::operator<=(const vector<T, Alloc> & lhs, const vector<T, Alloc> & rhs)
+{
+	return (!(rhs < lhs));
+}
+
+template <class T, class Alloc>
+bool
+ft::operator>(const vector<T, Alloc> & lhs, const vector<T, Alloc> & rhs)
+{
+	return (rhs < lhs);
+}
+
+template <class T, class Alloc>
+bool
+ft::operator>=(const vector<T, Alloc> & lhs, const vector<T, Alloc> & rhs)
+{
+	return (!(lhs < rhs));
+}
+
 
 /* BaseIterator */
 template <class T, class Alloc>
