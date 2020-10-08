@@ -264,8 +264,8 @@ namespace ft
 			bool operator>=(const vector<T, Alloc> & lhs, const vector<T, Alloc> & rhs);
 
 		/** swap **/
-			/*template <class T, class Alloc>
-			void swap(list<T, Alloc> & x, list<T, Alloc> & y);*/
+			template <class T, class Alloc>
+			void swap(vector<T, Alloc> & x, vector<T, Alloc> & y);
 
 	/* Non-member function for iterator */
 		/*template <class T, class Alloc>

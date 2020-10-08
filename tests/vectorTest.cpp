@@ -521,6 +521,14 @@ test_vector(void)
 	FILE << "vectorA >= vectorB : " << OUTPUT << std::boolalpha << (vectorA >= vectorB) << ENDL;
 	FILE << ENDL;
 
+	FILE << CATEGORY << "===> Swap" << ENDL;
+	print_vector(vectorA, "vectorA");
+	print_vector(vectorC, "vectorC");
+	FILE << "swap(vectorA, vectorC);" << ENDL; swap(vectorA, vectorC);
+	print_vector(vectorA, "vectorA");
+	print_vector(vectorC, "vectorC");
+	FILE << ENDL;
+
 	FILE << TITLE << "=> ENDING vector tests" << ENDL << ENDL;
 }
 

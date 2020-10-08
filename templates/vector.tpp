@@ -456,7 +456,6 @@ throw(std::out_of_range)
 }
 
 /* Non-member function overloads */
-/** Relational operators **/
 
 template <class T, class Alloc>
 bool
@@ -525,8 +524,16 @@ ft::operator>=(const vector<T, Alloc> & lhs, const vector<T, Alloc> & rhs)
 	return (!(lhs < rhs));
 }
 
+template <class T, class Alloc>
+void
+ft::swap(ft::vector<T, Alloc> & x, ft::vector<T, Alloc> & y)
+{
+	x.swap(y);
+}
+
 
 /* BaseIterator */
+
 template <class T, class Alloc>
 ft::vector<T, Alloc>::BaseIterator::BaseIterator(T * t)
 					 : _target(t)
