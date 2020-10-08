@@ -334,6 +334,32 @@ test_vector(void)
 	FILE << ENDL;
 
 	FILE << CATEGORY << "===> insert" << ENDL;
+	FILE << "vec<int> vectorF;" << ENDL; vec<int> vectorF;
+	print_vector(vectorF, "vectorF");
+	FILE << "vectorF.insert(vectorF.end(), 1);" << ENDL; vectorF.insert(vectorF.end(), 1);
+	print_vector(vectorF, "vectorF");
+	print_vector(vectorC, "vectorC");
+	FILE << "vectorC.insert(vectorC.end(), 1);" << ENDL; vectorC.insert(vectorC.end(), 1);
+	print_vector(vectorC, "vectorC");
+	print_vector(vectorD, "vectorD");
+	FILE << "vectorD.insert(vectorD.end(), 6);" << ENDL; vectorD.insert(vectorD.end(), 6);
+	print_vector(vectorD, "vectorD");
+	FILE << "vectorD.insert(vectorD.begin(), 0);" << ENDL; vectorD.insert(vectorD.begin(), 0);
+	print_vector(vectorD, "vectorD");
+	FILE << "vec<int>::iterator insert_it = vectorD.begin() + 2;" << ENDL;
+	typename vec<int>::iterator insert_it = vectorD.begin() + 2;
+	FILE << "*insert_it : " << OUTPUT << *insert_it << ENDL;
+	FILE << "vectorD.insert(vectorD.begin() + 4, 3);" << ENDL; vectorD.insert(vectorD.begin() + 4, 3);
+	print_vector(vectorD, "vectorD");
+	FILE << "*insert_it : " << OUTPUT << *insert_it << ENDL;
+	FILE << "vectorD.insert(vectorD.begin(), 3, -1);" << ENDL; vectorD.insert(vectorD.begin(), 3, -1);
+	print_vector(vectorD, "vectorD");
+	FILE << "vectorD.insert(vectorD.end(), 0, 7);" << ENDL; vectorD.insert(vectorD.end(), 0, 7);
+	print_vector(vectorD, "vectorD");
+	FILE << "vectorD.insert(vectorD.end(), 1, 7);" << ENDL; vectorD.insert(vectorD.end(), 1, 7);
+	print_vector(vectorD, "vectorD");
+	FILE << ENDL;
+
 	FILE << CATEGORY << "===> erase" << ENDL;
 	FILE << CATEGORY << "===> swap" << ENDL;
 	FILE << CATEGORY << "===> clear" << ENDL;

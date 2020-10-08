@@ -231,6 +231,67 @@ ft::vector<T, Alloc>::pop_back(void)
 	_alloc.destroy(_end);
 }
 
+/*** single element (1) ***/
+template <typename T, class Alloc>
+typename ft::vector<T, Alloc>::iterator
+ft::vector<T, Alloc>::insert(iterator position, const value_type & val)
+{
+	difference_type position_index = position._target - _start;
+	if (_limit == _end)
+	{
+		_reallocate(size() + 1, true);
+		position = iterator(_start + position_index);
+	}
+	memmove(position._target + 1, position._target, static_cast<unsigned long>((_end - position._target)) * sizeof(T));
+	_alloc.construct(position._target, val);
+	++_end;
+	return (position);
+}
+
+/*** fill (2) ***/
+template <typename T, class Alloc>
+void
+ft::vector<T, Alloc>::insert(iterator position, size_type n, const value_type & val)
+{
+	difference_type position_index = position._target - _start;
+	if (size() + n > capacity())
+	{
+		_reallocate(size() + n, true);
+		position = iterator(_start + position_index);
+	}
+	memmove(position._target + n, position._target, static_cast<unsigned long>((_end - position._target)) * sizeof(T));
+	for (size_type i = 0; i < n; i++)
+		_alloc.construct(position._target + i, val);
+	_end += n;
+}
+
+/*** range (3) ***/
+template <typename T, class Alloc>
+template <class InputIterator>
+void
+ft::vector<T, Alloc>::insert(iterator position, InputIterator first, InputIterator last)
+{
+	vector tmp(first, last);
+	size_type n = tmp.size();
+	difference_type position_index = position._target - _start;
+	if (size() + n > capacity())
+	{
+		_reallocate(size() + n, true);
+		position = iterator(_start + position_index);
+	}
+	memmove(position._target + n, position._target, static_cast<unsigned long>((_end - position._target)) * sizeof(T));
+	iterator it = tmp.begin();
+	iterator ite = tmp.end();
+	size_type i = 0;
+	while (it != ite)
+	{
+		_alloc.construct(position._target + i, *it);
+		++i;
+		++it;
+	}
+	_end += n;
+}
+
 template <typename T, class Alloc>
 void
 ft::vector<T, Alloc>::clear(void)
@@ -305,11 +366,11 @@ ft::vector<T, Alloc>::_construct_vector_from_range(InputIterator & first, InputI
 
 template <class T, class Alloc>
 void
-ft::vector<T, Alloc>::_reallocate(size_type n, bool reserve_place)
+ft::vector<T, Alloc>::_reallocate(size_type n, bool anticipate_place)
 {
 	size_type vec_size = size();
 	size_type new_capacity = n;
-	if (reserve_place && 2 * vec_size >= n && 2 * vec_size >= vec_size)
+	if (anticipate_place && 2 * vec_size >= n && 2 * vec_size >= vec_size)
 		new_capacity = 2 * vec_size;
 	pointer new_start = _alloc.allocate(new_capacity);
 	for (size_type i = 0; i < vec_size; ++i)

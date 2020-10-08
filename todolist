@@ -1,4 +1,6 @@
 astrid :
 voir si utiliser swap plutôt que =
+vérifier si fonctions prenant un n ne bug pas en prenant 0
+utiliser constructeurs (style size_type(a - b)) plutôt que static_cast
 
 jean-michel :

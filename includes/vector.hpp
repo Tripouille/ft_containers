@@ -5,6 +5,7 @@
 # include <limits>
 # include <exception>
 # include <cstddef>
+# include <cstring>
 # include "types.hpp"
 
 namespace ft
@@ -38,6 +39,8 @@ namespace ft
 			protected:
 				void				_copy(BaseIterator const & other);
 				T *					_target;
+			
+			friend class vector<T, Alloc>;
 		};
 
 		class Iterator : public BaseIterator
@@ -207,15 +210,15 @@ namespace ft
 				/*** fill (2) ***/	void assign(size_type n, const value_type & val);
 				void push_back(const value_type & val);
 				void pop_back(void);
-				/*** single element (1) ***//*iterator insert(iterator position,
-															const value_type & val);*/
-				/*** fill (2) ***/			/*void insert(iterator position,
+				/*** single element (1) ***/iterator insert(iterator position,
+															const value_type & val);
+				/*** fill (2) ***/			void insert(iterator position,
 														size_type n,
-														const value_type & val);*/
-				/*** range (3) ***/			/*template <class InputIterator>
+														const value_type & val);
+				/*** range (3) ***/			template <class InputIterator>
 											void insert(iterator position,
 															InputIterator first,
-															InputIterator last);*/
+															InputIterator last);
 				//iterator erase(iterator position);
 				//iterator erase(iterator first, iterator last);
 				//void swap(list & x);
@@ -255,7 +258,7 @@ namespace ft
 			void _construct_vector_with_val(size_type n, value_type const & val);
 			template <class InputIterator>
 			void _construct_vector_from_range(InputIterator & first, InputIterator & last);
-			void _reallocate(size_type n, bool reserve_place = false);
+			void _reallocate(size_type n, bool anticipate_place = false);
 			void _range_check(size_type n) const throw(std::out_of_range);
 			//template <class InputIterator>
 			//void _fill_from_iterators(InputIterator & first, InputIterator & last);
