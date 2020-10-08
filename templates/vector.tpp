@@ -273,6 +273,79 @@ ft::vector<T, Alloc>::pop_back(void)
 	_alloc.destroy(_end);
 }
 
+/*** single element (1) ***/
+template <typename T, class Alloc>
+typename ft::vector<T, Alloc>::iterator
+ft::vector<T, Alloc>::insert(iterator position, const value_type & val)
+{
+	difference_type position_index = position._target - _start;
+	if (_limit == _end)
+	{
+		_reallocate(size() + 1, true);
+		position = iterator(_start + position_index);
+	}
+	memmove(position._target + 1, position._target, static_cast<unsigned long>((_end - position._target)) * sizeof(T));
+	_alloc.construct(position._target, val);
+	++_end;
+	return (position);
+}
+
+/*** fill (2) ***/
+template <typename T, class Alloc>
+void
+ft::vector<T, Alloc>::insert(iterator position, size_type n, const value_type & val)
+{
+	difference_type position_index = position._target - _start;
+	if (size() + n > capacity())
+	{
+		_reallocate(size() + n, true);
+		position = iterator(_start + position_index);
+	}
+	memmove(position._target + n, position._target, static_cast<unsigned long>((_end - position._target)) * sizeof(T));
+	for (size_type i = 0; i < n; i++)
+		_alloc.construct(position._target + i, val);
+	_end += n;
+}
+
+/*** range (3) ***/
+template <typename T, class Alloc>
+template <class InputIterator>
+void
+ft::vector<T, Alloc>::insert(iterator position, InputIterator first, InputIterator last)
+{
+	vector tmp(first, last);
+	size_type n = tmp.size();
+	difference_type position_index = position._target - _start;
+	if (size() + n > capacity())
+	{
+		_reallocate(size() + n, true);
+		position = iterator(_start + position_index);
+	}
+	memmove(position._target + n, position._target, static_cast<unsigned long>((_end - position._target)) * sizeof(T));
+	iterator it = tmp.begin();
+	iterator ite = tmp.end();
+	size_type i = 0;
+	while (it != ite)
+	{
+		_alloc.construct(position._target + i, *it);
+		++i;
+		++it;
+	}
+	_end += n;
+}
+
+template <typename T, class Alloc>
+void
+ft::vector<T, Alloc>::swap(vector & x)
+{
+	if (this != &x)
+	{
+		std::swap(_start, x._start);
+		std::swap(_end, x._end);
+		std::swap(_limit, x._limit);
+	}
+}
+
 template <typename T, class Alloc>
 typename ft::vector<T, Alloc>::iterator
 ft::vector<T, Alloc>::erase(iterator position)
@@ -308,9 +381,15 @@ ft::vector<T, Alloc>::clear(void)
 	_end = _start;
 }
 
-/** Operations **/
-
 /** Observers **/
+
+template <class T, class Alloc>
+typename ft::vector<T, Alloc>::allocator_type
+ft::vector<T, Alloc>::get_allocator(void) const
+{
+	return (_alloc);
+}
+
 
 /** Private functions **/
 
@@ -373,11 +452,11 @@ ft::vector<T, Alloc>::_construct_vector_from_range(InputIterator & first, InputI
 
 template <class T, class Alloc>
 void
-ft::vector<T, Alloc>::_reallocate(size_type n, bool reserve_place)
+ft::vector<T, Alloc>::_reallocate(size_type n, bool anticipate_place)
 {
 	size_type vec_size = size();
 	size_type new_capacity = n;
-	if (reserve_place && 2 * vec_size >= n && 2 * vec_size >= vec_size)
+	if (anticipate_place && 2 * vec_size >= n && 2 * vec_size >= vec_size)
 		new_capacity = 2 * vec_size;
 	pointer new_start = _alloc.allocate(new_capacity);
 	for (size_type i = 0; i < vec_size; ++i)
@@ -402,9 +481,85 @@ throw(std::out_of_range)
 	throw std::out_of_range(msg.str());
 }
 
-/** Non-member function overloads **/
+/* Non-member function overloads */
+
+template <class T, class Alloc>
+bool
+ft::operator==(const vector<T, Alloc> & lhs, const vector<T, Alloc> & rhs)
+{
+	if (lhs.size() != rhs.size())
+		return (false);
+	typename ft::vector<T, Alloc>::const_iterator lhs_it = lhs.begin();
+	typename ft::vector<T, Alloc>::const_iterator lhs_ite = lhs.end();
+	typename ft::vector<T, Alloc>::const_iterator rhs_it = rhs.begin();
+	while (lhs_it != lhs_ite)
+	{
+		if (!(*lhs_it == *rhs_it))
+			return (false);
+		++lhs_it;
+		++rhs_it;
+	}
+	return (true);
+}
+
+template <class T, class Alloc>
+bool
+ft::operator!=(const vector<T, Alloc> & lhs, const vector<T, Alloc> & rhs)
+{
+	return (!(lhs == rhs));
+}
+
+template <class T, class Alloc>
+bool
+ft::operator<(const vector<T, Alloc> & lhs, const vector<T, Alloc> & rhs)
+{
+	typename ft::vector<T, Alloc>::const_iterator lhs_it = lhs.begin();
+	typename ft::vector<T, Alloc>::const_iterator lhs_ite = lhs.end();
+	typename ft::vector<T, Alloc>::const_iterator rhs_it = rhs.begin();
+	typename ft::vector<T, Alloc>::const_iterator rhs_ite = rhs.end();
+	while (lhs_it != lhs_ite)
+	{
+		if (rhs_it == rhs_ite || *rhs_it < *lhs_it)
+			return (false);
+		else if (*lhs_it < *rhs_it)
+			return (true);
+		++lhs_it;
+		++rhs_it;
+	}
+	return (rhs_it != rhs_ite);
+}
+
+template <class T, class Alloc>
+bool
+ft::operator<=(const vector<T, Alloc> & lhs, const vector<T, Alloc> & rhs)
+{
+	return (!(rhs < lhs));
+}
+
+template <class T, class Alloc>
+bool
+ft::operator>(const vector<T, Alloc> & lhs, const vector<T, Alloc> & rhs)
+{
+	return (rhs < lhs);
+}
+
+template <class T, class Alloc>
+bool
+ft::operator>=(const vector<T, Alloc> & lhs, const vector<T, Alloc> & rhs)
+{
+	return (!(lhs < rhs));
+}
+
+template <class T, class Alloc>
+void
+ft::swap(ft::vector<T, Alloc> & x, ft::vector<T, Alloc> & y)
+{
+	x.swap(y);
+}
+
 
 /* BaseIterator */
+
 template <class T, class Alloc>
 ft::vector<T, Alloc>::BaseIterator::BaseIterator(T * t)
 					 : _target(t)

@@ -340,8 +340,6 @@ ft::list<T, Alloc>::swap(list & x)
 {
 	if (this != &x)
 	{
-		std::swap(_alloc, x._alloc);
-		std::swap(_node_alloc, x._node_alloc);
 		std::swap(_size, x._size);
 		std::swap(_head, x._head);
 		std::swap(_tail, x._tail);               											

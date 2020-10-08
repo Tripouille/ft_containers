@@ -5,8 +5,8 @@
 # include <limits>
 # include <exception>
 # include <cstddef>
-# include "types.hpp"
 # include <cstring>
+# include "types.hpp"
 
 namespace ft
 {
@@ -39,6 +39,8 @@ namespace ft
 			protected:
 				void				_copy(BaseIterator const & other);
 				T *					_target;
+			
+			friend class vector<T, Alloc>;
 		};
 
 		class Iterator : public BaseIterator
@@ -209,37 +211,19 @@ namespace ft
 				/*** fill (2) ***/	void assign(size_type n, const value_type & val);
 				void push_back(const value_type & val);
 				void pop_back(void);
-				/*** single element (1) ***//*iterator insert(iterator position,
-															const value_type & val);*/
-				/*** fill (2) ***/			/*void insert(iterator position,
+				/*** single element (1) ***/iterator insert(iterator position,
+															const value_type & val);
+				/*** fill (2) ***/			void insert(iterator position,
 														size_type n,
-														const value_type & val);*/
-				/*** range (3) ***/			/*template <class InputIterator>
+														const value_type & val);
+				/*** range (3) ***/			template <class InputIterator>
 											void insert(iterator position,
 															InputIterator first,
-															InputIterator last);*/
+															InputIterator last);
 				iterator erase(iterator position);
 				iterator erase(iterator first, iterator last);
-				//void swap(list & x);
+				void swap(vector & x);
 				void clear(void);
-
-			/** Operations **/
-				/*** entire list (1) ***/ //void splice(iterator position, list & x);
-				/*** single element (2)	***/ //void splice(iterator position, list & x, iterator i);
-				/*** element range (3) ***/ //void splice(iterator position, list & x, iterator first, iterator last);
-				/*void remove(const value_type & val);
-				template <class Predicate>
-				void remove_if(Predicate pred);
-				void unique();
-				template <class BinaryPredicate>
-				void unique(BinaryPredicate binary_pred);
-				void merge(list & x);
-				template <class Compare>
-				void merge(list & x, Compare comp);*/
-				/*** (1) ***/ //void sort(void);
-				/*** (2) ***/ /*template <class Compare>
-							  void sort(Compare comp);
-				void reverse(void);*/
 
 			/** Observers **/
 				allocator_type get_allocator(void) const;
@@ -247,8 +231,6 @@ namespace ft
 		private:
 		/* Private Functions */
 			void _copy(vector const & other);
-			//void _debug(void) const;
-			//DLNode<T> * _new_node(const T & v, DLNode<T> * p, DLNode<T> * n);
 			template <class Integer>
 			void _construct_vector_dispatch(Integer & first, Integer & last, INT_TYPE);
 			template <class InputIterator>
@@ -256,13 +238,8 @@ namespace ft
 			void _construct_vector_with_val(size_type n, value_type const & val);
 			template <class InputIterator>
 			void _construct_vector_from_range(InputIterator & first, InputIterator & last);
-			void _reallocate(size_type n, bool reserve_place = false);
+			void _reallocate(size_type n, bool anticipate_place = false);
 			void _range_check(size_type n) const throw(std::out_of_range);
-			//template <class InputIterator>
-			//void _fill_from_iterators(InputIterator & first, InputIterator & last);
-			//void _actualize_end(void);
-			//void _actualize_head_tail(void);
-			//void _swap(const_iterator a, const_iterator b);
 
 		/* Private variables */
 			allocator_type			_alloc;
@@ -273,22 +250,22 @@ namespace ft
 
 	/* Non-member function overloads */
 		/** Relational operators **/
-			/*template <class T, class Alloc>
-			bool operator==(const list<T, Alloc> & lhs, const list<T, Alloc> & rhs);
 			template <class T, class Alloc>
-			bool operator!=(const list<T, Alloc> & lhs, const list<T, Alloc> & rhs);
+			bool operator==(const vector<T, Alloc> & lhs, const vector<T, Alloc> & rhs);
 			template <class T, class Alloc>
-			bool operator<(const list<T, Alloc> & lhs, const list<T, Alloc> & rhs);
+			bool operator!=(const vector<T, Alloc> & lhs, const vector<T, Alloc> & rhs);
 			template <class T, class Alloc>
-			bool operator<=(const list<T, Alloc> & lhs, const list<T, Alloc> & rhs);
+			bool operator<(const vector<T, Alloc> & lhs, const vector<T, Alloc> & rhs);
 			template <class T, class Alloc>
-			bool operator>(const list<T, Alloc> & lhs, const list<T, Alloc> & rhs);
+			bool operator<=(const vector<T, Alloc> & lhs, const vector<T, Alloc> & rhs);
 			template <class T, class Alloc>
-			bool operator>=(const list<T, Alloc> & lhs, const list<T, Alloc> & rhs);*/
+			bool operator>(const vector<T, Alloc> & lhs, const vector<T, Alloc> & rhs);
+			template <class T, class Alloc>
+			bool operator>=(const vector<T, Alloc> & lhs, const vector<T, Alloc> & rhs);
 
 		/** swap **/
-			/*template <class T, class Alloc>
-			void swap(list<T, Alloc> & x, list<T, Alloc> & y);*/
+			template <class T, class Alloc>
+			void swap(vector<T, Alloc> & x, vector<T, Alloc> & y);
 
 	/* Non-member function for iterator */
 		/*template <class T, class Alloc>

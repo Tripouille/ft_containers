@@ -363,8 +363,6 @@ test_vector(void)
 	FILE << "constCharVec.back() : " << constCharVec.back() << ENDL;
 	FILE << ENDL;
 
-
-
 	FILE << SUBTITLE << "Modifiers" << ENDL;
 	FILE << CATEGORY << "===> Exception-safety test with <ThrowingExceptionClass>, "
 						"a class which throws an exception in copy constructor" << ENDL;
@@ -411,7 +409,31 @@ test_vector(void)
 	FILE << ENDL;
 
 	FILE << CATEGORY << "===> insert" << ENDL;
-
+	FILE << "vec<int> vectorF;" << ENDL; vec<int> vectorF;
+	print_vector(vectorF, "vectorF");
+	FILE << "vectorF.insert(vectorF.end(), 1);" << ENDL; vectorF.insert(vectorF.end(), 1);
+	print_vector(vectorF, "vectorF");
+	print_vector(vectorC, "vectorC");
+	FILE << "vectorC.insert(vectorC.end(), 1);" << ENDL; vectorC.insert(vectorC.end(), 1);
+	print_vector(vectorC, "vectorC");
+	print_vector(vectorD, "vectorD");
+	FILE << "vectorD.insert(vectorD.end(), 6);" << ENDL; vectorD.insert(vectorD.end(), 6);
+	print_vector(vectorD, "vectorD");
+	FILE << "vectorD.insert(vectorD.begin(), 0);" << ENDL; vectorD.insert(vectorD.begin(), 0);
+	print_vector(vectorD, "vectorD");
+	FILE << "vec<int>::iterator insert_it = vectorD.begin() + 2;" << ENDL;
+	typename vec<int>::iterator insert_it = vectorD.begin() + 2;
+	FILE << "*insert_it : " << OUTPUT << *insert_it << ENDL;
+	FILE << "vectorD.insert(vectorD.begin() + 4, 3);" << ENDL; vectorD.insert(vectorD.begin() + 4, 3);
+	print_vector(vectorD, "vectorD");
+	FILE << "*insert_it : " << OUTPUT << *insert_it << ENDL;
+	FILE << "vectorD.insert(vectorD.begin(), 3, -1);" << ENDL; vectorD.insert(vectorD.begin(), 3, -1);
+	print_vector(vectorD, "vectorD");
+	FILE << "vectorD.insert(vectorD.end(), 0, 7);" << ENDL; vectorD.insert(vectorD.end(), 0, 7);
+	print_vector(vectorD, "vectorD");
+	FILE << "vectorD.insert(vectorD.end(), 1, 7);" << ENDL; vectorD.insert(vectorD.end(), 1, 7);
+	print_vector(vectorD, "vectorD");
+	FILE << ENDL;
 
 	FILE << CATEGORY << "===> erase" << ENDL;
 	FILE << SUBCATEGORY << "=====> single" << ENDL;
@@ -437,7 +459,96 @@ test_vector(void)
 	FILE << ENDL;
 
 	FILE << CATEGORY << "===> swap" << ENDL;
-	FILE << CATEGORY << "===> clear" << ENDL;
+	print_vector(vectorA, "vectorA");
+	print_vector(vectorB, "vectorB");
+	FILE << "vectorA.swap(vectorB);" << ENDL; vectorA.swap(vectorB);
+	print_vector(vectorA, "vectorA");
+	print_vector(vectorB, "vectorB");
+	print_vector(vectorC, "vectorC");
+	print_vector(vectorD, "vectorD");
+	FILE << "vectorC.swap(vectorD);" << ENDL; vectorC.swap(vectorD);
+	print_vector(vectorC, "vectorC");
+	print_vector(vectorD, "vectorD");
+	FILE << ENDL;
+
+	FILE << SUBTITLE << "Non-member function overloads" << ENDL;
+	FILE << CATEGORY << "===> Relational operators" << ENDL;
+	vectorA.clear(); vectorB.clear();
+	print_vector(vectorA, "vectorA"); print_vector(vectorB, "vectorB");
+	FILE << "vectorA == vectorB : " << OUTPUT << std::boolalpha << (vectorA == vectorB) << ENDL;
+	FILE << "vectorA != vectorB : " << OUTPUT << std::boolalpha << (vectorA != vectorB) << ENDL;
+	FILE << "vectorA < vectorB : " << OUTPUT << std::boolalpha << (vectorA < vectorB) << ENDL;
+	FILE << "vectorA > vectorB : " << OUTPUT << std::boolalpha << (vectorA > vectorB) << ENDL;
+	FILE << "vectorA <= vectorB : " << OUTPUT << std::boolalpha << (vectorA <= vectorB) << ENDL;
+	FILE << "vectorA >= vectorB : " << OUTPUT << std::boolalpha << (vectorA >= vectorB) << ENDL;
+	vectorB.assign(2, 1); print_vector(vectorA, "vectorA"); print_vector(vectorB, "vectorB");
+	FILE << "vectorA == vectorB : " << OUTPUT << std::boolalpha << (vectorA == vectorB) << ENDL;
+	FILE << "vectorA != vectorB : " << OUTPUT << std::boolalpha << (vectorA != vectorB) << ENDL;
+	FILE << "vectorA < vectorB : " << OUTPUT << std::boolalpha << (vectorA < vectorB) << ENDL;
+	FILE << "vectorA > vectorB : " << OUTPUT << std::boolalpha << (vectorA > vectorB) << ENDL;
+	FILE << "vectorA <= vectorB : " << OUTPUT << std::boolalpha << (vectorA <= vectorB) << ENDL;
+	FILE << "vectorA >= vectorB : " << OUTPUT << std::boolalpha << (vectorA >= vectorB) << ENDL;
+	vectorA.assign(3, 1); print_vector(vectorA, "vectorA"); print_vector(vectorB, "vectorB");
+	FILE << "vectorA == vectorB : " << OUTPUT << std::boolalpha << (vectorA == vectorB) << ENDL;
+	FILE << "vectorA != vectorB : " << OUTPUT << std::boolalpha << (vectorA != vectorB) << ENDL;
+	FILE << "vectorA < vectorB : " << OUTPUT << std::boolalpha << (vectorA < vectorB) << ENDL;
+	FILE << "vectorA > vectorB : " << OUTPUT << std::boolalpha << (vectorA > vectorB) << ENDL;
+	FILE << "vectorA <= vectorB : " << OUTPUT << std::boolalpha << (vectorA <= vectorB) << ENDL;
+	FILE << "vectorA >= vectorB : " << OUTPUT << std::boolalpha << (vectorA >= vectorB) << ENDL;
+	vectorA.assign(2, 2); print_vector(vectorA, "vectorA"); print_vector(vectorB, "vectorB");
+	FILE << "vectorA == vectorB : " << OUTPUT << std::boolalpha << (vectorA == vectorB) << ENDL;
+	FILE << "vectorA != vectorB : " << OUTPUT << std::boolalpha << (vectorA != vectorB) << ENDL;
+	FILE << "vectorA < vectorB : " << OUTPUT << std::boolalpha << (vectorA < vectorB) << ENDL;
+	FILE << "vectorA > vectorB : " << OUTPUT << std::boolalpha << (vectorA > vectorB) << ENDL;
+	FILE << "vectorA <= vectorB : " << OUTPUT << std::boolalpha << (vectorA <= vectorB) << ENDL;
+	FILE << "vectorA >= vectorB : " << OUTPUT << std::boolalpha << (vectorA >= vectorB) << ENDL;
+	*vectorA.begin() = 1; *(--vectorB.end()) = 3; print_vector(vectorA, "vectorA"); print_vector(vectorB, "vectorB");
+	FILE << "vectorA == vectorB : " << OUTPUT << std::boolalpha << (vectorA == vectorB) << ENDL;
+	FILE << "vectorA != vectorB : " << OUTPUT << std::boolalpha << (vectorA != vectorB) << ENDL;
+	FILE << "vectorA < vectorB : " << OUTPUT << std::boolalpha << (vectorA < vectorB) << ENDL;
+	FILE << "vectorA > vectorB : " << OUTPUT << std::boolalpha << (vectorA > vectorB) << ENDL;
+	FILE << "vectorA <= vectorB : " << OUTPUT << std::boolalpha << (vectorA <= vectorB) << ENDL;
+	FILE << "vectorA >= vectorB : " << OUTPUT << std::boolalpha << (vectorA >= vectorB) << ENDL;
+	vectorB.clear(); vectorB.push_back(-10); vectorB.push_back(-20);
+	print_vector(vectorA, "vectorA"); print_vector(vectorB, "vectorB");
+	FILE << "vectorA == vectorB : " << OUTPUT << std::boolalpha << (vectorA == vectorB) << ENDL;
+	FILE << "vectorA != vectorB : " << OUTPUT << std::boolalpha << (vectorA != vectorB) << ENDL;
+	FILE << "vectorA < vectorB : " << OUTPUT << std::boolalpha << (vectorA < vectorB) << ENDL;
+	FILE << "vectorA > vectorB : " << OUTPUT << std::boolalpha << (vectorA > vectorB) << ENDL;
+	FILE << "vectorA <= vectorB : " << OUTPUT << std::boolalpha << (vectorA <= vectorB) << ENDL;
+	FILE << "vectorA >= vectorB : " << OUTPUT << std::boolalpha << (vectorA >= vectorB) << ENDL;
+	vectorA.push_back(3); vectorB.clear(); for (int i = 4; i <= 7; i++) vectorB.push_back(i);
+	print_vector(vectorA, "vectorA"); print_vector(vectorB, "vectorB");
+	FILE << "vectorA == vectorB : " << OUTPUT << std::boolalpha << (vectorA == vectorB) << ENDL;
+	FILE << "vectorA != vectorB : " << OUTPUT << std::boolalpha << (vectorA != vectorB) << ENDL;
+	FILE << "vectorA < vectorB : " << OUTPUT << std::boolalpha << (vectorA < vectorB) << ENDL;
+	FILE << "vectorA > vectorB : " << OUTPUT << std::boolalpha << (vectorA > vectorB) << ENDL;
+	FILE << "vectorA <= vectorB : " << OUTPUT << std::boolalpha << (vectorA <= vectorB) << ENDL;
+	FILE << "vectorA >= vectorB : " << OUTPUT << std::boolalpha << (vectorA >= vectorB) << ENDL;
+	vectorA.push_back(4); vectorB.clear(); vectorB.push_back(42); vectorB.push_back(21); vectorB.push_back(10);
+	print_vector(vectorA, "vectorA"); print_vector(vectorB, "vectorB");
+	FILE << "vectorA == vectorB : " << OUTPUT << std::boolalpha << (vectorA == vectorB) << ENDL;
+	FILE << "vectorA != vectorB : " << OUTPUT << std::boolalpha << (vectorA != vectorB) << ENDL;
+	FILE << "vectorA < vectorB : " << OUTPUT << std::boolalpha << (vectorA < vectorB) << ENDL;
+	FILE << "vectorA > vectorB : " << OUTPUT << std::boolalpha << (vectorA > vectorB) << ENDL;
+	FILE << "vectorA <= vectorB : " << OUTPUT << std::boolalpha << (vectorA <= vectorB) << ENDL;
+	FILE << "vectorA >= vectorB : " << OUTPUT << std::boolalpha << (vectorA >= vectorB) << ENDL;
+	vectorA = vectorB;
+	print_vector(vectorA, "vectorA"); print_vector(vectorB, "vectorB");
+	FILE << "vectorA == vectorB : " << OUTPUT << std::boolalpha << (vectorA == vectorB) << ENDL;
+	FILE << "vectorA != vectorB : " << OUTPUT << std::boolalpha << (vectorA != vectorB) << ENDL;
+	FILE << "vectorA < vectorB : " << OUTPUT << std::boolalpha << (vectorA < vectorB) << ENDL;
+	FILE << "vectorA > vectorB : " << OUTPUT << std::boolalpha << (vectorA > vectorB) << ENDL;
+	FILE << "vectorA <= vectorB : " << OUTPUT << std::boolalpha << (vectorA <= vectorB) << ENDL;
+	FILE << "vectorA >= vectorB : " << OUTPUT << std::boolalpha << (vectorA >= vectorB) << ENDL;
+	FILE << ENDL;
+
+	FILE << CATEGORY << "===> Swap" << ENDL;
+	print_vector(vectorA, "vectorA");
+	print_vector(vectorC, "vectorC");
+	FILE << "swap(vectorA, vectorC);" << ENDL; swap(vectorA, vectorC);
+	print_vector(vectorA, "vectorA");
+	print_vector(vectorC, "vectorC");
 	FILE << ENDL;
 
 	FILE << TITLE << "=> ENDING vector tests" << ENDL << ENDL;
