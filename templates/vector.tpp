@@ -347,6 +347,32 @@ ft::vector<T, Alloc>::swap(vector & x)
 }
 
 template <typename T, class Alloc>
+typename ft::vector<T, Alloc>::iterator
+ft::vector<T, Alloc>::erase(iterator position)
+{
+	return (erase(position, position + 1));
+}
+
+template <typename T, class Alloc>
+typename ft::vector<T, Alloc>::iterator
+ft::vector<T, Alloc>::erase(iterator first, iterator last)
+{
+	ptrdiff_t delta = last - first;
+	iterator start = first;
+	while (first != last)
+	{
+		_alloc.destroy(&*first);
+		if (first + delta < _end)
+			_alloc.construct(&*first, first[delta]);
+		++first;
+	}
+	if (_end - &*last - delta > 0)
+		memmove(&*last, &last[delta], static_cast<size_t>(_end - &*last - delta) * sizeof(value_type));
+	_end -= delta;
+	return (start);
+}
+
+template <typename T, class Alloc>
 void
 ft::vector<T, Alloc>::clear(void)
 {

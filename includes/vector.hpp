@@ -220,8 +220,8 @@ namespace ft
 											void insert(iterator position,
 															InputIterator first,
 															InputIterator last);
-				//iterator erase(iterator position);
-				//iterator erase(iterator first, iterator last);
+				iterator erase(iterator position);
+				iterator erase(iterator first, iterator last);
 				void swap(vector & x);
 				void clear(void);
 
