@@ -266,12 +266,6 @@ namespace ft
 		/** swap **/
 			template <class T, class Alloc>
 			void swap(vector<T, Alloc> & x, vector<T, Alloc> & y);
-
-	/* Non-member function for iterator */
-		/*template <class T, class Alloc>
-		typename ft::vector<T, Alloc>::Iterator::difference_type
-		operator+(typename ft::vector<T, Alloc>::Iterator::difference_type i,
-					typename ft::vector<T, Alloc>::Iterator const & it);*/
 }
 
 # include "vector.tpp"
