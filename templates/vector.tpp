@@ -61,7 +61,7 @@ ft::vector<T, Alloc>::operator=(vector const & other)
 }
 
 /* Public functions */
-/** Iterator **/
+/** Iterators **/
 template <class T, class Alloc>
 typename ft::vector<T, Alloc>::iterator
 ft::vector<T, Alloc>::begin(void)
