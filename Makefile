@@ -1,7 +1,5 @@
 
 CONTAINERS	= list vector map
-INCLUDES	= $(CONTAINERS:%=includes/%.hpp) $(addprefix includes/, DLNode.hpp Color.hpp types.hpp)
-TEMPLATE	= $(CONTAINERS:%=templates/%.tpp) $(addprefix templates/, DLNode.tpp)
 BINS		= $(CONTAINERS:%=tests/ft::%Test) $(CONTAINERS:%=tests/std::%Test)
 MAKE_RESULT	= $(CONTAINERS:%=ft\:\:%) $(CONTAINERS:%=std\:\:%)
 FT_SED		= $(CONTAINERS:%=ft\:\:%sed)
@@ -19,10 +17,10 @@ CFLAGS	= -g3 -Wall -Wextra -Werror -Wconversion -std=c++98 -I includes -I templa
 
 all: $(CONTAINERS:%=diff\:\:%)
 
-$(CONTAINERS:%=tests/ft\:\:%Test): tests/ft\:\:%: tests/%.cpp $(INCLUDES) $(TEMPLATE)
+$(CONTAINERS:%=tests/ft\:\:%Test): tests/ft\:\:%: tests/%.cpp
 	$(CC) $(CPPFLAGS) $(CFLAGS) tests/$*.cpp -o $@
 
-$(CONTAINERS:%=tests/std\:\:%Test): tests/std\:\:%: tests/%.cpp $(INCLUDES) $(TEMPLATE)
+$(CONTAINERS:%=tests/std\:\:%Test): tests/std\:\:%: tests/%.cpp
 	$(CC) $(CPPFLAGS) $(CFLAGS) tests/$*.cpp -o $@
 
 $(FT_SED): ft\:\:%sed:

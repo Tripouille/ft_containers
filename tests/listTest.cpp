@@ -758,5 +758,5 @@ test_list(void)
 int
 main(void)
 {
-    test_list<std::list>();
+    test_list<ft::list>();
 }
