@@ -9,7 +9,7 @@ ft::BTNode<Key, T>::BTNode(void)
 template <class Key, class T>
 ft::BTNode<Key, T>::BTNode(const Key & k, const T & v,
 							BTNode * p, BTNode * l, BTNode * r)
-		  	  	   : key(k), value(v), parent(p), parent(p), left(n), right(r)
+		  	  	   : key(k), value(v), parent(p), left(l), right(r)
 {
 }
 
@@ -21,7 +21,7 @@ ft::BTNode<Key, T>::~BTNode(void)
 template <class Key, class T>
 ft::BTNode<Key, T>::BTNode(BTNode const & other)
 {
-	BTNode<T, Alloc>::_copy(other);
+	BTNode<Key, T>::_copy(other);
 }
 
 template <class Key, class T>
@@ -29,7 +29,7 @@ ft::BTNode<Key, T> &
 ft::BTNode<Key, T>::operator=(BTNode const & other)
 {
 	if (this != &other)
-		BTNode<T, Alloc>::_copy(other);
+		BTNode<Key, T>::_copy(other);
 	return (*this);
 }
 
@@ -47,7 +47,7 @@ ft::BTNode<Key, T>::_copy(BTNode const & other)
 /*
 //BaseIterator
 template <class Key, class T>
-ft::BTNode<Key, T>::BaseIterator::BaseIterator(BTNode<T, Alloc> * t)
+ft::BTNode<Key, T>::BaseIterator::BaseIterator(BTNode<Key, T> * t)
 						: _target(t)
 {
 }
@@ -96,7 +96,7 @@ ft::BTNode<Key, T>::BaseIterator::operator!=(BaseIterator const & other) const
 
 //Iterator
 template <class Key, class T>
-ft::BTNode<Key, T>::Iterator::Iterator(BTNode<T, Alloc> * t)
+ft::BTNode<Key, T>::Iterator::Iterator(BTNode<Key, T> * t)
 						: BaseIterator(t)
 {
 }
@@ -172,7 +172,7 @@ ft::BTNode<Key, T>::Iterator::operator->(void) const
 
 //CIterator
 template <class Key, class T>
-ft::BTNode<Key, T>::CIterator::CIterator(BTNode<T, Alloc> * t)
+ft::BTNode<Key, T>::CIterator::CIterator(BTNode<Key, T> * t)
 						: BaseIterator(t)
 {
 }
@@ -254,7 +254,7 @@ ft::BTNode<Key, T>::CIterator::operator->(void) const
 
 //RIterator
 template <class Key, class T>
-ft::BTNode<Key, T>::RIterator::RIterator(BTNode<T, Alloc> * t)
+ft::BTNode<Key, T>::RIterator::RIterator(BTNode<Key, T> * t)
 						 : BaseIterator(t)
 {
 }
@@ -330,7 +330,7 @@ ft::BTNode<Key, T>::RIterator::operator->(void) const
 
 //CRIterator
 template <class Key, class T>
-ft::BTNode<Key, T>::CRIterator::CRIterator(BTNode<T, Alloc> * t)
+ft::BTNode<Key, T>::CRIterator::CRIterator(BTNode<Key, T> * t)
 						 : BaseIterator(t)
 {
 }

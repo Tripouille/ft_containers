@@ -24,7 +24,9 @@ void
 test_map(void)
 {
 	FILE << TITLE << std::endl << "=> STARTING map tests" << ENDL;
-
+	map<std::string, int> m;
+	m["lol"] = 1;
+	FILE << "m[\"lol\"] : " << OUTPUT << m["lol"] << ENDL;
 	FILE << SUBTITLE << "Constructors" << ENDL;
 	FILE << CATEGORY << "===> Default constructor" << ENDL;
 	FILE << ENDL;

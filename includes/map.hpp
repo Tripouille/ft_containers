@@ -4,6 +4,7 @@
 # include <limits>
 # include <exception>
 # include <cstddef>
+# include "BTNode.hpp"
 
 namespace ft
 {
@@ -19,6 +20,8 @@ namespace ft
 			typedef std::pair<const key_type, mapped_type> value_type;
 			typedef Compare key_compare;
 			typedef Alloc allocator_type;
+			typedef BTNode<Key, T> node;
+			typedef typename Alloc::template rebind<node>::other node_allocator_type;
 
 			typedef value_type & reference;
 			typedef const value_type & const_reference;
@@ -56,9 +59,13 @@ namespace ft
 
 		public:
 		/* Constructor */
-			/** empty	(1) **/
-			/** range	(2) **/
-			/** copy	(3) **/
+			/** empty	(1) **/ explicit map(const key_compare & comp = key_compare(),
+            								const allocator_type & alloc = allocator_type());
+			/** range	(2) **/ template <class InputIterator>
+								map(InputIterator first, InputIterator last,
+									const key_compare & comp = key_compare(),
+									const allocator_type & alloc = allocator_type());
+			/** copy	(3) **/ map(const map & x);
 
 		/* Destructor */
 
@@ -70,7 +77,7 @@ namespace ft
 			/** Capacity **/
 
 			/** Element access **/
-
+				mapped_type & operator[](const key_type & k);
 			/** Modifiers **/
 
 			/** Observers **/
@@ -83,6 +90,12 @@ namespace ft
 		/* Private Functions */
 
 		/* Private variables */
+			key_compare			_compare;
+			allocator_type		_alloc;
+			node_allocator_type	_node_alloc;
+			BTNode<Key, T> *	_root;
+			size_type			_size;
+
 	};
 }
 

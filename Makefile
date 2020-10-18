@@ -2,9 +2,9 @@
 CONTAINERS	= list vector map
 BINS		= $(CONTAINERS:%=tests/ft::%Test) $(CONTAINERS:%=tests/std::%Test)
 MAKE_RESULT	= $(CONTAINERS:%=ft\:\:%) $(CONTAINERS:%=std\:\:%)
+RESULTS		= $(CONTAINERS:%=results/ft::%.result) $(CONTAINERS:%=results/std::%.result)
 FT_SED		= $(CONTAINERS:%=ft\:\:%sed)
 STD_SED		= $(CONTAINERS:%=std\:\:%sed)
-RESULTS		= $(CONTAINERS:%=results/ft::%.result) $(CONTAINERS:%=results/std::%.result)
 FT_COLORS	= $(CONTAINERS:%=ft\:\:%color)
 STD_COLORS	= $(CONTAINERS:%=std\:\:%color)
 
