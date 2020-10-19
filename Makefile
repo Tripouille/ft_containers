@@ -38,12 +38,12 @@ $(MAKE_RESULT:%=show\:\:%): show\:\:%: %
 
 $(CONTAINERS:%=diff\:\:%): diff\:\:%: std\:\:% ft\:\:%
 	@tput setaf 3
-	diff -s --unified=0 results/ft::$*.result results/std::$*.result
+	diff -I "#.*" -s --unified=0 results/ft::$*.result results/std::$*.result
 
 $(CONTAINERS): %: std\:\:% ft\:\:%
 	cat results/ft::$@.result
 	@tput setaf 3
-	diff -s --unified=0 results/ft::$@.result results/std::$@.result
+	diff -I "#.*" -s --unified=0 results/ft::$@.result results/std::$@.result
 
 clean: color
 	rm -rf $(BINS)

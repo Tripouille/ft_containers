@@ -18,7 +18,9 @@ ft::map<Key, T, Compare, Alloc>::map(const key_compare & comp,
 template <class Key, class T, class Compare, class Alloc>
 ft::map<Key, T, Compare, Alloc>::~map(void)
 {
+	_debug();
 	_deallocate_btree(_root);
+	_size = 0;
 }
 
 /* Operator */
@@ -43,6 +45,7 @@ ft::map<Key, T, Compare, Alloc>::operator[](const key_type & k)
 		n = _node_alloc.allocate(1);
 		_node_alloc.construct(n, node(k, mapped_type()));
 		_insert_node(n);
+		++_size;
 	}
 	return (n->value);
 }
@@ -111,4 +114,26 @@ ft::map<Key, T, Compare, Alloc>::_deallocate_btree(node * & n)
 	_node_alloc.destroy(n);
 	_node_alloc.deallocate(n, 1);
 	n = NULL;
+}
+
+
+/* Debug Functions */
+template <class Key, class T, class Compare, class Alloc>
+void
+ft::map<Key, T, Compare, Alloc>::_print_btree(node * n)
+{
+	if (n == NULL)
+		return ;
+	_print_btree(n->left);
+	std::cout << "(" << n->key << " : " << n->value << ") ";
+	_print_btree(n->right);
+}
+
+template <class Key, class T, class Compare, class Alloc>
+void
+ft::map<Key, T, Compare, Alloc>::_debug(void)
+{
+	std::cout << "#[Actual Tree] : ";
+	_print_btree(_root);
+	std::cout << std::endl;
 }

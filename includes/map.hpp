@@ -85,13 +85,15 @@ namespace ft
 			/** Operations **/
 
 			/** Allocator **/
-
 		private:
+		/* Debug Functions */
+			void _print_btree(node * n);
+			void _debug(void);
 		/* Private Functions */
 			node * _find_node(const key_type & k);
 			void _insert_node(node * n);
 			void _deallocate_btree(node * & n);
-			
+
 		/* Private variables */
 			key_compare			_compare;
 			allocator_type		_alloc;
