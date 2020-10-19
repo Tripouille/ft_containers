@@ -27,6 +27,7 @@ test_map(void)
 	map<std::string, int> m;
 	m["lol"] = 1;
 	FILE << "m[\"lol\"] : " << OUTPUT << m["lol"] << ENDL;
+	FILE << "m[\"prout\"] : " << OUTPUT << m["prout"] << ENDL;
 	FILE << SUBTITLE << "Constructors" << ENDL;
 	FILE << CATEGORY << "===> Default constructor" << ENDL;
 	FILE << ENDL;

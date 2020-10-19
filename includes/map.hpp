@@ -68,7 +68,7 @@ namespace ft
 			/** copy	(3) **/ map(const map & x);
 
 		/* Destructor */
-
+			~map(void);
 		/* Operator */
 
 		/* Member functions */
@@ -88,7 +88,10 @@ namespace ft
 
 		private:
 		/* Private Functions */
-
+			node * _find_node(const key_type & k);
+			void _insert_node(node * n);
+			void _deallocate_btree(node * & n);
+			
 		/* Private variables */
 			key_compare			_compare;
 			allocator_type		_alloc;
