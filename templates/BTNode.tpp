@@ -1,412 +1,432 @@
 #include "BTNode.hpp"
 
-template <class Key, class T>
-ft::BTNode<Key, T>::BTNode(void)
+template <class Key, class T, class Compare, class Alloc>
+ft::BTNode<Key, T, Compare, Alloc>::BTNode(void)
 				   : parent(NULL), left(NULL), right(NULL)
 {
 }
 
-template <class Key, class T>
-ft::BTNode<Key, T>::BTNode(const Key & k, const T & v,
+template <class Key, class T, class Compare, class Alloc>
+ft::BTNode<Key, T, Compare, Alloc>::BTNode(const Key & k, const T & v,
 							BTNode * p, BTNode * l, BTNode * r)
-		  	  	   : key(k), value(v), parent(p), left(l), right(r)
+		  	  	   : pair(std::pair<Key, T>(k, v)), parent(p), left(l), right(r)
 {
 }
 
-template <class Key, class T>
-ft::BTNode<Key, T>::~BTNode(void)
+template <class Key, class T, class Compare, class Alloc>
+ft::BTNode<Key, T, Compare, Alloc>::~BTNode(void)
 {
 }
 
-template <class Key, class T>
-ft::BTNode<Key, T>::BTNode(BTNode const & other)
+template <class Key, class T, class Compare, class Alloc>
+ft::BTNode<Key, T, Compare, Alloc>::BTNode(BTNode const & other)
 {
-	BTNode<Key, T>::_copy(other);
+	node::_copy(other);
 }
 
-template <class Key, class T>
-ft::BTNode<Key, T> &
-ft::BTNode<Key, T>::operator=(BTNode const & other)
+template <class Key, class T, class Compare, class Alloc>
+ft::BTNode<Key, T, Compare, Alloc> &
+ft::BTNode<Key, T, Compare, Alloc>::operator=(BTNode const & other)
 {
 	if (this != &other)
-		BTNode<Key, T>::_copy(other);
+		node::_copy(other);
 	return (*this);
 }
 
-template <class Key, class T>
+template <class Key, class T, class Compare, class Alloc>
 void
-ft::BTNode<Key, T>::_copy(BTNode const & other)
+ft::BTNode<Key, T, Compare, Alloc>::_copy(BTNode const & other)
 {
-	key = other.key;
-	value = other.value;
+	pair = other.pair;
 	parent = other.parent;
 	left = other.left;
 	right = other.right;
 }
 
-/*
+
 //BaseIterator
-template <class Key, class T>
-ft::BTNode<Key, T>::BaseIterator::BaseIterator(BTNode<Key, T> * t)
-						: _target(t)
+template <class Key, class T, class Compare, class Alloc>
+ft::BTNode<Key, T, Compare, Alloc>::BaseIterator::BaseIterator(node * n)
+						: _node(n)
 {
 }
 
-template <class Key, class T>
-ft::BTNode<Key, T>::BaseIterator::~BaseIterator(void)
+template <class Key, class T, class Compare, class Alloc>
+ft::BTNode<Key, T, Compare, Alloc>::BaseIterator::~BaseIterator(void)
 {
 }
 
 
-template <class Key, class T>
-ft::BTNode<Key, T>::BaseIterator::BaseIterator(BaseIterator const & other)
+template <class Key, class T, class Compare, class Alloc>
+ft::BTNode<Key, T, Compare, Alloc>::BaseIterator::BaseIterator(BaseIterator const & other)
 {
 	_copy(other);
 }
 
-template <class Key, class T>
-typename ft::BTNode<Key, T>::BaseIterator &
-ft::BTNode<Key, T>::BaseIterator::operator=(BaseIterator const & other)
+template <class Key, class T, class Compare, class Alloc>
+typename ft::BTNode<Key, T, Compare, Alloc>::BaseIterator &
+ft::BTNode<Key, T, Compare, Alloc>::BaseIterator::operator=(BaseIterator const & other)
 {
 	if (this != &other)
 		_copy(other);
 	return (*this);
 }
 
-template <class Key, class T>
+template <class Key, class T, class Compare, class Alloc>
 void
-ft::BTNode<Key, T>::BaseIterator::_copy(BaseIterator const & other)
+ft::BTNode<Key, T, Compare, Alloc>::BaseIterator::_copy(BaseIterator const & other)
 {
-	_target = other._target;
+	_node = other._node;
 }
 
-template <class Key, class T>
+template <class Key, class T, class Compare, class Alloc>
 bool
-ft::BTNode<Key, T>::BaseIterator::operator==(BaseIterator const & other) const
+ft::BTNode<Key, T, Compare, Alloc>::BaseIterator::operator==(BaseIterator const & other) const
 {
-	return (_target == other._target);
+	return (_node == other._node);
 }
 
-template <class Key, class T>
+template <class Key, class T, class Compare, class Alloc>
 bool
-ft::BTNode<Key, T>::BaseIterator::operator!=(BaseIterator const & other) const
+ft::BTNode<Key, T, Compare, Alloc>::BaseIterator::operator!=(BaseIterator const & other) const
 {
-	return (_target != other._target);
+	return (_node != other._node);
 }
 
 //Iterator
-template <class Key, class T>
-ft::BTNode<Key, T>::Iterator::Iterator(BTNode<Key, T> * t)
-						: BaseIterator(t)
+template <class Key, class T, class Compare, class Alloc>
+ft::BTNode<Key, T, Compare, Alloc>::Iterator::Iterator(node * n)
+						: BaseIterator(n)
 {
 }
 
-template <class Key, class T>
-ft::BTNode<Key, T>::Iterator::~Iterator(void)
+template <class Key, class T, class Compare, class Alloc>
+ft::BTNode<Key, T, Compare, Alloc>::Iterator::~Iterator(void)
 {
 }
 
 
-template <class Key, class T>
-ft::BTNode<Key, T>::Iterator::Iterator(Iterator const & other)
+template <class Key, class T, class Compare, class Alloc>
+ft::BTNode<Key, T, Compare, Alloc>::Iterator::Iterator(Iterator const & other)
 						 : BaseIterator(other)
 {
 }
 
-template <class Key, class T>
-typename ft::BTNode<Key, T>::Iterator &
-ft::BTNode<Key, T>::Iterator::operator=(Iterator const & other)
+template <class Key, class T, class Compare, class Alloc>
+typename ft::BTNode<Key, T, Compare, Alloc>::Iterator &
+ft::BTNode<Key, T, Compare, Alloc>::Iterator::operator=(Iterator const & other)
 {
 	if (this != &other)
 		BaseIterator::operator=(other);
 	return (*this);
 }
 
-template <class Key, class T>
-typename ft::BTNode<Key, T>::Iterator &
-ft::BTNode<Key, T>::Iterator::operator++(void)
+template <class Key, class T, class Compare, class Alloc>
+typename ft::BTNode<Key, T, Compare, Alloc>::Iterator &
+ft::BTNode<Key, T, Compare, Alloc>::Iterator::operator++(void)
 {
-	Iterator::_target = Iterator::_target->next;
+	if (Iterator::_node == NULL)
+		return (*this);
+
+	bool left_child = Iterator::_node->parent
+					  && Iterator::_node == Iterator::_node->parent->left;
+
+	if (Iterator::_node->right)
+	{
+		Iterator::_node = Iterator::_node->right;
+		while (Iterator::_node->left)
+			Iterator::_node = Iterator::_node->left;
+	}
+	else if (left_child)
+		Iterator::_node = Iterator::_node->parent;
+	else
+	{
+		while (Iterator::_node->parent
+		&& Iterator::_node == Iterator::_node->parent->right)
+			Iterator::_node = Iterator::_node->parent;
+		Iterator::_node = Iterator::_node->parent;
+	}
 	return (*this);
 }
 
-template <class Key, class T>
-typename ft::BTNode<Key, T>::Iterator
-ft::BTNode<Key, T>::Iterator::operator++(int)
+template <class Key, class T, class Compare, class Alloc>
+typename ft::BTNode<Key, T, Compare, Alloc>::Iterator
+ft::BTNode<Key, T, Compare, Alloc>::Iterator::operator++(int)
 {
 	Iterator tmp(*this);
 	++*this;
 	return (tmp);
 }
 
-template <class Key, class T>
-typename ft::BTNode<Key, T>::Iterator &
-ft::BTNode<Key, T>::Iterator::operator--(void)
+template <class Key, class T, class Compare, class Alloc>
+typename ft::BTNode<Key, T, Compare, Alloc>::Iterator &
+ft::BTNode<Key, T, Compare, Alloc>::Iterator::operator--(void)
 {
-	Iterator::_target = Iterator::_target->prev;
+	Iterator::_node = Iterator::_node->prev;
 	return (*this);
 }
 
-template <class Key, class T>
-typename ft::BTNode<Key, T>::Iterator
-ft::BTNode<Key, T>::Iterator::operator--(int)
+template <class Key, class T, class Compare, class Alloc>
+typename ft::BTNode<Key, T, Compare, Alloc>::Iterator
+ft::BTNode<Key, T, Compare, Alloc>::Iterator::operator--(int)
 {
 	Iterator tmp(*this);
 	--*this;
 	return (tmp);
 }
 
-template <class Key, class T>
-T &
-ft::BTNode<Key, T>::Iterator::operator*(void) const
+template <class Key, class T, class Compare, class Alloc>
+std::pair<Key, T> &
+ft::BTNode<Key, T, Compare, Alloc>::Iterator::operator*(void) const
 {
-	return (Iterator::_target->value);
+	return (Iterator::_node->pair);
 }
 
-template <class Key, class T>
-T *
-ft::BTNode<Key, T>::Iterator::operator->(void) const
+template <class Key, class T, class Compare, class Alloc>
+std::pair<Key, T> *
+ft::BTNode<Key, T, Compare, Alloc>::Iterator::operator->(void) const
 {
-	return (&(Iterator::_target->value));
+	return (&Iterator::_node->pair);
 }
 
+/*
 //CIterator
-template <class Key, class T>
-ft::BTNode<Key, T>::CIterator::CIterator(BTNode<Key, T> * t)
-						: BaseIterator(t)
+template <class Key, class T, class Compare, class Alloc>
+ft::BTNode<Key, T, Compare, Alloc>::CIterator::CIterator(BTNode<Key, T, Compare, Alloc> * n)
+						: BaseIterator(n)
 {
 }
 
-template <class Key, class T>
-ft::BTNode<Key, T>::CIterator::CIterator(Iterator const & it)
-						: BaseIterator(it)
+template <class Key, class T, class Compare, class Alloc>
+ft::BTNode<Key, T, Compare, Alloc>::CIterator::CIterator(Iterator const & in)
+						: BaseIterator(in)
 {
 }
 
-template <class Key, class T>
-ft::BTNode<Key, T>::CIterator::~CIterator(void)
+template <class Key, class T, class Compare, class Alloc>
+ft::BTNode<Key, T, Compare, Alloc>::CIterator::~CIterator(void)
 {
 }
 
 
-template <class Key, class T>
-ft::BTNode<Key, T>::CIterator::CIterator(CIterator const & other)
+template <class Key, class T, class Compare, class Alloc>
+ft::BTNode<Key, T, Compare, Alloc>::CIterator::CIterator(CIterator const & other)
 						 : BaseIterator(other)
 {
 }
 
-template <class Key, class T>
-typename ft::BTNode<Key, T>::CIterator &
-ft::BTNode<Key, T>::CIterator::operator=(CIterator const & other)
+template <class Key, class T, class Compare, class Alloc>
+typename ft::BTNode<Key, T, Compare, Alloc>::CIterator &
+ft::BTNode<Key, T, Compare, Alloc>::CIterator::operator=(CIterator const & other)
 {
 	if (this != &other)
 		BaseIterator::operator=(other);
 	return (*this);
 }
 
-template <class Key, class T>
-typename ft::BTNode<Key, T>::CIterator &
-ft::BTNode<Key, T>::CIterator::operator++(void)
+template <class Key, class T, class Compare, class Alloc>
+typename ft::BTNode<Key, T, Compare, Alloc>::CIterator &
+ft::BTNode<Key, T, Compare, Alloc>::CIterator::operator++(void)
 {
-	CIterator::_target = CIterator::_target->next;
+	CIterator::_node = CIterator::_node->next;
 	return (*this);
 }
 
-template <class Key, class T>
-typename ft::BTNode<Key, T>::CIterator
-ft::BTNode<Key, T>::CIterator::operator++(int)
+template <class Key, class T, class Compare, class Alloc>
+typename ft::BTNode<Key, T, Compare, Alloc>::CIterator
+ft::BTNode<Key, T, Compare, Alloc>::CIterator::operator++(int)
 {
 	CIterator tmp(*this);
 	++*this;
 	return (tmp);
 }
 
-template <class Key, class T>
-typename ft::BTNode<Key, T>::CIterator &
-ft::BTNode<Key, T>::CIterator::operator--(void)
+template <class Key, class T, class Compare, class Alloc>
+typename ft::BTNode<Key, T, Compare, Alloc>::CIterator &
+ft::BTNode<Key, T, Compare, Alloc>::CIterator::operator--(void)
 {
-	CIterator::_target = CIterator::_target->prev;
+	CIterator::_node = CIterator::_node->prev;
 	return (*this);
 }
 
-template <class Key, class T>
-typename ft::BTNode<Key, T>::CIterator
-ft::BTNode<Key, T>::CIterator::operator--(int)
+template <class Key, class T, class Compare, class Alloc>
+typename ft::BTNode<Key, T, Compare, Alloc>::CIterator
+ft::BTNode<Key, T, Compare, Alloc>::CIterator::operator--(int)
 {
 	CIterator tmp(*this);
 	--*this;
 	return (tmp);
 }
 
-template <class Key, class T>
+template <class Key, class T, class Compare, class Alloc>
 T const &
-ft::BTNode<Key, T>::CIterator::operator*(void) const
+ft::BTNode<Key, T, Compare, Alloc>::CIterator::operator*(void) const
 {
-	return (CIterator::_target->value);
+	return (CIterator::_node->value);
 }
 
-template <class Key, class T>
+template <class Key, class T, class Compare, class Alloc>
 T const *
-ft::BTNode<Key, T>::CIterator::operator->(void) const
+ft::BTNode<Key, T, Compare, Alloc>::CIterator::operator->(void) const
 {
-	return (&(CIterator::_target->value));
+	return (&(CIterator::_node->value));
 }
 
 //RIterator
-template <class Key, class T>
-ft::BTNode<Key, T>::RIterator::RIterator(BTNode<Key, T> * t)
-						 : BaseIterator(t)
+template <class Key, class T, class Compare, class Alloc>
+ft::BTNode<Key, T, Compare, Alloc>::RIterator::RIterator(BTNode<Key, T, Compare, Alloc> * n)
+						 : BaseIterator(n)
 {
 }
 
-template <class Key, class T>
-ft::BTNode<Key, T>::RIterator::~RIterator(void)
+template <class Key, class T, class Compare, class Alloc>
+ft::BTNode<Key, T, Compare, Alloc>::RIterator::~RIterator(void)
 {
 }
 
 
-template <class Key, class T>
-ft::BTNode<Key, T>::RIterator::RIterator(RIterator const & other)
+template <class Key, class T, class Compare, class Alloc>
+ft::BTNode<Key, T, Compare, Alloc>::RIterator::RIterator(RIterator const & other)
 						: BaseIterator(other)
 {
 }
 
-template <class Key, class T>
-typename ft::BTNode<Key, T>::RIterator &
-ft::BTNode<Key, T>::RIterator::operator=(RIterator const & other)
+template <class Key, class T, class Compare, class Alloc>
+typename ft::BTNode<Key, T, Compare, Alloc>::RIterator &
+ft::BTNode<Key, T, Compare, Alloc>::RIterator::operator=(RIterator const & other)
 {
 	if (this != &other)
 		BaseIterator::operator=(other);
 	return (*this);
 }
 
-template <class Key, class T>
-typename ft::BTNode<Key, T>::RIterator &
-ft::BTNode<Key, T>::RIterator::operator++(void)
+template <class Key, class T, class Compare, class Alloc>
+typename ft::BTNode<Key, T, Compare, Alloc>::RIterator &
+ft::BTNode<Key, T, Compare, Alloc>::RIterator::operator++(void)
 {
-	RIterator::_target = RIterator::_target->prev;
+	RIterator::_node = RIterator::_node->prev;
 	return (*this);
 }
 
-template <class Key, class T>
-typename ft::BTNode<Key, T>::RIterator
-ft::BTNode<Key, T>::RIterator::operator++(int)
+template <class Key, class T, class Compare, class Alloc>
+typename ft::BTNode<Key, T, Compare, Alloc>::RIterator
+ft::BTNode<Key, T, Compare, Alloc>::RIterator::operator++(int)
 {
 	RIterator tmp(*this);
 	++*this;
 	return (tmp);
 }
 
-template <class Key, class T>
-typename ft::BTNode<Key, T>::RIterator &
-ft::BTNode<Key, T>::RIterator::operator--(void)
+template <class Key, class T, class Compare, class Alloc>
+typename ft::BTNode<Key, T, Compare, Alloc>::RIterator &
+ft::BTNode<Key, T, Compare, Alloc>::RIterator::operator--(void)
 {
-	RIterator::_target = RIterator::_target->next;
+	RIterator::_node = RIterator::_node->next;
 	return (*this);
 }
 
-template <class Key, class T>
-typename ft::BTNode<Key, T>::RIterator
-ft::BTNode<Key, T>::RIterator::operator--(int)
+template <class Key, class T, class Compare, class Alloc>
+typename ft::BTNode<Key, T, Compare, Alloc>::RIterator
+ft::BTNode<Key, T, Compare, Alloc>::RIterator::operator--(int)
 {
 	RIterator tmp(*this);
 	--*this;
 	return (tmp);
 }
 
-template <class Key, class T>
+template <class Key, class T, class Compare, class Alloc>
 T &
-ft::BTNode<Key, T>::RIterator::operator*(void) const
+ft::BTNode<Key, T, Compare, Alloc>::RIterator::operator*(void) const
 {
-	return (RIterator::_target->value);
+	return (RIterator::_node->value);
 }
 
-template <class Key, class T>
+template <class Key, class T, class Compare, class Alloc>
 T *
-ft::BTNode<Key, T>::RIterator::operator->(void) const
+ft::BTNode<Key, T, Compare, Alloc>::RIterator::operator->(void) const
 {
-	return (&(RIterator::_target->value));
+	return (&(RIterator::_node->value));
 }
 
 //CRIterator
-template <class Key, class T>
-ft::BTNode<Key, T>::CRIterator::CRIterator(BTNode<Key, T> * t)
-						 : BaseIterator(t)
+template <class Key, class T, class Compare, class Alloc>
+ft::BTNode<Key, T, Compare, Alloc>::CRIterator::CRIterator(BTNode<Key, T, Compare, Alloc> * n)
+						 : BaseIterator(n)
 {
 }
 
-template <class Key, class T>
-ft::BTNode<Key, T>::CRIterator::CRIterator(RIterator const & rit)
-						 : BaseIterator(rit)
+template <class Key, class T, class Compare, class Alloc>
+ft::BTNode<Key, T, Compare, Alloc>::CRIterator::CRIterator(RIterator const & rin)
+						 : BaseIterator(rin)
 {
 }
 
-template <class Key, class T>
-ft::BTNode<Key, T>::CRIterator::~CRIterator(void)
+template <class Key, class T, class Compare, class Alloc>
+ft::BTNode<Key, T, Compare, Alloc>::CRIterator::~CRIterator(void)
 {
 }
 
 
-template <class Key, class T>
-ft::BTNode<Key, T>::CRIterator::CRIterator(CRIterator const & other)
+template <class Key, class T, class Compare, class Alloc>
+ft::BTNode<Key, T, Compare, Alloc>::CRIterator::CRIterator(CRIterator const & other)
 						: BaseIterator(other)
 {
 }
 
-template <class Key, class T>
-typename ft::BTNode<Key, T>::CRIterator &
-ft::BTNode<Key, T>::CRIterator::operator=(CRIterator const & other)
+template <class Key, class T, class Compare, class Alloc>
+typename ft::BTNode<Key, T, Compare, Alloc>::CRIterator &
+ft::BTNode<Key, T, Compare, Alloc>::CRIterator::operator=(CRIterator const & other)
 {
 	if (this != &other)
 		BaseIterator::operator=(other);
 	return (*this);
 }
 
-template <class Key, class T>
-typename ft::BTNode<Key, T>::CRIterator &
-ft::BTNode<Key, T>::CRIterator::operator++(void)
+template <class Key, class T, class Compare, class Alloc>
+typename ft::BTNode<Key, T, Compare, Alloc>::CRIterator &
+ft::BTNode<Key, T, Compare, Alloc>::CRIterator::operator++(void)
 {
-	CRIterator::_target = CRIterator::_target->prev;
+	CRIterator::_node = CRIterator::_node->prev;
 	return (*this);
 }
 
-template <class Key, class T>
-typename ft::BTNode<Key, T>::CRIterator
-ft::BTNode<Key, T>::CRIterator::operator++(int)
+template <class Key, class T, class Compare, class Alloc>
+typename ft::BTNode<Key, T, Compare, Alloc>::CRIterator
+ft::BTNode<Key, T, Compare, Alloc>::CRIterator::operator++(int)
 {
 	CRIterator tmp(*this);
 	++*this;
 	return (tmp);
 }
 
-template <class Key, class T>
-typename ft::BTNode<Key, T>::CRIterator &
-ft::BTNode<Key, T>::CRIterator::operator--(void)
+template <class Key, class T, class Compare, class Alloc>
+typename ft::BTNode<Key, T, Compare, Alloc>::CRIterator &
+ft::BTNode<Key, T, Compare, Alloc>::CRIterator::operator--(void)
 {
-	CRIterator::_target = CRIterator::_target->next;
+	CRIterator::_node = CRIterator::_node->next;
 	return (*this);
 }
 
-template <class Key, class T>
-typename ft::BTNode<Key, T>::CRIterator
-ft::BTNode<Key, T>::CRIterator::operator--(int)
+template <class Key, class T, class Compare, class Alloc>
+typename ft::BTNode<Key, T, Compare, Alloc>::CRIterator
+ft::BTNode<Key, T, Compare, Alloc>::CRIterator::operator--(int)
 {
 	CRIterator tmp(*this);
 	--*this;
 	return (tmp);
 }
 
-template <class Key, class T>
+template <class Key, class T, class Compare, class Alloc>
 T const &
-ft::BTNode<Key, T>::CRIterator::operator*(void) const
+ft::BTNode<Key, T, Compare, Alloc>::CRIterator::operator*(void) const
 {
-	return (CRIterator::_target->value);
+	return (CRIterator::_node->value);
 }
 
-template <class Key, class T>
+template <class Key, class T, class Compare, class Alloc>
 T const *
-ft::BTNode<Key, T>::CRIterator::operator->(void) const
+ft::BTNode<Key, T, Compare, Alloc>::CRIterator::operator->(void) const
 {
-	return (&(CRIterator::_target->value));
+	return (&(CRIterator::_node->value));
 }
 */

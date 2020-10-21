@@ -28,10 +28,25 @@ ft::map<Key, T, Compare, Alloc>::~map(void)
 
 /* Public functions */
 /** Iterators **/
+template <class Key, class T, class Compare, class Alloc>
+typename ft::map<Key, T, Compare, Alloc>::iterator
+ft::map<Key, T, Compare, Alloc>::begin(void)
+{
+	node * tmp = _root;
+	if (tmp)
+		while (tmp->left)
+			tmp = tmp->left;
+	return (iterator(tmp));	
+}
 
+template <class Key, class T, class Compare, class Alloc>
+typename ft::map<Key, T, Compare, Alloc>::iterator
+ft::map<Key, T, Compare, Alloc>::end(void)
+{
+	return (iterator());	
+}
 
 /** Capacity **/
-
 
 /** Element access **/
 template <class Key, class T, class Compare, class Alloc>
@@ -47,7 +62,7 @@ ft::map<Key, T, Compare, Alloc>::operator[](const key_type & k)
 		_insert_node(n);
 		++_size;
 	}
-	return (n->value);
+	return (n->pair.second);
 }
 
 /** Modifiers **/
@@ -69,9 +84,9 @@ ft::map<Key, T, Compare, Alloc>::_find_node(const key_type & k)
 {
 	node * tmp = _root;
 	while (tmp)
-		if (!_compare(k, tmp->key) && !_compare(tmp->key, k))
+		if (!_compare(k, tmp->pair.first) && !_compare(tmp->pair.first, k))
 			return (tmp);
-		else if (_compare(k, tmp->key))
+		else if (_compare(k, tmp->pair.first))
 			tmp = tmp->left;
 		else
 			tmp = tmp->right;
@@ -89,7 +104,7 @@ ft::map<Key, T, Compare, Alloc>::_insert_node(node * n)
 		_root = n;
 	while (current_node)
 	{
-		if (_compare(n->key, current_node->key))
+		if (_compare(n->pair.first, current_node->pair.first))
 			next_node = &(current_node->left);
 		else
 			next_node = &(current_node->right);
@@ -107,13 +122,16 @@ template <class Key, class T, class Compare, class Alloc>
 void
 ft::map<Key, T, Compare, Alloc>::_deallocate_btree(node * & n)
 {
-	if (n->left)
-		_deallocate_btree(n->left);
-	if (n->right)
-		_deallocate_btree(n->right);
-	_node_alloc.destroy(n);
-	_node_alloc.deallocate(n, 1);
-	n = NULL;
+	if (n != NULL)
+	{
+		if (n->left)
+			_deallocate_btree(n->left);
+		if (n->right)
+			_deallocate_btree(n->right);
+		_node_alloc.destroy(n);
+		_node_alloc.deallocate(n, 1);
+		n = NULL;
+	}
 }
 
 
@@ -125,7 +143,7 @@ ft::map<Key, T, Compare, Alloc>::_print_btree(node * n)
 	if (n == NULL)
 		return ;
 	_print_btree(n->left);
-	std::cout << "(" << n->key << " : " << n->value << ") ";
+	std::cout << "(" << n->pair.first << " : " << n->pair.second << ") ";
 	_print_btree(n->right);
 }
 

@@ -20,7 +20,7 @@ namespace ft
 			typedef std::pair<const key_type, mapped_type> value_type;
 			typedef Compare key_compare;
 			typedef Alloc allocator_type;
-			typedef BTNode<Key, T> node;
+			typedef BTNode<Key, T, Compare, Alloc> node;
 			typedef typename Alloc::template rebind<node>::other node_allocator_type;
 
 			typedef value_type & reference;
@@ -49,7 +49,7 @@ namespace ft
 				friend class map;
 			};
 
-			//typedef typename ft::vector<T, Alloc>::Iterator iterator;
+			typedef typename node::iterator iterator;
 			//typedef typename ft::vector<T, Alloc>::CIterator const_iterator;
 			//typedef typename ft::vector<T, Alloc>::RIterator reverse_iterator;
 			//typedef typename ft::vector<T, Alloc>::CRIterator const_reverse_iterator;
@@ -73,7 +73,10 @@ namespace ft
 
 		/* Member functions */
 			/** Iterators **/
-
+			iterator begin(void);
+			//const_iterator begin(void) const;
+			iterator end(void);
+			//const_iterator end(void) const;
 			/** Capacity **/
 
 			/** Element access **/
@@ -98,7 +101,7 @@ namespace ft
 			key_compare			_compare;
 			allocator_type		_alloc;
 			node_allocator_type	_node_alloc;
-			BTNode<Key, T> *	_root;
+			node *				_root;
 			size_type			_size;
 
 	};

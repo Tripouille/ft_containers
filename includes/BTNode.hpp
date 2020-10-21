@@ -6,21 +6,23 @@ namespace ft
 {
 	template <class Key, class T, class Compare, class Alloc>
 	class map;
-	template <class Key, class T>
+	template <class Key, class T, class Compare, class Alloc>
 	struct BTNode
 	{
-		/*
+		/* Typedef */
+		typedef BTNode<Key, T, Compare, Alloc> node;
+
 		struct bidirectional_iterator_tag {};
 		class BaseIterator
 		{
 			public:
-				typedef T value_type;
+				typedef std::pair<Key, T> value_type;
 				typedef ptrdiff_t difference_type;
-				typedef T * pointer;
-				typedef T & reference;
+				typedef std::pair<Key, T> * pointer;
+				typedef std::pair<Key, T> & reference;
 				typedef bidirectional_iterator_tag iterator_category;
 
-				BaseIterator(BTNode<T, Alloc> * t = NULL);
+				BaseIterator(node * n = NULL);
 				virtual ~BaseIterator(void);
 				BaseIterator(BaseIterator const & other);
 
@@ -29,15 +31,16 @@ namespace ft
 				bool				operator!=(BaseIterator const & other) const;
 
 			protected:
-				void				_copy(BaseIterator const & other);
-				BTNode<T, Alloc> *	_target;
-			friend class ft::list<T, Alloc>;
+				void	_copy(BaseIterator const & other);
+				node *	_node;
+
+			friend class ft::map<Key, T, Compare, Alloc>;
 		};
 
 		class Iterator : public BaseIterator
 		{
 			public:
-				Iterator(BTNode<T, Alloc> * t = NULL);
+				Iterator(node * n = NULL);
 				~Iterator(void);
 				Iterator(Iterator const & other);
 
@@ -46,14 +49,14 @@ namespace ft
 				Iterator			operator++(int);
 				Iterator &			operator--(void);
 				Iterator			operator--(int);
-				T &					operator*(void) const;
-				T *					operator->(void) const;
+				std::pair<Key, T> &	operator*(void) const;
+				std::pair<Key, T> *	operator->(void) const;
 		};
-
+		/*
 		class CIterator : public BaseIterator
 		{
 			public:
-				CIterator(BTNode<T, Alloc> * t = NULL);
+				CIterator(BTNode<Key, T, Compare, Alloc> * t = NULL);
 				CIterator(Iterator const & it);
 				~CIterator(void);
 				CIterator(CIterator const & other);
@@ -70,7 +73,7 @@ namespace ft
 		class RIterator : public BaseIterator
 		{
 			public:
-				RIterator(BTNode<T, Alloc> * t = NULL);
+				RIterator(BTNode<Key, T, Compare, Alloc> * t = NULL);
 				~RIterator(void);
 				RIterator(RIterator const & other);
 
@@ -86,7 +89,7 @@ namespace ft
 		class CRIterator : public BaseIterator
 		{
 			public:
-				CRIterator(BTNode<T, Alloc> * t = NULL);
+				CRIterator(BTNode<Key, T, Compare, Alloc> * t = NULL);
 				CRIterator(RIterator const & rit);
 				~CRIterator(void);
 				CRIterator(CRIterator const & other);
@@ -100,11 +103,11 @@ namespace ft
 				T const *		operator->(void) const;
 		};
 
-		typedef ft::BTNode<T, Alloc>::Iterator iterator;
 		typedef ft::BTNode<T, Alloc>::CIterator const_iterator;
 		typedef ft::BTNode<T, Alloc>::RIterator reverse_iterator;
 		typedef ft::BTNode<T, Alloc>::CRIterator const_reverse_iterator;
 		*/
+		typedef Iterator iterator;
 
 		BTNode(void);
 		BTNode(const Key & k, const T & v,
@@ -114,11 +117,10 @@ namespace ft
 
 		BTNode &				operator=(BTNode const & other);
 
-		Key								key;
-		T								value;
-		BTNode<Key, T> *				parent;
-		BTNode<Key, T> *				left;
-		BTNode<Key, T> *				right;
+		std::pair<Key, T>	pair;
+		node *				parent;
+		node *				left;
+		node *				right;
 
 		private:
 			void					_copy(BTNode const & other);
