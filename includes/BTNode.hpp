@@ -22,7 +22,7 @@ namespace ft
 				typedef std::pair<Key, T> & reference;
 				typedef bidirectional_iterator_tag iterator_category;
 
-				BaseIterator(node * n = NULL);
+				BaseIterator(node * n = NULL, node * * root = NULL);
 				virtual ~BaseIterator(void);
 				BaseIterator(BaseIterator const & other);
 
@@ -32,8 +32,11 @@ namespace ft
 
 			protected:
 				void	_copy(BaseIterator const & other);
-				node *	_node;
-				//node ** _root_ptr; a faire demain getfirst getlast
+				node *	_get_first_node(void);
+				node *	_get_last_node(void);
+
+				node *		_node;
+				node * *	_root_ptr;
 
 			friend class ft::map<Key, T, Compare, Alloc>;
 		};
@@ -41,7 +44,7 @@ namespace ft
 		class Iterator : public BaseIterator
 		{
 			public:
-				Iterator(node * n = NULL);
+				Iterator(node * n = NULL, node * * root = NULL);
 				~Iterator(void);
 				Iterator(Iterator const & other);
 

@@ -36,14 +36,14 @@ ft::map<Key, T, Compare, Alloc>::begin(void)
 	if (tmp)
 		while (tmp->left)
 			tmp = tmp->left;
-	return (iterator(tmp));	
+	return (iterator(tmp, &_root));	
 }
 
 template <class Key, class T, class Compare, class Alloc>
 typename ft::map<Key, T, Compare, Alloc>::iterator
 ft::map<Key, T, Compare, Alloc>::end(void)
 {
-	return (iterator());	
+	return (iterator(NULL, &_root));
 }
 
 /** Capacity **/

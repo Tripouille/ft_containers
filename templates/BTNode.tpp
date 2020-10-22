@@ -46,8 +46,8 @@ ft::BTNode<Key, T, Compare, Alloc>::_copy(BTNode const & other)
 
 //BaseIterator
 template <class Key, class T, class Compare, class Alloc>
-ft::BTNode<Key, T, Compare, Alloc>::BaseIterator::BaseIterator(node * n)
-						: _node(n)
+ft::BTNode<Key, T, Compare, Alloc>::BaseIterator::BaseIterator(node * n, node * * root)
+						: _node(n), _root_ptr(root)
 {
 }
 
@@ -77,6 +77,31 @@ void
 ft::BTNode<Key, T, Compare, Alloc>::BaseIterator::_copy(BaseIterator const & other)
 {
 	_node = other._node;
+	_root_ptr = other._root_ptr;
+}
+
+template <class Key, class T, class Compare, class Alloc>
+typename ft::BTNode<Key, T, Compare, Alloc>::node *
+ft::BTNode<Key, T, Compare, Alloc>::BaseIterator::_get_first_node(void)
+{
+	node * tmp = *_root_ptr;
+
+	if (tmp != NULL)
+		while (tmp->left != NULL)
+			tmp = tmp->left;
+	return (tmp);
+}
+
+template <class Key, class T, class Compare, class Alloc>
+typename ft::BTNode<Key, T, Compare, Alloc>::node *
+ft::BTNode<Key, T, Compare, Alloc>::BaseIterator::_get_last_node(void)
+{
+	node * tmp = *_root_ptr;
+
+	if (tmp != NULL)
+		while (tmp->right != NULL)
+			tmp = tmp->right;
+	return (tmp);
 }
 
 template <class Key, class T, class Compare, class Alloc>
@@ -95,8 +120,8 @@ ft::BTNode<Key, T, Compare, Alloc>::BaseIterator::operator!=(BaseIterator const 
 
 //Iterator
 template <class Key, class T, class Compare, class Alloc>
-ft::BTNode<Key, T, Compare, Alloc>::Iterator::Iterator(node * n)
-						: BaseIterator(n)
+ft::BTNode<Key, T, Compare, Alloc>::Iterator::Iterator(node * n, node * * root)
+						: BaseIterator(n, root)
 {
 }
 
@@ -126,10 +151,10 @@ typename ft::BTNode<Key, T, Compare, Alloc>::Iterator &
 ft::BTNode<Key, T, Compare, Alloc>::Iterator::operator++(void)
 {
 	if (Iterator::_node == NULL)
+	{
+		Iterator::_node = Iterator::_get_first_node();
 		return (*this);
-
-	bool left_child = Iterator::_node->parent
-					  && Iterator::_node == Iterator::_node->parent->left;
+	}
 
 	if (Iterator::_node->right)
 	{
@@ -137,7 +162,8 @@ ft::BTNode<Key, T, Compare, Alloc>::Iterator::operator++(void)
 		while (Iterator::_node->left)
 			Iterator::_node = Iterator::_node->left;
 	}
-	else if (left_child)
+	else if (Iterator::_node->parent
+	&& Iterator::_node == Iterator::_node->parent->left)
 		Iterator::_node = Iterator::_node->parent;
 	else
 	{
@@ -163,10 +189,10 @@ typename ft::BTNode<Key, T, Compare, Alloc>::Iterator &
 ft::BTNode<Key, T, Compare, Alloc>::Iterator::operator--(void)
 {
 	if (Iterator::_node == NULL)
+	{
+		Iterator::_node = Iterator::_get_last_node();
 		return (*this);
-
-	bool right_child = Iterator::_node->parent
-					  && Iterator::_node == Iterator::_node->parent->right;
+	}
 
 	if (Iterator::_node->left)
 	{
@@ -174,7 +200,8 @@ ft::BTNode<Key, T, Compare, Alloc>::Iterator::operator--(void)
 		while (Iterator::_node->right)
 			Iterator::_node = Iterator::_node->right;
 	}
-	else if (right_child)
+	else if (Iterator::_node->parent
+	&& Iterator::_node == Iterator::_node->parent->right)
 		Iterator::_node = Iterator::_node->parent;
 	else
 	{

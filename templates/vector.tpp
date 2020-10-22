@@ -284,7 +284,8 @@ ft::vector<T, Alloc>::insert(iterator position, const value_type & val)
 		_reallocate(size() + 1, true);
 		position = iterator(_start + position_index);
 	}
-	memmove(position._target + 1, position._target, static_cast<unsigned long>((_end - position._target)) * sizeof(T));
+	memmove(position._target + 1, position._target,
+		static_cast<unsigned long>((_end - position._target)) * sizeof(T));
 	_alloc.construct(position._target, val);
 	++_end;
 	return (position);
@@ -301,7 +302,8 @@ ft::vector<T, Alloc>::insert(iterator position, size_type n, const value_type & 
 		_reallocate(size() + n, true);
 		position = iterator(_start + position_index);
 	}
-	memmove(position._target + n, position._target, static_cast<unsigned long>((_end - position._target)) * sizeof(T));
+	memmove(position._target + n, position._target,
+		static_cast<unsigned long>((_end - position._target)) * sizeof(T));
 	for (size_type i = 0; i < n; i++)
 		_alloc.construct(position._target + i, val);
 	_end += n;
@@ -321,9 +323,10 @@ ft::vector<T, Alloc>::insert(iterator position, InputIterator first, InputIterat
 		_reallocate(size() + n, true);
 		position = iterator(_start + position_index);
 	}
-	memmove(position._target + n, position._target, static_cast<unsigned long>((_end - position._target)) * sizeof(T));
-	iterator it = tmp.begin();
-	iterator ite = tmp.end();
+	memmove(position._target + n, position._target,
+		static_cast<unsigned long>((_end - position._target)) * sizeof(T));
+	const_iterator it = tmp.begin();
+	const_iterator ite = tmp.end();
 	size_type i = 0;
 	while (it != ite)
 	{
