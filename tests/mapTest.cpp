@@ -13,10 +13,10 @@
 
 template<class T>
 void
-print_map(T /*const */& map, std::string const & name)
+print_map(T const & map, std::string const & name)
 {
-	typename T::iterator begin = map.begin();
-	typename T::iterator end = map.end();
+	typename T::const_iterator begin = map.begin();
+	typename T::const_iterator end = map.end();
 	std::cout << OUTPUT << name << " = [ ";
 	while (begin != end)
 	{
@@ -51,16 +51,43 @@ test_map(void)
 		--end;
 		std::cout << "reverse(" << end->first << " : " << end->second << ") ";
 	}
-	//--begin;
-	//--begin;
-	//--begin;
-	//std::cout << "test(" << begin->first << " : " << begin->second << ") ";
+	std::cout << std::endl;
 
+	map<int, std::string> m2;
+	m2[10] = "";
+	m2[7] = "";
+	m2[7] = "";
+	m2[9] = "";
+	m2[8] = "";
+	m2[20] = "";
+	m2[30] = "";
+	m2[21] = "";
+	m2[22] = "";
+	m2[23] = "";
+	m2[33] = "";
+	m2[32] = "";
+	m2[31] = "";
+	print_map(m2, "m2");
+
+	begin = m2.begin();
+	end = m2.end();
+	while (end != begin)
+	{
+		--end;
+		std::cout << "reverse(" << end->first << " : " << end->second << ") ";
+	}
+
+	//begin->first = 1;
 
 	/*map<int, std::string> m2;
 	print_map(m2, "m2");
 	typename map<int, std::string>::iterator begin = m2.begin();
 	++begin;*/
+
+	typename map<int, std::string>::const_iterator cbegin = m2.begin();
+	FILE << "*cbegin : " << OUTPUT << cbegin->first << ENDL;
+	//cbegin->second = "A";
+
 
 	FILE << SUBTITLE << "Constructors" << ENDL;
 	FILE << CATEGORY << "===> Default constructor" << ENDL;

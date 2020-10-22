@@ -50,7 +50,7 @@ namespace ft
 			};
 
 			typedef typename node::iterator iterator;
-			//typedef typename ft::vector<T, Alloc>::CIterator const_iterator;
+			typedef typename node::const_iterator const_iterator;
 			//typedef typename ft::vector<T, Alloc>::RIterator reverse_iterator;
 			//typedef typename ft::vector<T, Alloc>::CRIterator const_reverse_iterator;
 
@@ -74,9 +74,9 @@ namespace ft
 		/* Member functions */
 			/** Iterators **/
 			iterator begin(void);
-			//const_iterator begin(void) const;
+			const_iterator begin(void) const;
 			iterator end(void);
-			//const_iterator end(void) const;
+			const_iterator end(void) const;
 			/** Capacity **/
 
 			/** Element access **/

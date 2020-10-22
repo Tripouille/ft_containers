@@ -18,7 +18,6 @@ ft::map<Key, T, Compare, Alloc>::map(const key_compare & comp,
 template <class Key, class T, class Compare, class Alloc>
 ft::map<Key, T, Compare, Alloc>::~map(void)
 {
-	_debug();
 	_deallocate_btree(_root);
 	_size = 0;
 }
@@ -40,10 +39,28 @@ ft::map<Key, T, Compare, Alloc>::begin(void)
 }
 
 template <class Key, class T, class Compare, class Alloc>
+typename ft::map<Key, T, Compare, Alloc>::const_iterator
+ft::map<Key, T, Compare, Alloc>::begin(void) const
+{
+	node * tmp = _root;
+	if (tmp)
+		while (tmp->left)
+			tmp = tmp->left;
+	return (const_iterator(tmp, &_root));	
+}
+
+template <class Key, class T, class Compare, class Alloc>
 typename ft::map<Key, T, Compare, Alloc>::iterator
 ft::map<Key, T, Compare, Alloc>::end(void)
 {
 	return (iterator(NULL, &_root));
+}
+
+template <class Key, class T, class Compare, class Alloc>
+typename ft::map<Key, T, Compare, Alloc>::const_iterator
+ft::map<Key, T, Compare, Alloc>::end(void) const
+{
+	return (const_iterator(NULL, &_root));
 }
 
 /** Capacity **/
