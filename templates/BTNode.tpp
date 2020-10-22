@@ -162,7 +162,27 @@ template <class Key, class T, class Compare, class Alloc>
 typename ft::BTNode<Key, T, Compare, Alloc>::Iterator &
 ft::BTNode<Key, T, Compare, Alloc>::Iterator::operator--(void)
 {
-	Iterator::_node = Iterator::_node->prev;
+	if (Iterator::_node == NULL)
+		return (*this);
+
+	bool right_child = Iterator::_node->parent
+					  && Iterator::_node == Iterator::_node->parent->right;
+
+	if (Iterator::_node->left)
+	{
+		Iterator::_node = Iterator::_node->left;
+		while (Iterator::_node->right)
+			Iterator::_node = Iterator::_node->right;
+	}
+	else if (right_child)
+		Iterator::_node = Iterator::_node->parent;
+	else
+	{
+		while (Iterator::_node->parent
+		&& Iterator::_node == Iterator::_node->parent->left)
+			Iterator::_node = Iterator::_node->parent;
+		Iterator::_node = Iterator::_node->parent;
+	}
 	return (*this);
 }
 

@@ -33,6 +33,7 @@ namespace ft
 			protected:
 				void	_copy(BaseIterator const & other);
 				node *	_node;
+				//node ** _root_ptr; a faire demain getfirst getlast
 
 			friend class ft::map<Key, T, Compare, Alloc>;
 		};

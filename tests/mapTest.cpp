@@ -44,6 +44,19 @@ test_map(void)
 	print_map(m, "m");
 
 
+	typename map<int, std::string>::iterator begin = m.begin();
+	typename map<int, std::string>::iterator end = m.end();
+	while (end != begin)
+	{
+		--end;
+		std::cout << "reverse(" << end->first << " : " << end->second << ") ";
+	}
+	//--begin;
+	//--begin;
+	//--begin;
+	//std::cout << "test(" << begin->first << " : " << begin->second << ") ";
+
+
 	/*map<int, std::string> m2;
 	print_map(m2, "m2");
 	typename map<int, std::string>::iterator begin = m2.begin();
@@ -58,5 +71,5 @@ test_map(void)
 int
 main(void)
 {
-    test_map<ft::map>();
+    test_map<std::map>();
 }
