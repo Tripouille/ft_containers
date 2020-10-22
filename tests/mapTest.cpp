@@ -64,6 +64,15 @@ test_map(void)
 		++rbegin;
 	}
 
+	typename map<int, std::string>::const_reverse_iterator crbegin = m2.rbegin();
+	typename map<int, std::string>::const_reverse_iterator crend = m2.rend();
+	while (crbegin != crend)
+	{
+		std::cout << "reverse(" << crbegin->first << " : " << crbegin->second << ") ";
+		++crbegin;
+	}
+	//(--crbegin)->second = "A";
+
 	//begin->first = 1;
 
 	/*map<int, std::string> m2;
@@ -85,5 +94,5 @@ test_map(void)
 int
 main(void)
 {
-    test_map<ft::map>();
+    test_map<std::map>();
 }

@@ -75,10 +75,28 @@ ft::map<Key, T, Compare, Alloc>::rbegin(void)
 }
 
 template <class Key, class T, class Compare, class Alloc>
+typename ft::map<Key, T, Compare, Alloc>::const_reverse_iterator
+ft::map<Key, T, Compare, Alloc>::rbegin(void) const
+{
+	node * tmp = _root;
+	if (tmp)
+		while (tmp->right)
+			tmp = tmp->right;
+	return (const_reverse_iterator(tmp, &_root));
+}
+
+template <class Key, class T, class Compare, class Alloc>
 typename ft::map<Key, T, Compare, Alloc>::reverse_iterator
 ft::map<Key, T, Compare, Alloc>::rend(void)
 {
 	return (reverse_iterator(NULL, &_root));
+}
+
+template <class Key, class T, class Compare, class Alloc>
+typename ft::map<Key, T, Compare, Alloc>::const_reverse_iterator
+ft::map<Key, T, Compare, Alloc>::rend(void) const
+{
+	return (const_reverse_iterator(NULL, &_root));
 }
 
 /** Capacity **/

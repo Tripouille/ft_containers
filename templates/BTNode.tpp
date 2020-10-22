@@ -477,17 +477,17 @@ ft::BTNode<Key, T, Compare, Alloc>::RIterator::operator->(void) const
 {
 	return (&(RIterator::_node->pair));
 }
-/*
+
 //CRIterator
 template <class Key, class T, class Compare, class Alloc>
-ft::BTNode<Key, T, Compare, Alloc>::CRIterator::CRIterator(BTNode<Key, T, Compare, Alloc> * n)
-						 : BaseIterator(n)
+ft::BTNode<Key, T, Compare, Alloc>::CRIterator::CRIterator(node * n, node * const * root)
+						 : BaseIterator(n, root)
 {
 }
 
 template <class Key, class T, class Compare, class Alloc>
-ft::BTNode<Key, T, Compare, Alloc>::CRIterator::CRIterator(RIterator const & rin)
-						 : BaseIterator(rin)
+ft::BTNode<Key, T, Compare, Alloc>::CRIterator::CRIterator(RIterator const & rit)
+						 : BaseIterator(rit)
 {
 }
 
@@ -516,7 +516,28 @@ template <class Key, class T, class Compare, class Alloc>
 typename ft::BTNode<Key, T, Compare, Alloc>::CRIterator &
 ft::BTNode<Key, T, Compare, Alloc>::CRIterator::operator++(void)
 {
-	CRIterator::_node = CRIterator::_node->prev;
+	if (CRIterator::_node == NULL)
+	{
+		CRIterator::_node = CRIterator::_get_last_node();
+		return (*this);
+	}
+
+	if (CRIterator::_node->left)
+	{
+		CRIterator::_node = CRIterator::_node->left;
+		while (CRIterator::_node->right)
+			CRIterator::_node = CRIterator::_node->right;
+	}
+	else if (CRIterator::_node->parent
+	&& CRIterator::_node == CRIterator::_node->parent->right)
+		CRIterator::_node = CRIterator::_node->parent;
+	else
+	{
+		while (CRIterator::_node->parent
+		&& CRIterator::_node == CRIterator::_node->parent->left)
+			CRIterator::_node = CRIterator::_node->parent;
+		CRIterator::_node = CRIterator::_node->parent;
+	}
 	return (*this);
 }
 
@@ -533,7 +554,28 @@ template <class Key, class T, class Compare, class Alloc>
 typename ft::BTNode<Key, T, Compare, Alloc>::CRIterator &
 ft::BTNode<Key, T, Compare, Alloc>::CRIterator::operator--(void)
 {
-	CRIterator::_node = CRIterator::_node->next;
+	if (CRIterator::_node == NULL)
+	{
+		CRIterator::_node = CRIterator::_get_first_node();
+		return (*this);
+	}
+
+	if (CRIterator::_node->right)
+	{
+		CRIterator::_node = CRIterator::_node->right;
+		while (CRIterator::_node->left)
+			CRIterator::_node = CRIterator::_node->left;
+	}
+	else if (CRIterator::_node->parent
+	&& CRIterator::_node == CRIterator::_node->parent->left)
+		CRIterator::_node = CRIterator::_node->parent;
+	else
+	{
+		while (CRIterator::_node->parent
+		&& CRIterator::_node == CRIterator::_node->parent->right)
+			CRIterator::_node = CRIterator::_node->parent;
+		CRIterator::_node = CRIterator::_node->parent;
+	}
 	return (*this);
 }
 
@@ -547,16 +589,15 @@ ft::BTNode<Key, T, Compare, Alloc>::CRIterator::operator--(int)
 }
 
 template <class Key, class T, class Compare, class Alloc>
-T const &
+std::pair<Key const, T> const &
 ft::BTNode<Key, T, Compare, Alloc>::CRIterator::operator*(void) const
 {
-	return (CRIterator::_node->value);
+	return (CRIterator::_node->pair);
 }
 
 template <class Key, class T, class Compare, class Alloc>
-T const *
+std::pair<Key const, T> const *
 ft::BTNode<Key, T, Compare, Alloc>::CRIterator::operator->(void) const
 {
-	return (&(CRIterator::_node->value));
+	return (&(CRIterator::_node->pair));
 }
-*/

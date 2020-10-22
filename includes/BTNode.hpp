@@ -89,28 +89,28 @@ namespace ft
 				std::pair<Key const, T> &	operator*(void) const;
 				std::pair<Key const, T> *	operator->(void) const;
 		};
-/*
+
 		class CRIterator : public BaseIterator
 		{
 			public:
-				CRIterator(BTNode<Key, T, Compare, Alloc> * t = NULL);
+				CRIterator(node * n = NULL, node * const * root = NULL);
 				CRIterator(RIterator const & rit);
 				~CRIterator(void);
 				CRIterator(CRIterator const & other);
 
-				CRIterator &	operator=(CRIterator const & other);
-				CRIterator &	operator++(void);
-				CRIterator		operator++(int);
-				CRIterator &	operator--(void);
-				CRIterator		operator--(int);
-				T const &		operator*(void) const;
-				T const *		operator->(void) const;
+				CRIterator &						operator=(CRIterator const & other);
+				CRIterator &						operator++(void);
+				CRIterator							operator++(int);
+				CRIterator &						operator--(void);
+				CRIterator							operator--(int);
+				std::pair<Key const, T> const &		operator*(void) const;
+				std::pair<Key const, T> const *		operator->(void) const;
 		};
-	*/
+
 		typedef Iterator iterator;
 		typedef CIterator const_iterator;
 		typedef RIterator reverse_iterator;
-		//typedef CRIterator const_reverse_iterator;
+		typedef CRIterator const_reverse_iterator;
 
 		BTNode(void);
 		BTNode(const Key & k, const T & v,
