@@ -51,7 +51,7 @@ namespace ft
 
 			typedef typename node::iterator iterator;
 			typedef typename node::const_iterator const_iterator;
-			//typedef typename ft::vector<T, Alloc>::RIterator reverse_iterator;
+			typedef typename node::reverse_iterator reverse_iterator;
 			//typedef typename ft::vector<T, Alloc>::CRIterator const_reverse_iterator;
 
 			typedef ptrdiff_t difference_type;
@@ -77,6 +77,11 @@ namespace ft
 			const_iterator begin(void) const;
 			iterator end(void);
 			const_iterator end(void) const;
+			reverse_iterator rbegin(void);
+			//const_reverse_iterator rbegin(void) const;
+			reverse_iterator rend(void);
+			//const_reverse_iterator rend(void) const;
+
 			/** Capacity **/
 
 			/** Element access **/

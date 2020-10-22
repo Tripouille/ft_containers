@@ -31,27 +31,6 @@ void
 test_map(void)
 {
 	FILE << TITLE << std::endl << "=> STARTING map tests" << ENDL;
-	map<int, std::string> m;
-	m[1] = "B";
-	FILE << "m[1] : " << OUTPUT << m[1] << ENDL;
-	FILE << "m[2] : " << OUTPUT << m[2] << ENDL;
-	m[0] = "A";
-	FILE << "m[0] : " << OUTPUT << m[0] << ENDL;
-	m[5] = "F";
-	FILE << "m[5] : " << OUTPUT << m[5] << ENDL;
-	m[3] = "D";
-	FILE << "m[3] : " << OUTPUT << m[3] << ENDL;
-	print_map(m, "m");
-
-
-	typename map<int, std::string>::iterator begin = m.begin();
-	typename map<int, std::string>::iterator end = m.end();
-	while (end != begin)
-	{
-		--end;
-		std::cout << "reverse(" << end->first << " : " << end->second << ") ";
-	}
-	std::cout << std::endl;
 
 	map<int, std::string> m2;
 	m2[10] = "";
@@ -69,12 +48,20 @@ test_map(void)
 	m2[31] = "";
 	print_map(m2, "m2");
 
-	begin = m2.begin();
+	/*begin = m2.begin();
 	end = m2.end();
 	while (end != begin)
 	{
 		--end;
 		std::cout << "reverse(" << end->first << " : " << end->second << ") ";
+	}*/
+
+	typename map<int, std::string>::reverse_iterator rbegin = m2.rbegin();
+	typename map<int, std::string>::reverse_iterator rend = m2.rend();
+	while (rbegin != rend)
+	{
+		std::cout << "reverse(" << rbegin->first << " : " << rbegin->second << ") ";
+		++rbegin;
 	}
 
 	//begin->first = 1;
@@ -84,8 +71,8 @@ test_map(void)
 	typename map<int, std::string>::iterator begin = m2.begin();
 	++begin;*/
 
-	typename map<int, std::string>::const_iterator cbegin = m2.begin();
-	FILE << "*cbegin : " << OUTPUT << cbegin->first << ENDL;
+	/*typename map<int, std::string>::const_iterator cbegin = m2.begin();
+	FILE << "*cbegin : " << OUTPUT << cbegin->first << ENDL;*/
 	//cbegin->second = "A";
 
 
