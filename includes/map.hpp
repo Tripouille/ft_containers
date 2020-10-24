@@ -71,7 +71,7 @@ namespace ft
 		/* Destructor */
 			~map(void);
 		/* Operator */
-
+			/** copy (1) **/ map & operator=(const map & x);
 		/* Member functions */
 			/** Iterators **/
 			iterator begin(void);
