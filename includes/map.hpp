@@ -20,6 +20,7 @@ namespace ft
 			typedef std::pair<const key_type, mapped_type> value_type;
 			typedef Compare key_compare;
 			typedef Alloc allocator_type;
+
 			typedef BTNode<Key, T, Compare, Alloc> node;
 			typedef typename Alloc::template rebind<node>::other node_allocator_type;
 
@@ -95,12 +96,13 @@ namespace ft
 			/** Allocator **/
 		private:
 		/* Debug Functions */
-			void _print_btree(node * n);
-			void _debug(void);
+			void _print_btree(node * n) const;
+			void _debug(void) const;
 		/* Private Functions */
-			node * _find_node(const key_type & k);
+			node * _find_node(const key_type & k) const;
 			void _insert_node(node * n);
 			void _deallocate_btree(node * & n);
+			node * _create_node(const key_type & k, const mapped_type & v);
 
 		/* Private variables */
 			key_compare			_compare;

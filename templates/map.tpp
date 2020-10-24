@@ -11,8 +11,26 @@ ft::map<Key, T, Compare, Alloc>::map(const key_compare & comp,
 }
 
 /** range (2) **/
-/** copy (3) **/
+template <class Key, class T, class Compare, class Alloc>
+template <class InputIterator>
+ft::map<Key, T, Compare, Alloc>::map(InputIterator first, InputIterator last,
+									const key_compare & comp , const allocator_type & alloc)
+								 : _compare(comp), _alloc(alloc), _root(NULL), _size(0)
+{
+	for (; first != last; ++first)
+		_insert_node(_create_node(first->first, first->last));
+}
 
+/** copy (3) **/
+template <class Key, class T, class Compare, class Alloc>
+ft::map<Key, T, Compare, Alloc>::map(const map & x)
+								: _compare(x._compare), _alloc(x._alloc), _root(NULL), _size(x._size)
+{
+	const_iterator begin = x.begin();
+	const_iterator end = x.end();
+	for (; begin != end; ++begin)
+		_insert_node(_create_node(begin->first, begin->last));
+}
 
 /* Destructor */
 template <class Key, class T, class Compare, class Alloc>
@@ -110,8 +128,7 @@ ft::map<Key, T, Compare, Alloc>::operator[](const key_type & k)
 
 	if (n == NULL)
 	{
-		n = _node_alloc.allocate(1);
-		_node_alloc.construct(n, node(k, mapped_type()));
+		n = _create_node(k, mapped_type());
 		_insert_node(n);
 		++_size;
 	}
@@ -133,7 +150,7 @@ ft::map<Key, T, Compare, Alloc>::operator[](const key_type & k)
 /** Private functions **/
 template <class Key, class T, class Compare, class Alloc>
 typename ft::map<Key, T, Compare, Alloc>::node *
-ft::map<Key, T, Compare, Alloc>::_find_node(const key_type & k)
+ft::map<Key, T, Compare, Alloc>::_find_node(const key_type & k) const
 {
 	node * tmp = _root;
 	while (tmp)
@@ -187,11 +204,21 @@ ft::map<Key, T, Compare, Alloc>::_deallocate_btree(node * & n)
 	}
 }
 
+template <class Key, class T, class Compare, class Alloc>
+typename ft::map<Key, T, Compare, Alloc>::node * 
+ft::map<Key, T, Compare, Alloc>::_create_node(const key_type & k,
+											const mapped_type & v)
+{
+	node * n = _node_alloc.allocate(1);
+	_node_alloc.construct(n, node(k, v));
+	return (n);
+}
+
 
 /* Debug Functions */
 template <class Key, class T, class Compare, class Alloc>
 void
-ft::map<Key, T, Compare, Alloc>::_print_btree(node * n)
+ft::map<Key, T, Compare, Alloc>::_print_btree(node * n) const
 {
 	if (n == NULL)
 		return ;
@@ -202,7 +229,7 @@ ft::map<Key, T, Compare, Alloc>::_print_btree(node * n)
 
 template <class Key, class T, class Compare, class Alloc>
 void
-ft::map<Key, T, Compare, Alloc>::_debug(void)
+ft::map<Key, T, Compare, Alloc>::_debug(void) const
 {
 	std::cout << "#[Actual Tree] : ";
 	_print_btree(_root);

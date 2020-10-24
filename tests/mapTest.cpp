@@ -94,5 +94,5 @@ test_map(void)
 int
 main(void)
 {
-    test_map<std::map>();
+    test_map<ft::map>();
 }
