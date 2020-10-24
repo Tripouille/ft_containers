@@ -90,6 +90,10 @@ namespace ft
 			/** Element access **/
 				mapped_type & operator[](const key_type & k);
 			/** Modifiers **/
+				/** single element (1) **/ std::pair<iterator,bool> insert(const value_type& val);
+				/** with hint (2) **/ iterator insert(iterator position, const value_type& val);
+				/** range (3) **/ template <class InputIterator>
+								void insert(InputIterator first, InputIterator last);
 
 			/** Observers **/
 
@@ -102,6 +106,7 @@ namespace ft
 			void _debug(void) const;
 		/* Private Functions */
 			node * _find_node(const key_type & k) const;
+			node * _try_insert_node(const key_type & k, const mapped_type & v);
 			void _insert_node(node * n);
 			void _deallocate_btree(node * & n);
 			node * _create_node(const key_type & k, const mapped_type & v);

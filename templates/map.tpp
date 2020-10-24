@@ -18,7 +18,7 @@ ft::map<Key, T, Compare, Alloc>::map(InputIterator first, InputIterator last,
 								 : _compare(comp), _alloc(alloc), _root(NULL), _size(0)
 {
 	for (; first != last; ++first)
-		_insert_node(_create_node(first->first, first->second));
+		_try_insert_node(first->first, first->second);
 }
 
 /** copy (3) **/
@@ -157,15 +157,7 @@ template <class Key, class T, class Compare, class Alloc>
 typename ft::map<Key, T, Compare, Alloc>::mapped_type & 
 ft::map<Key, T, Compare, Alloc>::operator[](const key_type & k)
 {
-	node * n = _find_node(k);
-
-	if (n == NULL)
-	{
-		n = _create_node(k, mapped_type());
-		_insert_node(n);
-		++_size;
-	}
-	return (n->pair.second);
+	return (_try_insert_node(k, mapped_type())->pair.second);
 }
 
 /** Modifiers **/
@@ -193,6 +185,22 @@ ft::map<Key, T, Compare, Alloc>::_find_node(const key_type & k) const
 		else
 			tmp = tmp->right;
 	return (NULL);
+}
+
+template <class Key, class T, class Compare, class Alloc>
+typename ft::map<Key, T, Compare, Alloc>::node *
+ft::map<Key, T, Compare, Alloc>::_try_insert_node(const key_type & k,
+												const mapped_type & v)
+{
+	node * n = _find_node(k);
+
+	if (n == NULL)
+	{
+		n = _create_node(k, v);
+		++_size;
+		_insert_node(n);
+	}
+	return (n);
 }
 
 template <class Key, class T, class Compare, class Alloc>
