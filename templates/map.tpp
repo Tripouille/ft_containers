@@ -131,6 +131,26 @@ ft::map<Key, T, Compare, Alloc>::rend(void) const
 }
 
 /** Capacity **/
+template <class Key, class T, class Compare, class Alloc>
+bool
+ft::map<Key, T, Compare, Alloc>::empty(void) const
+{
+	return (_size == 0);
+}
+
+template <class Key, class T, class Compare, class Alloc>
+typename ft::map<Key, T, Compare, Alloc>::size_type
+ft::map<Key, T, Compare, Alloc>::size(void) const
+{
+	return (_size);
+}
+
+template <class Key, class T, class Compare, class Alloc>
+typename ft::map<Key, T, Compare, Alloc>::size_type
+ft::map<Key, T, Compare, Alloc>::max_size(void) const
+{
+	return (_node_alloc.max_size());
+}
 
 /** Element access **/
 template <class Key, class T, class Compare, class Alloc>
