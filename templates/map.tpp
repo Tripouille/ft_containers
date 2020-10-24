@@ -157,10 +157,20 @@ template <class Key, class T, class Compare, class Alloc>
 typename ft::map<Key, T, Compare, Alloc>::mapped_type & 
 ft::map<Key, T, Compare, Alloc>::operator[](const key_type & k)
 {
-	return (_try_insert_node(k, mapped_type())->pair.second);
+	return (_try_insert_node(k, mapped_type()).first->pair.second);
 }
 
 /** Modifiers **/
+/** single element (1) **/
+template <class Key, class T, class Compare, class Alloc>
+std::pair<typename ft::map<Key, T, Compare, Alloc>::iterator, bool>
+ft::map<Key, T, Compare, Alloc>::insert(const value_type& val)
+{
+	std::pair<node *, bool> infos = _try_insert_node(val->first, val->second);
+	return (std::pair<iterator, bool>(iterator(infos->first->key, infos->first->value),
+										infos->second));
+}
+
 
 
 /** Observers **/
@@ -188,19 +198,21 @@ ft::map<Key, T, Compare, Alloc>::_find_node(const key_type & k) const
 }
 
 template <class Key, class T, class Compare, class Alloc>
-typename ft::map<Key, T, Compare, Alloc>::node *
+std::pair<typename ft::map<Key, T, Compare, Alloc>::node *, bool>
 ft::map<Key, T, Compare, Alloc>::_try_insert_node(const key_type & k,
 												const mapped_type & v)
 {
 	node * n = _find_node(k);
+	bool need_to_create = false;
 
 	if (n == NULL)
 	{
 		n = _create_node(k, v);
 		++_size;
 		_insert_node(n);
+		need_to_create = true;
 	}
-	return (n);
+	return (std::pair<node *, bool>(n, need_to_create));
 }
 
 template <class Key, class T, class Compare, class Alloc>
