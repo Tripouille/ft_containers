@@ -170,7 +170,7 @@ template <class Key, class T, class Compare, class Alloc>
 std::pair<typename ft::map<Key, T, Compare, Alloc>::iterator, bool>
 ft::map<Key, T, Compare, Alloc>::insert(const value_type& val)
 {
-	std::pair<node *, bool> infos = _try_insert_node(val->first, val->second);
+	std::pair<node *, bool> infos = _try_insert_node(val.first, val.second);
 	return (std::pair<iterator, bool>(iterator(infos.first, &_root),
 										infos.second));
 }
