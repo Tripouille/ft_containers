@@ -10,6 +10,8 @@
 #define SUBCATEGORY FG_DGRAY
 #define OUTPUT FG_GREEN << UNDERLINED
 #define FILE std::cout << RESET_ALL
+using std::pair;
+using std::make_pair;
 
 template<class T>
 void
@@ -95,12 +97,29 @@ test_map(void)
 	FILE << ENDL;
 
 	FILE << CATEGORY << "===> Range constructor" << ENDL;
-	FILE << "std::pair<int, std::string> intStringPairArray[] = {{1, \"A\"}};" << ENDL;
-	std::pair<int, std::string> intStringPairArray[] = {std::pair<int, std::string>(1, "A")};
-	FILE << "map<int, std::string> mapB(intStringPairArray.begin(), intStringPairArray.end());" << ENDL;
-	map<int, std::string> mapB(intStringPairArray, intStringPairArray + 1);
+	FILE << "pair<int, std::string> pairArray[] = {make_pair(1, \"A\"), make_pair(2, \"B\"), make_pair(3, \"C\")};" << ENDL;
+	pair<int, std::string> pairArray[] = {make_pair(1, "A"), make_pair(2, "B"), make_pair(3, "C")};
+	FILE << "map<int, std::string> mapB(pairArray, pairArray + 3);" << ENDL;
+	map<int, std::string> mapB(pairArray, pairArray + 3);
 	print_map(mapB, "mapB");
 	//FILE << std::boolalpha << "mapB.empty() = " << OUTPUT << mapB.empty() << ENDL;
+	FILE << "map<int, std::string> mapC(pairArray, pairArray);" << ENDL;
+	map<int, std::string> mapC(pairArray, pairArray);
+	print_map(mapC, "mapC");
+	//FILE << std::boolalpha << "mapC.empty() = " << OUTPUT << mapC.empty() << ENDL;
+	FILE << "pair<int, std::string> pairArray2[] = {make_pair(1, \"A\"), make_pair(2, \"B\"), make_pair(3, \"C\")};" << ENDL;
+	pair<int, std::string> pairArray2[] = {make_pair(10, ""), make_pair(7, ""), make_pair(7, ""), make_pair(9, ""), make_pair(8, ""), make_pair(20, ""), make_pair(30, ""), make_pair(21, ""), make_pair(22, ""), make_pair(23, ""), make_pair(33, ""), make_pair(32, ""), make_pair(33, "")};
+	FILE << "map<int, std::string> mapD(pairArray2, pairArray2 + 13);" << ENDL;
+	map<int, std::string> mapD(pairArray2, pairArray2 + 13);
+	print_map(mapD, "mapD");
+	//FILE << std::boolalpha << "mapD.empty() = " << OUTPUT << mapD.empty() << ENDL;
+	FILE << ENDL;
+
+	FILE << CATEGORY << "===> Copy constructor" << ENDL;
+	/*print_map(mapB, "mapB");
+	FILE << "map<int> mapC(mapB);" << ENCL; vec<int> mapC(mapB);
+	print_map(mapB, "mapB");
+	print_map(mapC, "mapC");*/
 	FILE << ENDL;
 
 	FILE << TITLE << "=> ENDING map tests" << ENDL << ENDL;
