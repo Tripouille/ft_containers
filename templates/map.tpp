@@ -18,18 +18,19 @@ ft::map<Key, T, Compare, Alloc>::map(InputIterator first, InputIterator last,
 								 : _compare(comp), _alloc(alloc), _root(NULL), _size(0)
 {
 	for (; first != last; ++first)
-		_insert_node(_create_node(first->first, first->last));
+		_insert_node(_create_node(first->first, first->second));
 }
 
 /** copy (3) **/
 template <class Key, class T, class Compare, class Alloc>
 ft::map<Key, T, Compare, Alloc>::map(const map & x)
-								: _compare(x._compare), _alloc(x._alloc), _root(NULL), _size(x._size)
+								: _compare(x._compare), _alloc(x._alloc),
+								  _root(NULL), _size(x._size)
 {
 	const_iterator begin = x.begin();
 	const_iterator end = x.end();
 	for (; begin != end; ++begin)
-		_insert_node(_create_node(begin->first, begin->last));
+		_insert_node(_create_node(begin->first, begin->second));
 }
 
 /* Destructor */
@@ -52,7 +53,7 @@ ft::map<Key, T, Compare, Alloc>::operator=(const map & x)
 	const_iterator begin = x.begin();
 	const_iterator end = x.end();
 	for (; begin != end; ++begin)
-		_insert_node(_create_node(begin->first, begin->last));
+		_insert_node(_create_node(begin->first, begin->second));
 }
 
 /* Public functions */
