@@ -151,7 +151,7 @@ test_map(void)
 	print_map(mapC, "mapC");
 	FILE << "mapB = mapC;" << ENDL; mapB = mapC;
 	print_map(mapB, "mapB");
-	//FILE << "mapB.insert(make_pair(0, ""));" << ENDL; mapB.insert(make_pair(0, ""));
+	FILE << "mapB.insert(make_pair(0, ""));" << ENDL; mapB.insert(make_pair(0, ""));
 	print_map(mapB, "mapB");
 	print_map(mapC, "mapC");
 	FILE << "mapB = mapC;" << ENDL; mapB = mapC;

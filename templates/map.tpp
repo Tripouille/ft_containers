@@ -47,13 +47,17 @@ template <class Key, class T, class Compare, class Alloc>
 typename ft::map<Key, T, Compare, Alloc> &
 ft::map<Key, T, Compare, Alloc>::operator=(const map & x)
 {
-	_deallocate_btree(_root);
-	_size = x._size;
-	_compare = x._compare;
-	const_iterator begin = x.begin();
-	const_iterator end = x.end();
-	for (; begin != end; ++begin)
-		_insert_node(_create_node(begin->first, begin->second));
+	if (this != &x)
+	{
+		_deallocate_btree(_root);
+		_size = x._size;
+		_compare = x._compare;
+		const_iterator begin = x.begin();
+		const_iterator end = x.end();
+		for (; begin != end; ++begin)
+			_insert_node(_create_node(begin->first, begin->second));
+	}
+	return (*this);
 }
 
 /* Public functions */
