@@ -80,62 +80,6 @@ test_map(void)
 {
 	FILE << TITLE << std::endl << "=> STARTING map tests" << ENDL;
 
-	map<int, string> m2;
-	m2[10] = "";
-	m2[7] = "";
-	m2[7] = "";
-	m2[9] = "";
-	m2[8] = "";
-	m2[20] = "";
-	m2[30] = "";
-	m2[21] = "";
-	m2[22] = "";
-	m2[23] = "";
-	m2[33] = "";
-	m2[32] = "";
-	m2[31] = "";
-	
-	//print_map(m2, "m2");
-
-	/*begin = m2.begin();
-	end = m2.end();
-	while (end != begin)
-	{
-		--end;
-		std::cout << "reverse(" << end->first << " : " << end->second << ") ";
-	}*/
-
-	/*typename map<int, string>::reverse_iterator rbegin = m2.rbegin();
-	typename map<int, string>::reverse_iterator rend = m2.rend();
-	while (rbegin != rend)
-	{
-		std::cout << "reverse(" << rbegin->first << " : " << rbegin->second << ") ";
-		++rbegin;
-	}
-
-	typename map<int, string>::const_reverse_iterator crbegin = m2.rbegin();
-	typename map<int, string>::const_reverse_iterator crend = m2.rend();
-	while (crbegin != crend)
-	{
-		std::cout << "reverse(" << crbegin->first << " : " << crbegin->second << ") ";
-		++crbegin;
-	}*/
-	//(--crbegin)->second = "A";
-
-	//begin->first = 1;
-
-	/*map<int, string> m2;
-	print_map(m2, "m2");
-	typename map<int, string>::iterator begin = m2.begin();
-	++begin;*/
-
-	/*typename map<int, string>::const_iterator cbegin = m2.begin();
-	FILE << "*cbegin : " << OUTPUT << cbegin->first << ENDL;*/
-	//cbegin->second = "A";
-
-
-
-
 	FILE << SUBTITLE << "Constructors" << ENDL;
 	FILE << CATEGORY << "===> Default constructor" << ENDL;
 	FILE << "map<int, string> mapA;" << ENDL; map<int, string> mapA;
@@ -195,6 +139,77 @@ test_map(void)
 
 	FILE << SUBTITLE << "Iterators" << ENDL;
 	FILE << CATEGORY << "===> Iterators" << ENDL;
+	print_map(mapC, "mapC");
+	FILE << "mapC.begin() == mapC.end() : " << OUTPUT << std::boolalpha << (mapC.begin() == mapC.end()) << ENDL;
+	FILE << SUBCATEGORY << "(Adding some values)" << ENDL;
+	mapC[1] = "A"; mapC[2] = "B"; mapC[3] = "C";
+	print_map(mapC, "mapC");
+	FILE << "map<int, string>::iterator it = mapC.begin();" << ENDL; typename map<int, string>::iterator it = mapC.begin();
+	FILE << "map<int, string>::iterator ite = mapC.end();" << ENDL; typename map<int, string>::iterator ite = mapC.end();
+	FILE << "while (it != ite) {...; it++;}" << ENDL;
+	while (it != ite)
+	{
+		FILE << "it->first : " << OUTPUT << it->first << RESET_ALL << ", it->second : " << OUTPUT << it->second << ENDL;
+		it++;
+	}
+	FILE << "it--;" << ENDL; it--;
+	#ifdef CONST_TEST
+	FILE << "it->first = 42;" << ENDL; it->first = 42;
+	#endif
+	FILE << "it->second = \"CC\";" << ENDL; it->second = "CC";
+	print_map(mapC, "mapC");
+	FILE << ENDL;
+
+	FILE << CATEGORY << "===> Const iterators" << ENDL;
+	print_map(mapC, "mapC");
+	FILE << "map<int, string>::const_iterator it = mapC.begin();" << ENDL; typename map<int, string>::const_iterator c_it = mapC.begin();
+	FILE << "map<int, string>::const_iterator ite = mapC.end();" << ENDL; typename map<int, string>::const_iterator c_ite = mapC.end();
+	FILE << "while (c_it != c_ite) {...; c_it++;}" << ENDL;
+	while (c_it != c_ite)
+	{
+		FILE << "c_it->first : " << OUTPUT << c_it->first << RESET_ALL << ", c_it->second : " << OUTPUT << c_it->second << ENDL;
+		c_it++;
+	}
+	#ifdef CONST_TEST
+	FILE << "c_it--;" << ENDL; c_it--;
+	FILE << "c_it->second = \"CC\";" << ENDL; c_it->second = "CC";
+	#endif
+	FILE << ENDL;
+
+	FILE << CATEGORY << "===> Reverse iterators" << ENDL;
+	print_map(mapC, "mapC");
+	FILE << "map<int, string>::reverse_iterator r_it = mapC.rbegin();" << ENDL; typename map<int, string>::reverse_iterator r_it = mapC.rbegin();
+	FILE << "map<int, string>::reverse_iterator r_ite = mapC.rend();" << ENDL; typename map<int, string>::reverse_iterator r_ite = mapC.rend();
+	FILE << "while (r_it != r_ite) {...; r_it++;}" << ENDL;
+	while (r_it != r_ite)
+	{
+		FILE << "r_it->first : " << OUTPUT << r_it->first << RESET_ALL << ", r_it->second : " << OUTPUT << r_it->second << ENDL;
+		r_it++;
+	}
+	FILE << "r_it--;" << ENDL; r_it--;
+	FILE << "r_it->second = \"AA\";" << ENDL; r_it->second = "AA";
+	print_map(mapC, "mapC");
+	FILE << ENDL;
+
+	FILE << CATEGORY << "===> Const reverse iterators" << ENDL;
+	print_map(mapC, "mapC");
+	FILE << "map<int, string>::const_reverse_iterator rc_it = mapC.rbegin();" << ENDL; typename map<int, string>::const_reverse_iterator rc_it = mapC.rbegin();
+	FILE << "map<int, string>::const_reverse_iterator rc_ite = mapC.rend();" << ENDL; typename map<int, string>::const_reverse_iterator rc_ite = mapC.rend();
+	FILE << "while (rc_it != rc_ite) {...; rc_it++;}" << ENDL;
+	while (rc_it != rc_ite)
+	{
+		FILE << "rc_it->first : " << OUTPUT << rc_it->first << RESET_ALL << ", rc_it->second : " << OUTPUT << rc_it->second << ENDL;
+		rc_it++;
+	}
+	#ifdef CONST_TEST
+	FILE << "rc_it--;" << ENDL; rc_it--;
+	FILE << "rc_it->second = \"AA\";" << ENDL; rc_it->second = "AA";
+	#endif
+	FILE << ENDL;
+
+	FILE << SUBTITLE << "Capacity" << ENDL;
+	FILE << CATEGORY << "===> max_size()" << ENDL;
+	FILE << "mapA.max_size() : " << OUTPUT << mapA.max_size() << ENDL;
 	FILE << ENDL;
 
 	FILE << SUBTITLE << "Element access" << ENDL;
