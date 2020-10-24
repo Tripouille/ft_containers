@@ -23,7 +23,7 @@ print_map(T const & map, std::string const & name)
 		std::cout << "(" << begin->first << " : " << begin->second << ") ";
 		++begin;
 	}
-	std::cout /*<< "] Size : " << map.size()*/ << ENDL;
+	std::cout << "] Size : " /*<< map.size()*/ << ENDL;
 }
 
 template <template <class Key, class T, class Compare = std::less<Key>, class Alloc = std::allocator<std::pair<const Key, T> > > class map>
@@ -85,9 +85,24 @@ test_map(void)
 	//cbegin->second = "A";
 
 
+
+
 	FILE << SUBTITLE << "Constructors" << ENDL;
 	FILE << CATEGORY << "===> Default constructor" << ENDL;
+	FILE << "map<int, std::string> mapA;" << ENDL; map<int, std::string> mapA;
+	print_map(mapA, "mapA");
+	//FILE << std::boolalpha << "mapA.empty() = " << OUTPUT << mapA.empty() << ENDL;
 	FILE << ENDL;
+
+	FILE << CATEGORY << "===> Range constructor" << ENDL;
+	/*FILE << "std::pair<int, std::string> intStringPairArray[] = {{1, \"A\"}};" << ENDL;
+	std::pair<int, std::string> intStringPairArray[] = {std::pair<int, std::string>(1, "A")};
+	FILE << "map<int, std::string> mapB(intStringPairArray.begin(), intStringPairArray.end());" << ENDL;
+	map<int, std::string> mapB(intStringPairArray, intStringPairArray + 1);
+	print_map(mapB, "mapB");*/
+	//FILE << std::boolalpha << "mapB.empty() = " << OUTPUT << mapB.empty() << ENDL;
+	FILE << ENDL;
+
 	FILE << TITLE << "=> ENDING map tests" << ENDL << ENDL;
 }
 
