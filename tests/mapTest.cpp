@@ -46,6 +46,7 @@ test_map(void)
 	m2[33] = "";
 	m2[32] = "";
 	m2[31] = "";
+	
 	print_map(m2, "m2");
 
 	/*begin = m2.begin();

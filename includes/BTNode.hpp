@@ -124,6 +124,7 @@ namespace ft
 		node *				parent;
 		node *				left;
 		node *				right;
+		bool 				is_black;
 
 		private:
 			void					_copy(BTNode const & other);
