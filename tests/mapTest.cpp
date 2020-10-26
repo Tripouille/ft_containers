@@ -238,6 +238,103 @@ test_map(void)
 	FILE << ENDL;
 
 	FILE << SUBTITLE << "Modifiers" << ENDL;
+	FILE << CATEGORY << "===> insert" << ENDL;
+	FILE << SUBCATEGORY << "=====> single element (1)" << ENDL;
+	print_map(mapA, "mapA");
+	FILE << "pair<map<int, string>::iterator, bool> res;" << ENDL;
+	pair<typename map<int, string>::iterator, bool> res;
+	FILE << "res = mapA.insert(make_pair(-1, \"Z\"));" << ENDL; res = mapA.insert(make_pair(-1, "Z"));
+	FILE << "(res.first)->first : " << OUTPUT << (res.first)->first << ENDL;
+	FILE << "(res.first)->second : " << OUTPUT << (res.first)->second << ENDL;
+	FILE << "res.second : " << OUTPUT << std::boolalpha << res.second << ENDL;
+	FILE << "res = mapA.insert(make_pair(15, \"Y\"));" << ENDL; res = mapA.insert(make_pair(15, "Y"));
+	FILE << "(res.first)->first : " << OUTPUT << (res.first)->first << ENDL;
+	FILE << "(res.first)->second : " << OUTPUT << (res.first)->second << ENDL;
+	FILE << "res.second : " << OUTPUT << std::boolalpha << res.second << ENDL;
+	FILE << "res = mapA.insert(make_pair(7, \"CC\"));" << ENDL; res = mapA.insert(make_pair(7, "CC"));
+	FILE << "(res.first)->first : " << OUTPUT << (res.first)->first << ENDL;
+	FILE << "(res.first)->second : " << OUTPUT << (res.first)->second << ENDL;
+	FILE << "res.second : " << OUTPUT << std::boolalpha << res.second << ENDL;
+	print_map(mapA, "mapA");
+	FILE << SUBCATEGORY << "=====> with hint (2)" << ENDL;
+	FILE << "map<int, string>::iterator res2;" << ENDL; typename map<int, string>::iterator res2;
+	FILE << "map<int, string>::iterator hint = mapA.begin();" << ENDL;
+	typename map<int, string>::iterator hint = mapA.begin();
+	FILE << "res2 = mapA.insert(hint, make_pair(-3, \"X\"));" << ENDL; res2 = mapA.insert(hint, make_pair(-3, "X"));
+	FILE << "res2->first : " << OUTPUT << res2->first << ENDL;
+	FILE << "res2->second : " << OUTPUT << res2->second << ENDL;
+	FILE << "res2 = mapA.insert(hint, make_pair(11, \"W\"));" << ENDL; res2 = mapA.insert(hint, make_pair(11, "W"));
+	FILE << "res2->first : " << OUTPUT << res2->first << ENDL;
+	FILE << "res2->second : " << OUTPUT << res2->second << ENDL;
+	print_map(mapA, "mapA");
+	FILE << SUBCATEGORY << "=====> range (3)" << ENDL;
+	//FILE << "mapA.insert(pairArray, pairArray);" << ENDL; mapA.insert(pairArray, pairArray);
+	//print_map(mapA, "mapA");
+	//FILE << "mapA.insert(pairArray, pairArray + 1);" << ENDL; mapA.insert(pairArray, pairArray + 1);
+	//print_map(mapA, "mapA");
+	//FILE << "mapA.insert(pairArray, pairArray + 3);" << ENDL; mapA.insert(pairArray, pairArray + 3);
+	//print_map(mapA, "mapA");
+	//FILE << "mapA.insert(pairArray2, pairArray2 + 13);" << ENDL; mapA.insert(pairArray2, pairArray2 + 13);
+	//print_map(mapA, "mapA");
+	FILE << ENDL;
+
+	FILE << CATEGORY << "===> erase" << ENDL;
+	FILE << SUBCATEGORY << "=====> from position (1)" << ENDL;
+	//print_map(mapA, "mapA");
+	//FILE << "mapA.erase(mapA.begin());" << ENDL; mapA.erase(mapA.begin());
+	//print_map(mapA, "mapA");
+	//FILE << "mapA.erase(mapA.begin());" << ENDL; mapA.erase(mapA.begin());
+	//print_map(mapA, "mapA");
+	//FILE << "mapA.erase(--mapA.end());" << ENDL; mapA.erase(--mapA.end());
+	//print_map(mapA, "mapA");
+	//FILE << "mapA.erase(++mapA.begin());" << ENDL; mapA.erase(++mapA.begin());
+	//print_map(mapA, "mapA");
+	//FILE << SUBCATEGORY << "(Moving iterator it) " << RESET_ALL;
+	//it = mapA.begin(); for (int i = 0; i < 6; ++i) ++it;
+	//FILE << "it->first : " << OUTPUT << it->first << ENDL;
+	//FILE << "mapA.erase(it);" << ENDL; mapA.erase(it);
+	//print_map(mapA, "mapA");
+	FILE << SUBCATEGORY << "=====> from key (2)" << ENDL;
+	//FILE << "mapA.erase(0);" << ENDL; mapA.erase(0);
+	//print_map(mapA, "mapA");
+	//FILE << "mapA.erase(7);" << ENDL; mapA.erase(7);
+	//print_map(mapA, "mapA");
+	//FILE << "mapA.erase(8);" << ENDL; mapA.erase(8);
+	//print_map(mapA, "mapA");
+	//FILE << "mapA.erase(31);" << ENDL; mapA.erase(31);
+	//print_map(mapA, "mapA");
+	//FILE << "mapA.erase(32);" << ENDL; mapA.erase(32);
+	//print_map(mapA, "mapA");
+	//FILE << SUBCATEGORY << "=====> range (3)" << ENDL;
+	//FILE << "mapA.erase(mapA.begin(), mapA.end());" << ENDL; mapA.erase(mapA.begin(), mapA.end());
+	//print_map(mapA, "mapA");
+	//print_map(mapD, "mapD");
+	//FILE << "mapD.erase(++mapD.begin(), --mapD.end());" << ENDL; mapD.erase(++mapD.begin(), --mapD.end());
+	//print_map(mapD, "mapD");
+	FILE << ENDL;
+
+	FILE << CATEGORY << "===> swap" << ENDL;
+	FILE << CATEGORY << "===> clear" << ENDL;
+	FILE << ENDL;
+
+	FILE << SUBTITLE << "Observers" << ENDL;
+	FILE << CATEGORY << "===> key_comp" << ENDL;
+	FILE << CATEGORY << "===> value_comp" << ENDL;
+	FILE << ENDL;
+
+	FILE << SUBTITLE << "Operations" << ENDL;
+	FILE << CATEGORY << "===> find" << ENDL;
+	FILE << CATEGORY << "===> count" << ENDL;
+	FILE << CATEGORY << "===> lower_bound" << ENDL;
+	FILE << CATEGORY << "===> upper_bound" << ENDL;
+	FILE << CATEGORY << "===> equal_range" << ENDL;
+	FILE << ENDL;
+
+	FILE << SUBTITLE << "Allocator" << ENDL;
+	FILE << CATEGORY << "===> get_allocator" << ENDL;
+	FILE << ENDL;
+
+	FILE << SUBTITLE << "Exceptions" << ENDL;
 	FILE << CATEGORY << "===> Exception-safety test with ThrowingExceptionClass, "
 						"a class which throws an exception in copy constructor" << ENDL;
 	FILE << "ThrowingExceptionClass throwingInstance;" << ENDL; ThrowingExceptionClass throwingInstance;
@@ -265,51 +362,11 @@ test_map(void)
 	print_map(mapG, "mapG");
 	FILE << ENDL;
 
-	FILE << CATEGORY << "===> insert" << ENDL;
-	FILE << SUBCATEGORY << "=====> single element (1)" << ENDL;
-	print_map(mapA, "mapA");
-	FILE << "pair<map<int, string>::iterator, bool> res;" << ENDL;
-	pair<typename map<int, string>::iterator, bool> res;
-	FILE << "res = mapA.insert(make_pair(-1, \"Z\"));" << ENDL; res = mapA.insert(make_pair(-1, "Z"));
-	FILE << "(res.first)->first : " << OUTPUT << (res.first)->first << ENDL;
-	FILE << "(res.first)->second : " << OUTPUT << (res.first)->second << ENDL;
-	FILE << "res.second : " << OUTPUT << std::boolalpha << res.second << ENDL;
-	FILE << "res = mapA.insert(make_pair(15, \"Y\"));" << ENDL; res = mapA.insert(make_pair(15, "Y"));
-	FILE << "(res.first)->first : " << OUTPUT << (res.first)->first << ENDL;
-	FILE << "(res.first)->second : " << OUTPUT << (res.first)->second << ENDL;
-	FILE << "res.second : " << OUTPUT << std::boolalpha << res.second << ENDL;
-	FILE << "res = mapA.insert(make_pair(7, \"CC\"));" << ENDL; res = mapA.insert(make_pair(7, "CC"));
-	FILE << "(res.first)->first : " << OUTPUT << (res.first)->first << ENDL;
-	FILE << "(res.first)->second : " << OUTPUT << (res.first)->second << ENDL;
-	FILE << "res.second : " << OUTPUT << std::boolalpha << res.second << ENDL;
-	print_map(mapA, "mapA");
-	FILE << SUBCATEGORY << "=====> with hint (2)" << ENDL;
-	//FILE << "map<int, string>::iterator res2;" << ENDL; typename map<int, string>::iterator res2;
-	//FILE << "map<int, string>::iterator hint = mapA.begin();" << ENDL;
-	//typename map<int, string>::iterator hint = mapA.begin();
-	//FILE << "res2 = mapA.insert(hint, make_pair(-3, \"X\"));" << ENDL; res2 = mapA.insert(hint, make_pair(-3, "X"));
-	//FILE << "res2->first : " << OUTPUT << res2->first << ENDL;
-	//FILE << "res2->second : " << OUTPUT << res2->second << ENDL;
-	//FILE << "res2 = mapA.insert(hint, make_pair(11, \"W\"));" << ENDL; res2 = mapA.insert(hint, make_pair(11, "W"));
-	//FILE << "res2->first : " << OUTPUT << res2->first << ENDL;
-	//FILE << "res2->second : " << OUTPUT << res2->second << ENDL;
-	//print_map(mapA, "mapA");
-	FILE << SUBCATEGORY << "=====> range (3)" << ENDL;
-	//FILE << "mapA.insert(pairArray, pairArray);" << ENDL; mapA.insert(pairArray, pairArray);
-	//print_map(mapA, "mapA");
-	//FILE << "mapA.insert(pairArray, pairArray + 1);" << ENDL; mapA.insert(pairArray, pairArray + 1);
-	//print_map(mapA, "mapA");
-	//FILE << "mapA.insert(pairArray, pairArray + 3);" << ENDL; mapA.insert(pairArray, pairArray + 3);
-	//print_map(mapA, "mapA");
-	//FILE << "mapA.insert(pairArray2, pairArray2 + 13);" << ENDL; mapA.insert(pairArray2, pairArray2 + 13);
-	//print_map(mapA, "mapA");
-	FILE << ENDL;
-
 	FILE << TITLE << "=> ENDING map tests" << ENDL << ENDL;
 }
 
 int
 main(void)
 {
-    test_map<ft::map>();
+    test_map<std::map>();
 }
