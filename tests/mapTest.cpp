@@ -238,33 +238,6 @@ test_map(void)
 	FILE << ENDL;
 
 	FILE << SUBTITLE << "Modifiers" << ENDL;
-	FILE << CATEGORY << "===> Exception-safety test with ThrowingExceptionClass, "
-						"a class which throws an exception in copy constructor" << ENDL;
-	FILE << "ThrowingExceptionClass throwingInstance;" << ENDL; ThrowingExceptionClass throwingInstance;
-	FILE << "map<int, ThrowingExceptionClass> mapF;" << ENDL; map<int, ThrowingExceptionClass> mapF;
-	FILE << "try {mapF.insert(make_pair(0, throwingInstance);}" << ENDL;
-	FILE << "catch(...) {std::cout << \"catched exception\" << std::endl;}" << ENDL;
-	try {mapF.insert(make_pair(0, throwingInstance));}
-	catch(...) {FILE << OUTPUT << "catched exception" << ENDL;}
-	print_map(mapF, "mapF");
-	FILE << ENDL;
-
-	FILE << CATEGORY << "===> Exception-safety test with ThrowingExceptionClass2, "
-						"a class which throws an exception in default constructor" << ENDL;
-	FILE << "map<int, ThrowingExceptionClass2> mapG;" << ENDL; map<int, ThrowingExceptionClass2> mapG;
-	FILE << "ThrowingExceptionClass2 throwingInstance2(3);" << ENDL; ThrowingExceptionClass2 throwingInstance2(3);
-	FILE << "try {mapG.insert(make_pair(0, throwingInstance2);}" << ENDL;
-	FILE << "catch(...) {std::cout << \"catched exception\" << std::endl;}" << ENDL;
-	try {mapG.insert(make_pair(0, throwingInstance2));}
-	catch(...) {FILE << OUTPUT << "catched exception" << ENDL;}
-	print_map(mapG, "mapG");
-	FILE << "try {cout << \"mapG[23] : \" << mapG[23];}" << ENDL;
-	FILE << "catch(...) {std::cout << \"catched exception\" << std::endl;}" << ENDL;
-	try {FILE << "mapG[23] : " << OUTPUT << mapG[23] << ENDL;}
-	catch(...) {FILE << OUTPUT << "catched exception" << ENDL;}
-	print_map(mapG, "mapG");
-	FILE << ENDL;
-
 	FILE << CATEGORY << "===> insert" << ENDL;
 	FILE << SUBCATEGORY << "=====> single element (1)" << ENDL;
 	print_map(mapA, "mapA");
@@ -305,11 +278,95 @@ test_map(void)
 	//print_map(mapA, "mapA");
 	FILE << ENDL;
 
+	FILE << CATEGORY << "===> erase" << ENDL;
+	FILE << SUBCATEGORY << "=====> from position (1)" << ENDL;
+	//print_map(mapA, "mapA");
+	//FILE << "mapA.erase(mapA.begin());" << ENDL; mapA.erase(mapA.begin());
+	//print_map(mapA, "mapA");
+	//FILE << "mapA.erase(mapA.begin());" << ENDL; mapA.erase(mapA.begin());
+	//print_map(mapA, "mapA");
+	//FILE << "mapA.erase(--mapA.end());" << ENDL; mapA.erase(--mapA.end());
+	//print_map(mapA, "mapA");
+	//FILE << "mapA.erase(++mapA.begin());" << ENDL; mapA.erase(++mapA.begin());
+	//print_map(mapA, "mapA");
+	//FILE << SUBCATEGORY << "(Moving iterator it) " << RESET_ALL;
+	//it = mapA.begin(); for (int i = 0; i < 6; ++i) ++it;
+	//FILE << "it->first : " << OUTPUT << it->first << ENDL;
+	//FILE << "mapA.erase(it);" << ENDL; mapA.erase(it);
+	//print_map(mapA, "mapA");
+	FILE << SUBCATEGORY << "=====> from key (2)" << ENDL;
+	//FILE << "mapA.erase(0);" << ENDL; mapA.erase(0);
+	//print_map(mapA, "mapA");
+	//FILE << "mapA.erase(7);" << ENDL; mapA.erase(7);
+	//print_map(mapA, "mapA");
+	//FILE << "mapA.erase(8);" << ENDL; mapA.erase(8);
+	//print_map(mapA, "mapA");
+	//FILE << "mapA.erase(31);" << ENDL; mapA.erase(31);
+	//print_map(mapA, "mapA");
+	//FILE << "mapA.erase(32);" << ENDL; mapA.erase(32);
+	//print_map(mapA, "mapA");
+	//FILE << SUBCATEGORY << "=====> range (3)" << ENDL;
+	//FILE << "mapA.erase(mapA.begin(), mapA.end());" << ENDL; mapA.erase(mapA.begin(), mapA.end());
+	//print_map(mapA, "mapA");
+	//print_map(mapD, "mapD");
+	//FILE << "mapD.erase(++mapD.begin(), --mapD.end());" << ENDL; mapD.erase(++mapD.begin(), --mapD.end());
+	//print_map(mapD, "mapD");
+	FILE << ENDL;
+
+	FILE << CATEGORY << "===> swap" << ENDL;
+	FILE << CATEGORY << "===> clear" << ENDL;
+	FILE << ENDL;
+
+	FILE << SUBTITLE << "Observers" << ENDL;
+	FILE << CATEGORY << "===> key_comp" << ENDL;
+	FILE << CATEGORY << "===> value_comp" << ENDL;
+	FILE << ENDL;
+
+	FILE << SUBTITLE << "Operations" << ENDL;
+	FILE << CATEGORY << "===> find" << ENDL;
+	FILE << CATEGORY << "===> count" << ENDL;
+	FILE << CATEGORY << "===> lower_bound" << ENDL;
+	FILE << CATEGORY << "===> upper_bound" << ENDL;
+	FILE << CATEGORY << "===> equal_range" << ENDL;
+	FILE << ENDL;
+
+	FILE << SUBTITLE << "Allocator" << ENDL;
+	FILE << CATEGORY << "===> get_allocator" << ENDL;
+	FILE << ENDL;
+
+	FILE << SUBTITLE << "Exceptions" << ENDL;
+	FILE << CATEGORY << "===> Exception-safety test with ThrowingExceptionClass, "
+						"a class which throws an exception in copy constructor" << ENDL;
+	FILE << "ThrowingExceptionClass throwingInstance;" << ENDL; ThrowingExceptionClass throwingInstance;
+	FILE << "map<int, ThrowingExceptionClass> mapF;" << ENDL; map<int, ThrowingExceptionClass> mapF;
+	FILE << "try {mapF.insert(make_pair(0, throwingInstance);}" << ENDL;
+	FILE << "catch(...) {std::cout << \"catched exception\" << std::endl;}" << ENDL;
+	try {mapF.insert(make_pair(0, throwingInstance));}
+	catch(...) {FILE << OUTPUT << "catched exception" << ENDL;}
+	print_map(mapF, "mapF");
+	FILE << ENDL;
+
+	FILE << CATEGORY << "===> Exception-safety test with ThrowingExceptionClass2, "
+						"a class which throws an exception in default constructor" << ENDL;
+	FILE << "map<int, ThrowingExceptionClass2> mapG;" << ENDL; map<int, ThrowingExceptionClass2> mapG;
+	FILE << "ThrowingExceptionClass2 throwingInstance2(3);" << ENDL; ThrowingExceptionClass2 throwingInstance2(3);
+	FILE << "try {mapG.insert(make_pair(0, throwingInstance2);}" << ENDL;
+	FILE << "catch(...) {std::cout << \"catched exception\" << std::endl;}" << ENDL;
+	try {mapG.insert(make_pair(0, throwingInstance2));}
+	catch(...) {FILE << OUTPUT << "catched exception" << ENDL;}
+	print_map(mapG, "mapG");
+	FILE << "try {cout << \"mapG[23] : \" << mapG[23];}" << ENDL;
+	FILE << "catch(...) {std::cout << \"catched exception\" << std::endl;}" << ENDL;
+	try {FILE << "mapG[23] : " << OUTPUT << mapG[23] << ENDL;}
+	catch(...) {FILE << OUTPUT << "catched exception" << ENDL;}
+	print_map(mapG, "mapG");
+	FILE << ENDL;
+
 	FILE << TITLE << "=> ENDING map tests" << ENDL << ENDL;
 }
 
 int
 main(void)
 {
-    test_map<ft::map>();
+    test_map<std::map>();
 }
