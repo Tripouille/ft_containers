@@ -176,6 +176,27 @@ ft::map<Key, T, Compare, Alloc>::insert(const value_type& val)
 }
 
 
+template <class Key, class T, class Compare, class Alloc>
+typename ft::map<Key, T, Compare, Alloc>::iterator
+ft::map<Key, T, Compare, Alloc>::insert(iterator position, const value_type & val)
+{
+	node * * node_ptr_ptr = NULL;
+	if (_compare(position._node->pair.first, val.first)
+	&& (!position._node->parent || _compare(val.first, position._node->parent->pair.first)))
+	{
+		node_ptr_ptr = &position._node->right;
+		while (*node_ptr_ptr != NULL)
+			if (_compare(val.first, (*node_ptr_ptr)->pair.first))
+				node_ptr_ptr = &(*node_ptr_ptr)->left;
+			else
+				node_ptr_ptr = &(*node_ptr_ptr)->right;		
+		++_size;
+		return (iterator((*node_ptr_ptr = _create_node(val.first, val.second))
+							, &_root));
+	}
+	return (insert(val).first);
+}
+
 
 /** Observers **/
 
