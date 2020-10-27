@@ -273,14 +273,14 @@ test_map(void)
 	FILE << "res2->second : " << OUTPUT << res2->second << ENDL;
 	print_map(mapA, "mapA");
 	FILE << SUBCATEGORY << "=====> range (3)" << ENDL;
-	//FILE << "mapA.insert(pairArray, pairArray);" << ENDL; mapA.insert(pairArray, pairArray);
-	//print_map(mapA, "mapA");
-	//FILE << "mapA.insert(pairArray, pairArray + 1);" << ENDL; mapA.insert(pairArray, pairArray + 1);
-	//print_map(mapA, "mapA");
-	//FILE << "mapA.insert(pairArray, pairArray + 3);" << ENDL; mapA.insert(pairArray, pairArray + 3);
-	//print_map(mapA, "mapA");
-	//FILE << "mapA.insert(pairArray2, pairArray2 + 13);" << ENDL; mapA.insert(pairArray2, pairArray2 + 13);
-	//print_map(mapA, "mapA");
+	FILE << "mapA.insert(pairArray, pairArray);" << ENDL; mapA.insert(pairArray, pairArray);
+	print_map(mapA, "mapA");
+	FILE << "mapA.insert(pairArray, pairArray + 1);" << ENDL; mapA.insert(pairArray, pairArray + 1);
+	print_map(mapA, "mapA");
+	FILE << "mapA.insert(pairArray, pairArray + 3);" << ENDL; mapA.insert(pairArray, pairArray + 3);
+	print_map(mapA, "mapA");
+	FILE << "mapA.insert(pairArray2, pairArray2 + 13);" << ENDL; mapA.insert(pairArray2, pairArray2 + 13);
+	print_map(mapA, "mapA");
 	FILE << ENDL;
 
 	FILE << CATEGORY << "===> erase" << ENDL;

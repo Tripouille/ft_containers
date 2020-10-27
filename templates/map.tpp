@@ -168,20 +168,21 @@ ft::map<Key, T, Compare, Alloc>::operator[](const key_type & k)
 /** single element (1) **/
 template <class Key, class T, class Compare, class Alloc>
 std::pair<typename ft::map<Key, T, Compare, Alloc>::iterator, bool>
-ft::map<Key, T, Compare, Alloc>::insert(const value_type& val)
+ft::map<Key, T, Compare, Alloc>::insert(const value_type & val)
 {
 	std::pair<node *, bool> infos = _try_insert_node(val.first, val.second);
 	return (std::pair<iterator, bool>(iterator(infos.first, &_root),
 										infos.second));
 }
 
-
+/** with hint (2) **/
 template <class Key, class T, class Compare, class Alloc>
 typename ft::map<Key, T, Compare, Alloc>::iterator
 ft::map<Key, T, Compare, Alloc>::insert(iterator position, const value_type & val)
 {
 	node * * node_ptr_ptr = NULL;
 	node * root = position._node;
+	node * node_ptr_ptr_parent = position._node;
 
 	while (root->parent != NULL
 	&& root == root->parent->right)
@@ -191,17 +192,35 @@ ft::map<Key, T, Compare, Alloc>::insert(iterator position, const value_type & va
 	{
 		node_ptr_ptr = &position._node->right;
 		while (*node_ptr_ptr != NULL)
+		{
+			node_ptr_ptr_parent = *node_ptr_ptr;
 			if (_compare(val.first, (*node_ptr_ptr)->pair.first))
 				node_ptr_ptr = &(*node_ptr_ptr)->left;
 			else
-				node_ptr_ptr = &(*node_ptr_ptr)->right;		
+				node_ptr_ptr = &(*node_ptr_ptr)->right;	
+		}
+		if (!_compare(node_ptr_ptr_parent->pair.first, val.first))
+			return (insert(val).first);
 		++_size;
-		return (iterator((*node_ptr_ptr = _create_node(val.first, val.second))
-							, &_root));
+		*node_ptr_ptr = _create_node(val.first, val.second);
+		(*node_ptr_ptr)->parent = node_ptr_ptr_parent;
+		return (iterator(*node_ptr_ptr, &_root));
 	}
 	return (insert(val).first);
 }
 
+/** range (3) **/ 
+template <class Key, class T, class Compare, class Alloc>
+template <class InputIterator>
+void
+ft::map<Key, T, Compare, Alloc>::insert(InputIterator first, InputIterator last)
+{
+	if (first == last)
+		return ;
+	iterator previous_it = insert(*first).first;
+	while (++first != last)
+		previous_it = insert(previous_it, *first);
+}
 
 /** Observers **/
 
