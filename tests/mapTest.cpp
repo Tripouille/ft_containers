@@ -59,6 +59,11 @@ bool operator<(ThrowingExceptionClass2 const & a1, ThrowingExceptionClass2 const
 {return (a1.geta() < a2.geta());}
 std::ostream& operator<<(std::ostream & os, ThrowingExceptionClass2 const & a) {os << a.geta(); return (os);}
 
+struct greater
+{
+	bool operator()(int const & a, int const & b) const {return (a > b);}
+};
+
 template<class T>
 void
 print_map(T const & map, std::string const & name)
@@ -268,57 +273,81 @@ test_map(void)
 	FILE << "res2->second : " << OUTPUT << res2->second << ENDL;
 	print_map(mapA, "mapA");
 	FILE << SUBCATEGORY << "=====> range (3)" << ENDL;
-	//FILE << "mapA.insert(pairArray, pairArray);" << ENDL; mapA.insert(pairArray, pairArray);
-	//print_map(mapA, "mapA");
-	//FILE << "mapA.insert(pairArray, pairArray + 1);" << ENDL; mapA.insert(pairArray, pairArray + 1);
-	//print_map(mapA, "mapA");
-	//FILE << "mapA.insert(pairArray, pairArray + 3);" << ENDL; mapA.insert(pairArray, pairArray + 3);
-	//print_map(mapA, "mapA");
-	//FILE << "mapA.insert(pairArray2, pairArray2 + 13);" << ENDL; mapA.insert(pairArray2, pairArray2 + 13);
-	//print_map(mapA, "mapA");
+	FILE << "mapA.insert(pairArray, pairArray);" << ENDL; mapA.insert(pairArray, pairArray);
+	print_map(mapA, "mapA");
+	FILE << "mapA.insert(pairArray, pairArray + 1);" << ENDL; mapA.insert(pairArray, pairArray + 1);
+	print_map(mapA, "mapA");
+	FILE << "mapA.insert(pairArray, pairArray + 3);" << ENDL; mapA.insert(pairArray, pairArray + 3);
+	print_map(mapA, "mapA");
+	FILE << "mapA.insert(pairArray2, pairArray2 + 13);" << ENDL; mapA.insert(pairArray2, pairArray2 + 13);
+	print_map(mapA, "mapA");
 	FILE << ENDL;
 
 	FILE << CATEGORY << "===> erase" << ENDL;
 	FILE << SUBCATEGORY << "=====> from position (1)" << ENDL;
-	//print_map(mapA, "mapA");
-	//FILE << "mapA.erase(mapA.begin());" << ENDL; mapA.erase(mapA.begin());
-	//print_map(mapA, "mapA");
-	//FILE << "mapA.erase(mapA.begin());" << ENDL; mapA.erase(mapA.begin());
-	//print_map(mapA, "mapA");
-	//FILE << "mapA.erase(--mapA.end());" << ENDL; mapA.erase(--mapA.end());
-	//print_map(mapA, "mapA");
-	//FILE << "mapA.erase(++mapA.begin());" << ENDL; mapA.erase(++mapA.begin());
-	//print_map(mapA, "mapA");
-	//FILE << SUBCATEGORY << "(Moving iterator it) " << RESET_ALL;
-	//it = mapA.begin(); for (int i = 0; i < 6; ++i) ++it;
-	//FILE << "it->first : " << OUTPUT << it->first << ENDL;
-	//FILE << "mapA.erase(it);" << ENDL; mapA.erase(it);
-	//print_map(mapA, "mapA");
+	print_map(mapA, "mapA");
+	FILE << "mapA.erase(mapA.begin());" << ENDL; mapA.erase(mapA.begin());
+	print_map(mapA, "mapA");
+	FILE << "mapA.erase(mapA.begin());" << ENDL; mapA.erase(mapA.begin());
+	print_map(mapA, "mapA");
+	FILE << "mapA.erase(--mapA.end());" << ENDL; mapA.erase(--mapA.end());
+	print_map(mapA, "mapA");
+	FILE << "mapA.erase(++mapA.begin());" << ENDL; mapA.erase(++mapA.begin());
+	print_map(mapA, "mapA");
+	FILE << SUBCATEGORY << "(Moving iterator it) " << RESET_ALL;
+	it = mapA.begin(); for (int i = 0; i < 6; ++i) ++it;
+	FILE << "it->first : " << OUTPUT << it->first << ENDL;
+	FILE << "mapA.erase(it);" << ENDL; mapA.erase(it);
+	print_map(mapA, "mapA");
 	FILE << SUBCATEGORY << "=====> from key (2)" << ENDL;
-	//FILE << "mapA.erase(0);" << ENDL; mapA.erase(0);
-	//print_map(mapA, "mapA");
-	//FILE << "mapA.erase(7);" << ENDL; mapA.erase(7);
-	//print_map(mapA, "mapA");
-	//FILE << "mapA.erase(8);" << ENDL; mapA.erase(8);
-	//print_map(mapA, "mapA");
-	//FILE << "mapA.erase(31);" << ENDL; mapA.erase(31);
-	//print_map(mapA, "mapA");
-	//FILE << "mapA.erase(32);" << ENDL; mapA.erase(32);
-	//print_map(mapA, "mapA");
-	//FILE << SUBCATEGORY << "=====> range (3)" << ENDL;
-	//FILE << "mapA.erase(mapA.begin(), mapA.end());" << ENDL; mapA.erase(mapA.begin(), mapA.end());
-	//print_map(mapA, "mapA");
-	//print_map(mapD, "mapD");
-	//FILE << "mapD.erase(++mapD.begin(), --mapD.end());" << ENDL; mapD.erase(++mapD.begin(), --mapD.end());
-	//print_map(mapD, "mapD");
+	FILE << "mapA.erase(0);" << ENDL; mapA.erase(0);
+	print_map(mapA, "mapA");
+	FILE << "mapA.erase(7);" << ENDL; mapA.erase(7);
+	print_map(mapA, "mapA");
+	FILE << "mapA.erase(8);" << ENDL; mapA.erase(8);
+	print_map(mapA, "mapA");
+	FILE << "mapA.erase(31);" << ENDL; mapA.erase(31);
+	print_map(mapA, "mapA");
+	FILE << "mapA.erase(32);" << ENDL; mapA.erase(32);
+	print_map(mapA, "mapA");
+	FILE << SUBCATEGORY << "=====> range (3)" << ENDL;
+	FILE << "mapA.erase(mapA.begin(), mapA.end());" << ENDL; mapA.erase(mapA.begin(), mapA.end());
+	print_map(mapA, "mapA");
+	print_map(mapD, "mapD");
+	FILE << "mapD.erase(++mapD.begin(), --mapD.end());" << ENDL; mapD.erase(++mapD.begin(), --mapD.end());
+	print_map(mapD, "mapD");
 	FILE << ENDL;
 
 	FILE << CATEGORY << "===> swap" << ENDL;
+	print_map(mapA, "mapA");
+	print_map(mapD, "mapD");
+	FILE << "mapA.swap(mapD);" << ENDL; mapA.swap(mapD);
+	print_map(mapA, "mapA");
+	print_map(mapD, "mapD");
+	print_map(mapB, "mapB");
+	FILE << "mapA.swap(mapB);" << ENDL; mapA.swap(mapB);
+	print_map(mapA, "mapA");
+	print_map(mapB, "mapB");
+	FILE << ENDL;
+
 	FILE << CATEGORY << "===> clear" << ENDL;
+	FILE << "mapB.clear();" << ENDL; mapB.clear();
+	print_map(mapB, "mapB");
+	FILE << "mapB.clear();" << ENDL; mapB.clear();
+	print_map(mapB, "mapB");
 	FILE << ENDL;
 
 	FILE << SUBTITLE << "Observers" << ENDL;
 	FILE << CATEGORY << "===> key_comp" << ENDL;
+	typename map<int, string>::key_compare mycomp = mapA.key_comp();
+	FILE << "mycomp(0, 1) : " << OUTPUT << std::boolalpha << mycomp(0, 1) << ENDL;
+	FILE << "mycomp(1, 1) : " << OUTPUT << std::boolalpha << mycomp(1, 1) << ENDL;
+	FILE << "mycomp(2, 1) : " << OUTPUT << std::boolalpha << mycomp(2, 1) << ENDL;
+	map<int, string, greater> mapH;
+	typename map<int, string, greater>::key_compare mycomp2 = mapH.key_comp();
+	FILE << "mycomp2(0, 1) : " << OUTPUT << std::boolalpha << mycomp2(0, 1) << ENDL;
+	FILE << "mycomp2(1, 1) : " << OUTPUT << std::boolalpha << mycomp2(1, 1) << ENDL;
+	FILE << "mycomp2(2, 1) : " << OUTPUT << std::boolalpha << mycomp2(2, 1) << ENDL;
 	FILE << CATEGORY << "===> value_comp" << ENDL;
 	FILE << ENDL;
 
