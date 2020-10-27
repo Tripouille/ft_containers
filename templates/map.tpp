@@ -181,13 +181,13 @@ typename ft::map<Key, T, Compare, Alloc>::iterator
 ft::map<Key, T, Compare, Alloc>::insert(iterator position, const value_type & val)
 {
 	node * * node_ptr_ptr = NULL;
-	node * root_parent = position._node->parent;
+	node * root = position._node;
 
-	while (root_parent != NULL 
-	&& root_parent == root_parent->parent->right)
-		root_parent = root_parent->parent;
+	while (root->parent != NULL
+	&& root == root->parent->right)
+		root = root->parent;
 	if (_compare(position._node->pair.first, val.first)
-	&& (!root_parent || _compare(val.first, root_parent->pair.first)))
+	&& (root->parent == NULL || _compare(val.first, root->parent->pair.first)))
 	{
 		node_ptr_ptr = &position._node->right;
 		while (*node_ptr_ptr != NULL)
