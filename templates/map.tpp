@@ -222,6 +222,17 @@ ft::map<Key, T, Compare, Alloc>::insert(InputIterator first, InputIterator last)
 		previous_it = insert(previous_it, *first);
 }
 
+template <class Key, class T, class Compare, class Alloc>
+void
+ft::map<Key, T, Compare, Alloc>::swap(map & x)
+{
+	if (this != &x)
+	{
+		std::swap(_root, x._root);
+		std::swap(_size, x._size);
+	}
+}
+
 /** Observers **/
 
 
