@@ -95,6 +95,7 @@ namespace ft
 				/** range (3) **/ template <class InputIterator>
 								void insert(InputIterator first, InputIterator last);
 				void swap(map & x);
+				void clear(void);
 
 			/** Observers **/
 

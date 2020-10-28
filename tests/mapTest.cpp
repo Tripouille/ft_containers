@@ -333,14 +333,15 @@ test_map(void)
 	print_map(mapB, "mapB");
 	FILE << ENDL;
 
-	/*FILE << CATEGORY << "===> clear" << ENDL;
+	FILE << CATEGORY << "===> clear" << ENDL;
+	print_map(mapB, "mapB");
 	FILE << "mapB.clear();" << ENDL; mapB.clear();
 	print_map(mapB, "mapB");
 	FILE << "mapB.clear();" << ENDL; mapB.clear();
 	print_map(mapB, "mapB");
 	FILE << ENDL;
 
-	FILE << SUBTITLE << "Observers" << ENDL;
+	/*FILE << SUBTITLE << "Observers" << ENDL;
 	FILE << CATEGORY << "===> key_comp" << ENDL;
 	FILE << "map<int, string>::key_compare mycomp = mapA.key_comp();" << ENDL;
 	typename map<int, string>::key_compare mycomp = mapA.key_comp();

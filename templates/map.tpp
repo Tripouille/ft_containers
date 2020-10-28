@@ -233,6 +233,14 @@ ft::map<Key, T, Compare, Alloc>::swap(map & x)
 	}
 }
 
+template <class Key, class T, class Compare, class Alloc>
+void
+ft::map<Key, T, Compare, Alloc>::clear(void)
+{
+	_deallocate_btree(_root);
+	_size = 0;
+}
+
 /** Observers **/
 
 
