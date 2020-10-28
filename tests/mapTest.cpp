@@ -276,14 +276,14 @@ test_map(void)
 	FILE << "res2->second : " << OUTPUT << res2->second << ENDL;
 	print_map(mapA, "mapA");
 	FILE << SUBCATEGORY << "=====> range (3)" << ENDL;
-	//FILE << "mapA.insert(pairArray, pairArray);" << ENDL; mapA.insert(pairArray, pairArray);
-	//print_map(mapA, "mapA");
-	//FILE << "mapA.insert(pairArray, pairArray + 1);" << ENDL; mapA.insert(pairArray, pairArray + 1);
-	//print_map(mapA, "mapA");
-	//FILE << "mapA.insert(pairArray, pairArray + 3);" << ENDL; mapA.insert(pairArray, pairArray + 3);
-	//print_map(mapA, "mapA");
-	//FILE << "mapA.insert(pairArray2, pairArray2 + 13);" << ENDL; mapA.insert(pairArray2, pairArray2 + 13);
-	//print_map(mapA, "mapA");
+	FILE << "mapA.insert(pairArray, pairArray);" << ENDL; mapA.insert(pairArray, pairArray);
+	print_map(mapA, "mapA");
+	FILE << "mapA.insert(pairArray, pairArray + 1);" << ENDL; mapA.insert(pairArray, pairArray + 1);
+	print_map(mapA, "mapA");
+	FILE << "mapA.insert(pairArray, pairArray + 3);" << ENDL; mapA.insert(pairArray, pairArray + 3);
+	print_map(mapA, "mapA");
+	FILE << "mapA.insert(pairArray2, pairArray2 + 13);" << ENDL; mapA.insert(pairArray2, pairArray2 + 13);
+	print_map(mapA, "mapA");
 	FILE << ENDL;
 
 	/*FILE << CATEGORY << "===> erase" << ENDL;
@@ -390,6 +390,11 @@ test_map(void)
 	FILE << "mapA.lower_bound(8)->first : " << OUTPUT << mapA.lower_bound(8)->first << ENDL;
 	FILE << "mapA.lower_bound(11)->first : " << OUTPUT << mapA.lower_bound(11)->first << ENDL;
 	FILE << "mapA.lower_bound(34) == mapA.end() : " << OUTPUT << std::boolalpha << (mapA.lower_bound(34) == mapA.end()) << ENDL;
+	FILE << "mapA.lower_bound(33)->second : " << OUTPUT << mapA.lower_bound(33)->second << ENDL;
+	FILE << "mapA.lower_bound(33)->second = \"Salut\";" << ENDL; mapA.lower_bound(33)->second = "Salut";
+	FILE << "mapA.lower_bound(33)->second : " << OUTPUT << mapA.lower_bound(33)->second << ENDL;
+	FILE << "mapJ.lower_bound(8)->first : " << OUTPUT << mapJ.lower_bound(8)->first << ENDL;
+	FILE << "mapJ.lower_bound(34) == mapJ.end() : " << OUTPUT << std::boolalpha << (mapJ.lower_bound(34) == mapJ.end()) << ENDL;
 	FILE << ENDL;
 
 	FILE << CATEGORY << "===> upper_bound" << ENDL;
@@ -399,13 +404,48 @@ test_map(void)
 	FILE << "mapA.upper_bound(23)->first : " << OUTPUT << mapA.upper_bound(23)->first << ENDL;
 	FILE << "mapA.upper_bound(33) == mapA.end() : " << OUTPUT << std::boolalpha << (mapA.upper_bound(33) == mapA.end()) << ENDL;
 	FILE << "mapA.upper_bound(34) == mapA.end() : " << OUTPUT << std::boolalpha << (mapA.upper_bound(34) == mapA.end()) << ENDL;
+	FILE << "mapA.upper_bound(11)->second : " << OUTPUT << mapA.upper_bound(11)->second << ENDL;
+	FILE << "mapA.upper_bound(11)->second = \"Salut\";" << ENDL; mapA.upper_bound(11)->second = "Salut";
+	FILE << "mapA.upper_bound(11)->second : " << OUTPUT << mapA.upper_bound(11)->second << ENDL;
+	FILE << "mapJ.upper_bound(8)->first : " << OUTPUT << mapJ.upper_bound(8)->first << ENDL;
+	FILE << "mapJ.upper_bound(33) == mapJ.end() : " << OUTPUT << std::boolalpha << (mapJ.upper_bound(33) == mapJ.end()) << ENDL;
 	FILE << ENDL;
 
 	FILE << CATEGORY << "===> equal_range" << ENDL;
+	print_map(mapA, "mapA");
+	std::pair<typename map<int, string>::iterator, typename map<int, string>::iterator> res3;
+	FILE << "res3 = mapA.equal_range(20);" << ENDL; res3 = mapA.equal_range(20);
+	FILE << "res3.first : " << OUTPUT << res3.first->first << " " << res3.first->second << ENDL;
+	FILE << "res3.second : " << OUTPUT << res3.second->first << " " << res3.second->second << ENDL;
+	FILE << "res3 = mapA.equal_range(11);" << ENDL; res3 = mapA.equal_range(11);
+	FILE << "res3.first : " << OUTPUT << res3.first->first << " " << res3.first->second << ENDL;
+	FILE << "res3.second : " << OUTPUT << res3.second->first << " " << res3.second->second << ENDL;
+	FILE << "res3 = mapA.equal_range(33);" << ENDL; res3 = mapA.equal_range(33);
+	FILE << "res3.first : " << OUTPUT << res3.first->first << " " << res3.first->second << ENDL;
+	FILE << "res3.second == mapA.end() : " << OUTPUT << std::boolalpha << (res3.second == mapA.end()) << ENDL;
+	FILE << "res3 = mapA.equal_range(34);" << ENDL; res3 = mapA.equal_range(34);
+	FILE << "res3.first == mapA.end() : " << OUTPUT << std::boolalpha << (res3.first == mapA.end()) << ENDL;
+	FILE << "res3.second == mapA.end() : " << OUTPUT << std::boolalpha << (res3.second == mapA.end()) << ENDL;
+	std::pair<typename map<int, string>::const_iterator, typename map<int, string>::const_iterator> res4;
+	FILE << "res4 = mapJ.equal_range(20);" << ENDL; res4 = mapJ.equal_range(20);
+	FILE << "res4.first : " << OUTPUT << res4.first->first << " " << res4.first->second << ENDL;
+	FILE << "res4.second : " << OUTPUT << res4.second->first << " " << res4.second->second << ENDL;
+	FILE << "res4 = mapJ.equal_range(11);" << ENDL; res4 = mapJ.equal_range(11);
+	FILE << "res4.first : " << OUTPUT << res4.first->first << " " << res4.first->second << ENDL;
+	FILE << "res4.second : " << OUTPUT << res4.second->first << " " << res4.second->second << ENDL;
+	FILE << "res4 = mapJ.equal_range(33);" << ENDL; res4 = mapJ.equal_range(33);
+	FILE << "res4.first : " << OUTPUT << res4.first->first << " " << res4.first->second << ENDL;
+	FILE << "res4.second == mapJ.end() : " << OUTPUT << std::boolalpha << (res4.second == mapJ.end()) << ENDL;
+	FILE << "res4 = mapJ.equal_range(34);" << ENDL; res4 = mapJ.equal_range(34);
+	FILE << "res4.first == mapJ.end() : " << OUTPUT << std::boolalpha << (res4.first == mapJ.end()) << ENDL;
+	FILE << "res4.second == mapJ.end() : " << OUTPUT << std::boolalpha << (res4.second == mapJ.end()) << ENDL;
 	FILE << ENDL;
 
 	FILE << SUBTITLE << "Allocator" << ENDL;
 	FILE << CATEGORY << "===> get_allocator" << ENDL;
+	FILE << "map<int, string> mymap; int * p;" << ENDL; map<int, string> mymap; pair<int const, string> * p;
+	FILE << "p = mymap.get_allocator().allocate(5);" << ENDL; p = mymap.get_allocator().allocate(5);
+	FILE << "mymap.get_allocator().deallocate(p,5);" << ENDL; mymap.get_allocator().deallocate(p,5);
 	FILE << ENDL;*/
 
 	FILE << SUBTITLE << "Exceptions" << ENDL;
