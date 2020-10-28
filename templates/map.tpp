@@ -241,7 +241,22 @@ ft::map<Key, T, Compare, Alloc>::clear(void)
 	_size = 0;
 }
 
+
 /** Observers **/
+
+template <class Key, class T, class Compare, class Alloc>
+typename ft::map<Key, T, Compare, Alloc>::key_compare
+ft::map<Key, T, Compare, Alloc>::key_comp(void) const
+{
+	return (_compare);
+}
+
+template <class Key, class T, class Compare, class Alloc>
+typename ft::map<Key, T, Compare, Alloc>::value_compare
+ft::map<Key, T, Compare, Alloc>::value_comp(void) const
+{
+	return (value_compare(_compare));
+}
 
 
 /** Operations **/

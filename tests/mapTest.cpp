@@ -341,7 +341,7 @@ test_map(void)
 	print_map(mapB, "mapB");
 	FILE << ENDL;
 
-	/*FILE << SUBTITLE << "Observers" << ENDL;
+	FILE << SUBTITLE << "Observers" << ENDL;
 	FILE << CATEGORY << "===> key_comp" << ENDL;
 	FILE << "map<int, string>::key_compare mycomp = mapA.key_comp();" << ENDL;
 	typename map<int, string>::key_compare mycomp = mapA.key_comp();
@@ -357,10 +357,13 @@ test_map(void)
 	FILE << CATEGORY << "===> value_comp" << ENDL;
 	FILE << "mapA.value_comp()(make_pair(0, \"\"), make_pair(1, \"\")) : " << OUTPUT << std::boolalpha << mapA.value_comp()(make_pair(0, ""), make_pair(1, "")) << ENDL;
 	FILE << "mapA.value_comp()(make_pair(0, \"\"), make_pair(0, \"\")) : " << OUTPUT << std::boolalpha << mapA.value_comp()(make_pair(0, ""), make_pair(0, "")) << ENDL;
-	FILE << "mapA.value_comp()(make_pair(1, \"\"), make_pair(1, \"\")) : " << OUTPUT << std::boolalpha << mapA.value_comp()(make_pair(1, ""), make_pair(1, "")) << ENDL;
+	FILE << "mapA.value_comp()(make_pair(1, \"\"), make_pair(0, \"\")) : " << OUTPUT << std::boolalpha << mapA.value_comp()(make_pair(1, ""), make_pair(0, "")) << ENDL;
+	FILE << "mapH.value_comp()(make_pair(0, \"\"), make_pair(1, \"\")) : " << OUTPUT << std::boolalpha << mapH.value_comp()(make_pair(0, ""), make_pair(1, "")) << ENDL;
+	FILE << "mapH.value_comp()(make_pair(0, \"\"), make_pair(0, \"\")) : " << OUTPUT << std::boolalpha << mapH.value_comp()(make_pair(0, ""), make_pair(0, "")) << ENDL;
+	FILE << "mapH.value_comp()(make_pair(1, \"\"), make_pair(0, \"\")) : " << OUTPUT << std::boolalpha << mapH.value_comp()(make_pair(1, ""), make_pair(0, "")) << ENDL;
 	FILE << ENDL;
 
-	FILE << SUBTITLE << "Operations" << ENDL;
+	/*FILE << SUBTITLE << "Operations" << ENDL;
 	FILE << CATEGORY << "===> find" << ENDL; //tester avec const
 	print_map(mapA, "mapA");
 	FILE << "mapA.find(7)->first : " << OUTPUT << mapA.find(7)->first << ENDL;

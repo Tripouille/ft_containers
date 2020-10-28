@@ -36,9 +36,10 @@ namespace ft
 					typedef value_type first_argument_type;
 					typedef value_type second_argument_type;
 
-				protected:
-					value_compare(Compare c = std::less<Key>()) : comp(c) {}
 					~value_compare(void) {}
+
+				protected:
+					value_compare(Compare c = Compare()) : comp(c) {}
 					value_compare(value_compare const & other) {static_cast<void>(other);}
 					value_compare & operator=(value_compare const & other) {static_cast<void>(other); return (*this);}
 
@@ -98,6 +99,8 @@ namespace ft
 				void clear(void);
 
 			/** Observers **/
+				key_compare key_comp(void) const;
+				value_compare value_comp(void) const;
 
 			/** Operations **/
 
