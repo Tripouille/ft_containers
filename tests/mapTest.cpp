@@ -415,7 +415,7 @@ test_map(void)
 	FILE << "mapJ.upper_bound(33) == mapJ.end() : " << OUTPUT << std::boolalpha << (mapJ.upper_bound(33) == mapJ.end()) << ENDL;
 	FILE << ENDL;
 
-	/*FILE << CATEGORY << "===> equal_range" << ENDL;
+	FILE << CATEGORY << "===> equal_range" << ENDL;
 	print_map(mapA, "mapA");
 	std::pair<typename map<int, string>::iterator, typename map<int, string>::iterator> res3;
 	FILE << "res3 = mapA.equal_range(20);" << ENDL; res3 = mapA.equal_range(20);
@@ -447,10 +447,10 @@ test_map(void)
 
 	FILE << SUBTITLE << "Allocator" << ENDL;
 	FILE << CATEGORY << "===> get_allocator" << ENDL;
-	FILE << "map<int, string> mymap; int * p;" << ENDL; map<int, string> mymap; pair<int const, string> * p;
+	FILE << "map<int, string> mymap; pair<int const, string> * p;" << ENDL; map<int, string> mymap; pair<int const, string> * p;
 	FILE << "p = mymap.get_allocator().allocate(5);" << ENDL; p = mymap.get_allocator().allocate(5);
 	FILE << "mymap.get_allocator().deallocate(p,5);" << ENDL; mymap.get_allocator().deallocate(p,5);
-	FILE << ENDL;*/
+	FILE << ENDL;
 
 	FILE << SUBTITLE << "Exceptions" << ENDL;
 	FILE << CATEGORY << "===> Exception-safety test with ThrowingExceptionClass, "

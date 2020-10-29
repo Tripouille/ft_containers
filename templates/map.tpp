@@ -430,8 +430,30 @@ ft::map<Key, T, Compare, Alloc>::upper_bound(key_type const & k) const
 	return (end());
 }
 
+template <class Key, class T, class Compare, class Alloc>
+std::pair<typename ft::map<Key, T, Compare, Alloc>::const_iterator,
+		  typename ft::map<Key, T, Compare, Alloc>::const_iterator>
+ft::map<Key, T, Compare, Alloc>::equal_range(key_type const & k) const
+{
+	return (std::pair<const_iterator, const_iterator>(lower_bound(k), upper_bound(k)));
+}
+
+template <class Key, class T, class Compare, class Alloc>
+std::pair<typename ft::map<Key, T, Compare, Alloc>::iterator,
+		  typename ft::map<Key, T, Compare, Alloc>::iterator>
+ft::map<Key, T, Compare, Alloc>::equal_range(key_type const & k)
+{
+	return (std::pair<iterator, iterator>(lower_bound(k), upper_bound(k)));
+}
+
 
 /** Allocator **/
+template <class Key, class T, class Compare, class Alloc>
+typename ft::map<Key, T, Compare, Alloc>::allocator_type
+ft::map<Key, T, Compare, Alloc>::get_allocator(void) const
+{
+	return (_alloc);
+}
 
 
 /** Private functions **/
@@ -456,14 +478,13 @@ ft::map<Key, T, Compare, Alloc>::_try_insert_node(const key_type & k,
 												const mapped_type & v)
 {
 	node * n = _find_node(k);
-	bool need_to_create = false;
+	bool need_to_create = n == NULL;
 
-	if (n == NULL)
+	if (need_to_create)
 	{
 		n = _create_node(k, v);
 		++_size;
 		_insert_node(n);
-		need_to_create = true;
 	}
 	return (std::pair<node *, bool>(n, need_to_create));
 }
