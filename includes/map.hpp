@@ -109,6 +109,7 @@ namespace ft
 			/** Operations **/
 				iterator find(key_type const & k);
 				const_iterator find(key_type const & k) const;
+				size_type count(key_type const & k) const;
 
 			/** Allocator **/
 

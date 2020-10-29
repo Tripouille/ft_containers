@@ -380,7 +380,7 @@ test_map(void)
 	FILE << "mapJ.find(34) == mapJ.end() : " << OUTPUT << std::boolalpha << (mapJ.find(34) == mapJ.end()) << ENDL;
 	FILE << ENDL;
 
-	/*FILE << CATEGORY << "===> count" << ENDL;
+	FILE << CATEGORY << "===> count" << ENDL;
 	print_map(mapA, "mapA");
 	FILE << "mapA.count(7) : " << OUTPUT << mapA.count(7) << ENDL;
 	FILE << "mapA.count(33) : " << OUTPUT << mapA.count(33) << ENDL;
@@ -389,7 +389,7 @@ test_map(void)
 	FILE << "mapB.count(7) : " << OUTPUT << mapB.count(7) << ENDL;
 	FILE << ENDL;
 
-	FILE << CATEGORY << "===> lower_bound" << ENDL;
+	/*FILE << CATEGORY << "===> lower_bound" << ENDL;
 	print_map(mapA, "mapA");
 	FILE << "mapA.lower_bound(8)->first : " << OUTPUT << mapA.lower_bound(8)->first << ENDL;
 	FILE << "mapA.lower_bound(11)->first : " << OUTPUT << mapA.lower_bound(11)->first << ENDL;

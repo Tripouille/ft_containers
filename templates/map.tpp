@@ -274,6 +274,13 @@ ft::map<Key, T, Compare, Alloc>::find(key_type const & k) const
 	return (const_iterator(_find_node(k)));
 }
 
+template <class Key, class T, class Compare, class Alloc>
+typename ft::map<Key, T, Compare, Alloc>::size_type
+ft::map<Key, T, Compare, Alloc>::count(key_type const & k) const
+{
+	return (_find_node(k) != NULL ? 1 : 0);
+}
+
 
 /** Allocator **/
 
