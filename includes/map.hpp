@@ -114,6 +114,8 @@ namespace ft
 				const_iterator lower_bound(key_type const & k) const;
 				iterator upper_bound(key_type const & k);
 				const_iterator upper_bound(key_type const & k) const;
+				std::pair<const_iterator, const_iterator> equal_range(key_type const & k) const;
+				std::pair<iterator, iterator> equal_range(key_type const & k);
 
 			/** Allocator **/
 

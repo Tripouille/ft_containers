@@ -415,7 +415,7 @@ test_map(void)
 	FILE << "mapJ.upper_bound(33) == mapJ.end() : " << OUTPUT << std::boolalpha << (mapJ.upper_bound(33) == mapJ.end()) << ENDL;
 	FILE << ENDL;
 
-	/*FILE << CATEGORY << "===> equal_range" << ENDL;
+	FILE << CATEGORY << "===> equal_range" << ENDL;
 	print_map(mapA, "mapA");
 	std::pair<typename map<int, string>::iterator, typename map<int, string>::iterator> res3;
 	FILE << "res3 = mapA.equal_range(20);" << ENDL; res3 = mapA.equal_range(20);
@@ -445,7 +445,7 @@ test_map(void)
 	FILE << "res4.second == mapJ.end() : " << OUTPUT << std::boolalpha << (res4.second == mapJ.end()) << ENDL;
 	FILE << ENDL;
 
-	FILE << SUBTITLE << "Allocator" << ENDL;
+	/*FILE << SUBTITLE << "Allocator" << ENDL;
 	FILE << CATEGORY << "===> get_allocator" << ENDL;
 	FILE << "map<int, string> mymap; int * p;" << ENDL; map<int, string> mymap; pair<int const, string> * p;
 	FILE << "p = mymap.get_allocator().allocate(5);" << ENDL; p = mymap.get_allocator().allocate(5);
