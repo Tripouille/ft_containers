@@ -287,6 +287,127 @@ ft::map<Key, T, Compare, Alloc>::value_comp(void) const
 
 
 /** Operations **/
+template <class Key, class T, class Compare, class Alloc>
+typename ft::map<Key, T, Compare, Alloc>::iterator
+ft::map<Key, T, Compare, Alloc>::find(key_type const & k)
+{
+	return (iterator(_find_node(k), &_root));
+}
+
+template <class Key, class T, class Compare, class Alloc>
+typename ft::map<Key, T, Compare, Alloc>::const_iterator
+ft::map<Key, T, Compare, Alloc>::find(key_type const & k) const
+{
+	return (const_iterator(_find_node(k), &_root));
+}
+
+template <class Key, class T, class Compare, class Alloc>
+typename ft::map<Key, T, Compare, Alloc>::size_type
+ft::map<Key, T, Compare, Alloc>::count(key_type const & k) const
+{
+	return (_find_node(k) != NULL ? 1 : 0);
+}
+
+template <class Key, class T, class Compare, class Alloc>
+typename ft::map<Key, T, Compare, Alloc>::iterator
+ft::map<Key, T, Compare, Alloc>::lower_bound(key_type const & k)
+{
+	node * tmp = _root;
+	while (tmp != NULL)
+		if (!_compare(k, tmp->pair.first) && !_compare(tmp->pair.first, k))
+			return (iterator(tmp, &_root));
+		else if (_compare(k, tmp->pair.first))
+		{
+			if (tmp->left != NULL)
+				tmp = tmp->left;
+			else
+				return (iterator(tmp, &_root));
+		}
+		else
+		{
+			if (tmp->right != NULL)
+				tmp = tmp->right;
+			else
+				return (++iterator(tmp, &_root));
+		}
+	return (end());
+}
+
+template <class Key, class T, class Compare, class Alloc>
+typename ft::map<Key, T, Compare, Alloc>::const_iterator
+ft::map<Key, T, Compare, Alloc>::lower_bound(key_type const & k) const
+{
+	node * tmp = _root;
+	while (tmp != NULL)
+		if (!_compare(k, tmp->pair.first) && !_compare(tmp->pair.first, k))
+			return (const_iterator(tmp, &_root));
+		else if (_compare(k, tmp->pair.first))
+		{
+			if (tmp->left != NULL)
+				tmp = tmp->left;
+			else
+				return (const_iterator(tmp, &_root));
+		}
+		else
+		{
+			if (tmp->right != NULL)
+				tmp = tmp->right;
+			else
+				return (++const_iterator(tmp, &_root));
+		}
+	return (end());
+}
+
+template <class Key, class T, class Compare, class Alloc>
+typename ft::map<Key, T, Compare, Alloc>::iterator
+ft::map<Key, T, Compare, Alloc>::upper_bound(key_type const & k)
+{
+	node * tmp = _root;
+	while (tmp != NULL)
+		if (!_compare(k, tmp->pair.first) && !_compare(tmp->pair.first, k))
+			return (++iterator(tmp, &_root));
+		else if (_compare(k, tmp->pair.first))
+		{
+			if (tmp->left != NULL)
+				tmp = tmp->left;
+			else
+				return (iterator(tmp, &_root));
+		}
+		else
+		{
+			if (tmp->right != NULL)
+				tmp = tmp->right;
+			else
+				return (++iterator(tmp, &_root));
+		}
+	return (end());
+}
+
+template <class Key, class T, class Compare, class Alloc>
+typename ft::map<Key, T, Compare, Alloc>::const_iterator
+ft::map<Key, T, Compare, Alloc>::upper_bound(key_type const & k) const
+{
+	node * tmp = _root;
+	while (tmp != NULL)
+		if (!_compare(k, tmp->pair.first) && !_compare(tmp->pair.first, k))
+			return (++const_iterator(tmp, &_root));
+		else if (_compare(k, tmp->pair.first))
+		{
+			if (tmp->left != NULL)
+				tmp = tmp->left;
+			else
+				return (const_iterator(tmp, &_root));
+		}
+		else
+		{
+			if (tmp->right != NULL)
+				tmp = tmp->right;
+			else
+				return (++const_iterator(tmp, &_root));
+		}
+	return (end());
+}
+
 
 /** Allocator **/
 

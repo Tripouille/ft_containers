@@ -71,8 +71,10 @@ namespace ft
 
 		/* Destructor */
 			~map(void);
+
 		/* Operator */
 			/** copy (1) **/ map & operator=(const map & x);
+
 		/* Member functions */
 			/** Iterators **/
 			iterator begin(void);
@@ -88,8 +90,10 @@ namespace ft
 				bool empty(void) const;
 				size_type size(void) const;
 				size_type max_size(void) const;
+
 			/** Element access **/
 				mapped_type & operator[](const key_type & k);
+
 			/** Modifiers **/
 				/** single element (1) **/ std::pair<iterator, bool> insert(const value_type& val);
 				/** with hint (2) **/ iterator insert(iterator position, const value_type& val);
@@ -108,8 +112,16 @@ namespace ft
 				value_compare value_comp(void) const;
 
 			/** Operations **/
+				iterator find(key_type const & k);
+				const_iterator find(key_type const & k) const;
+				size_type count(key_type const & k) const;
+				iterator lower_bound(key_type const & k);
+				const_iterator lower_bound(key_type const & k) const;
+				iterator upper_bound(key_type const & k);
+				const_iterator upper_bound(key_type const & k) const;
 
 			/** Allocator **/
+
 		private:
 		/* Debug Functions */
 			void _print_btree(node * n) const;
