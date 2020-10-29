@@ -123,6 +123,7 @@ namespace ft
 				std::pair<iterator, iterator> equal_range(key_type const & k);
 
 			/** Allocator **/
+				allocator_type get_allocator(void) const;
 
 		private:
 		/* Debug Functions */

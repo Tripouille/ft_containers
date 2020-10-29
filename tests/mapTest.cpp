@@ -445,12 +445,12 @@ test_map(void)
 	FILE << "res4.second == mapJ.end() : " << OUTPUT << std::boolalpha << (res4.second == mapJ.end()) << ENDL;
 	FILE << ENDL;
 
-	/*FILE << SUBTITLE << "Allocator" << ENDL;
+	FILE << SUBTITLE << "Allocator" << ENDL;
 	FILE << CATEGORY << "===> get_allocator" << ENDL;
-	FILE << "map<int, string> mymap; int * p;" << ENDL; map<int, string> mymap; pair<int const, string> * p;
+	FILE << "map<int, string> mymap; pair<int const, string> * p;" << ENDL; map<int, string> mymap; pair<int const, string> * p;
 	FILE << "p = mymap.get_allocator().allocate(5);" << ENDL; p = mymap.get_allocator().allocate(5);
 	FILE << "mymap.get_allocator().deallocate(p,5);" << ENDL; mymap.get_allocator().deallocate(p,5);
-	FILE << ENDL;*/
+	FILE << ENDL;
 
 	FILE << SUBTITLE << "Exceptions" << ENDL;
 	FILE << CATEGORY << "===> Exception-safety test with ThrowingExceptionClass, "

@@ -426,6 +426,12 @@ ft::map<Key, T, Compare, Alloc>::equal_range(key_type const & k)
 
 
 /** Allocator **/
+template <class Key, class T, class Compare, class Alloc>
+typename ft::map<Key, T, Compare, Alloc>::allocator_type
+ft::map<Key, T, Compare, Alloc>::get_allocator(void) const
+{
+	return (_alloc);
+}
 
 
 /** Private functions **/
