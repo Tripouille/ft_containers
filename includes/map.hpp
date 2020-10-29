@@ -110,6 +110,10 @@ namespace ft
 				iterator find(key_type const & k);
 				const_iterator find(key_type const & k) const;
 				size_type count(key_type const & k) const;
+				iterator lower_bound(key_type const & k);
+				const_iterator lower_bound(key_type const & k) const;
+				iterator upper_bound(key_type const & k);
+				const_iterator upper_bound(key_type const & k) const;
 
 			/** Allocator **/
 
