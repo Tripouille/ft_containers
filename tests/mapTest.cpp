@@ -363,7 +363,7 @@ test_map(void)
 	FILE << "mapH.value_comp()(make_pair(1, \"\"), make_pair(0, \"\")) : " << OUTPUT << std::boolalpha << mapH.value_comp()(make_pair(1, ""), make_pair(0, "")) << ENDL;
 	FILE << ENDL;
 
-	/*FILE << SUBTITLE << "Operations" << ENDL;
+	FILE << SUBTITLE << "Operations" << ENDL;
 	FILE << CATEGORY << "===> find" << ENDL; //tester avec const
 	print_map(mapA, "mapA");
 	FILE << "mapA.find(7)->first : " << OUTPUT << mapA.find(7)->first << ENDL;
@@ -380,7 +380,7 @@ test_map(void)
 	FILE << "mapJ.find(34) == mapJ.end() : " << OUTPUT << std::boolalpha << (mapJ.find(34) == mapJ.end()) << ENDL;
 	FILE << ENDL;
 
-	FILE << CATEGORY << "===> count" << ENDL;
+	/*FILE << CATEGORY << "===> count" << ENDL;
 	print_map(mapA, "mapA");
 	FILE << "mapA.count(7) : " << OUTPUT << mapA.count(7) << ENDL;
 	FILE << "mapA.count(33) : " << OUTPUT << mapA.count(33) << ENDL;

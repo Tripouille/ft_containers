@@ -260,6 +260,20 @@ ft::map<Key, T, Compare, Alloc>::value_comp(void) const
 
 
 /** Operations **/
+template <class Key, class T, class Compare, class Alloc>
+typename ft::map<Key, T, Compare, Alloc>::iterator
+ft::map<Key, T, Compare, Alloc>::find(key_type const & k)
+{
+	return (iterator(_find_node(k)));
+}
+
+template <class Key, class T, class Compare, class Alloc>
+typename ft::map<Key, T, Compare, Alloc>::const_iterator
+ft::map<Key, T, Compare, Alloc>::find(key_type const & k) const
+{
+	return (const_iterator(_find_node(k)));
+}
+
 
 /** Allocator **/
 
