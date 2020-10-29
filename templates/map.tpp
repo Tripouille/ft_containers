@@ -209,6 +209,33 @@ ft::map<Key, T, Compare, Alloc>::insert(iterator position, const value_type & va
 	return (insert(val).first);
 }
 
+/** (1) **/
+template <class Key, class T, class Compare, class Alloc>
+void 
+ft::map<Key, T, Compare, Alloc>::erase(iterator position)
+{
+	node * left = position._node->left;
+	node * right = position._node->right;
+	node * parent = position._node->parent;
+	bool is_left_child = parent == NULL || position._node == parent->left;
+
+	_node_alloc.destroy(position._node);
+	_node_alloc.deallocate(position._node, 1);
+	--_size;
+
+	if (parent == NULL)
+		_root = NULL;
+	else if (is_left_child)
+		parent->left = NULL;
+	else
+		parent->right = NULL;
+
+	if (left != NULL)
+		_insert_node(left);
+	if (right != NULL)
+		_insert_node(right);
+}
+
 /** range (3) **/ 
 template <class Key, class T, class Compare, class Alloc>
 template <class InputIterator>
@@ -442,8 +469,11 @@ ft::map<Key, T, Compare, Alloc>::_insert_node(node * n)
 	node * *	next_node = NULL;
 
 	if (_root == NULL)
+	{
 		_root = n;
-	while (current_node)
+		n->parent = NULL;
+	}
+	while (current_node != NULL)
 	{
 		if (_compare(n->pair.first, current_node->pair.first))
 			next_node = &(current_node->left);

@@ -98,7 +98,12 @@ namespace ft
 				/** single element (1) **/ std::pair<iterator, bool> insert(const value_type& val);
 				/** with hint (2) **/ iterator insert(iterator position, const value_type& val);
 				/** range (3) **/ template <class InputIterator>
-								void insert(InputIterator first, InputIterator last);
+								  void insert(InputIterator first, InputIterator last);
+
+				/** (1) **/	void erase(iterator position);
+				/** (2) **/ size_type erase(const key_type & k);
+				/** (3) **/	void erase (iterator first, iterator last);
+
 				void swap(map & x);
 				void clear(void);
 
