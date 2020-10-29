@@ -102,7 +102,7 @@ namespace ft
 
 				/** (1) **/	void erase(iterator position);
 				/** (2) **/ size_type erase(const key_type & k);
-				/** (3) **/	void erase (iterator first, iterator last);
+				/** (3) **/	void erase(iterator first, iterator last);
 
 				void swap(map & x);
 				void clear(void);

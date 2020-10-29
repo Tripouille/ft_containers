@@ -236,6 +236,28 @@ ft::map<Key, T, Compare, Alloc>::erase(iterator position)
 		_insert_node(right);
 }
 
+/** (2) **/
+template <class Key, class T, class Compare, class Alloc>
+typename ft::map<Key, T, Compare, Alloc>::size_type 
+ft::map<Key, T, Compare, Alloc>::erase(const key_type & k)
+{
+	iterator it = find(k);
+
+	if (it == end())
+		return (0);
+	erase(it);
+	return (1);
+}
+
+/** (3) **/
+template <class Key, class T, class Compare, class Alloc>
+void
+ft::map<Key, T, Compare, Alloc>::erase(iterator first, iterator last)
+{
+	while (first != last)
+		erase(first++);
+}
+
 /** range (3) **/ 
 template <class Key, class T, class Compare, class Alloc>
 template <class InputIterator>

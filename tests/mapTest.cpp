@@ -302,7 +302,7 @@ test_map(void)
 	FILE << "it->first : " << OUTPUT << it->first << ENDL;
 	FILE << "mapA.erase(it);" << ENDL; mapA.erase(it);
 	print_map(mapA, "mapA");
-	/*FILE << SUBCATEGORY << "=====> from key (2)" << ENDL;
+	FILE << SUBCATEGORY << "=====> from key (2)" << ENDL;
 	FILE << "mapA.erase(0);" << ENDL; mapA.erase(0);
 	print_map(mapA, "mapA");
 	FILE << "mapA.erase(7);" << ENDL; mapA.erase(7);
@@ -319,7 +319,7 @@ test_map(void)
 	print_map(mapD, "mapD");
 	FILE << "mapD.erase(++mapD.begin(), --mapD.end());" << ENDL; mapD.erase(++mapD.begin(), --mapD.end());
 	print_map(mapD, "mapD");
-	FILE << ENDL;*/
+	FILE << ENDL;
 
 	FILE << CATEGORY << "===> swap" << ENDL;
 	print_map(mapA, "mapA");
