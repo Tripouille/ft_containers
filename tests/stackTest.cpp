@@ -3,6 +3,8 @@
 #include <iostream>
 #include <fstream>
 #include <cstdio>
+#include <vector>
+#include "vector.hpp"
 #include "Color.hpp"
 #define TITLE FG_CYAN << BOLD
 #define SUBTITLE FG_RED << BOLD
@@ -27,9 +29,10 @@ test_stack(void)
 	FILE << TITLE << std::endl << "=> STARTING stack tests" << ENDL;
 
 	FILE << SUBTITLE << "Constructors" << ENDL;
-	FILE << CATEGORY << "==> " << ENDL;
+	FILE << CATEGORY << "==> Default constructor" << ENDL;
+	FILE << "stack<int> stackA;" << ENDL; stack<int> stackA;
 
-	FILE << TITLE << "=> ENDING vector tests" << ENDL << ENDL;
+	FILE << TITLE << "=> ENDING stack tests" << ENDL << ENDL;
 }
 
 int

@@ -1,7 +1,10 @@
 #include "stack.hpp"
 
 /* Constructor */
-
+template <class T, class Container>
+ft::stack<T, Container>::stack(const container_type & ctnr) : _c(ctnr)
+{
+}
 
 /* Member functions */
 
@@ -14,9 +17,3 @@
 
 /* Non-member function overloads */
 /** Relational operators **/
-
-
-/** swap **/
-
-
-/* Non-member class specializations */

@@ -17,15 +17,11 @@ namespace ft
 		/* Typedef */
 			typedef T value_type;
 			typedef Container container_type;
-			//typedef value_type & reference;
-			//typedef const value_type & const_reference;
-			//typedef value_type * pointer;
-			//typedef const value_type * const_pointer;
-			//typedef ptrdiff_t difference_type;
 			typedef size_t size_type;
 
 		public:
 		/* Constructor */
+			explicit stack(const container_type & ctnr = container_type());
 
 		/* Member functions */
 
@@ -33,14 +29,11 @@ namespace ft
 		/* Private Functions */
 
 		/* Private variables */
+			Container _c;
 	};
 
 	/* Non-member function overloads */
 		/** Relational operators **/
-
-		/** swap **/
-	
-	/* Non-member class specializations */
 }
 
 # include "stack.tpp"
