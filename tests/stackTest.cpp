@@ -14,14 +14,6 @@
 #define FILE std::cout << RESET_ALL
 using std::deque;
 
-template<class T>
-void
-print_stack(T const & stack, std::string const & name)
-{
-	(void)stack;
-	(void)name;
-}
-
 template <template <class T, class Container = deque<T> > class stack>
 void
 test_stack(void)
@@ -29,8 +21,7 @@ test_stack(void)
 	FILE << TITLE << std::endl << "=> STARTING stack tests" << ENDL;
 	FILE << TITLE << std::endl << "=> deque" << ENDL;
 
-	FILE << SUBTITLE << "Constructors" << ENDL;
-	FILE << CATEGORY << "==> Default constructor" << ENDL;
+	
 	FILE << "stack<int> stackA;" << ENDL; stack<int> stackA;
 	FILE << "stackA.empty() : " << std::boolalpha << OUTPUT << stackA.empty() << ENDL;
 	FILE << "stackA.size() : " << OUTPUT << stackA.size() << ENDL;
@@ -55,6 +46,14 @@ test_stack(void)
 	FILE << "stackB.top() : " << OUTPUT << stackB.top() << ENDL;
 	FILE << "stackB = stackA;" << ENDL; stackB = stackA;
 	FILE << "stackB.top() : " << OUTPUT << stackB.top() << ENDL;
+
+	FILE << "stack<int> const stackConst(stackA);" << ENDL; stack<int> const stackConst(stackA);
+	FILE << "stackConst.top() : " << OUTPUT << stackConst.top() << ENDL;
+	FILE << "stackConst.empty() : " << std::boolalpha << OUTPUT << stackConst.empty() << ENDL;
+	FILE << "stackConst.size() : " << OUTPUT << stackConst.size() << ENDL;
+
+	FILE << "stack<int> stackEmpty;" << ENDL; stack<int> stackEmpty;
+	FILE << "stackConst == stackA : " << std::boolalpha << OUTPUT << (stackConst == stackA) << ENDL;
 
 
 
