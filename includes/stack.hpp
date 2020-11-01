@@ -24,6 +24,12 @@ namespace ft
 			explicit stack(const container_type & ctnr = container_type());
 
 		/* Member functions */
+		bool empty(void) const;
+		size_type size(void) const;
+		value_type & top(void);
+		value_type const & top(void) const;
+		void push(const value_type & val);
+		void pop(void);
 
 		private:
 		/* Private Functions */
