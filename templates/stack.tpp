@@ -80,7 +80,40 @@ template<class T, class Container>
 bool
 ft::operator==(const stack<T, Container> & lhs, const stack<T, Container> & rhs)
 {
-	(void)lhs;
-	(void)rhs;
-	return (true);
+	return (lhs == rhs);
+}
+
+template<class T, class Container>
+bool
+ft::operator!=(const stack<T, Container> & lhs, const stack<T, Container> & rhs)
+{
+	return (lhs != rhs);
+}
+
+template<class T, class Container>
+bool
+ft::operator<(const stack<T, Container> & lhs, const stack<T, Container> & rhs)
+{
+	return (lhs < rhs);
+}
+
+template<class T, class Container>
+bool
+ft::operator<=(const stack<T, Container> & lhs, const stack<T, Container> & rhs)
+{
+	return (lhs <= rhs);
+}
+
+template<class T, class Container>
+bool
+ft::operator>(const stack<T, Container> & lhs, const stack<T, Container> & rhs)
+{
+	return (lhs > rhs);
+}
+
+template<class T, class Container>
+bool
+ft::operator>=(const stack<T, Container> & lhs, const stack<T, Container> & rhs)
+{
+	return (lhs >= rhs);
 }

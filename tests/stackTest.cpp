@@ -68,5 +68,5 @@ test_stack(void)
 int
 main(void)
 {
-    test_stack<std::stack>();
+    test_stack<ft::stack>();
 }
