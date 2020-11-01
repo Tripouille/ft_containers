@@ -23,6 +23,13 @@ namespace ft
 		/* Constructor */
 			explicit stack(const container_type & ctnr = container_type());
 			stack(const stack & other);
+		
+		/* Destructor */
+			~stack(void);
+		
+		/* Operator */
+			stack & operator=(const stack & other);
+
 
 		/* Member functions */
 		bool empty(void) const;

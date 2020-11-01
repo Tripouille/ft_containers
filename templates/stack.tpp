@@ -11,6 +11,27 @@ ft::stack<T, Container>::stack(const stack & other) : _c(other._c)
 {
 }
 
+
+/* Destructor */
+template <class T, class Container>
+ft::stack<T, Container>::~stack(void)
+{
+}
+
+
+/* Operator */
+template <class T, class Container>
+ft::stack<T, Container>::stack &
+ft::stack<T, Container>::operator=(const stack & other)
+{
+	if (this != &other)
+	{
+		_c = other._c;
+	}
+	return (*this);
+}
+
+
 /* Member functions */
 template <class T, class Container>
 bool
