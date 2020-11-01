@@ -25,9 +25,7 @@ ft::stack<T, Container>::stack &
 ft::stack<T, Container>::operator=(const stack & other)
 {
 	if (this != &other)
-	{
 		_c = other._c;
-	}
 	return (*this);
 }
 
@@ -74,11 +72,6 @@ ft::stack<T, Container>::pop(void)
 {
 	_c.pop_back();
 }
-
-/* Private Functions */
-
-
-/* Private variables */
 
 
 /* Non-member function overloads */

@@ -30,7 +30,6 @@ namespace ft
 		/* Operator */
 			stack & operator=(const stack & other);
 
-
 		/* Member functions */
 		bool empty(void) const;
 		size_type size(void) const;
@@ -40,8 +39,6 @@ namespace ft
 		void pop(void);
 
 		private:
-		/* Private Functions */
-
 		/* Private variables */
 			Container _c;
 	};
