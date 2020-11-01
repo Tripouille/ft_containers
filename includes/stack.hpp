@@ -22,6 +22,7 @@ namespace ft
 		public:
 		/* Constructor */
 			explicit stack(const container_type & ctnr = container_type());
+			stack(const stack & other);
 
 		/* Member functions */
 		bool empty(void) const;

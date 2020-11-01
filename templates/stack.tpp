@@ -6,6 +6,11 @@ ft::stack<T, Container>::stack(const container_type & ctnr) : _c(ctnr)
 {
 }
 
+template <class T, class Container>
+ft::stack<T, Container>::stack(const stack & other) : _c(other._c)
+{
+}
+
 /* Member functions */
 template <class T, class Container>
 bool
