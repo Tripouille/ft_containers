@@ -17,22 +17,24 @@ namespace ft
 		/* Typedef */
 			typedef T value_type;
 			typedef Container container_type;
-			//typedef value_type & reference;
-			//typedef const value_type & const_reference;
-			//typedef value_type * pointer;
-			//typedef const value_type * const_pointer;
-			//typedef ptrdiff_t difference_type;
 			typedef size_t size_type;
 
 		public:
 		/* Constructor */
 
 		/* Member functions */
+		bool empty(void) const;
+		size_type size(void) const;
+		value_type & top(void);
+		value_type const & top(void) const;
+		void push(const value_type & val);
+		void pop(void);
 
 		private:
 		/* Private Functions */
 
 		/* Private variables */
+		Container _c;
 	};
 
 	/* Non-member function overloads */
