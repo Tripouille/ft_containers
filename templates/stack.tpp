@@ -74,46 +74,90 @@ ft::stack<T, Container>::pop(void)
 }
 
 
+/** Relational operators **/
+template <class T, class Container>
+bool
+ft::stack<T, Container>::operator==(const stack<T, Container> & rhs) const
+{
+	return (_c == rhs._c);
+}
+
+template <class T, class Container>
+bool
+ft::stack<T, Container>::operator!=(const stack<T, Container> & rhs) const
+{
+	return (_c != rhs._c);
+}
+
+template <class T, class Container>
+bool
+ft::stack<T, Container>::operator<(const stack<T, Container> & rhs) const
+{
+	return (_c < rhs._c);
+}
+
+template <class T, class Container>
+bool
+ft::stack<T, Container>::operator<=(const stack<T, Container> & rhs) const
+{
+	return (_c <= rhs._c);
+}
+
+template <class T, class Container>
+bool
+ft::stack<T, Container>::operator>(const stack<T, Container> & rhs) const
+{
+	return (_c > rhs._c);
+}
+
+template <class T, class Container>
+bool
+ft::stack<T, Container>::operator>=(const stack<T, Container> & rhs) const
+{
+	return (_c >= rhs._c);
+}
+
+
 /* Non-member function overloads */
 /** Relational operators **/
 template<class T, class Container>
 bool
 ft::operator==(const stack<T, Container> & lhs, const stack<T, Container> & rhs)
 {
-	return (lhs == rhs);
+	return (lhs.operator==(rhs));
 }
 
 template<class T, class Container>
 bool
 ft::operator!=(const stack<T, Container> & lhs, const stack<T, Container> & rhs)
 {
-	return (lhs != rhs);
+	return (lhs._c.operator!=(rhs));
 }
 
 template<class T, class Container>
 bool
 ft::operator<(const stack<T, Container> & lhs, const stack<T, Container> & rhs)
 {
-	return (lhs < rhs);
+	return (lhs._c.operator<(rhs));
 }
 
 template<class T, class Container>
 bool
 ft::operator<=(const stack<T, Container> & lhs, const stack<T, Container> & rhs)
 {
-	return (lhs <= rhs);
+	return (lhs._c.operator<=(rhs));
 }
 
 template<class T, class Container>
 bool
 ft::operator>(const stack<T, Container> & lhs, const stack<T, Container> & rhs)
 {
-	return (lhs > rhs);
+	return (lhs._c.operator>(rhs));
 }
 
 template<class T, class Container>
 bool
 ft::operator>=(const stack<T, Container> & lhs, const stack<T, Container> & rhs)
 {
-	return (lhs >= rhs);
+	return (lhs._c.operator>=(rhs));
 }

@@ -38,6 +38,14 @@ namespace ft
 			void push(const value_type & val);
 			void pop(void);
 
+			/** Relational operators **/
+			bool operator==(const stack & rhs) const;
+			bool operator!=(const stack & rhs) const;
+			bool operator<(const stack & rhs) const;
+			bool operator<=(const stack & rhs) const;
+			bool operator>(const stack & rhs) const;
+			bool operator>=(const stack & rhs) const;
+
 		private:
 		/* Private variables */
 			Container _c;
