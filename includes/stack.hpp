@@ -31,12 +31,12 @@ namespace ft
 			stack & operator=(const stack & other);
 
 		/* Member functions */
-		bool empty(void) const;
-		size_type size(void) const;
-		value_type & top(void);
-		value_type const & top(void) const;
-		void push(const value_type & val);
-		void pop(void);
+			bool empty(void) const;
+			size_type size(void) const;
+			value_type & top(void);
+			value_type const & top(void) const;
+			void push(const value_type & val);
+			void pop(void);
 
 		private:
 		/* Private variables */
@@ -45,6 +45,18 @@ namespace ft
 
 	/* Non-member function overloads */
 		/** Relational operators **/
+		template<class T, class Container>
+		bool operator==(const stack<T, Container> & lhs, const stack<T, Container> & rhs);
+		template<class T, class Container>
+		bool operator!=(const stack<T, Container> & lhs, const stack<T, Container> & rhs);
+		template<class T, class Container>
+		bool operator<(const stack<T, Container> & lhs, const stack<T, Container> & rhs);
+		template<class T, class Container>
+		bool operator<=(const stack<T, Container> & lhs, const stack<T, Container> & rhs);
+		template<class T, class Container>
+		bool operator>(const stack<T, Container> & lhs, const stack<T, Container> & rhs);
+		template<class T, class Container>
+		bool operator>=(const stack<T, Container> & lhs, const stack<T, Container> & rhs);
 }
 
 # include "stack.tpp"

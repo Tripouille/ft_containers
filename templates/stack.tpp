@@ -21,7 +21,7 @@ ft::stack<T, Container>::~stack(void)
 
 /* Operator */
 template <class T, class Container>
-ft::stack<T, Container>::stack &
+typename ft::stack<T, Container> &
 ft::stack<T, Container>::operator=(const stack & other)
 {
 	if (this != &other)
@@ -76,3 +76,11 @@ ft::stack<T, Container>::pop(void)
 
 /* Non-member function overloads */
 /** Relational operators **/
+template<class T, class Container>
+bool
+ft::operator==(const stack<T, Container> & lhs, const stack<T, Container> & rhs)
+{
+	(void)lhs;
+	(void)rhs;
+	return (true);
+}
