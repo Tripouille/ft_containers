@@ -270,9 +270,9 @@ template <class T, class Alloc>
 typename ft::list<T, Alloc>::iterator
 ft::list<T, Alloc>::insert(iterator position, const value_type & val)
 {
-	DLNode<T, Alloc> * n = _new_node(val, position._target->prev, position._target);
-	position._target->prev->next = n;
-	position._target->prev = n;
+	DLNode<T, Alloc> * n = _new_node(val, position.get_target()->prev, position.get_target());
+	position.get_target()->prev->next = n;
+	position.get_target()->prev = n;
 	_actualize_head_tail();
 	++_size;
 	return (iterator(n));
@@ -301,14 +301,14 @@ template <class T, class Alloc>
 typename ft::list<T, Alloc>::iterator
 ft::list<T, Alloc>::erase(iterator position)
 {
-	iterator ret(position._target->next);
+	iterator ret(position.get_target()->next);
 	
-	position._target->prev->next = position._target->next;
-	position._target->next->prev = position._target->prev;
+	position.get_target()->prev->next = position.get_target()->next;
+	position.get_target()->next->prev = position.get_target()->prev;
 	_actualize_head_tail();
 
-	_node_alloc.destroy(position._target);
-	_node_alloc.deallocate(position._target, 1);
+	_node_alloc.destroy(position.get_target());
+	_node_alloc.deallocate(position.get_target(), 1);
 	--_size;
 
 	return (ret);
@@ -318,14 +318,14 @@ template <class T, class Alloc>
 typename ft::list<T, Alloc>::iterator
 ft::list<T, Alloc>::erase(iterator first, iterator last)
 {
-	first._target->prev->next = last._target;
-	last._target->prev = first._target->prev;
+	first.get_target()->prev->next = last.get_target();
+	last.get_target()->prev = first.get_target()->prev;
 	_actualize_head_tail();
 
 	DLNode<T, Alloc> * to_del;
 	while (first != last)
 	{
-		to_del = first._target;
+		to_del = first.get_target();
 		++first;
 		_node_alloc.destroy(to_del);
 		_node_alloc.deallocate(to_del, 1);
@@ -381,10 +381,10 @@ ft::list<T, Alloc>::splice(iterator position, list & x)
 {
 	if (x.empty())
 		return ;
-	x._head->prev = position._target->prev;
-	x._tail->next = position._target;
-	position._target->prev->next = x._head;
-	position._target->prev = x._tail;
+	x._head->prev = position.get_target()->prev;
+	x._tail->next = position.get_target();
+	position.get_target()->prev->next = x._head;
+	position.get_target()->prev = x._tail;
 	_size += x._size;
 	_actualize_head_tail();
 	x._size = 0;
@@ -396,16 +396,16 @@ template <class T, class Alloc>
 void
 ft::list<T, Alloc>::splice(iterator position, list & x, iterator i)
 {
-	if (x.empty() || i._target == x._end)
+	if (x.empty() || i.get_target() == x._end)
 		return ;
-	i._target->next->prev = i._target->prev;
-	i._target->prev->next = i._target->next;
+	i.get_target()->next->prev = i.get_target()->prev;
+	i.get_target()->prev->next = i.get_target()->next;
 
-	i._target->prev = position._target->prev;
-	i._target->next = position._target;
+	i.get_target()->prev = position.get_target()->prev;
+	i.get_target()->next = position.get_target();
 
-	position._target->prev->next = i._target;
-	position._target->prev = i._target;
+	position.get_target()->prev->next = i.get_target();
+	position.get_target()->prev = i.get_target();
 
 	++_size;
 	--x._size;
@@ -423,15 +423,15 @@ ft::list<T, Alloc>::splice(iterator position, list & x, iterator first, iterator
 
 	if (x.empty() || size == 0)
 		return ;
-	first._target->prev->next = last._target;
-	DLNode<T, Alloc> * before_last = last._target->prev;
-	last._target->prev = first._target->prev;
+	first.get_target()->prev->next = last.get_target();
+	DLNode<T, Alloc> * before_last = last.get_target()->prev;
+	last.get_target()->prev = first.get_target()->prev;
 
-	position._target->prev->next = first._target;
-	first._target->prev = position._target->prev;
+	position.get_target()->prev->next = first.get_target();
+	first.get_target()->prev = position.get_target()->prev;
 
-	before_last->next = position._target;
-	position._target->prev = before_last;
+	before_last->next = position.get_target();
+	position.get_target()->prev = before_last;
 
 	x._size -= size;
 	_size += size;
@@ -675,12 +675,12 @@ ft::list<T, Alloc>::_swap(const_iterator a, const_iterator b)
 {
 	if (a == b)
 		return ;
-	std::swap(a._target->prev, b._target->prev);
-	std::swap(a._target->next, b._target->next);
-	a._target->prev->next = a._target;
-	a._target->next->prev = a._target;
-	b._target->prev->next = b._target;
-	b._target->next->prev = b._target;
+	std::swap(a.get_target()->prev, b.get_target()->prev);
+	std::swap(a.get_target()->next, b.get_target()->next);
+	a.get_target()->prev->next = a.get_target();
+	a.get_target()->next->prev = a.get_target();
+	b.get_target()->prev->next = b.get_target();
+	b.get_target()->next->prev = b.get_target();
 	_actualize_head_tail();
 }
 

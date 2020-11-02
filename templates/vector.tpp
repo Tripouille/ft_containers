@@ -278,15 +278,15 @@ template <typename T, class Alloc>
 typename ft::vector<T, Alloc>::iterator
 ft::vector<T, Alloc>::insert(iterator position, const value_type & val)
 {
-	difference_type position_index = position._target - _start;
+	difference_type position_index = position.get_target() - _start;
 	if (_limit == _end)
 	{
 		_reallocate(size() + 1, true);
 		position = iterator(_start + position_index);
 	}
-	memmove(position._target + 1, position._target,
-		static_cast<unsigned long>((_end - position._target)) * sizeof(T));
-	_alloc.construct(position._target, val);
+	memmove(position.get_target() + 1, position.get_target(),
+		static_cast<unsigned long>((_end - position.get_target())) * sizeof(T));
+	_alloc.construct(position.get_target(), val);
 	++_end;
 	return (position);
 }
@@ -296,16 +296,16 @@ template <typename T, class Alloc>
 void
 ft::vector<T, Alloc>::insert(iterator position, size_type n, const value_type & val)
 {
-	difference_type position_index = position._target - _start;
+	difference_type position_index = position.get_target() - _start;
 	if (size() + n > capacity())
 	{
 		_reallocate(size() + n, true);
 		position = iterator(_start + position_index);
 	}
-	memmove(position._target + n, position._target,
-		static_cast<unsigned long>((_end - position._target)) * sizeof(T));
+	memmove(position.get_target() + n, position.get_target(),
+		static_cast<unsigned long>((_end - position.get_target())) * sizeof(T));
 	for (size_type i = 0; i < n; i++)
-		_alloc.construct(position._target + i, val);
+		_alloc.construct(position.get_target() + i, val);
 	_end += n;
 }
 
@@ -317,20 +317,20 @@ ft::vector<T, Alloc>::insert(iterator position, InputIterator first, InputIterat
 {
 	vector tmp(first, last);
 	size_type n = tmp.size();
-	difference_type position_index = position._target - _start;
+	difference_type position_index = position.get_target() - _start;
 	if (size() + n > capacity())
 	{
 		_reallocate(size() + n, true);
 		position = iterator(_start + position_index);
 	}
-	memmove(position._target + n, position._target,
-		static_cast<unsigned long>((_end - position._target)) * sizeof(T));
+	memmove(position.get_target() + n, position.get_target(),
+		static_cast<unsigned long>((_end - position.get_target())) * sizeof(T));
 	const_iterator it = tmp.begin();
 	const_iterator ite = tmp.end();
 	size_type i = 0;
 	while (it != ite)
 	{
-		_alloc.construct(position._target + i, *it);
+		_alloc.construct(position.get_target() + i, *it);
 		++i;
 		++it;
 	}
@@ -594,49 +594,49 @@ template <class T, class Alloc>
 void
 ft::vector<T, Alloc>::BaseIterator::_copy(BaseIterator const & other)
 {
-	_target = other._target;
+	_target = other.get_target();
 }
 
 template <class T, class Alloc>
 bool
 ft::vector<T, Alloc>::BaseIterator::operator==(BaseIterator const & other) const
 {
-	return (_target == other._target);
+	return (_target == other.get_target());
 }
 
 template <class T, class Alloc>
 bool
 ft::vector<T, Alloc>::BaseIterator::operator!=(BaseIterator const & other) const
 {
-	return (_target != other._target);
+	return (_target != other.get_target());
 }
 
 template <class T, class Alloc>
 bool
 ft::vector<T, Alloc>::BaseIterator::operator<(BaseIterator const & other) const
 {
-	return (_target < other._target);
+	return (_target < other.get_target());
 }
 
 template <class T, class Alloc>
 bool
 ft::vector<T, Alloc>::BaseIterator::operator>(BaseIterator const & other) const
 {
-	return (_target > other._target);
+	return (_target > other.get_target());
 }
 
 template <class T, class Alloc>
 bool
 ft::vector<T, Alloc>::BaseIterator::operator<=(BaseIterator const & other) const
 {
-	return (_target <= other._target);
+	return (_target <= other.get_target());
 }
 
 template <class T, class Alloc>
 bool
 ft::vector<T, Alloc>::BaseIterator::operator>=(BaseIterator const & other) const
 {
-	return (_target >= other._target);
+	return (_target >= other.get_target());
 }
 
 /* Iterator */
@@ -733,7 +733,7 @@ template <class T, class Alloc>
 typename ft::vector<T, Alloc>::Iterator::difference_type
 ft::vector<T, Alloc>::Iterator::operator-(Iterator const & other) const
 {
-	return (this->_target - other._target);
+	return (this->_target - other.get_target());
 }
 
 template <class T, class Alloc>
@@ -858,7 +858,7 @@ template <class T, class Alloc>
 typename ft::vector<T, Alloc>::CIterator::difference_type
 ft::vector<T, Alloc>::CIterator::operator-(CIterator const & other) const
 {
-	return (this->_target - other._target);
+	return (this->_target - other.get_target());
 }
 
 template <class T, class Alloc>
@@ -978,7 +978,7 @@ template <class T, class Alloc>
 typename ft::vector<T, Alloc>::RIterator::difference_type
 ft::vector<T, Alloc>::RIterator::operator-(RIterator const & other) const
 {
-	return (other._target - this->_target);
+	return (other.get_target() - this->_target);
 }
 
 template <class T, class Alloc>
@@ -1104,7 +1104,7 @@ template <class T, class Alloc>
 typename ft::vector<T, Alloc>::CRIterator::difference_type
 ft::vector<T, Alloc>::CRIterator::operator-(CRIterator const & other) const
 {
-	return (other._target - this->_target);
+	return (other.get_target() - this->_target);
 }
 
 template <class T, class Alloc>

@@ -26,6 +26,8 @@ namespace ft
 				virtual ~BaseIterator(void);
 				BaseIterator(BaseIterator const & other);
 
+				node *				get_node(void) const {return (_node);}
+
 				BaseIterator &		operator=(BaseIterator const & other);
 				bool				operator==(BaseIterator const & other) const;
 				bool				operator!=(BaseIterator const & other) const;
@@ -37,8 +39,6 @@ namespace ft
 
 				node *			_node;
 				node * const *	_root_ptr;
-
-			friend class ft::map<Key, T, Compare, Alloc>;
 		};
 
 		class Iterator : public BaseIterator

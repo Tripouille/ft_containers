@@ -28,6 +28,8 @@ namespace ft
 				virtual ~BaseIterator(void);
 				BaseIterator(BaseIterator const & other);
 
+				T *					get_target(void) const {return (_target);}
+
 				BaseIterator &		operator=(BaseIterator const & other);
 				bool				operator==(BaseIterator const & other) const;
 				bool				operator!=(BaseIterator const & other) const;
@@ -39,8 +41,6 @@ namespace ft
 			protected:
 				void				_copy(BaseIterator const & other);
 				T *					_target;
-			
-			friend class vector<T, Alloc>;
 		};
 
 		class Iterator : public BaseIterator
@@ -171,7 +171,7 @@ namespace ft
 			/** copy	(4) **/	vector(vector const & other);
 
 		/* Destructor */
-			virtual ~vector(void);
+			~vector(void);
 
 		/* Operator */
 			vector<T, Alloc> &			operator=(vector const & other);

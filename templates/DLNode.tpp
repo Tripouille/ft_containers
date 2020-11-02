@@ -73,21 +73,21 @@ template <class T, class Alloc>
 void
 ft::DLNode<T, Alloc>::BaseIterator::_copy(BaseIterator const & other)
 {
-	_target = other._target;
+	_target = other.get_target();
 }
 
 template <class T, class Alloc>
 bool
 ft::DLNode<T, Alloc>::BaseIterator::operator==(BaseIterator const & other) const
 {
-	return (_target == other._target);
+	return (_target == other.get_target());
 }
 
 template <class T, class Alloc>
 bool
 ft::DLNode<T, Alloc>::BaseIterator::operator!=(BaseIterator const & other) const
 {
-	return (_target != other._target);
+	return (_target != other.get_target());
 }
 
 /* Iterator */

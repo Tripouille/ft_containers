@@ -23,6 +23,8 @@ namespace ft
 				virtual ~BaseIterator(void);
 				BaseIterator(BaseIterator const & other);
 
+				DLNode<T, Alloc> *	get_target(void) const {return (_target);}
+
 				BaseIterator &		operator=(BaseIterator const & other);
 				bool				operator==(BaseIterator const & other) const;
 				bool				operator!=(BaseIterator const & other) const;
@@ -30,7 +32,6 @@ namespace ft
 			protected:
 				void				_copy(BaseIterator const & other);
 				DLNode<T, Alloc> *	_target;
-			friend class ft::list<T, Alloc>;
 		};
 
 		class Iterator : public BaseIterator

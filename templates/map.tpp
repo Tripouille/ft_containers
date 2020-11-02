@@ -181,16 +181,16 @@ typename ft::map<Key, T, Compare, Alloc>::iterator
 ft::map<Key, T, Compare, Alloc>::insert(iterator position, const value_type & val)
 {
 	node * * node_ptr_ptr = NULL;
-	node * root = position._node;
-	node * node_ptr_ptr_parent = position._node;
+	node * root = position.get_node();
+	node * node_ptr_ptr_parent = position.get_node();
 
 	while (root->parent != NULL
 	&& root == root->parent->right)
 		root = root->parent;
-	if (_compare(position._node->pair.first, val.first)
+	if (_compare(position.get_node()->pair.first, val.first)
 	&& (root->parent == NULL || _compare(val.first, root->parent->pair.first)))
 	{
-		node_ptr_ptr = &position._node->right;
+		node_ptr_ptr = &position.get_node()->right;
 		while (*node_ptr_ptr != NULL)
 		{
 			node_ptr_ptr_parent = *node_ptr_ptr;
@@ -214,13 +214,13 @@ template <class Key, class T, class Compare, class Alloc>
 void 
 ft::map<Key, T, Compare, Alloc>::erase(iterator position)
 {
-	node * left = position._node->left;
-	node * right = position._node->right;
-	node * parent = position._node->parent;
-	bool is_left_child = parent == NULL || position._node == parent->left;
+	node * left = position.get_node()->left;
+	node * right = position.get_node()->right;
+	node * parent = position.get_node()->parent;
+	bool is_left_child = parent == NULL || position.get_node() == parent->left;
 
-	_node_alloc.destroy(position._node);
-	_node_alloc.deallocate(position._node, 1);
+	_node_alloc.destroy(position.get_node());
+	_node_alloc.deallocate(position.get_node(), 1);
 	--_size;
 
 	if (parent == NULL)
