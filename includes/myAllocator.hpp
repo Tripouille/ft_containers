@@ -17,6 +17,7 @@ class myAllocator
 
 		myAllocator(void) {}
 		myAllocator(myAllocator const &) {}
+		~myAllocator(void) {}
 
 		pointer allocate(size_type n, void * const = 0)
 		{
