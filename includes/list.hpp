@@ -41,7 +41,7 @@ namespace ft
 			/** copy	(4) **/	list(list const & other);
 
 		/* Destructor */
-			virtual ~list(void);
+			~list(void);
 
 		/* Operator */
 			list<T, Alloc> &			operator=(list const & other);
